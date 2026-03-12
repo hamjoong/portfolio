@@ -29,7 +29,7 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) {
-        // 테스트 편의를 위해 기존 데이터 완전 초기화 (필요 시 주석 처리)
+        // 테스트 편의를 위해 기존 데이터 완전 초기화
         userProfileRepository.deleteAll();
         userRepository.deleteAll();
         productRepository.deleteAll();
@@ -56,14 +56,14 @@ public class DataInitializer implements CommandLineRunner {
         Category lighting = categoryRepository.save(new Category("조명", living, 2));
         Category kitchen = categoryRepository.save(new Category("주방용품", living, 3));
 
-        // 2. 상품 데이터 생성 (모든 카테고리 채우기)
+        // 2. 상품 데이터 생성 (이미지 시드 최적화)
         
         // 모바일
-        saveProduct("최신형 스마트폰 X1", "초고성능 카메라와 5000mAh 대용량 배터리", "1200000", 100, "phone", mobile);
+        saveProduct("최신형 스마트폰 X1", "초고성능 카메라와 5000mAh 대용량 배터리", "1200000", 100, "smartphone", mobile);
         saveProduct("태블릿 프로 12.9", "전문가용 고해상도 디스플레이 태블릿", "990000", 50, "tablet", mobile);
 
         // 음향기기
-        saveProduct("노이즈 캔슬링 헤드폰", "주변 소음을 99% 차단하는 프리미엄 사운드", "350000", 50, "audio", audio);
+        saveProduct("노이즈 캔슬링 헤드폰", "주변 소음을 99% 차단하는 프리미엄 사운드", "350000", 50, "headphone", audio);
         saveProduct("무선 이어폰 에어핏", "커널형 디자인의 고음질 블루투스 이어폰", "180000", 200, "earbuds", audio);
 
         // PC주변기기
@@ -71,20 +71,20 @@ public class DataInitializer implements CommandLineRunner {
         saveProduct("고해상도 4K 모니터", "전문가용 32인치 울트라 HD 모니터", "600000", 20, "monitor", pc);
 
         // 가전제품
-        saveProduct("스마트 로봇 청소기", "자동 충전 및 인공지능 맵핑 지원", "450000", 15, "robot", appliances);
-        saveProduct("공기청정기 에어퓨어", "H13 헤파필터 탑재 고성능 공기청정기", "290000", 40, "air", appliances);
+        saveProduct("스마트 로봇 청소기", "자동 충전 및 인공지능 맵핑 지원", "450000", 15, "vacuum", appliances);
+        saveProduct("공기청정기 에어퓨어", "H13 헤파필터 탑재 고성능 공기청정기", "290000", 40, "air-purifier", appliances);
 
         // 남성유니섹스
         saveProduct("오버핏 코튼 후드티", "사계절 내내 착용 가능한 탄탄한 조직감", "59000", 200, "hoodie", unisex);
         saveProduct("와이드 슬랙스 팬츠", "세련된 핏과 편안한 착용감의 데일리 슬랙스", "45000", 150, "pants", unisex);
 
         // 여성의류
-        saveProduct("캐시미어 브이넥 니트", "부드러운 촉감의 100% 캐시미어 혼방 니트", "89000", 80, "knit", women);
+        saveProduct("캐시미어 브이넥 니트", "부드러운 촉감의 100% 캐시미어 혼방 니트", "89000", 80, "sweater", women);
         saveProduct("플리츠 롱 스커트", "우아한 실루엣과 고급스러운 광택의 스커트", "55000", 60, "skirt", women);
 
         // 신발
-        saveProduct("데일리 화이트 스니커즈", "깔끔한 디자인의 천연 가죽 스니커즈", "89000", 150, "shoes", shoes);
-        saveProduct("러닝 포커스 운동화", "충격 흡수가 뛰어난 고기능성 러닝화", "129000", 100, "running", shoes);
+        saveProduct("데일리 화이트 스니커즈", "깔끔한 디자인의 천연 가죽 스니커즈", "89000", 150, "sneakers", shoes);
+        saveProduct("러닝 포커스 운동화", "충격 흡수가 뛰어난 고기능성 러닝화", "129000", 100, "running-shoes", shoes);
 
         // 가구
         saveProduct("노르딕 패브릭 소파", "편안한 쿠션감의 북유럽풍 3인용 소파", "450000", 10, "sofa", furniture);
@@ -92,7 +92,7 @@ public class DataInitializer implements CommandLineRunner {
 
         // 조명
         saveProduct("심플 데스크 LED 스탠드", "3단계 밝기 조절 및 시력 보호 기능", "32000", 80, "lamp", lighting);
-        saveProduct("무드 무선 무드등", "앱 제어가 가능한 1600만 색상 무드등", "25000", 120, "mood", lighting);
+        saveProduct("무드 무선 무드등", "앱 제어가 가능한 1600만 색상 무드등", "25000", 120, "light-bulb", lighting);
 
         // 주방용품
         saveProduct("세라믹 냄비 3종 세트", "유해물질 없는 친환경 세라믹 코팅", "150000", 40, "pot", kitchen);
