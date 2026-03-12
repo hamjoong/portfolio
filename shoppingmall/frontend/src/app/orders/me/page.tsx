@@ -21,8 +21,8 @@ export default function MyOrdersPage() {
       try {
         const response = await orderService.getMyOrders();
         console.log('[MyOrders] API Response:', response); // 디버깅용 로그
-        if (response.success) {
-          setOrders(response.data || []);
+        if (response && Array.isArray(response)) {
+          setOrders(response);
         }
       } catch (err) {
         console.error('[MyOrders] Failed to fetch orders:', err);
