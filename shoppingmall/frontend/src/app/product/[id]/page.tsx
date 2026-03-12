@@ -53,7 +53,7 @@ export default function ProductDetailPage() {
         {/* 상품 이미지 */}
         <div className="aspect-square rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm relative">
           <Image
-            src={product.mainImageUrl || 'https://picsum.photos/800/800?random=' + product.id}
+            src={product.mainImageUrl || 'https://loremflickr.com/800/800/product?lock=' + product.id}
             alt={product.name}
             fill
             priority

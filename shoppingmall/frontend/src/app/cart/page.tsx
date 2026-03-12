@@ -91,7 +91,8 @@ export default function CartPage() {
             <div key={product.id} className="bg-white p-4 rounded-2xl border border-gray-100 flex gap-4 items-center shadow-sm">
               <Link href={`/product/${product.id}`} className="shrink-0 relative w-24 h-24">
                 <Image 
-                  src={product.mainImageUrl || 'https://picsum.photos/200/200'} 
+                  src={product.mainImageUrl || 'https://loremflickr.com/200/200/product?lock=' + product.id}
+ 
                   alt={product.name} 
                   fill
                   className="object-cover rounded-xl bg-gray-50" 

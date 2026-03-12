@@ -3,28 +3,26 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ProductResponse } from '@/types/product';
-import { ShoppingCart, Star } from 'lucide-react';
+import { Product } from '@/types/product';
+import { ShoppingCart, Eye } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 
 interface ProductCardProps {
-  product: ProductResponse;
+  product: Product;
 }
 
 /**
- * 상품 정보를 보여주는 카드 컴포넌트입니다.
+ * 상품 목록에서 개별 상품을 표시하는 카드 컴포넌트입니다.
+ * [이유] 재사용 가능한 UI 컴포넌트로 분리하여 관리 효율성을 높이고
+ * 공통적인 호버 효과 및 레이아웃을 적용하기 위함입니다.
  */
-export default function ProductCard({ product }: ProductCardProps) {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { useAddToCart } = useCart();
   const addToCartMutation = useAddToCart();
 
-  const handleCartClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    addToCartMutation.mutate({ productId: product.id, quantity: 1 }, {
-      onSuccess: () => alert(`${product.name} 상품이 장바구니에 담겼습니다.`)
-    });
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault(); // 부모 Link 클릭 이벤트 방지
+    addToCartMutation.mutate({ productId: product.id, quantity: 1 });
   };
 
   return (
@@ -40,37 +38,44 @@ export default function ProductCard({ product }: ProductCardProps) {
           />
           <div className="absolute top-2 left-2">
             <span className="bg-white/90 backdrop-blur-sm text-[10px] font-bold px-2 py-1 rounded text-gray-700 uppercase">
-              {product.categoryName || 'General'}
+              {product.category?.name || '기타'}
             </span>
+          </div>
+          
+          {/* 호버 시 나타나는 액션 버튼 */}
+          <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+            <button 
+              onClick={handleAddToCart}
+              className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-gray-900 hover:bg-blue-600 hover:text-white transition-colors shadow-lg"
+              title="장바구니 담기"
+            >
+              <ShoppingCart size={18} />
+            </button>
+            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-gray-900 hover:bg-gray-100 transition-colors shadow-lg">
+              <Eye size={18} />
+            </div>
+          </div>
+        </div>
+
+        <div className="p-4">
+          <h3 className="font-bold text-gray-900 text-sm line-clamp-1 mb-1 group-hover:text-blue-600 transition-colors">
+            {product.name}
+          </h3>
+          <p className="text-gray-500 text-xs line-clamp-2 mb-3 h-8 leading-relaxed">
+            {product.description}
+          </p>
+          <div className="flex items-center justify-between">
+            <span className="font-black text-gray-900">
+              {product.price?.toLocaleString()}원
+            </span>
+            {product.stockQuantity < 10 && (
+              <span className="text-[10px] font-bold text-red-500">품절임박</span>
+            )}
           </div>
         </div>
       </Link>
-
-      <div className="p-4">
-        <Link href={`/product/${product.id}`}>
-          <h3 className="text-sm font-medium text-gray-900 mb-1 line-clamp-2 h-10 group-hover:text-blue-600 transition-colors">
-            {product.name}
-          </h3>
-        </Link>
-        
-        <div className="flex items-center gap-1 mb-3">
-          <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-          <span className="text-xs font-semibold text-gray-600">4.5</span>
-          <span className="text-[10px] text-gray-400">(120)</span>
-        </div>
-
-        <div className="flex items-center justify-between gap-2">
-          <p className="text-lg font-bold text-gray-900">
-            {product.price.toLocaleString()}원
-          </p>
-          <button 
-            onClick={handleCartClick}
-            className="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors"
-          >
-            <ShoppingCart className="w-5 h-5" />
-          </button>
-        </div>
-      </div>
     </div>
   );
-}
+};
+
+export default ProductCard;

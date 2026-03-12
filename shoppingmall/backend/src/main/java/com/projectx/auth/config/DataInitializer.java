@@ -2,22 +2,21 @@ package com.projectx.auth.config;
 
 import com.projectx.auth.domain.entity.Category;
 import com.projectx.auth.domain.entity.Product;
-import com.projectx.auth.domain.repository.CategoryRepository;
-import com.projectx.auth.domain.repository.ProductRepository;
-import com.projectx.auth.domain.repository.UserRepository;
-import com.projectx.auth.domain.repository.UserProfileRepository;
+import com.projectx.auth.domain.repository.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 /**
- * 어플리케이션 구동 시 DB를 초기화하고 Picsum 기반의 최적화된 이미지를 적재합니다.
+ * [복구본] 시스템 안정성을 위해 초기 데이터 생성 로직을 단순화했습니다.
+ * 데이터가 존재할 경우 재생성하지 않아 상품 ID의 영속성을 보장합니다.
  */
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
@@ -31,18 +30,13 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) {
-        // 1. 캐시 비우기
-        if (cacheManager.getCache("products") != null) {
-            cacheManager.getCache("products").clear();
+        if (productRepository.count() > 0) {
+            log.info("[DataInitializer] Data already exists. Stable IDs maintained.");
+            return;
         }
 
-        // 2. DB 초기화
-        userProfileRepository.deleteAll();
-        userRepository.deleteAll();
-        productRepository.deleteAll();
-        categoryRepository.deleteAll();
+        log.info("[DataInitializer] Initializing default data...");
 
-        // 3. 카테고리 생성
         Category digital = categoryRepository.save(new Category("디지털/가전", null, 1));
         Category fashion = categoryRepository.save(new Category("패션의류", null, 2));
         Category living = categoryRepository.save(new Category("리빙/인테리어", null, 3));
@@ -60,24 +54,16 @@ public class DataInitializer implements CommandLineRunner {
         Category lighting = categoryRepository.save(new Category("조명", living, 2));
         Category kitchen = categoryRepository.save(new Category("주방용품", living, 3));
 
-        // 4. 상품 데이터 생성 (Picsum Seed 최적화)
-        
-        // 디지털
+        // 기본 상품 생성 (가장 안정적인 picsum 이미지 사용)
         saveProduct("최신형 스마트폰 X1", "초고성능 카메라 탑재", "1200000", 100, "phone", mobile);
         saveProduct("태블릿 프로 12.9", "전문가용 태블릿", "990000", 50, "tablet", mobile);
         saveProduct("노이즈 캔슬링 헤드폰", "프리미엄 사운드", "350000", 50, "headphone", audio);
         saveProduct("기계식 키보드 (청축)", "게이밍 최적화", "150000", 30, "keyboard", pc);
         saveProduct("고해상도 4K 모니터", "32인치 울트라 HD", "600000", 20, "monitor", pc);
         saveProduct("공기청정기 에어퓨어", "H13 헤파필터 탑재", "290000", 40, "tech", appliances);
-
-        // 패션
         saveProduct("오버핏 코튼 후드티", "탄탄한 조직감", "59000", 200, "clothing", unisex);
         saveProduct("와이드 슬랙스 팬츠", "세련된 핏", "45000", 150, "fashion", unisex);
-        saveProduct("캐시미어 브이넥 니트", "부드러운 프리미엄 니트", "89000", 80, "sweater", women);
-        saveProduct("플리츠 롱 스커트", "우아한 실루엣의 스커트", "55000", 60, "skirt", women);
         saveProduct("데일리 화이트 스니커즈", "천연 가죽 스니커즈", "89000", 150, "sneaker", shoes);
-
-        // 리빙
         saveProduct("노르딕 패브릭 소파", "미니멀한 3인용 소파", "450000", 10, "sofa", furniture);
         saveProduct("원목 거실 테이블", "따뜻한 오크 원목", "120000", 25, "table", furniture);
         saveProduct("심플 데스크 LED 스탠드", "눈 보호 스탠드", "32000", 80, "lamp", lighting);

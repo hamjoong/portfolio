@@ -15,15 +15,11 @@ spring:
       - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
 
   datasource:
-    url: jdbc:postgresql://db.gfgkhqohumjzooslpwsq.supabase.co:5432/postgres
-    username: postgres
-    password: "!hjuk11535308"
-    driver-class-name: org.postgresql.Driver
-
-  data:
-    redis:
-      host: ${REDIS_HOST:localhost}
-      port: ${REDIS_PORT:6379}
+    # 환경 변수가 있으면 사용하고, 없으면 로컬 H2 파일 DB 사용
+    url: ${SPRING_DATASOURCE_URL:jdbc:h2:file:./data/shoppingdb;DB_CLOSE_DELAY=-1;MODE=PostgreSQL}
+    username: ${SPRING_DATASOURCE_USERNAME:sa}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME:org.h2.Driver}
 
   jpa:
     hibernate:
@@ -33,6 +29,8 @@ spring:
       hibernate:
         format_sql: true
         default_schema: public
+        # 환경 변수로 Dialect 주입 가능하게 변경 (기본값은 H2)
+        dialect: ${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT:org.hibernate.dialect.H2Dialect}
 
   security:
     oauth2:

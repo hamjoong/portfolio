@@ -34,6 +34,24 @@ export default function MyPage() {
     isDefault: false
   });
 
+  const handleNewAddrChange = (field: string, value: string) => {
+    let filteredValue = value;
+    
+    if (field === 'receiverName') {
+      // 수령인 성함: 한글, 영문, 공백만 허용
+      filteredValue = value.replace(/[^a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣\s]/g, '');
+    } else if (field === 'phoneNumber') {
+      // 연락처: 숫자만 허용 (최대 11자)
+      filteredValue = value.replace(/[^0-9]/g, '');
+      if (filteredValue.length > 11) filteredValue = filteredValue.slice(0, 11);
+    } else if (field === 'addressName' || field === 'baseAddress' || field === 'detailAddress') {
+      // 명칭 및 주소: 한글, 영문, 숫자, 공백, 공통 특수문자 허용
+      filteredValue = value.replace(/[^a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣\s\-,\.\(\)]/g, '');
+    }
+    
+    setNewAddr(prev => ({ ...prev, [field]: filteredValue }));
+  };
+
   const handleAddAddress = () => {
     if (!newAddr.addressName || !newAddr.baseAddress) {
       alert('배송지 명칭과 주소를 입력해주세요.');
@@ -145,11 +163,35 @@ export default function MyPage() {
                 <div className="bg-blue-50/50 p-6 rounded-2xl border border-blue-100 mb-4 animate-in fade-in slide-in-from-top-2">
                   <h3 className="text-sm font-black text-blue-900 mb-4 uppercase">New Shipping Address</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Input placeholder="배송지 명칭 (예: 우리집, 회사)" value={newAddr.addressName} onChange={e => setNewAddr({...newAddr, addressName: e.target.value})} />
-                    <Input placeholder="수령인 성함" value={newAddr.receiverName} onChange={e => setNewAddr({...newAddr, receiverName: e.target.value})} />
-                    <Input placeholder="연락처 (- 제외)" value={newAddr.phoneNumber} onChange={e => setNewAddr({...newAddr, phoneNumber: e.target.value})} className="md:col-span-2" />
-                    <Input placeholder="기본 주소" value={newAddr.baseAddress} onChange={e => setNewAddr({...newAddr, baseAddress: e.target.value})} className="md:col-span-2" />
-                    <Input placeholder="상세 주소" value={newAddr.detailAddress} onChange={e => setNewAddr({...newAddr, detailAddress: e.target.value})} className="md:col-span-2" />
+                    <Input 
+                      placeholder="배송지 명칭 (문자/숫자 가능)" 
+                      value={newAddr.addressName} 
+                      onChange={e => handleNewAddrChange('addressName', e.target.value)} 
+                    />
+                    <Input 
+                      placeholder="수령인 성함 (문자만)" 
+                      value={newAddr.receiverName} 
+                      onChange={e => handleNewAddrChange('receiverName', e.target.value)} 
+                    />
+                    <Input 
+                      placeholder="연락처 (숫자만, - 제외)" 
+                      value={newAddr.phoneNumber} 
+                      onChange={e => handleNewAddrChange('phoneNumber', e.target.value)} 
+                      className="md:col-span-2" 
+                      maxLength={11}
+                    />
+                    <Input 
+                      placeholder="기본 주소 (문자/숫자 가능)" 
+                      value={newAddr.baseAddress} 
+                      onChange={e => handleNewAddrChange('baseAddress', e.target.value)} 
+                      className="md:col-span-2" 
+                    />
+                    <Input 
+                      placeholder="상세 주소" 
+                      value={newAddr.detailAddress} 
+                      onChange={e => handleNewAddrChange('detailAddress', e.target.value)} 
+                      className="md:col-span-2" 
+                    />
                   </div>
                   <Button className="w-full mt-6 shadow-lg shadow-blue-200" onClick={handleAddAddress} isLoading={addAddressMutation.isPending}>배송지 저장하기</Button>
                 </div>
@@ -169,9 +211,10 @@ export default function MyPage() {
                       </div>
                       <button 
                         onClick={() => deleteAddressMutation.mutate(addr.id)}
-                        className="p-2 text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                        className="p-3 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-full transition-all flex items-center justify-center border border-gray-100"
+                        title="배송지 삭제"
                       >
-                        <Trash2 size={18} />
+                        <Trash2 size={20} />
                       </button>
                     </div>
                   ))}

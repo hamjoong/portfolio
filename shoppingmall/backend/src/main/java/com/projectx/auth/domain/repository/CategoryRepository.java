@@ -15,6 +15,8 @@ import java.util.List;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     /**
      * 상위 카테고리가 없는 최상위 카테고리 목록을 정렬 순서에 따라 조회합니다.
+     * [성능 최적화] @EntityGraph를 사용하여 하위 카테고리까지 Fetch Join 함으로써 N+1 쿼리 문제를 해결합니다.
      */
+    @org.springframework.data.jpa.repository.EntityGraph(attributePaths = {"children"})
     List<Category> findByParentIsNullOrderByDisplayOrderAsc();
 }

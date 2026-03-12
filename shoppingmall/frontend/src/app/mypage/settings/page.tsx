@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { userService } from '@/services/user.service';
+import { useUser } from '@/hooks/useUser';
 import { UserProfile } from '@/types/auth';
 import { Input } from '@/components/common/Input';
 import { Button } from '@/components/common/Button';
@@ -15,35 +15,42 @@ import { ArrowLeft, Save, User, Phone, MapPin } from 'lucide-react';
  */
 export default function SettingsPage() {
   const router = useRouter();
+  const { useProfile, useUpdateProfile } = useUser();
+  const { data: profile, isLoading } = useProfile();
+  const updateProfileMutation = useUpdateProfile();
+
   const [formData, setFormData] = useState({
     fullName: '',
     phoneNumber: '',
     address: '',
     detailAddress: '',
   });
-  const [isLoading, setIsLoading] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const profile = await userService.getMyProfile();
-        setFormData({
-          fullName: profile.fullName || '',
-          phoneNumber: profile.phoneNumber || '',
-          address: profile.address || '',
-          detailAddress: profile.detailAddress || '',
-        });
-      } catch (err) {
-        console.error('Failed to fetch profile:', err);
-        alert('정보를 불러오는 데 실패했습니다.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchProfile();
-  }, []);
+    if (profile) {
+      setFormData({
+        fullName: profile.fullName || '',
+        phoneNumber: profile.phoneNumber || '',
+        address: profile.address || '',
+        detailAddress: profile.detailAddress || '',
+      });
+    }
+  }, [profile]);
+
+  const handleInputChange = (field: string, value: string) => {
+    let filteredValue = value;
+    
+    if (field === 'phoneNumber') {
+      filteredValue = value.replace(/[^0-9]/g, '');
+      if (filteredValue.length > 11) filteredValue = filteredValue.slice(0, 11);
+    } else if (field === 'address' || field === 'detailAddress') {
+      filteredValue = value.replace(/[^a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣\s\-,\.\(\)]/g, '');
+    }
+    
+    setFormData(prev => ({ ...prev, [field]: filteredValue }));
+  };
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
@@ -59,17 +66,16 @@ export default function SettingsPage() {
     e.preventDefault();
     if (!validate()) return;
 
-    setIsSubmitting(true);
-    try {
-      await userService.updateProfile(formData);
-      alert('회원 정보가 성공적으로 수정되었습니다.');
-      router.push('/mypage');
-    } catch (err) {
-      console.error('Update failed:', err);
-      alert('수정 중 오류가 발생했습니다.');
-    } finally {
-      setIsSubmitting(false);
-    }
+    updateProfileMutation.mutate(formData, {
+      onSuccess: () => {
+        alert('회원 정보가 성공적으로 수정되었습니다.');
+        router.push('/mypage');
+      },
+      onError: (err: any) => {
+        console.error('Update failed:', err);
+        alert(err.message || '수정 중 오류가 발생했습니다.');
+      }
+    });
   };
 
   if (isLoading) {
@@ -99,9 +105,19 @@ export default function SettingsPage() {
                 <Input 
                   label="이름 (수정 불가)" 
                   value={formData.fullName}
-                  readOnly
+                  disabled
                   className="bg-gray-50 cursor-not-allowed"
                   icon={<User size={18} className="text-gray-400" />}
+                />
+              </div>
+
+              <div className="relative opacity-60">
+                <Input 
+                  label="이메일 (수정 불가)" 
+                  value={profile?.email || ''}
+                  disabled
+                  className="bg-gray-50 cursor-not-allowed"
+                  icon={<div className="text-gray-400 text-xs font-bold px-1">@</div>}
                 />
               </div>
 
@@ -109,7 +125,7 @@ export default function SettingsPage() {
                 label="연락처 수정" 
                 placeholder="숫자만 입력"
                 value={formData.phoneNumber}
-                onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value.replace(/[^0-9]/g, '') })}
+                onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
                 error={errors.phoneNumber}
                 icon={<Phone size={18} className="text-gray-400" />}
                 maxLength={11}
@@ -121,14 +137,14 @@ export default function SettingsPage() {
                   label="주소" 
                   placeholder="도로명 주소를 입력하세요"
                   value={formData.address}
-                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  onChange={(e) => handleInputChange('address', e.target.value)}
                   error={errors.address}
                   icon={<MapPin size={18} className="text-gray-400" />}
                 />
                 <Input 
                   placeholder="상세 주소를 입력하세요"
                   value={formData.detailAddress}
-                  onChange={(e) => setFormData({ ...formData, detailAddress: e.target.value })}
+                  onChange={(e) => handleInputChange('detailAddress', e.target.value)}
                 />
               </div>
             </div>
@@ -145,7 +161,7 @@ export default function SettingsPage() {
               <Button 
                 type="submit" 
                 className="flex-[2] py-4 shadow-lg shadow-blue-100"
-                isLoading={isSubmitting}
+                isLoading={updateProfileMutation.isPending}
               >
                 <div className="flex items-center justify-center gap-2">
                   <Save size={20} />

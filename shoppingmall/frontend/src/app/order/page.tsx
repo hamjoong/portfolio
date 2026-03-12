@@ -55,7 +55,7 @@ function OrderContent() {
     }
   }, [productId, cartData]);
 
-  // 2. 배송지 선택 로직
+  // 2. 배송지 선택 로직 개선 (불필요한 리렌더링 방지 및 수동 입력 보존)
   useEffect(() => {
     if (addressMode === 'DEFAULT' && profile) {
       setOrderInfo({
@@ -64,10 +64,38 @@ function OrderContent() {
         address: profile.address || '',
         detailAddress: profile.detailAddress || '',
       });
-    } else if (addressMode === 'MANUAL') {
-      setOrderInfo({ receiverName: '', phone: '', address: '', detailAddress: '' });
     }
   }, [addressMode, profile]);
+
+  const handleInputChange = (field: string, value: string) => {
+    let filteredValue = value;
+    
+    if (field === 'receiverName') {
+      // 성함: 한글, 영문, 공백만 허용 (숫자 및 모든 특수문자 원천 차단)
+      filteredValue = value.replace(/[^a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣\s]/g, '');
+    } else if (field === 'phone') {
+      // 연락처: 숫자만 허용 (최대 11자)
+      filteredValue = value.replace(/[^0-9]/g, '');
+      if (filteredValue.length > 11) filteredValue = filteredValue.slice(0, 11);
+    } else if (field === 'address' || field === 'detailAddress') {
+      // 주소: 한글, 영문, 숫자, 공백, 공통 특수문자(- , . ( )) 허용
+      filteredValue = value.replace(/[^a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣\s\-,\.\(\)]/g, '');
+    }
+    
+    setOrderInfo(prev => ({
+      ...prev,
+      [field]: filteredValue
+    }));
+  };
+
+  // 모드 변경 버튼 핸들러
+  const changeAddressMode = (mode: 'DEFAULT' | 'LIST' | 'MANUAL') => {
+    setAddressMode(mode);
+    if (mode === 'MANUAL') {
+      setOrderInfo({ receiverName: '', phone: '', address: '', detailAddress: '' });
+    }
+    // DEFAULT 모드일 때는 useEffect가 처리함
+  };
 
   const handleSelectAddress = (addr: any) => {
     setOrderInfo({
@@ -121,15 +149,15 @@ function OrderContent() {
               </div>
               <div className="flex gap-2">
                 <button 
-                  onClick={() => setAddressMode('DEFAULT')}
+                  onClick={() => changeAddressMode('DEFAULT')}
                   className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${addressMode === 'DEFAULT' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-400'}`}
                 >기본 주소</button>
                 <button 
-                  onClick={() => setAddressMode('LIST')}
+                  onClick={() => changeAddressMode('LIST')}
                   className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${addressMode === 'LIST' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-400'}`}
                 >주소록</button>
                 <button 
-                  onClick={() => setAddressMode('MANUAL')}
+                  onClick={() => changeAddressMode('MANUAL')}
                   className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${addressMode === 'MANUAL' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-400'}`}
                 >직접 입력</button>
               </div>
@@ -165,8 +193,8 @@ function OrderContent() {
                   <input
                     type="text"
                     value={orderInfo.receiverName}
-                    onChange={(e) => setOrderInfo({ ...orderInfo, receiverName: e.target.value })}
-                    placeholder="수령인 성함"
+                    onChange={(e) => handleInputChange('receiverName', e.target.value)}
+                    placeholder="성함 (문자만)"
                     className="w-full h-12 px-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition-all font-bold"
                   />
                 </div>
@@ -175,9 +203,10 @@ function OrderContent() {
                   <input
                     type="text"
                     value={orderInfo.phone}
-                    onChange={(e) => setOrderInfo({ ...orderInfo, phone: e.target.value })}
-                    placeholder="연락처 (- 제외)"
+                    onChange={(e) => handleInputChange('phone', e.target.value)}
+                    placeholder="연락처 (숫자만)"
                     className="w-full h-12 px-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition-all font-bold"
+                    maxLength={11}
                   />
                 </div>
               </div>
@@ -186,15 +215,15 @@ function OrderContent() {
                 <input
                   type="text"
                   value={orderInfo.address}
-                  onChange={(e) => setOrderInfo({ ...orderInfo, address: e.target.value })}
-                  placeholder="도로명 주소"
+                  onChange={(e) => handleInputChange('address', e.target.value)}
+                  placeholder="도로명 주소 (문자/숫자 가능)"
                   className="w-full h-12 px-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition-all font-bold mb-2"
                 />
                 <input
                   type="text"
                   value={orderInfo.detailAddress}
-                  onChange={(e) => setOrderInfo({ ...orderInfo, detailAddress: e.target.value })}
-                  placeholder="상세 주소 (동, 호수 등)"
+                  onChange={(e) => handleInputChange('detailAddress', e.target.value)}
+                  placeholder="상세 주소 (문자/숫자 가능)"
                   className="w-full h-12 px-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition-all font-bold"
                 />
               </div>

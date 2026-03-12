@@ -17,6 +17,7 @@ spring:
       hibernate:
         default_schema: PUBLIC
         globally_quoted_identifiers: false
+        dialect: org.hibernate.dialect.H2Dialect
   data:
     redis:
       host: localhost

@@ -57,9 +57,13 @@ public class UserService {
     @Transactional
     public void updateUserProfile(UUID userId, UpdateProfileRequest request) {
         UserProfile profile = findUserProfileById(userId);
+        
+        // [이유] 이름과 이메일은 변경 불가능한 정책이므로, 기존 프로필에서 이름을 추출하여 유지함
+        Map<String, Object> oldProfileData = kmsService.decryptToMap(profile.getEncryptedData());
+        String existingFullName = (String) oldProfileData.get("fullName");
 
         String encryptedData = kmsService.encryptMap(Map.of(
-                "fullName", request.getFullName(),
+                "fullName", existingFullName != null ? existingFullName : request.getFullName(),
                 "phoneNumber", request.getPhoneNumber(),
                 "address", request.getAddress() != null ? request.getAddress() : "",
                 "detailAddress", request.getDetailAddress() != null ? request.getDetailAddress() : ""

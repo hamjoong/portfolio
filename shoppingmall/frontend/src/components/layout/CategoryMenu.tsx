@@ -114,14 +114,16 @@ export default function CategoryMenu() {
         >
           <div 
             onClick={handleTriggerClick}
-            className="flex items-center gap-2 font-black text-gray-900 group-hover:text-blue-600 transition-colors h-full"
+            className={`flex items-center gap-2 font-black transition-colors h-full ${
+              isLoading ? 'text-gray-300 animate-pulse' : 'text-gray-900 group-hover:text-blue-600'
+            }`}
           >
             <Menu size={20} className={isLoading ? 'animate-spin' : ''} />
-            {isLoading ? '로딩 중...' : '전체 카테고리'}
+            {isLoading ? '카테고리 구성 중...' : '전체 카테고리'}
           </div>
 
           {/* 서브 메뉴 드롭다운 */}
-          {isMenuOpen && categories.length > 0 && (
+          {!isLoading && isMenuOpen && categories.length > 0 && (
             <div 
               className="absolute top-full left-0 mt-0 w-[600px] bg-white shadow-2xl border border-gray-100 flex h-[450px] rounded-br-3xl overflow-hidden animate-in fade-in slide-in-from-top-1 duration-200 z-50"
               onMouseEnter={() => setIsMenuOpen(true)}
@@ -193,20 +195,28 @@ export default function CategoryMenu() {
         {/* 바 상단에 항상 노출되는 인기 키워드 (클릭 시 검색 동작) */}
         <div className="ml-10 flex items-center gap-6 text-xs font-bold text-gray-400">
           <span className="text-blue-600">HOT</span>
-          {[
-            '갤럭시 S24',
-            '와이드 팬츠',
-            '봄 자켓',
-            '인테리어 소품'
-          ].map((keyword) => (
-            <button
-              key={keyword}
-              onClick={() => handleHotKeywordClick(keyword)}
-              className="hover:text-gray-900 transition-colors"
-            >
-              {keyword}
-            </button>
-          ))}
+          {isLoading ? (
+            <div className="flex gap-4 animate-pulse">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="h-3 w-16 bg-gray-100 rounded" />
+              ))}
+            </div>
+          ) : (
+            [
+              '갤럭시 S24',
+              '와이드 팬츠',
+              '봄 자켓',
+              '인테리어 소품'
+            ].map((keyword) => (
+              <button
+                key={keyword}
+                onClick={() => handleHotKeywordClick(keyword)}
+                className="hover:text-gray-900 transition-colors"
+              >
+                {keyword}
+              </button>
+            ))
+          )}
         </div>
       </div>
     </div>

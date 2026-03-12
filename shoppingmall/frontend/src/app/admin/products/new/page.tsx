@@ -48,7 +48,7 @@ export default function NewProductPage() {
           imageUrl = presignedUrl.split('?')[0].replace('raw/', 'optimized/').replace(/\.[^.]+$/, ".webp");
         } catch (uploadErr) {
           console.warn('[Admin] S3 upload failed in test mode, using placeholder.');
-          imageUrl = "https://picsum.photos/800/800"; // 테스트용 더미 이미지
+          imageUrl = "https://loremflickr.com/800/800/product"; // 테스트용 더미 이미지
         }
       }
 

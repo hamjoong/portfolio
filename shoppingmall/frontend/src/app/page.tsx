@@ -126,12 +126,34 @@ function HomeContent() {
 }
 
 /**
+ * 상품 로딩 중에 표시할 스켈레톤 UI입니다.
+ */
+function HomeSkeleton() {
+  return (
+    <div className="flex flex-col gap-12 animate-pulse">
+      <div className="h-[300px] md:h-[400px] bg-gray-100 rounded-3xl" />
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+        {[...Array(10)].map((_, i) => (
+          <div key={i} className="flex flex-col gap-3">
+            <div className="aspect-[3/4] bg-gray-50 rounded-2xl" />
+            <div className="h-4 bg-gray-50 rounded w-3/4" />
+            <div className="h-4 bg-gray-50 rounded w-1/2" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
  * 쇼핑몰의 메인 페이지입니다.
  */
 export default function HomePage() {
   return (
-    <Suspense fallback={<div className="p-20 text-center font-bold">쇼핑몰을 불러오는 중...</div>}>
-      <HomeContent />
-    </Suspense>
+    <div className="container mx-auto px-4 py-8">
+      <Suspense fallback={<HomeSkeleton />}>
+        <HomeContent />
+      </Suspense>
+    </div>
   );
 }
