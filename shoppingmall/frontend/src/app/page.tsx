@@ -39,7 +39,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col gap-12">
       {/* 히어로 배너 */}
-      <section className="relative h-[300 md:h-[400px]] rounded-3xl overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center px-8 md:px-16">
+      <section className="relative h-[300px] md:h-[400px] rounded-3xl overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center px-8 md:px-16">
         <div className="relative z-10 max-w-lg text-white">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
             가장 앞선 쇼핑 경험,<br />Hjuk Shopping Mall
