@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useUser } from '@/hooks/useUser';
 import { useOrder } from '@/hooks/useOrder';
@@ -13,6 +14,7 @@ import { User, Package, MapPin, MessageSquare, ChevronRight, Settings, ExternalL
  * 개인화된 모든 정보를 통합 관리하는 허브 역할을 수행하기 위함입니다.
  */
 export default function MyPage() {
+  const router = useRouter();
   const { email, logout } = useAuthStore();
   const { useProfile, useAddresses } = useUser();
   const { data: profile, isLoading: isProfileLoading } = useProfile();
@@ -117,7 +119,12 @@ export default function MyPage() {
             <div className="flex flex-col gap-4">
               <div className="flex justify-between items-center mb-2">
                 <h2 className="text-xl font-bold text-gray-900">배송지 정보</h2>
-                <button className="text-sm font-bold text-blue-600">+ 새 배송지 추가</button>
+                <button 
+                  onClick={() => router.push('/mypage/shipping')}
+                  className="text-sm font-bold text-blue-600"
+                >
+                  + 새 배송지 추가
+                </button>
               </div>
               {addresses && addresses.length > 0 ? (
                 addresses.map((addr) => (
@@ -159,8 +166,11 @@ export default function MyPage() {
                   <input type="text" defaultValue={profile?.phoneNumber} className="w-full h-12 px-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all" />
                 </div>
               </div>
-              <button className="mt-8 w-full md:w-auto px-12 h-14 bg-gray-900 text-white font-black rounded-xl hover:bg-black transition-all">
-                변경사항 저장
+              <button 
+                onClick={() => router.push('/mypage/settings')}
+                className="mt-8 w-full md:w-auto px-12 h-14 bg-gray-900 text-white font-black rounded-xl hover:bg-black transition-all"
+              >
+                정보 수정하러 가기
               </button>
             </div>
           )}

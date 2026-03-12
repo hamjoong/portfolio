@@ -41,8 +41,9 @@ public class KmsService {
             byte[] cipherBytes = kmsClient.encrypt(request).ciphertextBlob().asByteArray();
             return Base64.getEncoder().encodeToString(cipherBytes);
         } catch (Exception e) {
-            log.warn("[KMS] Encryption failed (Mocking/Offline mode): {}", e.getMessage());
-            return Base64.getEncoder().encodeToString(("MOCK_ENCRYPTED_" + plainText).getBytes());
+            log.warn("[KMS] Encryption failed (Mocking/Offline mode): {}. Returning raw text for development.", e.getMessage());
+            // [수정] Mock 상황에서는 Base64 인코딩 없이 원본을 돌려주어 JSON 형식을 유지함
+            return plainText;
         }
     }
 
@@ -57,9 +58,9 @@ public class KmsService {
 
             return kmsClient.decrypt(request).plaintext().asUtf8String();
         } catch (Exception e) {
-            log.warn("[KMS] Decryption failed (Mocking/Offline mode): {}", e.getMessage());
-            String decoded = new String(Base64.getDecoder().decode(cipherText));
-            return decoded.replace("MOCK_ENCRYPTED_", "");
+            log.warn("[KMS] Decryption failed (Mocking/Offline mode): {}. Returning cipherText as raw.", e.getMessage());
+            // [수정] 인코딩되지 않은 평문이 들어왔을 경우 그대로 반환
+            return cipherText;
         }
     }
 

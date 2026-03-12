@@ -15,19 +15,23 @@ import { Sparkles, TrendingUp } from 'lucide-react';
  */
 export default function HomePage() {
   const searchParams = useSearchParams();
-  const initialSearch = searchParams.get('search') || '';
+  // useSearchParams()의 결과를 변수에 담아 의존성으로 활용
+  const searchKeyword = searchParams.get('search') || '';
 
-  // 1. 전체 상품 조회 (검색어 여부에 따라 검색 API 또는 전체 조회 API 사용)
+  // 1. 전체 상품 조회 (검색어 여부에 따라 API 전환)
   const { data: productPage, isLoading, refetch } = useQuery({
-    queryKey: ['products', initialSearch],
-    queryFn: () => initialSearch 
-      ? productService.searchProducts(initialSearch).then(data => ({ content: data, totalElements: data.length }))
+    queryKey: ['products', searchKeyword], // 키워드를 쿼리키에 포함하여 자동 갱신 유도
+    queryFn: () => searchKeyword 
+      ? productService.searchProducts(searchKeyword).then(data => ({ content: data, totalElements: data.length }))
       : productService.getProducts(0, 20),
   });
 
+  // 검색어가 바뀔 때마다 스크롤을 상단으로 올림 (UX 개선)
   useEffect(() => {
-    refetch();
-  }, [initialSearch, refetch]);
+    if (searchKeyword) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [searchKeyword]);
 
   // 2. 인기 검색어 조회
   const { usePopularKeywords } = useSearch('');

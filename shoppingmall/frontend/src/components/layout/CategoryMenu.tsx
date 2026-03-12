@@ -90,12 +90,9 @@ export default function CategoryMenu() {
   const activeCategory = categories.find(c => c.id === activeRootId);
 
   const handleHotKeywordClick = (keyword: string) => {
-    // 상품 상세로 바로 가는 대신 검색 결과로 유도 (사용자 경험 개선)
+    // [개선] window 사용을 제거하고 router.push 만으로 이동. 
+    // HomePage의 useSearchParams가 변경을 감지하여 리렌더링함.
     router.push(`/?search=${encodeURIComponent(keyword)}`);
-    // 메인 페이지일 경우 강제 리로드 또는 상태 업데이트 유도를 위해 window 사용 (선택 사항)
-    if (window.location.pathname === '/') {
-      window.location.search = `search=${encodeURIComponent(keyword)}`;
-    }
   };
 
   const handleTriggerClick = (e: React.MouseEvent) => {
