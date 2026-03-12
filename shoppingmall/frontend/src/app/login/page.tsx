@@ -30,10 +30,11 @@ export default function LoginPage() {
     setError(null);
 
     try {
-      const loginData = await authService.login(formData);
-      if (loginData) {
-        // [수정] Zustand 스토어의 login 메서드 호출 (상태 업데이트)
-        loginStore.login(loginData.userId || "USER_ID", formData.email, loginData);
+      const accessToken = await authService.login(formData);
+      if (accessToken) {
+        // [수정] Zustand 스토어의 login 메서드 호출
+        // accessToken 자체가 문자열이므로 이를 직접 전달
+        loginStore.login("USER_ID", formData.email, accessToken);
         router.push('/');
       }
     } catch (err: any) {
