@@ -1,86 +1,29 @@
-밀크 타이쿤
+# 🐄 Milk Tycoon (3D Mobile Game)
 
-📌 개발 일정 : 2026.03.07 ~ 2026.03.08
+React와 Three.js를 활용하여 구현한 3D 타이쿤 게임 프로젝트입니다. Capacitor를 통해 모바일 환경(Android/iOS)으로의 확장이 가능하도록 설계되었습니다.
 
-📌 개요 : 추억의 피처폰 게임을 새롭게 만들었습니다.
+## 🎮 Demo
+- [Live Demo (GitHub Pages)](https://hamjoong.github.io/portfolio/milktycoon/)
 
-📌 기술 스택 : React / TypeScript / Vite / Tailwind CSS
+## 🛠 Tech Stack
+- **Frontend**: React, TypeScript, Vite
+- **3D Graphics**: Three.js, `@react-three/fiber`, `@react-three/drei`
+- **Animation**: Framer Motion
+- **Styling**: Tailwind CSS
+- **Mobile Hybrid**: Capacitor (Android/iOS)
 
-📌 기존 시스템 문제 : 게임의 서비스 종료로 인하로 인하여 새롭게 만들어 보았습니다 Milk Tycoon에서 게임 로딩 속도가 느리고 사용자 인터페이스가 복잡하여 사용자 경험이 저하되는 문제
+## ✨ Key Features
+- **3D Rendering**: 브라우저 기반의 실시간 3D 그래픽 구현.
+- **Game Logic**: 자원 생산, 업그레이드, 경제 시스템 로직 구현.
+- **Cross Platform**: 웹과 모바일 환경을 동시에 지원하는 하이브리드 앱 구조.
+- **Responsive UI**: 다양한 기기 해상도에 최적화된 게임 UI.
 
-📌 시스템 개선 사항 : Milk Tycoon의 게임 로딩 속도를 개선하기 위해 코드 스플리팅과 이미지 최적화를 도입하여 초기 로딩 시간을 40% 이상 단축하고 사용자 인터페이스를 간소화하여 게임 탐색 과정을 직관적으로 재설계
-
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 Installation & Run
+```bash
+cd milktycoon
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
- 
+---
+*본 프로젝트는 React 기반의 3D 웹 환경 구축 및 모바일 앱 전환 기술을 연구하기 위해 제작되었습니다.*

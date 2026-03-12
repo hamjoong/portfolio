@@ -71,7 +71,7 @@ const Projects: React.FC = () => {
       stack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'],
       problem: 'Milk Tycoon에서 게임 로딩 속도가 느리고 사용자 인터페이스가 복잡하여 사용자 경험이 저하되는 문제',
       solution: 'Milk Tycoon의 게임 로딩 속도를 개선하기 위해 코드 스플리팅과 이미지 최적화를 도입하여 초기 로딩 시간을 40% 이상 단축하고 사용자 인터페이스를 간소화하여 게임 탐색 과정을 직관적으로 재설계',
-      links: { github: 'https://hamjoong.github.io/milktycoon/'}, 
+      links: { github: 'https://hamjoong.github.io/portfolio/milktycoon/'}, 
     },
       {
       title: 'Kiosk',
@@ -80,7 +80,7 @@ const Projects: React.FC = () => {
       stack: ['Html(Pug)', 'Css(Scss)', 'JavaScript', 'jQuery', 'JSON'],
       problem: 'Kiosk시스템에서 페이지 로딩 속도가 느리고 이미지 최적화가 부족하여 사용자 경험이 저하되는 문제',
       solution: '이미지 최적화 및 비동기 데이터 로딩을 구현하여 페이지 로딩 속도를 50% 이상 개선하고 사용자 인터페이스를 직관적으로 재설계하여 주문 과정의 편의성을 향상',
-      links: { github: 'https://github.com/hamjoong/kiosk'}, 
+      links: { github: 'https://github.com/hamjoong/portfolio/tree/main/kiosk'}, 
     },
     {
       title: 'Note Pad',
@@ -89,7 +89,7 @@ const Projects: React.FC = () => {
       stack: ['Html(Pug)', 'Css(Scss)', 'JavaScript', 'jQuery', 'JSONS', 'Node.js', 'mysql'],
       problem: 'Note Pad에서 성능 저하 및 데이터 충돌 문제가 발생하여 노트를 편집할 때 데이터 손실이 발생하는 문제',
       solution: '가볍고 빠르게 동작하는 구조로 애플리케이션을 재구성하고 데이터 충돌 방지를 위해 실시간 동기화 및 버전 관리 시스템을 도입하여 사용자 경험을 크게 향상',
-      links: { github: 'https://github.com/hamjoong/notepad' }
+      links: { github: 'https://github.com/hamjoong/portfolio/tree/main/notepad' }
     },
     {
       title: 'Matrix Calculator',
@@ -98,7 +98,7 @@ const Projects: React.FC = () => {
       stack: ['Html(Pug)', 'Css(Scss)', 'JavaScript', 'jQuery'],
       problem: 'Matrix Calculator에서 대규모 행렬 연산 시 렌더링 성능이 저하되어 사용자 경험이 크게 떨어지는 문제',
       solution: '행열 연산 최적화 및 가상 DOM을 활용한 렌더링 방식을 도입하여 성능을 70% 이상 개선하고 사용자 인터페이스를 재설계하여 복잡한 행렬 연산 결과를 시각적으로 명확하게 표현',
-      links: { github: 'https://github.com/hamjoong/matrixcalculator' }
+      links: { github: 'https://github.com/hamjoong/portfolio/tree/main/matrixcalculator' }
     },
     {
       title: 'Movie Box',
@@ -107,7 +107,7 @@ const Projects: React.FC = () => {
       stack: ['Html(Pug)', 'Css(Scss)', 'JavaScript', 'jQuery'], 
       problem: 'Movie Box에서 영화 정보 로딩 속도가 느리고 사용자 인터페이스가 복잡하여 사용자 경험이 저하되는 문제',
       solution: '사용자 인터페이스를 간소화하여 영화 탐색 과정을 직관적으로 재설계',
-      links: { github: 'https://github.com/hamjoong/movie' }
+      links: { github: 'https://github.com/hamjoong/portfolio/tree/main/movie' }
     },
     {
       title: 'Ssn Validation',
@@ -116,7 +116,7 @@ const Projects: React.FC = () => {
       stack: ['Html', 'Css(Scss)', 'JavaScript'],
       problem: 'Ssn Validation에서 유효성 검증 로직이 복잡하여 사용자 경험이 저하되는 문제',
       solution: '유효성 검증 로직을 간소화하고 사용자 인터페이스를 개선하여 더 나은 사용자 경험을 제공',
-      links: { github: 'https://github.com/hamjoong/ssnvalidation' }
+      links: { github: 'https://github.com/hamjoong/portfolio/tree/main/ssnvalidation' }
     }
   ];
 
