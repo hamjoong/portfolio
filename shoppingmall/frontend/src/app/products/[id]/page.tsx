@@ -36,15 +36,15 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
           qnaService.getProductQnas(id)
         ]);
 
-        if (productRes.success) {
-          setProduct(productRes.data);
+        if (productRes) {
+          setProduct(productRes);
           
           // 최근 본 상품 추적 로직 추가
           const viewed = localStorage.getItem('recentViewedProducts');
           const viewedList = viewed ? JSON.parse(viewed) : [];
           const updatedList = [
-            productRes.data, 
-            ...viewedList.filter((p: any) => p.id !== productRes.data.id)
+            productRes, 
+            ...viewedList.filter((p: any) => p.id !== productRes.id)
           ].slice(0, 10); // 최대 10개 유지
           localStorage.setItem('recentViewedProducts', JSON.stringify(updatedList));
         }
