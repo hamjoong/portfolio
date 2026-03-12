@@ -14,7 +14,7 @@ import software.amazon.awssdk.services.s3.presigner.S3Presigner;
  * 테스트 모드(profile=test)에서 외부 인프라 연동을 무력화하기 위한 클래스입니다.
  */
 @Configuration
-@Profile({"test", "prod", "mock"})
+@Profile({"test", "mock"})
 public class MockConfig {
 
     @Bean

@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductCard from '@/components/product/ProductCard';
 import { productService } from '@/services/product.service';
 import { useQuery } from '@tanstack/react-query';
 import { useSearch } from '@/hooks/useSearch';
+import { useSearchParams } from 'next/navigation';
 import { Sparkles, TrendingUp } from 'lucide-react';
 
 /**
@@ -13,11 +14,20 @@ import { Sparkles, TrendingUp } from 'lucide-react';
  * 사용자의 탐색을 유도하고, Next.js 15의 PPR을 통해 빠른 초기 로딩을 제공하기 위함입니다.
  */
 export default function HomePage() {
-  // 1. 전체 상품 조회
-  const { data: productPage, isLoading } = useQuery({
-    queryKey: ['products'],
-    queryFn: () => productService.getProducts(0, 20),
+  const searchParams = useSearchParams();
+  const initialSearch = searchParams.get('search') || '';
+
+  // 1. 전체 상품 조회 (검색어 여부에 따라 검색 API 또는 전체 조회 API 사용)
+  const { data: productPage, isLoading, refetch } = useQuery({
+    queryKey: ['products', initialSearch],
+    queryFn: () => initialSearch 
+      ? productService.searchProducts(initialSearch).then(data => ({ content: data, totalElements: data.length }))
+      : productService.getProducts(0, 20),
   });
+
+  useEffect(() => {
+    refetch();
+  }, [initialSearch, refetch]);
 
   // 2. 인기 검색어 조회
   const { usePopularKeywords } = useSearch('');
