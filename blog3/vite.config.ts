@@ -5,5 +5,4 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: '/portfolio/blog3/',
   plugins: [react()],
-  base: '/blog3/', // GitHub 레포지토리 이름과 일치시켜야 합니다.
 })
