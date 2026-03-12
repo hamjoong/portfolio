@@ -97,18 +97,17 @@ export default function SignupPage() {
     setIsLoading(true);
     try {
       const { confirmPassword, ...signupData } = formData;
-      const response = await authService.signup(signupData);
+      const userId = await authService.signup(signupData);
       
-      if (response.success) {
+      if (userId) {
         alert('회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.');
         router.push('/login');
-      } else {
-        setServerError(response.message || '가입 처리 중 오류가 발생했습니다.');
-        setIsLoading(false);
       }
     } catch (err: any) {
       const msg = err.response?.data?.message || '이미 가입된 이메일이거나 서버 통신 오류가 발생했습니다.';
       setServerError(msg);
+      setIsLoading(false);
+    } finally {
       setIsLoading(false);
     }
   };
