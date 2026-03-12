@@ -66,7 +66,7 @@ const Projects: React.FC = () => {
   const projects: ProjectProps[] = [
       {
       title: 'Milk Tycoon',
-      period: '2026.03.07 - 2026.03.09',
+      period: '2026.03 - 2026.03',
       description: 'Milk Tycoon은 추억의 게임을 현대적으로 재해석한 게임으로 사용자에게 향수를 불러일으키는 동시에 새로운 재미를 제공하는 게임입니다.',
       stack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'],
       problem: 'Milk Tycoon에서 게임 로딩 속도가 느리고 사용자 인터페이스가 복잡하여 사용자 경험이 저하되는 문제',
@@ -93,7 +93,7 @@ const Projects: React.FC = () => {
     },
     {
       title: 'Matrix Calculator',
-      period: '2022.08 - 2022.09',
+      period: '2022.08 - 2022.08',
       description: '계산기능과 시각화 기능을 결합하여 사용자가 행렬 연산의 결과를 직관적으로 이해할 수 있도록 지원하는 애플리케이션입니다.',
       stack: ['Html(Pug)', 'Css(Scss)', 'JavaScript', 'jQuery'],
       problem: 'Matrix Calculator에서 대규모 행렬 연산 시 렌더링 성능이 저하되어 사용자 경험이 크게 떨어지는 문제',
