@@ -120,10 +120,10 @@ export default function MyPage() {
               <div className="flex justify-between items-center mb-2">
                 <h2 className="text-xl font-bold text-gray-900">배송지 정보</h2>
                 <button 
-                  onClick={() => router.push('/mypage/shipping')}
+                  onClick={() => router.push('/mypage/settings')} // 배송 현황이 아닌 정보 수정으로 유도
                   className="text-sm font-bold text-blue-600"
                 >
-                  + 새 배송지 추가
+                  + 배송지 정보 수정
                 </button>
               </div>
               {addresses && addresses.length > 0 ? (

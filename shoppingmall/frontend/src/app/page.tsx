@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import ProductCard from '@/components/product/ProductCard';
 import { productService } from '@/services/product.service';
 import { useQuery } from '@tanstack/react-query';
@@ -9,29 +9,28 @@ import { useSearchParams } from 'next/navigation';
 import { Sparkles, TrendingUp } from 'lucide-react';
 
 /**
- * 쇼핑몰의 메인 페이지입니다.
- * [이유] 전체 상품 목록과 함께 실시간 인기 검색어를 노출하여
- * 사용자의 탐색을 유도하고, Next.js 15의 PPR을 통해 빠른 초기 로딩을 제공하기 위함입니다.
+ * 실제 메인 컨텐츠 컴포넌트입니다.
+ * [이유] useSearchParams를 사용하므로 Suspense 래핑이 필수입니다.
  */
-export default function HomePage() {
+function HomeContent() {
   const searchParams = useSearchParams();
-  // useSearchParams()의 결과를 변수에 담아 의존성으로 활용
   const searchKeyword = searchParams.get('search') || '';
 
   // 1. 전체 상품 조회 (검색어 여부에 따라 API 전환)
   const { data: productPage, isLoading, refetch } = useQuery({
-    queryKey: ['products', searchKeyword], // 키워드를 쿼리키에 포함하여 자동 갱신 유도
+    queryKey: ['products', searchKeyword],
     queryFn: () => searchKeyword 
       ? productService.searchProducts(searchKeyword).then(data => ({ content: data, totalElements: data.length }))
       : productService.getProducts(0, 20),
   });
 
-  // 검색어가 바뀔 때마다 스크롤을 상단으로 올림 (UX 개선)
+  // 검색어가 바뀔 때마다 스크롤을 상단으로 올림
   useEffect(() => {
     if (searchKeyword) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      refetch();
     }
-  }, [searchKeyword]);
+  }, [searchKeyword, refetch]);
 
   // 2. 인기 검색어 조회
   const { usePopularKeywords } = useSearch('');
@@ -40,7 +39,7 @@ export default function HomePage() {
   if (isLoading) {
     return (
       <div className="flex flex-col gap-8">
-        <div className="h-64 bg-gray-200 animate-pulse rounded-2xl" />
+        <div className="h-[300px] md:h-[400px] bg-gray-200 animate-pulse rounded-2xl" />
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {[...Array(10)].map((_, i) => (
             <div key={i} className="aspect-[3/4] bg-gray-100 animate-pulse rounded-xl" />
@@ -73,6 +72,16 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 검색 결과 제목 (검색 시에만 노출) */}
+      {searchKeyword && (
+        <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100">
+          <h2 className="text-xl font-bold text-blue-900">
+            &apos;<span className="text-blue-600">{searchKeyword}</span>&apos; 검색 결과
+          </h2>
+          <p className="text-blue-400 text-sm font-medium mt-1">총 {productPage?.totalElements || 0}개의 상품을 찾았습니다.</p>
+        </div>
+      )}
+
       {/* 인기 검색어 트렌드 */}
       {popularKeywords && popularKeywords.length > 0 && (
         <section className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
@@ -96,16 +105,33 @@ export default function HomePage() {
       {/* 상품 목록 */}
       <section id="recommended-products">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold text-gray-900">추천 상품</h2>
+          <h2 className="text-2xl font-bold text-gray-900">{searchKeyword ? '검색 결과' : '추천 상품'}</h2>
           <p className="text-gray-500 text-sm">전체 {productPage?.totalElements || 0}개</p>
         </div>
         
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {productPage?.content.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          {productPage?.content && productPage.content.length > 0 ? (
+            productPage.content.map((product: any) => (
+              <ProductCard key={product.id} product={product} />
+            ))
+          ) : (
+            <div className="col-span-full py-20 text-center text-gray-400 font-bold">
+              해당하는 상품이 없습니다.
+            </div>
+          )}
         </div>
       </section>
     </div>
+  );
+}
+
+/**
+ * 쇼핑몰의 메인 페이지입니다.
+ */
+export default function HomePage() {
+  return (
+    <Suspense fallback={<div className="p-20 text-center font-bold">쇼핑몰을 불러오는 중...</div>}>
+      <HomeContent />
+    </Suspense>
   );
 }
