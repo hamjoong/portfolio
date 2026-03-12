@@ -14,8 +14,8 @@ export default function ShippingPage() {
     const fetchOrders = async () => {
       try {
         const response = await orderService.getMyOrders();
-        if (response.success) {
-          setOrders(response.data);
+        if (response && Array.isArray(response)) {
+          setOrders(response);
         }
       } catch (err) {
         console.error('Failed to fetch orders:', err);
