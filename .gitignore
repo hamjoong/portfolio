@@ -29,3 +29,13 @@ Thumbs.db
 
 # Project specific
 UnityHub.AppImage
+
+# Java/Maven specific
+**/target/
+**/*.class
+**/.mvn/
+**/mvnw.cmd
+**/.metadata/
+**/.project
+**/.classpath
+**/.settings/
