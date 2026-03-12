@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useUser } from '@/hooks/useUser';
 import { useOrder } from '@/hooks/useOrder';
@@ -110,12 +111,12 @@ export default function MyPage() {
                     </div>
                     <div className="flex items-center gap-4">
                       <span className="px-4 py-1.5 bg-gray-900 text-white text-[10px] font-black rounded-lg uppercase">{order.status}</span>
-                      <button 
-                        onClick={() => router.push(`/orders/${order.id}`)}
+                      <Link 
+                        href={`/orders/${order.id}`}
                         className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
                       >
                         <ExternalLink className="w-5 h-5" />
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 ))
@@ -127,7 +128,7 @@ export default function MyPage() {
             </div>
           )}
 
-          {/* 배송지 관리 탭 (고도화) */}
+          {/* 배송지 관리 탭 */}
           {activeTab === 'addresses' && (
             <div className="flex flex-col gap-4">
               <div className="flex justify-between items-center mb-2">
@@ -183,7 +184,7 @@ export default function MyPage() {
             </div>
           )}
 
-          {/* 기본 정보 탭 (정책 수정) */}
+          {/* 기본 정보 탭 */}
           {activeTab === 'profile' && (
             <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
               <h2 className="text-xl font-bold text-gray-900 mb-8">기본 정보 설정</h2>
