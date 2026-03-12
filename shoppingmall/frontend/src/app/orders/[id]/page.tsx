@@ -21,9 +21,9 @@ export default function OrderDetailPage({ params }: OrderDetailPageProps) {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const response = await orderService.getOrder(id);
-        if (response.success) {
-          setOrder(response.data);
+        const data = await orderService.getOrder(id);
+        if (data) {
+          setOrder(data);
         }
       } catch (err) {
         console.error('[OrderDetail] Fetch failed:', err);
