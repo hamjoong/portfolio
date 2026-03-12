@@ -38,9 +38,8 @@ jobs:
     - name: Build with Maven and Run Tests
       run: |
         cd shoppingmall/backend
-        ./mvnw clean test
+        ./mvnw clean test -Dspring.profiles.active=test
       env:
-        # 테스트 환경에 필요한 환경변수 설정 (필요 시)
         SPRING_PROFILES_ACTIVE: test
 
     # 테스트 통과 후 빌드 (JAR 생성)

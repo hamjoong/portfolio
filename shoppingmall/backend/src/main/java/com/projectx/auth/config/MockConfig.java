@@ -39,7 +39,15 @@ public class MockConfig {
     }
 
     @Bean
-    public S3Presigner s3Presigner() {
-        return Mockito.mock(S3Presigner.class);
+    public software.amazon.awssdk.services.s3.presigner.S3Presigner s3Presigner() {
+        return org.mockito.Mockito.mock(software.amazon.awssdk.services.s3.presigner.S3Presigner.class);
+    }
+
+    @Bean
+    public org.springframework.cache.CacheManager cacheManager() {
+        org.springframework.cache.CacheManager mockCacheManager = org.mockito.Mockito.mock(org.springframework.cache.CacheManager.class);
+        org.springframework.cache.Cache mockCache = org.mockito.Mockito.mock(org.springframework.cache.Cache.class);
+        org.mockito.Mockito.when(mockCacheManager.getCache(org.mockito.Mockito.anyString())).thenReturn(mockCache);
+        return mockCacheManager;
     }
 }
