@@ -48,10 +48,28 @@ export const useReview = () => {
     });
   };
 
+  // 5. 내 리뷰 조회
+  const useMyReviews = () => {
+    return useQuery({
+      queryKey: ['myReviews'],
+      queryFn: () => reviewService.getMyReviews(),
+    });
+  };
+
+  // 6. 내 문의 조회
+  const useMyQnas = () => {
+    return useQuery({
+      queryKey: ['myQnas'],
+      queryFn: () => reviewService.getMyQnas(),
+    });
+  };
+
   return {
     useProductReviews,
     useCreateReview,
     useProductQnas,
     useCreateQna,
+    useMyReviews,
+    useMyQnas,
   };
 };
