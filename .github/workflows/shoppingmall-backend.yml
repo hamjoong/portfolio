@@ -9,6 +9,7 @@ on:
     branches: [ "main" ]
     paths:
       - 'shoppingmall/backend/**'
+  workflow_dispatch: # 수동 실행 버튼을 활성화합니다.
 
 jobs:
   build-and-test:
