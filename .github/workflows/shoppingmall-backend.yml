@@ -1,0 +1,51 @@
+name: Shopping Mall Backend CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'shoppingmall/backend/**'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'shoppingmall/backend/**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      # Redis가 필요한 기능을 위해 가벼운 Redis 컨테이너 실행
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Grant execute permission for mvnw
+      run: chmod +x shoppingmall/backend/mvnw
+
+    - name: Build with Maven and Run Tests
+      run: |
+        cd shoppingmall/backend
+        ./mvnw clean test
+      env:
+        # 테스트 환경에 필요한 환경변수 설정 (필요 시)
+        SPRING_PROFILES_ACTIVE: test
+
+    # 테스트 통과 후 빌드 (JAR 생성)
+    - name: Build JAR
+      run: |
+        cd shoppingmall/backend
+        ./mvnw package -DskipTests
+
+    # [참고] 이후 Render나 AWS 배포 스크립트를 여기에 추가할 수 있습니다.
