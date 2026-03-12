@@ -17,7 +17,7 @@ import java.util.UUID;
  * 데이터 유출 시 피해를 최소화하기 위함입니다.
  */
 @Entity
-@Table(name = "user_profiles", schema = "privacy")
+@Table(name = "user_profiles")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserProfile extends BaseTimeEntity {

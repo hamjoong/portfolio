@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
  * 소셜 로그인 시 서비스 사용자를 식별하기 위함입니다.
  */
 @Entity
-@Table(name = "social_accounts", schema = "auth", 
+@Table(name = "social_accounts", 
        uniqueConstraints = {@UniqueConstraint(columnNames = {"provider", "providerId"})})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

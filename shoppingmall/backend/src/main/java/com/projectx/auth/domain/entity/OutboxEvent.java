@@ -14,7 +14,7 @@ import java.util.UUID;
  * 외부 시스템과의 데이터 일관성을 최종적으로 보장하기 위함입니다.
  */
 @Entity
-@Table(name = "outbox_events", schema = "purchase")
+@Table(name = "outbox_events")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OutboxEvent extends BaseTimeEntity {

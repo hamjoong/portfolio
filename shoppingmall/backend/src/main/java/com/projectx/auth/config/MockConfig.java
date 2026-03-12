@@ -24,13 +24,11 @@ public class MockConfig {
 
     /**
      * 가짜 RedisTemplate을 생성합니다.
-     * [이유] RedisTemplate은 반드시 ConnectionFactory가 설정되어야 
-     * 스프링 컨테이너에서 정상적으로 초기화(afterPropertiesSet)될 수 있습니다.
      */
-    @Bean(name = "redisTemplate")
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate() {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
-        template.setConnectionFactory(connectionFactory);
+        template.setConnectionFactory(redisConnectionFactory());
         template.setKeySerializer(new StringRedisSerializer());
         return template;
     }

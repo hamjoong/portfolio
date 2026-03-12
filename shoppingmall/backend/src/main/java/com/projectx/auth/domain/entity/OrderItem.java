@@ -11,7 +11,7 @@ import java.util.UUID;
  * 주문 내 개별 상품 항목을 관리하는 엔티티입니다.
  */
 @Entity
-@Table(name = "order_items", schema = "purchase")
+@Table(name = "order_items")
 @Getter
 @Setter
 @Builder

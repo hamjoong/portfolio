@@ -11,7 +11,7 @@ import java.util.UUID;
  * 다른 구매자의 의사결정을 돕고 상품 신뢰도를 높이기 위함입니다.
  */
 @Entity
-@Table(name = "reviews", schema = "product")
+@Table(name = "reviews")
 @Getter
 @Builder
 @AllArgsConstructor

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
-@Table(name = "products", schema = "product", indexes = {
+@Table(name = "products", indexes = {
     @Index(name = "idx_product_category_status", columnList = "category_id, status"),
     @Index(name = "idx_product_price", columnList = "price")
 })

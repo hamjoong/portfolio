@@ -17,7 +17,7 @@ import java.util.UUID;
  * 영속적으로 보관하여 거래 무결성을 보장하기 위함입니다.
  */
 @Entity
-@Table(name = "orders", schema = "purchase", indexes = {
+@Table(name = "orders", indexes = {
     @Index(name = "idx_order_user_created", columnList = "userId, createdAt DESC")
 })
 @Getter

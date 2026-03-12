@@ -11,7 +11,7 @@ import java.util.UUID;
  * 기본 배송지 설정을 통해 주문 시 편의성을 제공하기 위함입니다.
  */
 @Entity
-@Table(name = "addresses", schema = "privacy", indexes = {
+@Table(name = "addresses", indexes = {
     @Index(name = "idx_address_user_default", columnList = "userId, isDefault")
 })
 @Getter

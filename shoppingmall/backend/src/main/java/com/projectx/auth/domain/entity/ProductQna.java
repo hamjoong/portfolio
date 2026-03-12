@@ -9,7 +9,7 @@ import java.util.UUID;
  * 상품 문의(Q&A)를 관리하는 엔티티입니다.
  */
 @Entity
-@Table(name = "product_qnas", schema = "product")
+@Table(name = "product_qnas")
 @Getter
 @Builder
 @AllArgsConstructor

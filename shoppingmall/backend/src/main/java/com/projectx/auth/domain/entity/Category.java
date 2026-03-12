@@ -14,7 +14,7 @@ import java.util.List;
  * 쉽고 빠르게 탐색할 수 있는 계층적 구조를 제공하기 위함입니다.
  */
 @Entity
-@Table(name = "categories", schema = "product")
+@Table(name = "categories")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category {

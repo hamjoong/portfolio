@@ -11,7 +11,7 @@ import java.util.UUID;
  * [리팩토링] 권한 정보를 상수로 관리하고, 도메인 핵심 규칙(어드민 확인 등)을 엔티티 내부에 캡슐화했습니다.
  */
 @Entity
-@Table(name = "users", schema = "auth")
+@Table(name = "users")
 @Getter
 @Setter
 @Builder
