@@ -1,7 +1,9 @@
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
+    # 6543 포트와 pooler 주소를 강제로 입력합니다.
+    url: jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres?sslmode=require&prepareThreshold=0
+    username: postgres.gfgkhqohumjzooslpwsq
+    # 비밀번호는 Render의 환경 변수에서 가져옵니다. (이건 노출되면 안 되니까요)
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   
@@ -9,11 +11,12 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
-    show-sql: false
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
         default_schema: public
 
 server:
-  port: ${PORT:8080}
+  # Render가 주는 포트를 강제로 사용합니다.
+  port: ${PORT:10000}
