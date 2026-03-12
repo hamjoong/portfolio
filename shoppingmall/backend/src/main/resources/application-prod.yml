@@ -1,22 +1,30 @@
 spring:
+  # Redis 자동 설정을 완전히 끕니다 (Render 무료 티어에는 Redis가 없으므로)
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
+
   datasource:
-    # 6543 포트와 pooler 주소를 강제로 입력합니다.
-    url: jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres?sslmode=require&prepareThreshold=0
-    username: postgres.gfgkhqohumjzooslpwsq
-    # 비밀번호는 Render의 환경 변수에서 가져옵니다. (이건 노출되면 안 되니까요)
+    # Pooler 주소 대신 직접 접속 주소(5432)를 사용해 봅니다. (SSL 필수)
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://db.gfgkhqohumjzooslpwsq.supabase.co:5432/postgres?sslmode=require}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
         default_schema: public
 
 server:
-  # Render가 주는 포트를 강제로 사용합니다.
-  port: ${PORT:10000}
+  port: ${PORT:8080}
+
+logging:
+  level:
+    root: INFO
+    org.hibernate.SQL: DEBUG
