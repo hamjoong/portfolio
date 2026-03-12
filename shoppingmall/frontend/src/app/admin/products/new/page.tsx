@@ -38,12 +38,11 @@ export default function NewProductPage() {
       // 1. 이미지가 있을 경우 S3 업로드 수행
       if (imageFile) {
         try {
-          const resUrl = await productService.getUploadUrl(imageFile.name);
-          const presignedUrl = resUrl.data; // ApiResponse 구조 반영
+          const presignedUrl = await productService.getUploadUrl(imageFile.name);
 
           // [참고] 테스트 환경에서는 실제 S3 연결이 실패할 수 있으므로 try-catch로 감싸서 진행
           await axios.put(presignedUrl, imageFile, {
-            headers: { 'Content-Type': imageFile.type }
+            headers: { 'Content-Type': imageFile.type },
           });
 
           imageUrl = presignedUrl.split('?')[0].replace('raw/', 'optimized/').replace(/\.[^.]+$/, ".webp");
