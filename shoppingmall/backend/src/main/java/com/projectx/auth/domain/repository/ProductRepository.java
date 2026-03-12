@@ -34,13 +34,17 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     /**
      * 카테고리 ID를 기반으로 상품 목록을 필터링 조회합니다.
+     * [이유] 상위 카테고리 선택 시 하위 카테고리에 속한 모든 상품을 함께 보여주기 위해
+     * 본인 ID 또는 부모 ID가 일치하는 상품을 모두 조회합니다.
      */
     @EntityGraph(attributePaths = {"category"})
+    @org.springframework.data.jpa.repository.Query("SELECT p FROM Product p WHERE (p.category.id = :categoryId OR p.category.parent.id = :categoryId) AND p.status = :status")
     Page<Product> findByCategory_IdAndStatus(Long categoryId, ProductStatus status, Pageable pageable);
 
     /**
      * 카테고리 및 가격 범위를 기반으로 상품 목록을 필터링 조회합니다.
      */
     @EntityGraph(attributePaths = {"category"})
+    @org.springframework.data.jpa.repository.Query("SELECT p FROM Product p WHERE (p.category.id = :categoryId OR p.category.parent.id = :categoryId) AND p.price BETWEEN :minPrice AND :maxPrice AND p.status = :status")
     Page<Product> findByCategory_IdAndPriceBetweenAndStatus(Long categoryId, BigDecimal minPrice, BigDecimal maxPrice, ProductStatus status, Pageable pageable);
 }

@@ -47,7 +47,10 @@ export default function HomePage() {
           <p className="text-blue-100 text-lg mb-8">
             실시간 검색과 빠른 배송으로 완성되는<br />당신만의 라이프스타일 큐레이션.
           </p>
-          <button className="bg-white text-blue-600 px-8 py-3 rounded-full font-bold hover:bg-blue-50 transition-colors shadow-lg">
+          <button 
+            onClick={() => document.getElementById('recommended-products')?.scrollIntoView({ behavior: 'smooth' })}
+            className="bg-white text-blue-600 px-8 py-3 rounded-full font-bold hover:bg-blue-50 transition-colors shadow-lg"
+          >
             지금 둘러보기
           </button>
         </div>
@@ -77,7 +80,7 @@ export default function HomePage() {
       )}
 
       {/* 상품 목록 */}
-      <section>
+      <section id="recommended-products">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold text-gray-900">추천 상품</h2>
           <p className="text-gray-500 text-sm">전체 {productPage?.totalElements || 0}개</p>

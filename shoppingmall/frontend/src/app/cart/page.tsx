@@ -71,7 +71,7 @@ export default function CartPage() {
         </div>
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">장바구니가 비어있습니다</h2>
-          <p className="text-gray-500">PROJECT X의 멋진 상품들을 담아보세요!</p>
+          <p className="text-gray-500">Hjuk Shopping Mall의 멋진 상품들을 담아보세요!</p>
         </div>
         <Link href="/" className="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-200">
           쇼핑하러 가기
