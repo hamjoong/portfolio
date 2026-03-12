@@ -8,11 +8,11 @@ on:
       - 'milktycoon/**'
       - '.github/workflows/pages-deploy.yml'
 
-permissions:
-  contents: write
-
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+permissions:
+  contents: write
 
 jobs:
   build-and-deploy:
@@ -33,17 +33,15 @@ jobs:
 
       # --- Build Blog3 ---
       - name: Install and Build Blog3
+        working-directory: blog3
         run: |
-          cd blog3
           npm ci
           npm run build
-        env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
 
       # --- Build MilkTycoon ---
       - name: Install and Build MilkTycoon
+        working-directory: milktycoon
         run: |
-          cd milktycoon
           npm ci
           npm run build
 
@@ -54,7 +52,28 @@ jobs:
           mkdir -p public-dist/milktycoon
           cp -R blog3/dist/* public-dist/blog3/
           cp -R milktycoon/dist/* public-dist/milktycoon/
-          # Optional: Add a simple landing page index.html to public-dist/ if needed
+          
+          # GitHub Pages에서 assets 폴더 무시 방지
+          touch public-dist/.nojekyll
+          
+          # 배포 확인용 메인 index.html 생성
+          cat <<EOF > public-dist/index.html
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>My Portfolio Deployment</title>
+            <style>
+              body { font-family: sans-serif; text-align: center; padding: 50px; }
+              a { display: block; margin: 20px; font-size: 20px; color: #007bff; text-decoration: none; }
+            </style>
+          </head>
+          <body>
+            <h1>Portfolio Project List</h1>
+            <a href="./blog3/">Go to Blog3</a>
+            <a href="./milktycoon/">Go to MilkTycoon</a>
+          </body>
+          </html>
+          EOF
 
       # --- Deploy to GitHub Pages ---
       - name: Deploy to GitHub Pages
@@ -62,4 +81,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public-dist
-          keep_files: true # Keep other projects if they were deployed separately
+          publish_branch: gh-pages
+          force_orphan: true
