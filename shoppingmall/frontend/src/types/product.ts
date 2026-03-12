@@ -4,7 +4,7 @@
  * 컴파일 타임의 타입 안정성을 확보하기 위함입니다.
  */
 
-export interface ProductResponse {
+export interface Product {
   id: string;
   name: string;
   description: string;
@@ -12,7 +12,14 @@ export interface ProductResponse {
   stockQuantity: number;
   categoryName: string;
   mainImageUrl?: string;
+  category?: {
+    id?: string;
+    name: string;
+  };
 }
+
+// 하위 호환성을 위해 ProductResponse도 유지 (필요 시)
+export type ProductResponse = Product;
 
 /**
  * Spring Data JPA의 Page 응답 형식을 정의합니다.
