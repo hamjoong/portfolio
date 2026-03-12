@@ -1,0 +1,1456 @@
+@charset 'UTF-8';
+
+* {
+  margin: 0px;
+  padding: 0px;
+  font: {
+    size: 10px;
+    family: 'Gowun Dodum', sans-serif;
+  }
+  list-style: none;
+  text-decoration: none;
+};
+
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap");
+
+html, body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+/*Movie Main Box 무비 메인 박스*/
+@mixin movie_main_box {
+  width: 85vw;
+  height: 90vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  border: 1px solid black;
+}
+
+/*Movie Header Box 무비 헤더 박스*/
+@mixin movie_header_box {
+  width: 100%;
+  height: 15vh;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #555;
+}
+
+@mixin move_header_font {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  font: {
+    size: 4vw;
+    weight: bold;
+  }
+  color: #FFF;
+}
+
+/*Movie Nav 무비 메뉴 영역*/
+@mixin nav {
+  width: 50vw;
+  margin: 0 0 0 19.27vw;
+}
+
+@mixin main_nav {
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+
+@mixin sub_nav {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  font: {
+    size: 1.5vw;
+    weight: 600;
+  }
+  background-color: #555;
+  color: #FFF;
+  position: absolute;
+  margin-top: 2rem;
+}
+
+/*Movie Chart,Expected 무비 차트,상영예정 영역*/
+@mixin movie_box {
+  width: 100%;
+  height: 40vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@mixin movie_font {
+  width: 11%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  font: {
+    size: 1.2vw;
+    weight: bold;
+  }
+  color: rgb(80,80,80);
+}
+
+/*Movie Chart,Expected Img 무비 차트,상영예정 이미지 영역*/
+@mixin movie_img_box {
+  width: 100%;
+  height: 30vh;
+  margin: 1rem;
+}
+
+@mixin img_box {
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;  
+}
+
+@mixin movie_img {
+  width: 10.4vw;
+  height: 100%;
+  display: flex;
+  flex-flow: row  wrap;
+  justify-content: space-around;
+  align-items: center;
+  background: {
+    size: contain;
+    repeat: no-repeat;
+    position: 100%;
+  };
+  cursor: pointer;
+}
+
+/*Movie Chaert Trailer 무비 차트 예고편 영역*/
+@mixin movie_trailer_box {
+  width: 100%;
+  height: 40vh;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center; 
+}
+
+@mixin trailer_box {
+  width: 100%;
+  height: 40vh;
+}
+
+/*Movie Mini Header Box 무비 미니 헤더 박스*/
+@mixin mini_header_box {
+  width: 90%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/*Movie Chaert,Expected Box 무비 차트,상영예정작 리스트 박스*/
+@mixin movie_chaert_expected_box {
+  width: 100%;
+  height: 75vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin movie_chaert_expected_mini_box {
+  width: 100%;
+  height: 75vh;
+  margin-top: 3rem;
+}
+
+@mixin movie_chaert_box {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@mixin chaert_list_box {
+  width: 10%;
+  height: 90%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@mixin ranking_font {
+  width: 100%;
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: pink;
+}
+
+@mixin chaert_list_img {
+  width: 100%;
+  height: 100%;
+  background: {
+    size: contain;
+    repeat: no-repeat;
+    position: 50% 50%;
+  };
+}
+
+@mixin data_font {
+  width: 100%;
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*Movie Main Box 무비 메인 박스*/
+main {
+  @include movie_main_box;
+
+  header {
+    @include movie_header_box;
+
+    .header_font {
+      @include move_header_font;
+    }
+
+    /*Movie Nav 무비 메뉴 영역*/
+    nav {
+      @include nav;
+
+      ul {
+        display: flex;
+
+        .main_nav {
+          @include main_nav;
+
+          p {
+            font: {
+              size: 2vw;
+              weight: bold;
+            }
+            color: #FFF;
+          }
+          
+          p:hover {
+            background-color: pink;
+            color: #555;
+            cursor: pointer;
+          }
+
+          .sub_nav {
+            @include sub_nav;
+            display: none;
+            
+            li {
+              font: {
+                size: 1.3vw;
+                weight: 600;
+              }
+              margin-top: 1rem;
+            }
+
+            li:hover {
+              background-color: pink;
+              color: #555;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /*Movie Chart,Expected 무비 차트,상영예정*/
+  .movie_box {
+    @include movie_box;
+
+    .movie_box2 {
+      @include movie_box;
+      height: 5vh;
+      flex-flow: row nowrap;
+      margin: 1rem;
+
+      .movie_font,.movie_font2 {
+        @include movie_font;
+      }
+
+      .movie_font:hover,.movie_font2:hover {
+        cursor: pointer;
+        border: 0.2vw solid pink;
+      }
+    }
+
+    /*Movie Chart Img 무비 차트 이미지 영역*/
+    .movie_img_box {
+      @include movie_img_box;
+
+      .img_box {
+        @include img_box;
+      }
+
+      .movie_img {
+        @include movie_img;
+        background-image: url('../../public/img/moviechart.png');
+      }
+
+      .movie_img2 {
+        @include movie_img;
+        background-image: url('../../public/img/moviechart2.png');
+      }
+
+      .movie_img3 {
+        @include movie_img;
+        background-image: url('../../public/img/moviechart3.png');
+      }
+
+      .movie_img4 {
+        @include movie_img;
+        background-image: url('../../public/img/moviechart4.png');
+      }
+
+      .movie_img5 {
+        @include movie_img;
+        background-image: url('../../public/img/moviechart5.png');
+      }
+
+      .movie_img6 {
+        @include movie_img;
+        background-image: url('../../public/img/moviechart6.png');
+      }
+    }
+
+    /*Movie Expected Img 무비 상영예정 이미지 영역*/
+    .movie_img_box2 {
+      @include movie_img_box;
+      display: none;
+
+      .img_box2 {
+        @include img_box;
+        
+        .movie_img7 {
+          @include movie_img;
+          background-image: url('../../public/img/movieexpected.png');
+        }
+  
+        .movie_img8 {
+          @include movie_img;
+          background-image: url('../../public/img/movieexpected2.png');
+        }
+  
+        .movie_img9 {
+          @include movie_img;
+          background-image: url('../../public/img/movieexpected3.png');
+        }
+  
+        .movie_img10 {
+          @include movie_img;
+          background-image: url('../../public/img/movieexpected4.png');
+        }
+  
+        .movie_img11 {
+          @include movie_img;
+          background-image: url('../../public/img/movieexpected5.png');
+        }
+  
+        .movie_img12 {
+          @include movie_img;
+          background-image: url('../../public/img/movieexpected6.png');
+        }
+      }
+    }
+  }
+
+  /*Movie Chaert Trailer 무비 차트 예고편 영역*/
+  .movie_trailer_box {
+    @include movie_trailer_box;
+
+    .trailer_box {
+      @include trailer_box;
+    
+      .movie_trailer {
+        @include trailer_box;
+      }
+    }
+
+    .trailer_box2 {
+      @include trailer_box;
+      display: none;
+
+      .movie_trailer2 {
+        @include trailer_box;
+      }
+    }
+
+    .trailer_box3 {
+      @include trailer_box;
+      display: none;
+
+      .movie_trailer3 {
+        @include trailer_box;
+      }
+    }
+
+    .trailer_box4 {
+      @include trailer_box;
+      display: none;
+
+      .movie_trailer4 {
+        @include trailer_box;
+      }
+    }
+
+    .trailer_box5 {
+      @include trailer_box;
+      display: none;
+
+      .movie_trailer5 {
+        @include trailer_box;
+      }
+    }
+
+    .trailer_box6 {
+      @include trailer_box;
+      display: none;
+
+      .movie_trailer6 {
+        @include trailer_box;
+      }
+    }
+
+    .trailer_box7 {
+      @include trailer_box;
+      display: none;
+
+      .movie_trailer7 {
+        @include trailer_box;
+      }
+    }
+
+    .trailer_box8 {
+      @include trailer_box;
+      display: none;
+
+      .movie_trailer8 {
+        @include trailer_box;
+      }
+    }
+
+    .trailer_box9 {
+      @include trailer_box;
+      display: none;
+
+      .movie_trailer9 {
+        @include trailer_box;
+      }
+    }
+
+    .trailer_box10 {
+      @include trailer_box;
+      display: none;
+
+      .movie_trailer10 {
+        @include trailer_box;
+      }
+    }
+
+    .trailer_box11 {
+      @include trailer_box;
+      display: none;
+
+      .movie_trailer11 {
+        @include trailer_box;
+      }
+    }
+
+    .trailer_box12 {
+      @include trailer_box;
+      display: none;
+
+      .movie_trailer12 {
+        @include trailer_box;
+      }
+    }
+  }
+}
+
+/*Movie Mini Box 무비 미니 박스*/
+.mini_box {
+  @include movie_main_box;
+  display: none;
+
+  /*Movie Mini Header Box 무비 미니 헤더 박스*/
+  header {
+    @include movie_header_box;
+    height: 10.9vh;
+
+    .header_font2 {
+      @include move_header_font;
+    }
+
+    .header_font2:hover {
+      cursor: pointer;
+    }
+
+    .mini_header_box {
+      @include mini_header_box;
+
+      .mini_header_font,.mini_header_font2 {
+        font: {
+          size: 2vw;
+          weight: bold;
+        }
+        color: #FFF;
+        margin: 1vw;
+      }
+    }
+
+    .mini_header_font:hover,.mini_header_font2:hover {
+      cursor: pointer;
+      background-color: pink;
+      color: #555;
+    }
+  }
+
+  /*Movie Chaert Box 무비 차트 리스트 박스*/
+  .movie_chaert_expected_box {
+    @include movie_chaert_expected_box;
+
+    .movie_chaert_expected_mini_box {
+      @include movie_chaert_expected_mini_box;
+
+      .movie_chaert_box {
+        @include movie_chaert_box;
+
+        .chaert_list_box {
+          @include chaert_list_box;
+
+          .ranking_font {
+            @include ranking_font;
+
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .chaert_list_img {
+            @include chaert_list_img;
+            background-image: url('../../public/img/moviechart.png');
+          }
+
+          .data_font {
+            @include data_font;
+
+            p {
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .chaert_list_box2 {
+          @include chaert_list_box;
+
+          .ranking_font2 {
+            @include ranking_font;
+
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .chaert_list_img2 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/moviechart2.png');
+          }
+
+          .data_font2 {
+            @include data_font;
+
+            p {
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .chaert_list_box3 {
+          @include chaert_list_box;
+
+          .ranking_font3 {
+            @include ranking_font;
+
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .chaert_list_img3 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/moviechart3.png');
+          }
+
+          .data_font3 {
+            @include data_font;
+
+            p {
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .chaert_list_box4 {
+          @include chaert_list_box;
+
+          .ranking_font4 {
+            @include ranking_font;
+
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .chaert_list_img4 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/moviechart4.png');
+          }
+
+          .data_font4 {
+            @include data_font;
+
+            p {
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .chaert_list_box5 {
+          @include chaert_list_box;
+
+          .ranking_font5 {
+            @include ranking_font;
+
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .chaert_list_img5 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/moviechart5.png');
+          }
+
+          .data_font5 {
+            @include data_font;
+
+            p {
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .chaert_list_box6 {
+          @include chaert_list_box;
+
+          .ranking_font6 {
+            @include ranking_font;
+
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .chaert_list_img6 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/moviechart6.png');
+          }
+
+          .data_font6 {
+            @include data_font;
+
+            p {
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+      }
+
+      .movie_chaert_box2 {
+        @include movie_chaert_box;
+
+        .chaert_list_box7 {
+          @include chaert_list_box;
+
+          .ranking_font7 {
+            @include ranking_font;
+
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .chaert_list_img7 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/moviechart7.png');
+          }
+
+          .data_font7 {
+            @include data_font;
+
+            p {
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .chaert_list_box8 {
+          @include chaert_list_box;
+
+          .ranking_font8 {
+            @include ranking_font;
+
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .chaert_list_img8 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/moviechart8.png');
+          }
+
+          .data_font8 {
+            @include data_font;
+
+            p {
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .chaert_list_box9 {
+          @include chaert_list_box;
+
+          .ranking_font9 {
+            @include ranking_font;
+
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .chaert_list_img9 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/moviechart9.png');
+          }
+
+          .data_font9 {
+            @include data_font;
+
+            p {
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .chaert_list_box10 {
+          @include chaert_list_box;
+
+          .ranking_font10 {
+            @include ranking_font;
+
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .chaert_list_img10 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/moviechart10.png');
+          }
+
+          .data_font10 {
+            @include data_font;
+
+            p {
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .chaert_list_box11 {
+          @include chaert_list_box;
+
+          .ranking_font11 {
+            @include ranking_font;
+
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .chaert_list_img11 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/moviechart11.png');
+          }
+
+          .data_font11 {
+            @include data_font;
+
+            p {
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .chaert_list_box12 {
+          @include chaert_list_box;
+
+          .ranking_font12 {
+            @include ranking_font;
+
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .chaert_list_img12 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/moviechart12.png');
+          }
+
+          .data_font12 {
+            @include data_font;
+
+            p {
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+      }
+    }
+    }
+
+  /*Movie expected Box 무비 상영예정 리스트 박스*/
+  .movie_chaert_expected_box2 {
+    @include movie_chaert_expected_box;
+
+    .movie_chaert_expected_mini_box2 {
+      @include movie_chaert_expected_mini_box;
+
+      .movie_expected_box {
+        @include movie_chaert_box;
+
+        .expected_list_box {
+          @include chaert_list_box;
+
+          .ranking_font13 {
+            @include ranking_font;
+          
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .expected_list_img {
+            @include chaert_list_img;
+            background-image: url('../../public/img/movieexpected.png');
+          }
+
+          .data_font13 {
+            @include data_font;
+
+            p { 
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .expected_list_box2 {
+          @include chaert_list_box;
+
+          .ranking_font14 {
+            @include ranking_font;
+          
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .expected_list_img2 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/movieexpected2.png');
+          }
+
+          .data_font14 {
+            @include data_font;
+
+            p { 
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .expected_list_box3 {
+          @include chaert_list_box;
+
+          .ranking_font15 {
+            @include ranking_font;
+          
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .expected_list_img3 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/movieexpected3.png');
+          }
+
+          .data_font15 {
+            @include data_font;
+
+            p { 
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .expected_list_box4 {
+          @include chaert_list_box;
+
+          .ranking_font16 {
+            @include ranking_font;
+          
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .expected_list_img4 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/movieexpected4.png');
+          }
+
+          .data_font16 {
+            @include data_font;
+
+            p { 
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .expected_list_box5 {
+          @include chaert_list_box;
+
+          .ranking_font17 {
+            @include ranking_font;
+          
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .expected_list_img5 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/movieexpected5.png');
+          }
+
+          .data_font17 {
+            @include data_font;
+
+            p { 
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .expected_list_box6 {
+          @include chaert_list_box;
+
+          .ranking_font18 {
+            @include ranking_font;
+          
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .expected_list_img6 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/movieexpected6.png');
+          }
+
+          .data_font18 {
+            @include data_font;
+
+            p { 
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+      }
+
+      .movie_expected_box2 {
+        @include movie_chaert_box;
+
+        .expected_list_box7 {
+          @include chaert_list_box;
+
+          .ranking_font19 {
+            @include ranking_font;
+          
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .expected_list_img7 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/movieexpected7.png');
+          }
+
+          .data_font19 {
+            @include data_font;
+
+            p { 
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .expected_list_box8 {
+          @include chaert_list_box;
+
+          .ranking_font20 {
+            @include ranking_font;
+          
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .expected_list_img8 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/movieexpected8.png');
+          }
+
+          .data_font20 {
+            @include data_font;
+
+            p { 
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .expected_list_box9 {
+          @include chaert_list_box;
+
+          .ranking_font21 {
+            @include ranking_font;
+          
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .expected_list_img9 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/movieexpected9.png');
+          }
+
+          .data_font21 {
+            @include data_font;
+
+            p { 
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .expected_list_box10 {
+          @include chaert_list_box;
+
+          .ranking_font22 {
+            @include ranking_font;
+          
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .expected_list_img10 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/movieexpected10.png');
+          }
+
+          .data_font22 {
+            @include data_font;
+
+            p { 
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .expected_list_box11 {
+          @include chaert_list_box;
+
+          .ranking_font23 {
+            @include ranking_font;
+          
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .expected_list_img11 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/movieexpected11.png');
+          }
+
+          .data_font23 {
+            @include data_font;
+
+            p { 
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        .expected_list_box12 {
+          @include chaert_list_box;
+
+          .ranking_font24 {
+            @include ranking_font;
+          
+            p {
+              font: {
+                size: 2vw;
+                weight: bold;
+              }
+              color: #FFF;
+            }
+          }
+
+          .expected_list_img12 {
+            @include chaert_list_img;
+            background-image: url('../../public/img/movieexpected12.png');
+          }
+
+          .data_font24 {
+            @include data_font;
+
+            p { 
+              font: {
+                size: 1vw;
+              }
+              color: rgb(80,80,80);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+footer {
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  min-height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  box-sizing: border-box;
+
+  .footer_font {
+    font: {
+      size: 1.2rem;
+      weight: bold;
+    }
+    color: rgb(80,80,80);
+    text-align: center;
+    word-break: keep-all;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  main {
+    width: 95vw;
+    height: auto;
+    min-height: 90vh;
+  }
+
+  main header nav {
+    width: 60vw;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  main {
+    display: none !important;
+  }
+
+  .mini_box {
+    display: flex !important;
+    width: 100vw;
+    height: auto;
+    min-height: 100vh;
+    border: none;
+
+    header {
+      height: auto;
+      padding: 1rem 0;
+      flex-direction: column;
+
+      .mini_header_box {
+        width: 100%;
+        justify-content: center;
+        margin-top: 1rem;
+      }
+    }
+
+    .movie_chaert_expected_box, .movie_chaert_expected_box2 {
+      height: auto;
+      padding-bottom: 2rem;
+
+      .movie_chaert_expected_mini_box, .movie_chaert_expected_mini_box2 {
+        height: auto;
+        margin-top: 1rem;
+      }
+
+      .movie_chaert_box, .movie_expected_box, .movie_chaert_box2, .movie_expected_box2 {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 0 1rem;
+      }
+
+      .chaert_list_box, .chaert_list_box2, .chaert_list_box3, .chaert_list_box4, .chaert_list_box5, .chaert_list_box6,
+      .chaert_list_box7, .chaert_list_box8, .chaert_list_box9, .chaert_list_box10, .chaert_list_box11, .chaert_list_box12,
+      .expected_list_box, .expected_list_box2, .expected_list_box3, .expected_list_box4, .expected_list_box5, .expected_list_box6,
+      .expected_list_box7, .expected_list_box8, .expected_list_box9, .expected_list_box10, .expected_list_box11, .expected_list_box12 {
+        width: 30%;
+        height: 250px;
+        margin-bottom: 2rem;
+      }
+    }
+  }
+
+  .mini_header_font, .mini_header_font2 {
+    font-size: 4vw !important;
+  }
+
+  .ranking_font p, .ranking_font2 p, .ranking_font3 p, .ranking_font4 p, .ranking_font5 p, .ranking_font6 p,
+  .ranking_font7 p, .ranking_font8 p, .ranking_font9 p, .ranking_font10 p, .ranking_font11 p, .ranking_font12 p,
+  .ranking_font13 p, .ranking_font14 p, .ranking_font15 p, .ranking_font16 p, .ranking_font17 p, .ranking_font18 p,
+  .ranking_font19 p, .ranking_font20 p, .ranking_font21 p, .ranking_font22 p, .ranking_font23 p, .ranking_font24 p {
+    font-size: 3.5vw !important;
+  }
+
+  .data_font p, .data_font2 p, .data_font3 p, .data_font4 p, .data_font5 p, .data_font6 p,
+  .data_font7 p, .data_font8 p, .data_font9 p, .data_font10 p, .data_font11 p, .data_font12 p,
+  .data_font13 p, .data_font14 p, .data_font15 p, .data_font16 p, .data_font17 p, .data_font18 p,
+  .data_font19 p, .data_font20 p, .data_font21 p, .data_font22 p, .data_font23 p, .data_font24 p {
+    font-size: 2.5vw !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .movie_chaert_expected_box, .movie_chaert_expected_box2 {
+    .movie_chaert_box, .movie_expected_box, .movie_chaert_box2, .movie_expected_box2 {
+      .chaert_list_box, .chaert_list_box2, .chaert_list_box3, .chaert_list_box4, .chaert_list_box5, .chaert_list_box6,
+      .chaert_list_box7, .chaert_list_box8, .chaert_list_box9, .chaert_list_box10, .chaert_list_box11, .chaert_list_box12,
+      .expected_list_box, .expected_list_box2, .expected_list_box3, .expected_list_box4, .expected_list_box5, .expected_list_box6,
+      .expected_list_box7, .expected_list_box8, .expected_list_box9, .expected_list_box10, .expected_list_box11, .expected_list_box12 {
+        width: 45%;
+        height: 200px;
+      }
+    }
+  }
+}

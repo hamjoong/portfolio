@@ -1,0 +1,58 @@
+/**
+ * 모든 API 응답의 표준 규격입니다.
+ */
+export interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+  timestamp: string;
+}
+
+export interface SignupRequest {
+  email: string;
+  password?: string;
+  fullName: string;
+  phoneNumber: string;
+  address: string;
+  detailAddress: string;
+}
+
+/**
+ * 로그인 성공 시의 데이터 타입입니다.
+ */
+export type LoginData = string; // Access Token 문자열
+
+export interface UserProfile {
+  email: string;
+  fullName: string;
+  phoneNumber: string;
+  address?: string;
+  detailAddress?: string;
+}
+
+/**
+ * 배송지 정보를 나타내는 타입입니다.
+ */
+export interface Address {
+  id: string;
+  addressName: string;
+  receiverName: string;
+  phoneNumber: string;
+  zipCode: string;
+  baseAddress: string;
+  detailAddress: string;
+  isDefault: boolean;
+}
+
+/**
+ * 배송지 생성 및 수정을 위한 요청 타입입니다.
+ */
+export interface AddressRequest {
+  addressName: string;
+  receiverName: string;
+  phoneNumber: string;
+  zipCode: string;
+  baseAddress: string;
+  detailAddress: string;
+  isDefault: boolean;
+}

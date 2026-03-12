@@ -1,0 +1,898 @@
+@charset "UTF-8";
+
+* {
+  margin: 0px;
+  padding: 0px;
+  font: {
+    size: 10px;
+    family: 'Frank Ruhl Libre', serif;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre&display=swap');
+
+html, body {
+  width: 100vw;
+  height: 405vh;
+  background: linear-gradient(100deg , rgba(135,206,235,0.3) 50% , rgba(135,206,235,0.5) ); 
+  -ms-overflow-style: none;
+  ::-webkit-scrollbar {
+    display: none; 
+  }
+}
+
+/*Main 메인 영억*/
+@mixin blog_box {
+	width: 85vw;
+  height: 100vh;
+}
+
+/*Intro 인트로 영역*/
+@mixin blog_intro_box {
+	width: 85vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+/*Intro 인트로 헤더영역*/
+@mixin blog_intro_header_box {
+	width: 35vw;
+	height: 17vh;
+}
+
+@mixin blog_intro_header_font {
+	text-align: center;
+	letter-spacing: 0.5vw;
+	line-height: 8vh;
+	color: transparent;
+}
+
+/*Intro 인트로 메뉴 영역*/
+@mixin blog_nav_box {
+	width: 15vw;
+	height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background-color: rgba(255,192,203,0.5);
+	animation: slideInLeft 0.1s linear;
+  transition: background-color 0.3s;
+  z-index: 1;
+}
+
+@mixin blog_nav_menu {
+	font: {
+    size: 2.5vw;
+    height: bold;
+  }  
+  list-style: none;
+  text-decoration: none;
+  margin-bottom: 4vh;
+  color: rgb(255,255,255);
+	position: relative;
+	transition: color 0.3s ease;
+}
+
+@mixin blog_nav_hover {
+	content: ''; 
+	position: absolute;
+	top: calc(4vh + 0.5vw);
+	width: 0vw;
+	right: 0vw;
+	height: 0.5vh;
+}
+
+/*About Me 어바웃미 영역*/
+@mixin blog_aboutme_box {
+  width: 85vw;
+	height: 100vh;
+  background-color: rgba(255,193,69,0.7);
+}
+
+@mixin blog_aboutme_box2 {
+	width: 85vw;
+	height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+@mixin blog_aboutme_font {
+	font: {
+		size: 1.4vw;
+		weight: bold;
+	}
+  text-align: right;
+	line-height: 2.3vw;
+  color: rgb(51, 132, 198);
+  //color: rgba(70,10,220,0.7);
+}
+
+/*About Me Skill 어바웃미 스킬 영역*/
+@mixin blog_aboutme_skill_box {
+	width: 85vw;
+  height: 100vh;
+  background-color: rgba(148,180,255,0.7);
+}
+
+@mixin blog_skill_img_box {
+	width: 85vw;
+  height: 50vh;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+@mixin blog_skill_img_box2 {
+	width: 85vw;
+  height: 50vh;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+@mixin blog_skill_img {
+	background-repeat: no-repeat;
+	background-size: contain;
+  background-position: 0.5vw 0.1vw;
+  width: 4.5vw;
+  height: 4.5vw;
+  transform: rotate(15deg);
+  transition: all 0.3s ease;
+}
+
+/*About Me Skill Bar 어바웃미 스킬 바 영역*/
+@mixin blog_skill_bar_box {
+  width: 85vw;
+  display: flex;
+  justify-content: center;
+}
+
+@mixin blog_skill_bar_box2 {
+  width: 40vw;
+  height: 9vh;
+}
+
+@mixin blog_skill_bar {
+  width: 39vw;
+  height: 8vh;
+  border-radius: 2vw;
+  background-color: rgb(255,255,255);
+  position: absolute;
+  display: none;
+}
+
+@mixin blog_skill_bar_font {
+  width: 39vw;
+  height: 7vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-radius: 2vw;
+  background: rgba(148,180,255,0.7); 
+  font: {
+    size: 2vw;
+    weight: bold;
+  }
+  color: rgb(100,100,100);
+  position: relative;
+}
+
+@mixin blog_skill_bar_font2 {
+  width: 40vw;
+  height: 10vh;
+  line-height: 2.5vw;
+  font: {
+    size: 1.5vw;
+    weight: bold;
+  }
+  color: rgb(100,100,100);
+  position: relative;
+  display: none;
+}
+
+@mixin bar($value, $class-name){
+  @keyframes show-bar-#{$class-name} {
+    from {width: 0}
+    to {width: $value}
+  }
+  width: $value;
+  animation: show-bar-#{$class-name} 1s ease;
+}
+
+/*Portfolio 포트폴리오 영역*/
+@mixin blog_portfolio_box {
+  width: 85vw;
+	height: 100vh;
+  background-color: rgba(212,184,182,0.7);
+}
+
+@mixin blog_portfolio_box2 {
+	width: 85vw;
+	height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin blog_portfolio {
+	width: 15vw;
+	height: 70vh;
+  display: flex;
+  flex-flow: column nowrap;
+  border-radius: 2vw;
+  box-shadow: 0.1vw 0.1vw 1vw 0.4vw gray;
+  background-color: rgb(255,255,255);
+}
+
+@mixin portfolio_list {
+	width: 15vw;
+	height: 4vh;
+  text-align: center;
+  word-spacing: 0.5vw;
+	font: {
+		size: 1.5vw;
+		weight: bold;
+	}
+  border-radius: 2vw;
+  margin-bottom: 1vh;
+  padding-bottom: 1vh;
+  color: rgb(52,63,165);
+}
+
+@mixin blog_portfolio2 {
+	width: 52vw;
+	height: 70vh;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+  border-radius: 2vw;
+  box-shadow: 0.1vw 0.1vw 1vw 0.4vw gray;
+  background-color: rgb(255,255,255);
+}
+
+@mixin blog_portfolio_img_box{
+	width: 50vw;
+	height: 50vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@mixin blog_portfolio_img {
+  background-repeat: no-repeat;
+	background-size: contain;
+  background-position: 50% 50%;
+  border-radius: 2vw;
+  width: 45.2vw;
+  height: 37.8vh;
+  margin-top: -2vh;
+  display: none;
+}
+
+@mixin blog_portfolio_contents_box {
+	width: 44vw;
+	height: 8.5vh;
+	display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+
+@mixin blog_portfolio_contents {
+  font: {
+		size: 1.2vw;
+    weight: bold;
+	}
+  color: rgb(106,151,221);
+  //color: rgb(90,100,140);
+  display: none;
+}
+
+@mixin blog_portfolio_link_box {
+  width: 45vw;
+	height: 8.5vh;
+	display: flex;
+	justify-content: center;
+}
+
+@mixin blog_portfolio_link {
+  width: 7.5vw;
+  height: 5vh;
+  font: {
+    size: 1vw;
+  }
+  border: 0vw solid transparent;
+  border-radius: 1vw;
+  background-color: rgba(255,192,200,0.7);
+  color: rgb(100,100,100);
+  display: none;
+}
+
+@mixin blog_portfolio_link2 {
+  width: 7.5vw;
+  height: 5vh;
+  font: {
+    size: 1vw;
+  }
+  border: 0vw solid transparent;
+  border-radius: 1vw;
+  background-color: rgba(255,192,200,0.7);
+  color: rgb(100,100,100);
+  display: none;
+}
+
+/*Footer 영역*/
+@mixin blog_footer_box {
+  width: 85vw;
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1vw;
+  color: rgb(100,100,100);
+}
+
+/*Main 메인 영역*/
+.blog_main_box {
+	@include blog_box;
+  margin-left: 15vw;
+
+	.blog_mini_box {
+		@include blog_box;
+
+		/*Intro 인트로 영역*/
+		.blog_intro_box {
+			@include blog_intro_box;
+
+      /*Intro 인트로 로고 영역*/
+			.blog_intro_logo_img{
+				background-image: url("../../public/img/blog.png");
+				background-repeat: no-repeat;
+				background-size: contain;
+				background-position: 50% 50%;
+				width: 20vw;
+				height: 20vh;
+				position: fixed;
+				top: 5vh;
+        left: -2.7vw;
+        z-index: 2;
+			}
+
+			/*Intro 인트로 헤더 영역*/
+			.blog_intro_header_box {
+				@include blog_intro_header_box;
+        margin-top: 78vh;
+        margin-left: 47vw;
+
+				.blog_intro_header_font {
+					@include blog_intro_header_font;
+					font: {
+						size: 4vw;
+						weight: bold;
+					}
+          background: linear-gradient(180deg , rgb(140,100,100) 30% , rgb(50,50,120) );
+					background-clip: text;
+				}
+
+				.blog_intro_header_font2 {
+					@include blog_intro_header_font;
+					font: {
+						size: 1.5vw; 
+						weight: bold;
+					}
+          background: linear-gradient(50deg , rgb(140,100,100) 30% , rgb(70,10,220) );
+					background-clip: text;
+				}
+
+        .blog_intro_header_font3 {
+					@include blog_intro_header_font;
+					font: {
+						size: 2vw;
+						weight: bold;
+					}
+          background: linear-gradient(180deg , rgb(140,100,100) 30% , rgb(50,50,120) );
+					background-clip: text;
+          letter-spacing: 0.1vw;
+          line-height: 3.5vw;
+          position: relative;
+          top: -55vh;
+          left: -35vw;
+				}
+			}
+
+			/*Intro 인트로 이미지 영역*/
+			.blog_intro_img {
+				background-image: url("../../public/img/blog2.png");
+				background-repeat: no-repeat;
+				background-size: contain;
+				background-position: 50% 50%;
+        width: 55vw;
+        height: 80vh;
+        position: absolute;
+        top: -36vh;
+        left: 65vw;
+        animation: spin 7s linear infinite;
+
+        @keyframes spin {
+          0% { transform: rotate(0); }
+          100% { transform: rotate(360deg); }
+        }
+			}
+
+			/*Intro 인트로 메뉴 영역*/
+			.blog_nav_box {
+				@include blog_nav_box;
+        margin-left: -100vw;
+
+				.blog_nav_menu .blog_nav_home, .blog_nav_aboutme, .blog_nav_skill, .blog_nav_portfolio, .blog_nav_introduce {
+					@include blog_nav_menu;
+
+					&:hover {
+            color: rgba(70,10,220,0.7);
+            cursor: pointer;
+
+						&::after,
+						&::before {
+							width: 10vw;
+							left: 0vw;
+						}
+					}
+
+					&::after,
+					&::before {
+						@include blog_nav_hover;
+					}
+
+					&::before {
+						transition: width 0.3s cubic-bezier(0, 0.3, 0, 0.3) 0.3s;
+						background: #2196f3;
+					}
+
+					&::after {
+						transition: width 0.3s cubic-bezier(0, 0.3, 0, 0.3) 0.1s;
+						background: #F44336;
+					}
+				}
+
+				@keyframes slideInLeft {
+					0% {
+          transform: translateX(-15vw);
+					}
+
+					100% {
+					transform: translateX(0vw);
+					}
+				}	
+			}
+		}
+	}
+
+	/*About Me 어바웃미 영역*/
+	.blog_aboutme_box {
+		@include blog_aboutme_box;
+
+		.blog_aboutme_box2 {
+			@include blog_aboutme_box2;
+
+			.blog_aboutme_img {
+				background-image: url("../../public/img/aboutme3.jpg");
+				background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50%;
+        width: 38.9vw;
+        height: 100vh;
+				position: relative;
+        left: 46.1vw;
+			}
+
+      /*.blog_aboutme_img {
+				width: 36.2vw;
+				height: 100vh;
+				position: relative;
+        left: 63.8vw;
+			}*/
+
+      .blog_aboutme_font_box {
+        width: 30vw; 
+        height: 17vh;
+        margin-top: 15vh;
+        margin-left: -25vw;
+
+        .blog_aboutme_font {
+          @include blog_aboutme_font;
+          font-size: 2.5vw;
+        }
+
+        .blog_aboutme_font2 {
+          @include blog_aboutme_font;
+        }
+
+        .blog_aboutme_font3 {
+          @include blog_aboutme_font;
+          margin-left: 10vw;
+          float: right;
+          text-decoration: none;
+        }
+
+        .blog_aboutme_font4 {
+          @include blog_aboutme_font;
+          float: right;
+          text-decoration: none;
+        }
+
+        a:link { color: rgba(70,10,220,0.7); }
+        a:visited { color:rgb(128,128,128); }
+        a:hover { color:rgb(255,255,255); }
+        a:active { color:rgb(148, 180, 255); }
+      }
+
+      .blog_aboutme_font_box2 { 
+        width: 30vw; 
+        height: 5vh;
+        margin-top: 45vh;
+        margin-left: -30.1vw;
+
+        .blog_aboutme_font5 {
+          @include blog_aboutme_font;
+          font-size: 2vw;
+          color: rgb(138,84,134);
+          //color: rgba(50,50,120);
+        }
+      }
+
+      .blog_aboutme_font_box3 {
+        width: 43vw;
+        height: 18vh;
+        margin-top: 72vh;
+        margin-left: -43.1vw;
+
+        .blog_aboutme_font6 {
+          @include blog_aboutme_font;
+          line-height: 3.5vw;
+          color: rgba(93,92,176,0.8);
+          //color: rgb(50,80,170);
+        }
+      }
+		}
+  }
+
+  /*Aboutme skill 어바웃미 스킬 영역*/	
+  .blog_aboutme_skill_box {
+    @include blog_aboutme_skill_box;
+
+    .blog_skill_img_box {
+      @include blog_skill_img_box;
+
+      .blog_skill_html_img {
+        @include blog_skill_img;
+        background-image: url("../../public/img/html.png");
+        margin-top: -10vw;
+        margin-left: 0vw;
+      }
+
+      .blog_skill_script_img {
+        @include blog_skill_img;
+        background-image: url("../../public/img/javascript.png");
+        margin-top: -10vw;
+        margin-left: 4vw;
+      }
+
+      .blog_skill_css_img {
+        @include blog_skill_img;
+        background-image: url("../../public/img/css.png");
+        margin-top: -10vw;
+        margin-left: 4vw;
+      }
+
+      .blog_skill_nodejs_img {
+        @include blog_skill_img;
+        background-image: url("../../public/img/nodejs.png");
+        background-position: 0.2vw 0.7vw;
+        margin-top: -10vw;
+        margin-left: 4vw;
+      }
+
+      .blog_skill_sass_img {
+        @include blog_skill_img;
+        background-image: url("../../public/img/sass.png");
+        background-position: 0vw 0.4vw;
+        margin-top: -10vw;
+        margin-left: 4vw;
+      }
+
+      .blog_skill_ajax_img {
+        @include blog_skill_img;
+        background-image: url("../../public/img/ajax.png");
+        background-position: 0vw 0vw;
+        margin-top: -10vw;
+        margin-left: 4vw;
+      }
+    }
+
+    .blog_skill_img_box2 {
+      @include blog_skill_img_box2;
+
+      .blog_skill_pug_img {
+        @include blog_skill_img;
+        background-image: url("../../public/img/pug.png");
+        background-position: 0.1vw 0vw;
+        margin-top: 9vw;
+        margin-left: 0vw;
+      }
+
+      .blog_skill_jquery_img {
+        @include blog_skill_img;
+        background-image: url("../../public/img/jquery.png");
+        background-position: 0.1vw 0vw;
+        margin-top: 9vw;
+        margin-left: 4vw;
+      }
+
+      .blog_skill_mysql_img {
+        @include blog_skill_img;
+        background-image: url("../../public/img/mysql.png");
+        background-position: 0vw 0vw;
+        margin-top: 9vw;
+        margin-left: 4vw;
+      }
+
+      .blog_skill_typescript_img {
+        @include blog_skill_img;
+        background-image: url("../../public/img/typescript.png");
+        background-position: 0vw 0vw;
+        margin-top: 9vw;
+        margin-left: 4vw;
+      }
+
+      .blog_skill_java_img {
+        @include blog_skill_img;
+        background-image: url("../../public/img/java.png");
+        background-position: 0vw 0.5vw;
+        width: 7vw;
+        height: 7vw;
+        margin-top: 9vw;
+        margin-left: 2.5vw;
+      }
+
+      .blog_skill_json_img {
+        @include blog_skill_img;
+        background-image: url("../../public/img/json.png");
+        background-position: 0vw 0.9vw;
+        width: 7vw;
+        height: 7vw;
+        margin-top: 9vw;
+        margin-left: 2.5vw;
+      }
+    }
+
+    .blog_skill_html_img:hover,.blog_skill_script_img:hover,.blog_skill_css_img:hover,.blog_skill_nodejs_img:hover,.blog_skill_sass_img:hover,.blog_skill_ajax_img:hover,
+    .blog_skill_pug_img:hover,.blog_skill_jquery_img:hover,.blog_skill_mysql_img:hover,.blog_skill_typescript_img:hover,.blog_skill_java_img:hover,.blog_skill_json_img:hover {
+      transform: scale(2.1);
+      cursor: pointer;
+    }
+  }
+
+  /*Aboutme skill bar 어바웃미 스킬 바 영역*/
+  .blog_skill_bar_box {
+    @include blog_skill_bar_box;
+
+    .blog_skill_bar_box2 {
+      @include blog_skill_bar_box2;
+      margin-top: -65.1vh;
+
+    .blog_skill_bar_html,.blog_skill_bar_script,.blog_skill_bar_css,.blog_skill_bar_nodejs,.blog_skill_bar_sass,.blog_skill_bar_ajax,
+    .blog_skill_bar_pug,.blog_skill_bar_jquery,.blog_skill_bar_mysql,.blog_skill_bar_typescript,.blog_skill_bar_java,.blog_skill_bar_json{
+      @include blog_skill_bar;
+
+      .blog_skill_bar_html_font,.blog_skill_bar_script_font,.blog_skill_bar_css_font,.blog_skill_bar_nodejs_font,.blog_skill_bar_sass_font,.blog_skill_bar_ajax_font,
+      .blog_skill_bar_pug_font,.blog_skill_bar_jquery_font,.blog_skill_bar_mysql_font,.blog_skill_bar_typescript_font,.blog_skill_bar_java_font,.blog_skill_bar_json_font {
+        @include blog_skill_bar_font;
+        margin-top: 0.5vh;
+        margin-left: 0.5vw;
+
+        &.html{
+          @include bar(90%, "html");
+        }
+
+        &.script{
+          @include bar(60%, "script");
+        }
+
+        &.css{
+          @include bar(90%, "css");
+        }
+
+        &.nodejs{
+          @include bar(60%, "nodejs");
+        }
+
+        &.sass{
+          @include bar(90%, "sass");
+        }
+
+        &.ajax{
+          @include bar(60%, "ajax");
+        }
+
+        &.pug{
+          @include bar(90%, "pug");
+        }
+
+        &.jquery{
+          @include bar(50%, "jquery");
+        }
+
+        &.mysql{
+          @include bar(60%, "mysql");
+        }
+
+        &.typescript{
+          @include bar(40%, "typescript");
+        }
+
+        &.java{
+          @include bar(40%, "java");
+        }
+
+        &.json{
+          @include bar(60%, "json");
+        }
+
+        @keyframes show-bar {
+          0%{width: 0}
+          100% {width: 100%}
+        }
+      }
+    }
+
+      .blog_skill_bar_html_font2,.blog_skill_bar_script_font2,.blog_skill_bar_css_font2,.blog_skill_bar_nodejs_font2,.blog_skill_bar_sass_font2,.blog_skill_bar_ajax_font2,
+      .blog_skill_bar_pug_font2,.blog_skill_bar_jquery_font2,.blog_skill_bar_mysql_font2,.blog_skill_bar_typescript_font2,.blog_skill_bar_java_font2,.blog_skill_bar_json_font2 {
+          @include blog_skill_bar_font2;
+          top: 13vh;
+        }
+    }
+  }
+
+	/*Portfolio 포트폴리오 영역*/
+	.blog_portfolio_box {
+		@include blog_portfolio_box;
+
+		.blog_portfolio_box2 {
+			@include blog_portfolio_box2;
+
+			.blog_portfolio {
+				@include blog_portfolio;
+        margin-left: 0.5vw;
+
+        .portfolio_list {
+          @include portfolio_list;
+        }
+
+				.portfolio_list2,.portfolio_list3,.portfolio_list4,.portfolio_list5,
+        .portfolio_list6,.portfolio_list7,.portfolio_list8,.portfolio_list9 {
+					@include portfolio_list;
+          cursor: pointer;
+          margin-top: 3vh;
+
+          &:hover {
+						color: rgb(100,110,110);
+					}
+
+          &::after,
+					&::before {
+            display: block;
+            content: '';
+            border-bottom: solid 0.7vh pink;  
+            transform: scaleX(0);
+            transition: transform 0.3s ease-in-out;  
+					}
+
+          &:hover:after {
+            transform: scaleX(0.85);
+          }
+				}
+      }
+
+			.blog_portfolio2 {
+				@include blog_portfolio2;
+        margin-left: 3vw;
+
+				.blog_portfolio_img_box {
+					@include blog_portfolio_img_box;
+          margin-top: 1.5vh;
+
+          .blog_portfolio_img {
+						@include blog_portfolio_img;
+            background-image: url("../../public/img/matrixcalculator.png");
+					}
+
+					.blog_portfolio_img2 {
+						@include blog_portfolio_img;
+            background-image: url("../../public/img/kiosk.png");
+            background-size: cover;
+					}
+
+          .blog_portfolio_img3 {
+						@include blog_portfolio_img;
+            background-image: url("../../public/img/notepad.png");
+            background-size: cover;
+            width: 37vw;
+            height: 40vh;
+					}
+
+					.blog_portfolio_img4 {
+						@include blog_portfolio_img;
+            background-image: url("../../public/img/moviebox.png");
+            background-size: cover;
+					}
+
+					.blog_portfolio_img5 {
+						@include blog_portfolio_img;
+            background-image: url("../../public/img/ssn.png");
+            background-size: cover;
+					}
+
+					.blog_portfolio_img6 {
+						@include blog_portfolio_img;
+            background-image: url("../../public/img/matrixcalculator.png");
+					}
+
+					.blog_portfolio_img7 {
+						@include blog_portfolio_img;
+            background-image: url("../../public/img/matrixcalculator.png");
+					}
+
+					.blog_portfolio_img8 {
+						@include blog_portfolio_img;
+            background-image: url("../../public/img/matrixcalculator.png");
+					}
+				}
+
+				.blog_portfolio_contents_box {
+						@include blog_portfolio_contents_box;
+            margin-top: -4vh;
+
+          .blog_portfolio_contents,.blog_portfolio_contents2,.blog_portfolio_contents3,.blog_portfolio_contents4,
+          .blog_portfolio_contents5,.blog_portfolio_contents6,.blog_portfolio_contents7,.blog_portfolio_contents8 {
+            @include blog_portfolio_contents;
+          }
+        }
+
+        .blog_portfolio_link_box {
+          @include blog_portfolio_link_box;
+          margin-top: 3vh;
+          
+          .blog_portfolio_link,.blog_portfolio_link2,.blog_portfolio_link3,.blog_portfolio_link4,
+          .blog_portfolio_link5,.blog_portfolio_link6,.blog_portfolio_link7,.blog_portfolio_link8 {
+            @include blog_portfolio_link;
+            cursor: pointer;
+            margin-right: 2vw;
+          }
+
+          .blog_portfolio_link_1,.blog_portfolio_link_2,.blog_portfolio_link_3,.blog_portfolio_link_4,
+          .blog_portfolio_link_5,.blog_portfolio_link_6,.blog_portfolio_link_7,.blog_portfolio_link_8 {
+            @include blog_portfolio_link2;
+            cursor: pointer;
+          }
+        }
+			}
+		}	
+	}
+
+  /*Footer 영역*/
+  .blog_footer_box {
+    @include blog_footer_box;
+  }
+}
+
+
+
+

@@ -1,0 +1,94 @@
+'use client';
+
+import React from 'react';
+import ProductCard from '@/components/product/ProductCard';
+import { productService } from '@/services/product.service';
+import { useQuery } from '@tanstack/react-query';
+import { useSearch } from '@/hooks/useSearch';
+import { Sparkles, TrendingUp } from 'lucide-react';
+
+/**
+ * 쇼핑몰의 메인 페이지입니다.
+ * [이유] 전체 상품 목록과 함께 실시간 인기 검색어를 노출하여
+ * 사용자의 탐색을 유도하고, Next.js 15의 PPR을 통해 빠른 초기 로딩을 제공하기 위함입니다.
+ */
+export default function HomePage() {
+  // 1. 전체 상품 조회
+  const { data: productPage, isLoading } = useQuery({
+    queryKey: ['products'],
+    queryFn: () => productService.getProducts(0, 20),
+  });
+
+  // 2. 인기 검색어 조회
+  const { usePopularKeywords } = useSearch('');
+  const { data: popularKeywords } = usePopularKeywords();
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-8">
+        <div className="h-64 bg-gray-200 animate-pulse rounded-2xl" />
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {[...Array(10)].map((_, i) => (
+            <div key={i} className="aspect-[3/4] bg-gray-100 animate-pulse rounded-xl" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-12">
+      {/* 히어로 배너 */}
+      <section className="relative h-[300 md:h-[400px]] rounded-3xl overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center px-8 md:px-16">
+        <div className="relative z-10 max-w-lg text-white">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
+            가장 앞선 쇼핑 경험,<br />Hjuk Shopping Mall
+          </h1>
+          <p className="text-blue-100 text-lg mb-8">
+            실시간 검색과 빠른 배송으로 완성되는<br />당신만의 라이프스타일 큐레이션.
+          </p>
+          <button className="bg-white text-blue-600 px-8 py-3 rounded-full font-bold hover:bg-blue-50 transition-colors shadow-lg">
+            지금 둘러보기
+          </button>
+        </div>
+        <div className="absolute right-0 bottom-0 opacity-20 hidden md:block">
+          <Sparkles className="w-96 h-96" />
+        </div>
+      </section>
+
+      {/* 인기 검색어 트렌드 */}
+      {popularKeywords && popularKeywords.length > 0 && (
+        <section className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+          <div className="flex items-center gap-2 mb-4">
+            <TrendingUp className="w-5 h-5 text-red-500" />
+            <h2 className="text-lg font-bold text-gray-900">지금 뜨는 키워드</h2>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {popularKeywords.map((keyword, index) => (
+              <span
+                key={keyword}
+                className="px-4 py-1.5 bg-gray-50 text-gray-700 text-sm font-medium rounded-full border border-gray-100 hover:border-blue-200 hover:bg-blue-50 cursor-pointer transition-all"
+              >
+                <span className="text-blue-500 mr-1">{index + 1}</span> {keyword}
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 상품 목록 */}
+      <section>
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl font-bold text-gray-900">추천 상품</h2>
+          <p className="text-gray-500 text-sm">전체 {productPage?.totalElements || 0}개</p>
+        </div>
+        
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {productPage?.content.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}

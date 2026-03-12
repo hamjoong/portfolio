@@ -1,0 +1,2273 @@
+@charset "UTF-8";
+
+* {
+  margin: 0px;
+  padding: 0px;
+  font: {
+    size: 10px;
+    family: 'Noto Sans KR', sans-serif;
+  }
+  text-decoration: none;
+  list-style: none;
+  overflow: hidden;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&amp;display=swap');
+
+html,body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  background-color: rgba(135,206,235,0.3);
+}
+
+/*kiosk intro_page 키오스크 인트로페이지 영역*/
+@mixin intro_page {
+  width: 120rem;
+  height: 90rem;
+  background: {
+    image: url('');
+    size: contain;
+    repeat: no-repeat;
+    position: 100%;
+  }
+}
+
+/*kiosk main box 키오스크 메인 박스 영역*/
+@mixin main_box {
+  width: 120rem;
+  height: 90rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  background-color: rgb(250,250,250);
+  border: 0.1rem solid black;
+}
+
+/*kiosk menu choice 키오스크 메뉴 선택 영역*/
+@mixin menu_choice {
+  width: 120rem;
+  height: 90rem;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+/*kiosk menu header 키오스크 메뉴 헤더 영역*/
+@mixin menu_header {
+  width: 120rem;
+  height: 10rem;
+  display: flex;
+  border-bottom: 0.1rem solid black;
+}
+
+@mixin menu_header_log {
+  width: 10rem;
+  height: 9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: {
+    image: url('/img/logo_img.png');
+    //image: url('../../build/img/logo_img.png');
+    size: contain;
+    repeat: no-repeat;
+    position: 100%;
+  }
+}
+
+/*kiosk menu nav 키오스크 메뉴 메뉴바 영역*/
+@mixin menu_nav {
+  width: 20rem;
+  height: 100%;
+  border-right: 0.1rem solid black;
+}
+
+@mixin li {
+  width: 20rem;
+  height: 20.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #555;
+  border-bottom: 0.1rem solid rgb(250,250,250);
+  font: {
+    size: 4.5rem;
+    weight: bold;
+  }
+  color: rgb(250,250,250);
+}
+
+/*kiosk menu list 키오스크 메뉴 리스트 영역*/
+@mixin menu_list {
+  width: 70rem;
+  height: 100%;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+/*kiosk menu box 키오스크 메뉴박스 영역*/
+@mixin menu_all_box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@mixin menu {
+  width: 20rem;
+  height: 25rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+@mixin menu_img {
+  width: 20rem;
+  height: 20rem;
+  background:  {
+    image: url('');
+    size: contain;
+    repeat: no-repeat;
+    position: 100%
+  }
+}
+
+@mixin menu_name_prcie {
+  font: {
+    size: 2.5rem;
+    weight: 500;
+  }
+}
+
+/*kiosk coffe ice hot button 키오스크 커피메뉴 아이스 핫 버튼 영역*/
+@mixin hot_ice_button_box {
+  width: 90%;
+  height: 7rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@mixin hot_ice_button {
+  width: 7rem;
+  height: 7rem;
+  display: flex;
+  background-color: rgb(0,100,255);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+@mixin button_font {
+  line-height: 2.6;
+  text-align: center;
+  font: {
+    size: 2.5rem;
+    weight: bold;
+  }
+  color: rgb(250,250,250);
+}
+
+/*kiosk buy button model 키오스크 결제 버튼 모달창 영역*/
+@mixin model_box {
+  width: 50rem;
+  height: 50rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  position: absolute;
+  background-color: rgb(230,230,230);
+}
+
+@mixin model_font {
+  width: 100%;
+  height: 40rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  font: {
+    size: 5rem;
+    weight: bold;
+  }
+  color: rgb(80,80,80);
+}
+
+@mixin model_close_button {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #AF4444;
+  font: {
+    size: 5rem;
+    weight: bold;
+  }
+  color: rgb(250,250,250);
+}
+
+/*kiosk shopping cart box 키오스크 메뉴 장바구니 박스 영역*/
+@mixin shopping_cart {
+  width: 30rem;
+  height: 81rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 0.1rem solid black;
+}
+
+/*kiosk shopping cart xeicon 키오스크 장바구니 아이콘 영역*/
+@mixin trash_button {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: flex-end;
+  background-color: rgb(230,230,230);
+}
+
+@mixin xi-trash_xeicon {
+  width: 10rem;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*kiosk shopping cart order list box 키오스크 장바구니 주문리스트 박스 영역*/
+@mixin order_list {
+  width: 100%;
+  height: 51rem;
+  background-color: rgb(230,230,230);
+}
+
+/*kiosk shopping cart order list 키오스크 장바구니 주문리스트 영역*/
+@mixin order_list_data {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+
+@mixin order_menu_list {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@mixin order_menu_font {
+  font-size: 1.5rem;
+  color: rgb(80,80,80);
+}
+
+@mixin order_menu_button {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  border: 0px solid transparent;
+  background-color: rgb(200,200,200);
+  font-size: 2.5rem;
+}
+
+/*kiosk shopping cart sum value 키오스크 장바구니 주문합계 영역*/
+@mixin sum_value {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content:center;
+  align-items: flex-end;
+  font: {
+    size: 4.5rem;
+    weight: bold;
+  }
+  color: rgb(80,80,80);
+}
+
+/*kiosk shopping cart buy button 키오스크 장바구니 구매버튼 영역*/
+@mixin buy_button {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #AF4444;
+  font: {
+    size: 4.5rem;
+    weight: bold;
+  }
+  color: rgb(250,250,250);
+}
+
+/*kiosk menu extra orders choice 키오스크 추가메뉴 선택 영역*/
+@mixin select_menu_box {
+  width: 100%;
+  height: 80rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+}
+
+/*kiosk menu extra orders choice img box 키오스크 추가메뉴 선택 이미지 박스 영역*/
+@mixin select_menu_img_box {
+  width: 40rem;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+/*kiosk menu extra orders choice img 키오스크 추가메뉴 선택 이미지 영역*/
+@mixin select_menu_img {
+  width: 100%;
+  height: 40rem;
+  display: flex;
+  background: {
+    size: contain;
+    repeat: no-repeat;
+    position: 100%;
+  };
+}
+
+/*kiosk menu extra orders choice name 키오스크 추가메뉴 선택 메뉴명 영역*/
+@mixin select_menu_img_name {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: {
+    size: 4rem;
+    weight: bold;
+  }
+  color: rgb(80,80,80);
+}
+
+/*kiosk menu extra orders information 키오스크 추가메뉴 정보 박스 영역*/
+@mixin select_menu_info_box {
+  width: 80rem;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin select_menu_info_seolmyeong {
+  width: 80rem;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin select_menu_info_seolmyeong_font {
+  font: {
+    size: 2.5rem;
+  }
+  color: rgb(80,80,80);
+}
+
+/*kiosk menu extra orders select box 키오스크 추가메뉴 선택 박스 영역*/
+@mixin select_menu_info_box2 {
+  width: 100%;
+  height: 45rem;
+}
+
+@mixin menu_select_box {
+  width: 100%;
+  height: 7rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 4rem;
+}
+
+@mixin select_box {
+  width: 15rem;
+  height: 7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: {
+    size: 4rem;
+  }
+  color: rgb(80,80,80);
+}
+
+@mixin extra_select_menu_box {
+  width: 15rem;
+  height: 7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5rem;
+  background-color: #555;
+  font: {
+    size: 3rem;
+    weight: bold;
+  }
+  color: rgb(250,250,250);
+  cursor: pointer;
+}
+
+/*kiosk menu extra next box 키오스크 추가메뉴 다음 박스 영역*/
+@mixin extra_order_next_box {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #AF4444;
+  font: {
+    size: 5rem;
+    weight: bold;
+  }
+  color: rgb(250,250,250);
+}
+
+/*kiosk point signup box 키오스크 포인트 간단가입 박스 영역*/
+@mixin point_signup_box {
+  width: 60rem;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  border-top-right-radius: 5rem;
+  border-bottom-right-radius: 5rem;
+  box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem rgb(80,80,80);
+  background-color: rgb(100,100,100);
+}
+
+/*kiosk xeicon back 키오스크 아이콘 빽 영역*/
+@mixin xi-arrow-left_button {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 7rem;
+}
+
+@mixin xi-arrow-left_xeicon {
+  width: 10rem;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(250,250,250);
+}
+
+/*kiosk point signup box2 키오스크 포인트 간단가입 박스2 영역*/
+@mixin point_signup_box2 {
+  width: 60rem;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin point_signup_box3 {
+  width: 60rem;
+  height: 80rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center; 
+}
+
+/*kiosk point box 키오스크 포인트 박스 영역*/
+@mixin point_box {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin point_font {
+  font: {
+    size: 5rem;
+    weight: bold;
+  }
+  color: rgb(250,250,250);
+}
+
+/*kiosk signup box 키오스크 간단가입 박스 영역*/
+@mixin signup_use_box {
+  width: 30rem;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10rem;
+  background-color: #AF4444;
+}
+
+@mixin signup_use_font {
+  font: {
+    size: 5rem;
+    weight: bold;
+  }
+  color: rgb(250,250,250);
+}
+
+/*kiosk pay box 키오스크 결제하기 박스 영역*/
+@mixin pay_box {
+  width: 60rem;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+/*kiosk pay img box 키오스크 결제하기 이미지 박스 영역*/
+@mixin pay_img_box {
+  width: 100%;
+  height: 20rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin pay_img {
+  width: 20rem;
+  height: 20rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: {
+    image: url('/img/pay_img.png');
+    //image: url('../../build/img/pay_img.png');
+    size: contain;
+    repeat: no-repeat;
+    position: 100%;
+  }
+}
+
+/*kiosk pay button 키오스크 결제하기 버튼 영역*/
+@mixin pay {
+  width: 30rem;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #AF4444;
+  border-radius: 10rem;
+}
+
+@mixin pay_font {
+  font: {
+    size: 5rem;
+    weight: bold;
+  }
+  color: rgb(250,250,250);
+}
+
+/*kiosk point signup number input box 키오스크 포인트 간단가입 넘버 인풋 박스 영역*/
+@mixin point_number_input_box {
+  width: 70rem;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin point_number_input_box2 {
+  width: 100%;
+  height: 90rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+/*kiosk point number box 키오스크 포인트 넘버 인풋 박스 영역*/
+@mixin number_box {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin number_font {
+  font: {
+    size: 5rem;
+    weight: bold;
+  }
+  color: rgb(80,80,80);
+}
+
+/*kiosk number input box 키오스크 넘버 인풋 박스 영역*/
+@mixin number_input_box {
+  width: 50rem;
+  height: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5rem;
+  border: 0.5rem solid #AF4444;
+}
+
+@mixin number_input {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: right;
+  font: {
+    size: 5rem;
+  }
+  color: rgb(80,80,80);
+}
+
+/*kiosk point keypad box 키오스크 키패드 박스 영역*/
+@mixin point_keypad_box {
+  width: 50rem;
+  height: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@mixin keypad {
+  width: 16rem;
+  height: 19.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(85,85,85);
+  &:active {
+    background-color: #AF4444;
+  }
+}
+
+@mixin confirm_button {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #AF4444;
+}
+
+/*kiosk pay screen box 키오스크 결제화면 박스 영역*/
+@mixin pay_screen_box {
+  width: 120rem;
+  height: 90rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(230,230,230);
+  border: 0.1rem solid black;
+}
+
+@mixin pay_screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/*kiosk pay box 키오스크 결제 박스 영역*/
+@mixin pay_box2 {
+  width: 90rem;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+/*kiosk card box 키오스크 카드 박스 영역*/
+@mixin card_box {
+  width: 40rem;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+}
+
+/*kiosk card slot 키오스크 카드 슬롯 영역*/
+@mixin card_slot {
+  width: 95%;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10rem;
+  border: 0.5rem solid #AF4444;
+}
+
+/*kiosk card 키오스크 카드 영역*/
+@mixin card {
+  width: 60%;
+  height: 30rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  background-color: rgb(250,250,250);
+  box-shadow: 0rem 0rem 0.3rem 0.3rem rgb(130,130,130);
+}
+
+/*kiosk card font 키오스크 카드 폰트 영역*/
+@mixin card_font {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: {
+    size: 5rem;
+  }
+  color: rgb(80,80,80);
+}
+
+/*kiosk pay list 키오스크 결제 리스트 영역*/
+@mixin pay_list_box {
+  width: 30rem;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+/*kiosk pay list 키오스크 결제 리스트 영역*/
+@mixin pay_list {
+  width: 100%;
+  height: 80rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin pay_list_font {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  color: rgb(80,80,80);
+}
+
+/*kiosk pay list div 키오스크 결제 리스트 박스 영역*/
+@mixin pay_list_data {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+/*kiosk pay list sum 키오스크 결제 리스트 합계 영역*/
+@mixin pay_list_sum {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-end;
+  font: {
+    size: 5rem;
+    weight: bold;
+  }
+  color: rgb(80,80,80);
+}
+
+/*kiosk pay 키오스크 결제하기 영역*/
+@mixin pay2 {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #AF4444;
+  font: {
+    size: 5rem;
+    weight: bold;
+  }
+  color: rgb(250,250,250);
+}
+
+/*kiosk receipt list box 키오스크 영수증 리스트 박스 영역*/
+@mixin receipt_list_box {
+  width: 40rem;
+  height: 50rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 3rem;
+  box-shadow: 0.1rem 0.1rem 0.2rem 0.2rem rgb(180,180,180);
+  background-color: rgb(240,240,240);
+}
+
+@mixin receipt_list_number_box {
+  width: 20rem;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin receipt_list_font {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  flex-flow:  column nowrap;
+  justify-content: center;
+  align-items: center;
+  font: {
+    size: 3rem;
+    weight: bold;
+  }
+  color: rgb(80,80,80);
+}
+
+@mixin receipt_list_number_box {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin receipt_list_number {
+  width: 25rem;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: {
+    size: 1rem;
+    weight: bold;
+  }
+  color: rgb(80,80,80);
+}
+
+@mixin receipt_list_button {
+  width: 25rem;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: {
+    size: 3rem;
+  }
+  color: rgb(80,80,80);
+  cursor: pointer;  
+}
+
+@mixin receipt_close_button {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(100,100,100);
+  font: {
+    size: 5rem;
+    weight: bold;
+  }
+  color: rgb(250,250,250);
+}
+
+/*kiosk point save complete 키오스크 포인트 적립완료 영역*/
+@mixin save_complete_box {
+  width: 50rem;
+  height: 50rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/*kiosk point save img box 키오스크 포인트 적립 이미지 박스 영역*/
+@mixin save_img_box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin save_img {
+  width: 25rem;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  background: {
+    image: url('/img/point_img.png');
+    //image: url('../../build/img/point_img.png');
+    size: contain;
+    repeat: no-repeat;
+    position: 100%;
+  }
+}
+
+/*kiosk point save font 키오스크 포인트 적립 폰트 영역*/
+@mixin save_font {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: {
+    size: 4rem;
+    weight: bold;
+  }
+}
+
+/*kiosk point save main button 키오스크 포인트 적립 메인화면 버튼 영역*/
+@mixin save_main_button {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(50,50,50);
+  font: {
+    size: 5rem;
+    weight: bold;
+  }
+  color: rgb(250,250,250);
+}
+
+/*kiosk intro_page 키오스크 인트로페이지 영역*/
+.intro_page {
+  @include intro_page;
+  cursor: pointer;
+}
+
+/*kiosk main box 키오스크 메인 박스 영역*/
+.main_box {
+  @include main_box;
+  display: none;
+
+  /*kiosk menu choice 키오스크 메뉴 선택 영역*/
+  .menu_choice {
+    @include menu_choice;
+
+    /*kiosk menu header 키오스크 메뉴 헤더 영역*/
+    .menu_header {
+      @include menu_header;
+
+      .menu_header_log {
+        @include menu_header_log;
+      }
+    }
+
+    /*kiosk menu choice2 키오스크 메뉴 선택2 영역*/
+    .menu_choice2 {
+      @include menu_choice;
+      flex-flow: row nowrap;
+
+      /*kiosk menu nav 키오스크 메뉴 메뉴바 영역*/
+      .menu_nav {
+        @include menu_nav;
+
+        li {
+          @include li;
+          cursor: pointer;
+        }
+
+        .nav_famousmenu {
+          background-color: #AF4444;
+        }
+      }
+
+      /*kiosk menu list 키오스크 메뉴 리스트 영역*/
+      .menu_list {
+        @include menu_list;
+
+        /*kiosk famousmenu 키오스크 인기메뉴 영역*/
+        .menu_all_box {
+          @include menu_all_box;
+
+          article {
+            @include menu;
+
+            .menu_img1 {
+              @include menu_img;
+              background-image: url('/img/아메리카노.png');
+              //background-image: url('../../build/img/아메리카노.png');
+            }
+
+            .menu_img2 {
+              @include menu_img;
+              background-image: url('/img/아이스-바닐라라떼.png');
+              //background-image: url('../../build/img/아이스-바닐라라떼.png');
+            }
+
+            .menu_img3 {
+              @include menu_img;
+              background-image: url('/img/아이스-카페라떼.png');
+              //background-image: url('../../build/img/아이스-카페라떼.png');
+            }
+
+            .menu_img4 {
+              @include menu_img;
+              background-image: url('/img/아이스-카페모카.png');
+              //background-image: url('../../build/img/아이스-카페모카.png');
+            }
+
+            .menu_img5 {
+              @include menu_img;
+              background-image: url('/img/아이스-헤이오트라떼.png');
+              //background-image: url('../../build/img/아이스-헤이오트라떼.png');
+            }
+
+            .menu_img6 {
+              @include menu_img;
+              background-image: url('/img/시그니처-크림-커피.png');
+              //background-image: url('../../build/img/시그니처-크림-커피.png');
+            }
+            
+            .menu_name {
+              @include menu_name_prcie;
+              color: rgb(80,80,80);
+            }
+
+            .menu_price{
+              @include menu_name_prcie;
+              color: #BC4444;
+            }
+          }
+        }
+
+        /*kiosk coffe ice 키오스크 커피메뉴 아이스 영역*/
+        .menu_all_box2 {
+          @include menu_all_box;
+
+          /*kiosk coffe ice button 키오스크 커피메뉴 아이스 버튼 영역*/
+          .hot_ice_button_box {
+            @include hot_ice_button_box;
+
+            .hot_ice_button {
+              @include hot_ice_button;
+              display: none;
+  
+              p {
+                @include button_font;
+              }
+            }
+          }
+
+          article {
+            @include menu;
+            margin-bottom: 8rem;
+
+            .menu_img7 {
+              @include menu_img;
+              background-image: url('/img/아메리카노.png');
+              //background-image: url('../../build/img/아메리카노.png');
+            }
+
+            .menu_img8 {
+              @include menu_img;
+              background-image: url('/img/아이스-바닐라라떼.png');
+              //background-image: url('../../build/img/아이스-바닐라라떼.png');
+            }
+
+            .menu_img9 {
+              @include menu_img;
+              background-image: url('/img/아이스-카페라떼.png');
+              //background-image: url('../../build/img/아이스-카페라떼.png');
+            }
+
+            .menu_img10 {
+              @include menu_img;
+              background-image: url('/img/아이스-카페모카.png');
+              //background-image: url('../../build/img/아이스-카페모카.png');
+            }
+
+            .menu_img11 {
+              @include menu_img;
+              background-image: url('/img/아이스-헤이오트라떼.png');
+              //background-image: url('../../build/img/아이스-헤이오트라떼.png');
+            }
+
+            .menu_img12 {
+              @include menu_img;
+              background-image: url('/img/시그니처-크림-커피.png');
+              //background-image: url('../../build/img/시그니처-크림-커피.png');
+            }
+
+            .menu_name {
+              @include menu_name_prcie;
+              color: rgb(80,80,80);
+            }
+
+            .menu_price{
+              @include menu_name_prcie;
+              color: #BC4444;
+            }
+          }
+        }
+
+        /*kiosk coffe hot 키오스크 커피메뉴 핫 영역*/
+        .menu_all_box3 {
+          @include menu_all_box;
+
+          /*kiosk coffe hot button 키오스크 커피메뉴 핫 버튼 영역*/
+          .hot_ice_button_box2 {
+            @include hot_ice_button_box;
+
+            .hot_ice_button2 {
+              @include hot_ice_button;
+              background-color: #AF4444;
+              display: none;
+  
+              p {
+                @include button_font;
+              }
+            }
+          }
+
+          article {
+            @include menu;
+            margin-bottom: 25rem;
+
+            .menu_img13 {
+              @include menu_img;
+              background-image: url('/img/뜨아메리카노.png');
+              //background-image: url('../../build/img/뜨아메리카노.png');
+            }
+
+            .menu_img14 {
+              @include menu_img;
+              background-image: url('/img/뜨카페모카.png');
+              //background-image: url('../../build/img/뜨카페모카.png');
+            }
+
+            .menu_img15 {
+              @include menu_img;
+              background-image: url('/img/뜨카푸치노.png');
+              //background-image: url('../../build/img/뜨카푸치노.png');
+            }
+
+            .menu_name {
+              @include menu_name_prcie;
+              color: rgb(80,80,80);
+            }
+
+            .menu_price{
+              @include menu_name_prcie;
+              color: #BC4444;
+            }
+          }
+        }
+
+        /*kiosk drink 키오스크 음료메뉴 영역*/
+        .menu_all_box4 {
+          @include menu_all_box;
+
+          article {
+            @include menu;
+
+            .menu_img16 {
+              @include menu_img;
+              background-image: url('/img/자색-고구마-라떼.png');
+              //background-image: url('../../build/img/자색-고구마-라떼.png');
+            }
+
+            .menu_img17 {
+              @include menu_img;
+              background-image: url('/img/흑임자-오트-라떼.png');
+              //background-image: url('../../build/img/흑임자-오트-라떼.png');
+            }
+
+            .menu_img18 {
+              @include menu_img;
+              background-image: url('/img/아이스-초콜릿.png');
+              //background-image: url('../../build/img/아이스-초콜릿.png');
+            }
+
+            .menu_img19 {
+              @include menu_img;
+              background-image: url('/img/자몽-스파클링.png');
+              //background-image: url('../../build/img/자몽-스파클링.png');
+            }
+
+            .menu_img20 {
+              @include menu_img;
+              background-image: url('/img/레몬-스파클링.png');
+              //background-image: url('../../build/img/레몬-스파클링.png');
+            }
+
+            .menu_img21 {
+              @include menu_img;
+              background-image: url('/img/청포도-스파클링.png');
+              //background-image: url('../../build/img/청포도-스파클링.png');
+            }
+            
+            .menu_name {
+              @include menu_name_prcie;
+              color: rgb(80,80,80);
+            }
+
+            .menu_price{
+              @include menu_name_prcie;
+              color: #BC4444;
+            }
+          }
+        }
+
+        /*kiosk dessert 키오스크 디저트메뉴 영역*/
+        .menu_all_box5 {
+          @include menu_all_box;
+
+          article {
+            @include menu;
+
+            .menu_img22 {
+              @include menu_img;
+              background-image: url('/img/허니브레드+생크림.png');
+              //background-image: url('../../build/img/허니브레드+생크림.png');
+            }
+
+            .menu_img23 {
+              @include menu_img;
+              background-image: url('/img/플레인-베이글.png');
+              //background-image: url('../../build/img/플레인-베이글.png');
+            }
+
+            .menu_img24 {
+              @include menu_img;
+              background-image: url('/img/에그-타르트.png');
+              //background-image: url('../../build/img/에그-타르트.png');
+            }
+
+            .menu_img25 {
+              @include menu_img;
+              background-image: url('/img/오-마이-초코.png');
+              //background-image: url('../../build/img/오-마이-초코.png');
+            }
+
+            .menu_img26 {
+              @include menu_img;
+              background-image: url('/img/수플레-치즈-케이크.png');
+              //background-image: url('../../build/img/수플레-치즈-케이크.png');
+            }
+
+            .menu_img27 {
+              @include menu_img;
+              background-image: url('/img/더-진한-캐롯-케이크.png');
+              //background-image: url('../../build/img/더-진한-캐롯-케이크.png');
+            }
+            
+            .menu_name {
+              @include menu_name_prcie;
+              color: rgb(80,80,80);
+            }
+
+            .menu_price{
+              @include menu_name_prcie;
+              color: #BC4444;
+            }
+          }
+        }
+
+        /*kiosk buy button model_box 키오스크 결제 버튼 모달창 영역*/
+        .model_box {
+          @include model_box;
+          top: 25rem;
+          left: 65rem;
+          display: none;
+
+          .model_font {
+            @include model_font;
+          }
+
+          .model_close_button {
+            @include model_close_button;
+            cursor: pointer;
+          }
+        }
+      }
+
+      /*kiosk shopping cart box 키오스크 메뉴 장바구니 박스 영역*/
+      .shopping_cart {
+        @include shopping_cart;
+
+        /*kiosk shopping cart xeicon 키오스크 장바구니 아이콘 영역*/
+        .trash_button {
+          @include trash_button;
+
+          i {
+            @include xi-trash_xeicon;
+            cursor: pointer;
+          }
+        }
+
+        /*kiosk shopping cart order list box 키오스크 장바구니 주문리스트 박스 영역*/
+        .order_list {
+          @include order_list;
+
+          /*kiosk shopping cart order list 키오스크 장바구니 주문리스트 영역*/
+          .order_list_data {
+            @include order_list_data;
+
+            div {
+              @include order_menu_list;
+
+              span {
+                @include order_menu_font;
+              }
+
+              button {
+                @include order_menu_button;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+
+        /*kiosk shopping cart sum value 키오스크 장바구니 주문합계 영역*/
+        .sum_value {
+          @include sum_value;
+        }
+
+        /*kiosk shopping cart buy button 키오스크 장바구니 구매버튼 영역*/
+        .buy_button {
+          @include buy_button;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+/*kiosk menu extra orders list box 키오스크 추가메뉴 리스트 박스 영역*/
+.extra_order_list_box {
+  @include main_box;
+  display: none;
+
+  .extra_orders_list {
+    @include menu_choice;
+  
+    /*kiosk menu extra orders choice 키오스크 추가메뉴 선택 영역*/
+    .select_menu_box {
+      @include select_menu_box;
+
+      /*kiosk menu extra orders choice xeicon back 키오스크 추가메뉴 리스트 선택 아이콘 백 영역*/
+      .xi-arrow-left-button {
+        @include xi-arrow-left_button;
+
+        .xi-arrow-left {
+          @include xi-arrow-left_xeicon;
+          color: rgb(80,80,80);
+          cursor: pointer;
+        }
+      }
+
+      /*kiosk menu extra orders choice img 키오스크 추가메뉴 선택 이미지 영역*/
+      .select_menu_img_box {
+        @include select_menu_img_box;
+
+        /*kiosk menu extra orders choice img 키오스크 추가메뉴 선택 이미지 영역*/
+        .select_menu_img {
+          @include select_menu_img;
+        }
+
+        /*kiosk menu extra orders choice name 키오스크 추가메뉴 선택 메뉴명 영역*/
+        .select_menu_img_name {
+          @include select_menu_img_name;
+        }
+      }
+
+      /*kiosk menu extra orders information 키오스크 추가메뉴 정보 박스 영역*/
+      .select_menu_info_box {
+        @include select_menu_info_box;
+
+        .select_menu_info_seolmyeong {
+          @include select_menu_info_seolmyeong;
+
+          .select_menu_info_seolmyeong_font {
+            @include select_menu_info_seolmyeong_font;
+          }
+        }
+
+        /*kiosk menu extra orders select box 키오스크 추가메뉴 선택 박스 영역*/
+        .select_menu_info_box2 {
+          @include select_menu_info_box2;
+          display: none;
+
+          .menu_select_box {
+            @include menu_select_box;
+
+            .select_box {
+              @include select_box;
+            }
+
+            .store_box {
+              @include extra_select_menu_box;
+            }
+
+            .packaging_box {
+              @include extra_select_menu_box;
+            }
+          }
+
+          .menu_select_box2 {
+            @include menu_select_box;
+
+            .select_box2 {
+              @include select_box;
+            }
+
+            .generally_box {
+              @include extra_select_menu_box;
+            }
+
+            .aplenty_box {
+              @include extra_select_menu_box;
+            }
+          }
+
+          .menu_select_box3 {
+            @include menu_select_box;
+
+            .select_box3 {
+              @include select_box;
+            }
+
+            .shot_box2 {
+              @include extra_select_menu_box;
+            }
+
+            .shot_box3 {
+              @include extra_select_menu_box;
+            }
+          }
+        }
+
+        /*kiosk menu extra orders select hot box2 키오스크 추가메뉴 선택 hot 박스 영역2*/
+        .select_menu_info_box3 {
+          @include select_menu_info_box2;
+          display: none;
+
+          .menu_select_box4 {
+            @include menu_select_box;
+
+            .select_box4 {
+              @include select_box;
+            }
+
+            .store_box2 {
+              @include extra_select_menu_box;
+            }
+
+            .packaging_box2 {
+              @include extra_select_menu_box;
+            }
+          }
+
+          .menu_select_box5 {
+            @include menu_select_box;
+
+            .select_box5 {
+              @include select_box;
+            }
+
+            .shot_box4 {
+              @include extra_select_menu_box;
+            }
+
+            .shot_box5 {
+              @include extra_select_menu_box;
+            }
+          }
+        }
+
+        /*kiosk menu extra orders select drink box3 키오스크 추가메뉴 선택 drink 박스 영역3*/
+        .select_menu_info_box4 {
+          @include select_menu_info_box2;
+          display: none;
+
+          .menu_select_box6 {
+            @include menu_select_box;
+
+            .select_box6 {
+              @include select_box;
+            }
+
+            .store_box3 {
+              @include extra_select_menu_box;
+            }
+
+            .packaging_box3 {
+              @include extra_select_menu_box;
+            }
+          }
+
+          .menu_select_box7 {
+            @include menu_select_box;
+
+            .select_box7 {
+              @include select_box;
+            }
+
+            .hotice_box {
+              @include extra_select_menu_box;
+            }
+
+            .hotice_box2 {
+              @include extra_select_menu_box;
+            }
+          }
+        }
+
+        /*kiosk menu extra orders select dessert box4 키오스크 추가메뉴 선택 dessert 박스 영역4*/
+        .select_menu_info_box5 {
+          @include select_menu_info_box2;
+          display: none;
+
+          .menu_select_box8 {
+            @include menu_select_box;
+
+            .select_box8 {
+              @include select_box;
+            }
+
+            .store_box4 {
+              @include extra_select_menu_box;
+            }
+
+            .packaging_box4 {
+              @include extra_select_menu_box;
+            }
+          }
+        }
+      }
+    }
+    /*kiosk menu extra next box 키오스크 추가메뉴 다음 박스 영역*/
+    .extra_order_next_box {
+      @include extra_order_next_box;
+      cursor: pointer;
+    }
+  }
+}
+
+/*kiosk point signup & pay 키오스크 포인트 간단가입&사용하기&결제하기 박스 영역*/
+.point_signup_pay_box {
+  @include main_box;
+  display: none;
+
+  .point_signup_pay {
+    @include menu_choice;
+    flex-flow: row wrap;
+
+    /*kiosk point signup box 키오스크 포인트 간단가입 박스 영역*/
+    .point_signup_box {
+      @include point_signup_box;
+
+      /*kiosk point_signup pay xeicon back 키오스크 포인트 간단가입 페이 아이콘 빽 영역*/
+      .xi-arrow-left_button {
+        @include xi-arrow-left_button;
+        margin-top: 2rem;
+
+        i {
+          @include xi-arrow-left_xeicon;
+          cursor: pointer;
+        }
+      }
+
+      /*kiosk point signup box2 키오스크 포인트 간단가입 박스2 영역*/
+      .point_signup_box2 {
+        @include point_signup_box2;
+
+        /*kiosk point box 키오스크 포인트 박스 영역*/
+        .point_signup_box3 {
+          @include point_signup_box3;
+
+          .point_box { 
+            @include point_box;
+
+            .point_font {
+              @include point_font;
+            }
+          }
+
+          /*kiosk signup box 키오스크 간단가입 박스 영역*/
+          .signup_box {
+            @include signup_use_box;
+            cursor: pointer;
+            margin: 4rem;
+
+            .signup_font {
+              @include signup_use_font;
+            }
+          }
+
+          /*kiosk use box 키오스크 사용하기 박스 영역*/
+          .use_box {
+            @include signup_use_box;
+            cursor: pointer;
+
+            .use_font {
+              @include signup_use_font;
+            }
+          }
+        }
+      }
+    }
+
+    /*kiosk pay box 키오스크 결제하기 박스 영역*/
+    .pay_box {
+      @include pay_box;
+
+      /*kiosk pay box2 키오스크 결제하기 박스2 영역*/
+      .pay_box2 {
+        @include point_signup_box2;
+
+        /*kiosk pay img box 키오스크 결제하기 이미지 박스 영역*/
+        .pay_img_box {
+          @include pay_img_box;
+          margin: 4rem;
+
+          .pay_img {
+            @include pay_img;
+            cursor: pointer;
+          }
+        }
+
+        /*kiosk pay button 키오스크 결제하기 버튼 영역*/
+        .pay {
+          @include pay;
+          cursor: pointer;
+
+          .pay_font {
+            @include pay_font;
+          }
+        }
+      }
+    }
+  }
+}
+
+/*kiosk point signup number 키오스크 포인트 간단가입 넘버 박스 영역*/
+.point_signup_number_box {
+  @include main_box;
+  display: none;
+  background-color: rgb(230,230,230);
+
+  .point_signup_number {
+    @include menu_choice;
+
+    /*kiosk number form 키오스크 포인트 넘버 폼 영역*/
+    .point_number_form {
+      @include menu_choice;
+      flex-flow: column wrap;
+      justify-content: center;
+
+      /*kiosk point signup number input box 키오스크 포인트 간단가입 넘버 인풋 박스 영역*/
+      .point_number_input_box {
+        @include point_number_input_box;
+
+        /*kiosk point signum number xeicon back 키오스크 포인트 간단가입 넘버 아이콘 빽 영역*/
+        .xi-arrow-left_button {
+          @include xi-arrow-left_button;
+          margin-top: 2rem;
+
+          i {
+            @include xi-arrow-left_xeicon;
+            cursor: pointer;
+            color: rgb(80,80,80);
+          }
+        }
+
+        /*kiosk number box 키오스크 넘버 박스 영역*/
+        .point_number_input_box2 {
+          @include point_number_input_box2;
+
+          .number_box {
+            @include number_box;
+            margin: 3rem;
+  
+            .number_font {
+              @include number_font;
+            }
+          }
+        }
+
+        /*kiosk number input box 키오스크 넘버 인풋 박스 영역*/
+        .number_input_box {
+          @include number_input_box;
+
+          .number_input {
+            @include number_input;
+          }
+        }
+      }
+
+      /*kiosk point keypad box 키오스크 키패드 박스 영역*/
+      .point_keypad_box {
+        @include point_keypad_box;
+
+        article {
+          @include keypad;
+          cursor: pointer;
+
+          input {
+            display: none;
+          }
+
+          p {
+            font: {
+              size: 4rem;
+              weight: bold;
+            }
+            color: rgb(250,250,250);
+          }
+        }
+
+        .confirm_button {
+          @include confirm_button;
+
+          div {
+            font: {
+              size: 5rem;
+              weight: bold;
+            }
+            color: rgb(250,250,250);
+          }
+        }
+      }
+    }
+  }
+}
+
+/*kiosk point inquire number box 키오스크 포인트 조회하기 넘버 박스 영역*/
+.point_inquire_number_box {
+  @include main_box;
+  display: none;
+  background-color: rgb(230,230,230);
+
+  .point_inquire_number {
+    @include menu_choice;
+
+    /*kiosk number inquire form 키오스크 넘보 조회하기 폼 영역*/
+    .point_inquire_form {
+      @include menu_choice;
+      flex-flow: column wrap;
+      justify-content: center;
+
+      /*kiosk number inquire input box 키오스크 넘버 조회하기 인풋 박스 영역*/
+      .point_inquire_number_input_box {
+        @include point_number_input_box;
+
+        /*kiosk point inquire number back xeicon 키오스크 포인트 조회하기 넘버 아이콘 빽 영빽*/
+        .xi-arrow-left_button {
+          @include xi-arrow-left_button;
+          margin-top: 2rem;
+
+          i {
+            @include xi-arrow-left_xeicon;
+            cursor: pointer;
+            color: rgb(80,80,80);
+          }
+        }
+
+        /*kiosk number inquire box 키오스크 넘버 조회하기 박스 영역-*/
+        .point_inquire_number_input_box2 {
+          @include point_number_input_box2;
+
+          .number_inquire_box {
+            @include number_box;
+            margin: 3rem;
+  
+            .number_inquire_font {
+              @include number_font;
+            }
+          }
+        }
+        
+
+        /*kiosk number input inquire box 키오스크 넘버 조회하기 인풋 박스 영역*/
+        .number_inquire_input_box {
+          @include number_input_box;
+
+          .number_input {
+            @include number_input;
+          }
+        }
+      }
+
+      /*kiosk point keypad box 키오스크 키패드 박스 영역*/
+      .point_keypad_box2 {
+        @include point_keypad_box;
+
+        article {
+          @include keypad;
+          cursor: pointer;
+
+          input {
+            display: none;
+          }
+
+          p {
+            font: {
+              size: 4rem;
+              weight: bold;
+            }
+            color: rgb(250,250,250);
+          }
+        }
+
+        .inquire_button {
+          @include confirm_button;
+
+          div {
+            font: {
+              size: 5rem;
+              weight: bold;
+            }
+            color: rgb(250,250,250);
+          }
+        }
+      }
+    }
+  }
+}
+
+/*kiosk point remaining box 키오스크 잔여포인트 박스 영역*/
+.point_remaining_box {
+  @include main_box;
+  display: none;
+  background-color: rgb(250,250,250);
+
+  .point_remaining {
+    @include menu_choice;
+
+    /*kiosk number remaining form 키오스크 넘버 잔여포인트 폼 영역*/
+    .point_remaining_form {
+      @include menu_choice;
+      flex-flow: column wrap;
+      justify-content: center;
+
+      /*kiosk number remaining input box 키오스크 넘버 잔여포인트 인풋 박스 영역*/
+      .point_remaining_number_input_box {
+        @include point_number_input_box;
+
+        /*kiosk point remaining back xeicon 키오스크 포인트 잔여포인트 아이콘 빽 영빽*/
+        .xi-arrow-left_button {
+          @include xi-arrow-left_button;
+          margin-top: 2rem;
+
+          i {
+            @include xi-arrow-left_xeicon;
+            cursor: pointer;
+            color: rgb(80,80,80);
+          }
+        }
+
+        /*kiosk point remaining box 키오스크 잔여포인트 조회하기 박스 영역-*/
+        .point_remaining_number_input_box2 {
+          @include point_number_input_box2;
+
+          .remaining_box {
+            width: 100%;
+            height: 15rem;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            margin: 5rem;
+  
+            .point_remaining_font {
+              @include number_font;
+            }
+  
+            .point_remaining_font2 {
+              @include number_font;
+            }
+          }
+        }
+        
+
+        /*kiosk point input remaining box 키오스크 잔여폰인트 인풋 박스 영역*/
+        .point_remaining_input_box {
+          @include number_input_box;
+
+          .number_input {
+            @include number_input;
+          }
+        }
+      }
+
+      /*kiosk point keypad box 키오스크 키패드 박스 영역*/
+      .point_keypad_box3 {
+        @include point_keypad_box;
+
+        article {
+          @include keypad;
+          cursor: pointer;
+
+          input {
+            display: none;
+          }
+
+          p {
+            font: {
+              size: 4rem;
+              weight: bold;
+            }
+            color: rgb(250,250,250);
+          }
+        }
+
+        .pointuse_button {
+          @include confirm_button;
+
+          div {
+            font: {
+              size: 5rem;
+              weight: bold;
+            }
+            color: rgb(250,250,250);
+          }
+        }
+      }
+    }
+  }
+}
+
+/*kiosk pay screen box 키오스크 결제화면 박스 영역*/
+.pay_screen_box {
+  @include pay_screen_box;
+  display: none;
+  
+  .pay_screen {
+    @include pay_screen;
+
+    /*kiosk pay box 키오스크 결제 박스 영역*/
+    .pay_box3 {
+      @include pay_box2;
+
+      /*kiosk pay xeicon back 키오스크 결제하기 아이콘 빽 영역*/
+      .xi-arrow-left_button {
+        @include xi-arrow-left_button;
+        margin-top: 2rem;
+
+        i {
+          @include xi-arrow-left_xeicon;
+          cursor: pointer;
+          color: #AF4444;
+        }
+      }
+
+      /*kiosk card box 키오스크 카드 박스 영역*/
+      .card_box {
+        @include card_box;
+
+        /*kiosk card slot 키오스크 카드 슬롯 영역*/
+        .card_slot {
+          @include card_slot;
+          margin: 4rem;
+        }
+
+        /*kiosk card 키오스크 카드 영역*/
+        .card {
+          @include card;
+        }
+
+        /*kiosk card font 키오스크 카드 폰트 영역*/
+        .card_font {
+          @include card_font;
+          margin: 4rem;
+        }
+      }
+    }
+
+    /*kiosk pay list 키오스크 결제 리스트 영역*/
+    .pay_list_box {
+      @include pay_list_box;
+
+      /*kiosk pay list 키오스크 결제 리스트 영역*/
+      .pay_list {
+        @include pay_list;
+
+        .pay_list_font {
+          @include pay_list_font;
+
+          div {
+            @include pay_list_data;
+
+            span {
+              font-size: 1.8rem;
+              color: rgb(80,80,80);
+            }
+          }
+        }
+
+        /*kiosk pay list sum 키오스크 결제 리스트 합계 영역*/
+        .pay_list_sum {
+          @include pay_list_sum;
+        }
+      }
+
+      /*kiosk pay 키오스크 결제하기 영역*/
+      .pay2 {
+        @include pay2;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+/*kiosk receipt box 키오스크 영수증 박스 영역*/
+.receipt_box {
+  @include main_box;
+  display: none;
+
+  .receipt {
+    @include menu_choice;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /*kiosk receipt list box 키오스크 영수증 리스트 박스 영역*/
+    .receipt_list_box {
+      @include receipt_list_box;
+      margin-top: 13rem;
+
+      .receipt_list_number_box {
+        @include receipt_list_number_box;
+
+        .receipt_list_number {
+          @include receipt_list_font;
+        }
+
+        .receipt_list_number2 {
+          @include receipt_list_font;
+        }
+      }
+
+      .receipt_list_price {
+        @include receipt_list_font;
+      }
+
+      .receipt_list_menuname {
+        @include receipt_list_font;
+        height: 20rem;
+
+        span {
+          font-size: 2rem;
+        }
+      }
+
+      /*kiosk receipt list button box 키오스크 영수증 리스트 버튼 박스 영역*/
+      .receipt_list_button_box {
+        @include receipt_list_font;
+        flex-flow: row nowrap;
+        background-color: rgb(200,200,200);
+
+        .receipt_list_button {
+          @include receipt_list_button;
+          border-right: 0.2rem solid rgb(250,250,250);
+        }
+
+        .receipt_list_button2 {
+          @include receipt_list_button;
+        }
+      }
+    }
+
+    /*kiosk receipt list close button box 키오스크 영수증 리스트 닫기 버튼 박스 영역*/
+    .receipt_close_button_box {
+      @include receipt_close_button;
+      cursor: pointer;
+    }
+  }
+}
+
+/*kiosk point save box 키오스트 포인트 적립 박스 영역*/
+.point_save_box {
+  @include main_box;
+  display: none;
+  background-color: rgb(210,210,210);
+  
+  .point_save {
+    @include menu_choice;
+
+    /*kiosk point save form 키오스크 포인트 적립 폼 영역*/
+    .point_save_form {
+      @include menu_choice;
+      flex-flow: row nowrap;
+
+      /*kiosk point save input box 키오스크 포인트 적립 인풋 박스 영역*/
+      .point_save_number_input_box {
+        @include point_number_input_box;
+
+        /*kiosk point save box 키오스크 포인트 적립 박스 영역-*/
+        .point_save_number_input_box2 {
+          @include point_number_input_box2;
+
+          .save_box {
+            @include number_box;
+            margin: 3rem;
+  
+            .point_save_font {
+              @include number_font;
+            }
+          }
+        }
+
+        /*kiosk point save input box 키오스크 포인트 적립 인풋 박스 영역*/
+        .point_save_input_box {
+          @include number_input_box;
+
+          .number_input {
+            @include number_input;
+          }
+        }
+      }
+
+      /*kiosk point keypad box 키오스크 포인트 적립 키패드 박스 영역*/
+      .point_keypad_box4 {
+        @include point_keypad_box;
+
+        article {
+          @include keypad;
+          cursor: pointer;
+
+          input {
+            display: none;
+          }
+
+          p {
+            font: {
+              size: 4rem;
+              weight: bold;
+            }
+            color: rgb(250,250,250);
+          }
+        }
+
+        .pointsave_button {
+          @include confirm_button;
+
+          div {
+            font: {
+              size: 5rem;
+              weight: bold;
+            }
+            color: rgb(250,250,250);
+          }
+        }
+      }
+    }
+  }
+}
+
+/*kiosk point save complete box 키오스크 포인트 적립완료 박스 영역*/
+.point_save_complete_box {
+  @include main_box;
+  display: none;
+
+  .point_save_complete {
+    @include menu_choice;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /*kiosk point save complete 키오스크 포인트 적립완료 영역*/
+    .save_complete_box {
+      @include save_complete_box;
+      margin-top: 15rem;
+
+      /*kiosk point save img box 키오스크 포인트 적립 이미지 박스 영역*/
+      .save_img_box {
+        @include save_img_box;
+
+        .save_img {
+          @include save_img;
+        }
+      }
+
+      /*kiosk point save font 키오스크 포인트 적립 폰트 영역*/
+      .save_font_box {
+        @include save_img_box;
+
+        .save_font {
+          @include save_font;
+          color: #BC4444;
+          justify-content: flex-end;
+        }
+
+        .save_font2 {
+          @include save_font;
+          font: {
+            size: 2.5rem
+          }
+          color: rgb(80,80,80);
+          justify-content: flex-start;
+        }
+      }
+    }
+
+    /*kiosk point save main button 키오스크 포인트 적립 메인화면 버튼 영역*/
+    .save_main_button {
+      @include save_main_button;
+      cursor: pointer;
+    }
+  }
+}
+
+footer {
+  width: 120rem;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .footer_font {
+    font: {
+      size: 2rem;
+      weight: bold;
+    }
+    color: rgb(80,80,80);
+  }
+}

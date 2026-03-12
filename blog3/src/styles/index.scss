@@ -1,0 +1,111 @@
+@use "sass:color";
+
+// 색상
+$primary-color: #2563EB; // 포인트 블루
+$dark-gray: #111827; // 다크 그레이
+$light-gray: #F9FAFB; // 밝은 회색 배경
+$white: #FFFFFF;
+$text-primary: #1F2937;
+$text-secondary: #4B5563;
+
+// 글꼴
+$font-primary: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+$font-secondary: "Inter", sans-serif;
+
+:root {
+  font-family: $font-primary;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: $text-primary;
+  background-color: $light-gray;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+a {
+  font-weight: 500;
+  color: $primary-color;
+  text-decoration: inherit;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: color.scale($primary-color, $lightness: 20%);
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $dark-gray;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+ul {
+  list-style: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* 고정 네브바의 높이(약 60px)만큼만 스크롤 위치를 보정 */
+  scroll-padding-top: 60px;
+}
+
+section {
+  /* 상단 패딩을 줄여 제목이 더 위쪽에 보이도록 조정 */
+  padding: 40px 20px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  display: inline-block;
+  font-family: $font-primary;
+
+  &-primary {
+    background-color: $primary-color;
+    color: $white;
+
+    &:hover {
+      background-color: color.scale($primary-color, $lightness: -10%);
+      transform: translateY(-2px);
+    }
+  }
+
+  &-outline {
+    background-color: transparent;
+    border: 2px solid $primary-color;
+    color: $primary-color;
+
+    &:hover {
+      background-color: $primary-color;
+      color: $white;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 60px 16px;
+  }
+}
