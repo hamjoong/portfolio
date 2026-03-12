@@ -30,14 +30,14 @@ export default function LoginPage() {
     setError(null);
 
     try {
-      const response = await authService.login(formData);
-      if (response.success && response.data) {
+      const loginData = await authService.login(formData);
+      if (loginData) {
         // [수정] Zustand 스토어의 login 메서드 호출 (상태 업데이트)
-        loginStore.login("USER_ID", formData.email, response.data);
+        loginStore.login(loginData.userId || "USER_ID", formData.email, loginData);
         router.push('/');
       }
     } catch (err: any) {
-      setError(err.response?.data?.message || '로그인 중 오류가 발생했습니다.');
+      setError(err.response?.data?.message || '로그인에 실패했습니다.');
     } finally {
       setIsLoading(false);
     }
