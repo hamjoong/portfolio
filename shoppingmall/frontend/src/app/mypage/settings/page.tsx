@@ -95,19 +95,18 @@ export default function SettingsPage() {
 
           <form onSubmit={handleSubmit} className="space-y-8">
             <div className="space-y-6">
-              <div className="relative">
+              <div className="relative opacity-60">
                 <Input 
-                  label="이름" 
-                  placeholder="성함을 입력하세요"
+                  label="이름 (수정 불가)" 
                   value={formData.fullName}
-                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  error={errors.fullName}
+                  readOnly
+                  className="bg-gray-50 cursor-not-allowed"
                   icon={<User size={18} className="text-gray-400" />}
                 />
               </div>
 
               <Input 
-                label="연락처" 
+                label="연락처 수정" 
                 placeholder="숫자만 입력"
                 value={formData.phoneNumber}
                 onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value.replace(/[^0-9]/g, '') })}
@@ -116,7 +115,8 @@ export default function SettingsPage() {
                 maxLength={11}
               />
 
-              <div className="space-y-4">
+              <div className="space-y-4 pt-4 border-t border-gray-50">
+                <h3 className="text-sm font-black text-gray-900 uppercase tracking-widest mb-2">기본 배송지 주소 설정</h3>
                 <Input 
                   label="주소" 
                   placeholder="도로명 주소를 입력하세요"
