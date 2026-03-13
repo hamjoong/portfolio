@@ -31,6 +31,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: blog3/dist
-          target-folder: blog3 # portfolio/blog3 경로에 배포되도록 설정
+          target-folder: blog3 # https://hamjoong.github.io/portfolio/blog3/ 에 해당
           branch: gh-pages
-          clean: true
+          commit-message: "deploy: update blog3 with latest project changes"
+          clean: true # 이전 파일을 깨끗이 지우고 새로 배포합니다.
