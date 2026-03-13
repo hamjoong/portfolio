@@ -65,6 +65,15 @@ const ProjectCard: React.FC<ProjectProps> = ({ title, period, description, stack
 const Projects: React.FC = () => {
   const projects: ProjectProps[] = [
       {
+      title: 'shopping mall',
+      period: '2026.03 - 2026.03',
+      description: '복잡한 이커머스 시스템을 현대적 아키텍처로 재해석한 풀스택 프로젝트입니다. 안정적인 인증 시스템과 고성능 상품 검색에 중점을 두었습니다.',
+      stack: ['Next.js', 'Spring Boot', 'TypeScript', 'PostgreSQL(Supabase)', 'Docker', 'Vercel', 'Render'],
+      problem: '대규모 트래픽 상황에서의 보안 취약점과 복잡한 의존성 구조로 인한 유지보수 저하 및 런타임 초기화 에러 발생.',
+      solution: 'Spring Security와 JWT를 통한 무상태 인증을 구현하고, AWS SDK 클라이언트의 지연 초기화 전략 및 환경별 프로필 분리를 통해 시스템 안정성을 80% 이상 향상.',
+      links: { demo: 'https://shoppingmall-tau-azure.vercel.app/'}, 
+    },
+      {
       title: 'Milk Tycoon',
       period: '2026.03 - 2026.03',
       description: 'Milk Tycoon은 추억의 게임을 현대적으로 재해석한 게임으로 사용자에게 향수를 불러일으키는 동시에 새로운 재미를 제공하는 게임입니다.',
