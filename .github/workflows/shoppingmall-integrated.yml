@@ -25,11 +25,11 @@ jobs:
         cd shoppingmall/backend
         ./mvnw clean package -DskipTests -Dmaven.test.skip=true
 
-    # 2. Render 배포 트리거 (이제 실제 주소로 배포 신호를 보냅니다)
+    # 2. Render 배포 트리거 (새로 발급받은 Render Deploy Hook URL을 여기에 입력하세요)
     - name: Trigger Render Deployment
       run: |
         echo "Sending deployment signal to Render..."
-        curl -X POST https://api.render.com/deploy/srv-d6pr7l2a214c73earr9g?key=JOCKRAFCEwQ
+        curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
 
     # 3. 배포 확인 로그
     - name: Confirm Status
