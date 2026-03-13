@@ -66,7 +66,7 @@ const Projects: React.FC = () => {
   const projects: ProjectProps[] = [
       {
       title: 'shopping mall',
-      period: '2026.03 - 2026.03',
+      period: '2026.03 - 2026.03hamjoong',
       description: '복잡한 이커머스 시스템을 현대적 아키텍처로 재해석한 풀스택 프로젝트입니다. 안정적인 인증 시스템과 고성능 상품 검색에 중점을 두었습니다.',
       stack: ['Next.js', 'Spring Boot', 'TypeScript', 'PostgreSQL(Supabase)', 'Docker', 'Vercel', 'Render'],
       problem: '대규모 트래픽 상황에서의 보안 취약점과 복잡한 의존성 구조로 인한 유지보수 저하 및 런타임 초기화 에러 발생.',
