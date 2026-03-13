@@ -46,4 +46,12 @@ jobs:
     - name: Build JAR (Already Built)
       run: echo "JAR already built in previous step"
 
-    # [참고] 이후 Render나 AWS 배포 스크립트를 여기에 추가할 수 있습니다.
+    # Render 배포를 트리거합니다. 
+    # [참고] Render의 'Deploy Hook' URL을 사용하면 CI 성공 시 자동으로 배포가 시작됩니다.
+    - name: Deploy to Render
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      run: |
+        echo "Triggering Render deployment..."
+        # RENDER_DEPLOY_HOOK_URL이 등록되어 있다면 호출합니다.
+        # curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" || echo "Deploy hook URL not set"
+
