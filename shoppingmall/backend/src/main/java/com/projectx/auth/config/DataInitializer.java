@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@Profile("!prod") // prod 프로필이 아닐 때만 실행되도록 변경
 public class DataInitializer implements CommandLineRunner {
 
     private final ProductRepository productRepository;
