@@ -29,16 +29,23 @@ jobs:
           cd blog3
           npm install
           npm run build
-          # 빌드 결과물이 잘 생성되었는지 확인 (디버깅용)
-          ls -R dist
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: blog3/dist
-          target-folder: blog3
-          branch: gh-pages
-          clean: false # 다른 폴더(milktycoon 등)를 지우지 않기 위해 false로 설정
-          single-commit: true # 히스토리를 쌓지 않고 매번 최신으로 덮어씁니다.
-          git-config-name: "hamjoong"
-          git-config-email: "hamjoong@gmail.com"
+      - name: Deploy with Force Push
+        run: |
+          # 1. 임시 배포 폴더 설정
+          mkdir -p deploy/blog3
+          cp -r blog3/dist/* deploy/blog3/
+          
+          # 2. Git 설정 및 gh-pages 브랜치 체크아웃
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          
+          # 3. gh-pages 브랜치의 특정 폴더만 강제 업데이트
+          # (새로운 저장소를 만들어 gh-pages 브랜치로 강제 푸시하는 정석적인 방법)
+          cd deploy
+          git init
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git checkout -b gh-pages
+          git add .
+          git commit -m "deploy: force update blog3 content"
+          git push -f origin gh-pages
