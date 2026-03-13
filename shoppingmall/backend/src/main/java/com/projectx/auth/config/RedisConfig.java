@@ -41,4 +41,14 @@ public class RedisConfig {
         
         return template;
     }
+
+    /**
+     * 캐시 매니저를 설정합니다.
+     * [성능 최적화] Redis가 없는 환경에서도 어플리케이션이 구동될 수 있도록 
+     * 로컬 메모리 기반의 CacheManager를 기본값으로 제공합니다.
+     */
+    @Bean
+    public org.springframework.cache.CacheManager cacheManager() {
+        return new org.springframework.cache.concurrent.ConcurrentMapCacheManager("products", "categories");
+    }
 }
