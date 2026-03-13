@@ -1,0 +1,36 @@
+name: Deploy Blog3 to GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'blog3/**'  # blog3 폴더 내의 파일이 변경될 때만 실행됩니다!
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: blog3/package-lock.json
+
+      - name: Install and Build
+        run: |
+          cd blog3
+          npm install
+          npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: blog3/dist
+          target-folder: blog3 # portfolio/blog3 경로에 배포되도록 설정
+          branch: gh-pages
+          clean: true
