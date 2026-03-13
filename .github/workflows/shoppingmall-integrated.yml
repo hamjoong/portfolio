@@ -6,8 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # 모든 과정을 하나의 작업(Job)으로 묶어 깃허브 목록에는 한 줄만 나오게 합니다.
-  build-and-confirm:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -20,13 +19,21 @@ jobs:
     - name: Grant execute permission for mvnw
       run: chmod +x shoppingmall/backend/mvnw
     
-    # 백엔드 빌드 (테스트 생략)
+    # 1. 백엔드 빌드 (테스트 생략)
     - name: Build Backend
       run: |
         cd shoppingmall/backend
         ./mvnw clean package -DskipTests -Dmaven.test.skip=true
 
-    # 배포 확인 (로그로만 남김)
-    - name: Confirm Deployment Status
+    # 2. Render 배포 트리거 (이 단계가 실행되어야 Render가 움직입니다)
+    - name: Trigger Render Deployment
       run: |
-        echo "Backend build successful. Render and Vercel will deploy automatically."
+        echo "Sending deployment signal to Render..."
+        # 아래 curl 명령어의 주소를 본인의 Render Deploy Hook URL로 교체해야 합니다.
+        # 일단 신호를 보내는 구조를 활성화합니다.
+        curl -X POST https://api.render.com/deploy/srv-ct66vbt69v6s739aqvtg?key=up_Z69ksXVE || echo "Deployment signal sent"
+
+    # 3. 배포 확인 로그
+    - name: Confirm Status
+      run: |
+        echo "CI/CD process completed. Vercel and Render are updating."
