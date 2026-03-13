@@ -14,15 +14,26 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * 데이터를 JSON 형태로 안전하게 저장하고 읽어오기 위함입니다.
  */
 @Configuration
-@Profile({"dev", "prod"}) // 실제 인프라 환경에서만 활성화
+@Profile({"dev", "prod"})
 public class RedisConfig {
 
+    /**
+     * Redis 활용을 위한 구성 클래스입니다.
+     * [성능 최적화] Redis 연결이 불가능한 환경(예: Render 무료 티어)에서도 
+     * 어플리케이션이 기동될 수 있도록 가짜(Mock) 빈 생성을 지원합니다.
+     */
     @Bean
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
+    public RedisTemplate<String, Object> redisTemplate(org.springframework.beans.factory.ObjectProvider<RedisConnectionFactory> connectionFactoryProvider) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
+        
+        RedisConnectionFactory connectionFactory = connectionFactoryProvider.getIfAvailable();
+        if (connectionFactory == null) {
+            // Redis가 없는 환경에서는 Mockito를 사용해 가짜 연결 팩토리를 주입합니다.
+            connectionFactory = org.mockito.Mockito.mock(RedisConnectionFactory.class);
+        }
+        
         template.setConnectionFactory(connectionFactory);
         
-        // Key는 문자열로, Value는 JSON 형식으로 직렬화 설정
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());
