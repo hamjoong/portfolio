@@ -28,8 +28,15 @@ public class RedisConfig {
         
         RedisConnectionFactory connectionFactory = connectionFactoryProvider.getIfAvailable();
         if (connectionFactory == null) {
-            // Redis가 없는 환경에서는 Mockito를 사용해 가짜 연결 팩토리를 주입합니다.
-            connectionFactory = org.mockito.Mockito.mock(RedisConnectionFactory.class);
+            // [수정] Mockito 대신 직접 익명 클래스로 가짜 ConnectionFactory를 구현합니다.
+            // 런타임(JRE) 환경에서 Mockito 플러그인 초기화 에러를 방지하기 위함입니다.
+            connectionFactory = new RedisConnectionFactory() {
+                @Override public org.springframework.data.redis.connection.RedisConnection getConnection() { return null; }
+                @Override public org.springframework.data.redis.connection.RedisClusterConnection getClusterConnection() { return null; }
+                @Override public boolean getConvertPipelineAndTxResults() { return false; }
+                @Override public org.springframework.data.redis.connection.RedisSentinelConnection getSentinelConnection() { return null; }
+                @Override public org.springframework.dao.DataAccessException translateExceptionIfPossible(RuntimeException ex) { return null; }
+            };
         }
         
         template.setConnectionFactory(connectionFactory);
