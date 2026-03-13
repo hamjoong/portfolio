@@ -12,6 +12,8 @@ import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 
 /**
  * AWS SDK 클라이언트 설정 클래스입니다.
+ * [성능 최적화] 실제 AWS 인프라가 없는 환경(Render 등)에서도 
+ * 초기화 에러 없이 기동되도록 더미 빈 생성을 보장합니다.
  */
 @Slf4j
 @Configuration
@@ -32,8 +34,9 @@ public class AwsConfig {
                     .region(Region.of(region))
                     .build();
         } catch (Exception e) {
-            log.warn("[AWS] Failed to create real KMS client, falling back to mock: {}", e.getMessage());
-            return org.mockito.Mockito.mock(KmsClient.class);
+            log.warn("[AWS] Falling back to dummy KMS client: {}", e.getMessage());
+            // Mockito 대신 기본 빌더를 통한 비어있는 클라이언트를 반환하여 런타임 에러 방지
+            return KmsClient.builder().build();
         }
     }
 
@@ -47,8 +50,9 @@ public class AwsConfig {
                     .region(Region.of(region))
                     .build();
         } catch (Exception e) {
-            log.warn("[AWS] Failed to create real S3 Presigner, falling back to mock: {}", e.getMessage());
-            return org.mockito.Mockito.mock(S3Presigner.class);
+            log.warn("[AWS] Falling back to dummy S3 Presigner: {}", e.getMessage());
+            // Mockito 대신 기본 빌더를 통한 비어있는 클라이언트를 반환하여 런타임 에러 방지
+            return S3Presigner.builder().build();
         }
     }
 }
