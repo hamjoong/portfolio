@@ -1,15 +1,13 @@
-name: Shopping Mall Integrated CI/CD
+name: Shopping Mall CI/CD
 
 on:
   push:
     branches: [ "main" ]
-    # 경로 제한을 풀어서 어떤 수정이든 체크 목록이 나타나게 합니다.
   workflow_dispatch:
 
 jobs:
-  # 1. 백엔드 빌드 작업
-  backend-build:
-    name: 🏗️ Backend Build
+  # 모든 과정을 하나의 작업(Job)으로 묶어 깃허브 목록에는 한 줄만 나오게 합니다.
+  build-and-confirm:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -21,25 +19,14 @@ jobs:
         cache: maven
     - name: Grant execute permission for mvnw
       run: chmod +x shoppingmall/backend/mvnw
-    - name: Build JAR (Skip Tests)
+    
+    # 백엔드 빌드 (테스트 생략)
+    - name: Build Backend
       run: |
         cd shoppingmall/backend
         ./mvnw clean package -DskipTests -Dmaven.test.skip=true
 
-  # 2. Render 배포 상태 작업 (목록에 별도로 표시됨)
-  render-deploy:
-    name: 🚀 Render Deployment
-    needs: backend-build
-    runs-on: ubuntu-latest
-    steps:
-    - name: Status Check
-      run: echo "Render is deploying the latest backend build automatically."
-
-  # 3. Vercel 배포 상태 작업 (목록에 별도로 표시됨)
-  vercel-deploy:
-    name: ⚡ Vercel Deployment
-    needs: backend-build
-    runs-on: ubuntu-latest
-    steps:
-    - name: Status Check
-      run: echo "Vercel is deploying the latest frontend build automatically."
+    # 배포 확인 (로그로만 남김)
+    - name: Confirm Deployment Status
+      run: |
+        echo "Backend build successful. Render and Vercel will deploy automatically."
