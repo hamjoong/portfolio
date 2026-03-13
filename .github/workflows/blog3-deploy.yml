@@ -26,6 +26,8 @@ jobs:
           cd blog3
           npm install
           npm run build
+          # 빌드 결과물이 잘 생성되었는지 확인 (디버깅용)
+          ls -R dist
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
@@ -33,6 +35,7 @@ jobs:
           folder: blog3/dist
           target-folder: blog3
           branch: gh-pages
-          clean: true # 중요: 기존 blog3 폴더 내용을 완전히 지우고 새로 채웁니다.
-          git-config-name: GitHub Action
-          git-config-email: action@github.com
+          clean: false # 다른 폴더(milktycoon 등)를 지우지 않기 위해 false로 설정
+          single-commit: true # 히스토리를 쌓지 않고 매번 최신으로 덮어씁니다.
+          git-config-name: "hamjoong"
+          git-config-email: "hamjoong@gmail.com"

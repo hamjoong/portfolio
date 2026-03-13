@@ -33,4 +33,7 @@ jobs:
           folder: milktycoon/dist
           target-folder: milktycoon
           branch: gh-pages
-          clean: true
+          clean: false
+          single-commit: true
+          git-config-name: "hamjoong"
+          git-config-email: "hamjoong@gmail.com"
