@@ -36,7 +36,7 @@ public class AwsConfig {
         } catch (Exception e) {
             log.warn("[AWS] Falling back to dummy KMS client: {}", e.getMessage());
             // Mockito 대신 기본 빌더를 통한 비어있는 클라이언트를 반환하여 런타임 에러 방지
-            return KmsClient.builder().build();
+            return KmsClient.builder().region(Region.of(region)).build();
         }
     }
 
@@ -52,7 +52,7 @@ public class AwsConfig {
         } catch (Exception e) {
             log.warn("[AWS] Falling back to dummy S3 Presigner: {}", e.getMessage());
             // Mockito 대신 기본 빌더를 통한 비어있는 클라이언트를 반환하여 런타임 에러 방지
-            return S3Presigner.builder().build();
+            return S3Presigner.builder().region(Region.of(region)).build();
         }
     }
 }

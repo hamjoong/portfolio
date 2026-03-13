@@ -1,6 +1,5 @@
 package com.projectx.auth.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,13 +18,15 @@ import java.util.UUID;
  */
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class S3Service {
 
     private final S3Presigner s3Presigner;
+    private final String bucketName;
 
-    @Value("${aws.s3.bucket}")
-    private String bucketName;
+    public S3Service(S3Presigner s3Presigner, @Value("${aws.s3.bucket}") String bucketName) {
+        this.s3Presigner = s3Presigner;
+        this.bucketName = bucketName;
+    }
 
     /**
      * 프론트엔드 업로드를 위한 Presigned URL을 생성합니다.

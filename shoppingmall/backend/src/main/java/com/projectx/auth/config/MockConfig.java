@@ -41,13 +41,17 @@ public class MockConfig {
     @Bean
     public KmsClient kmsClient() {
         // 실제 AWS KMS 연동 없이 동작하도록 더미 빈 반환
-        return KmsClient.builder().build();
+        return KmsClient.builder()
+                .region(software.amazon.awssdk.regions.Region.AP_NORTHEAST_2)
+                .build();
     }
 
     @Bean
     public S3Presigner s3Presigner() {
         // 실제 AWS S3 연동 없이 동작하도록 더미 빈 반환
-        return S3Presigner.builder().build();
+        return S3Presigner.builder()
+                .region(software.amazon.awssdk.regions.Region.AP_NORTHEAST_2)
+                .build();
     }
 
     @Bean
