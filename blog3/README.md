@@ -1,26 +1,34 @@
-# Modern Dev Blog (Blog3)
-React와 TypeScript를 활용한 현대적인 감각의 개발자 블로그 템플릿 프로젝트입니다.
-부드러운 애니메이션과 사용자 경험에 중점을 두었습니다.
+# ✨ Modern Dev Portfolio (Blog3)
 
-## Demo
+React와 TypeScript를 활용한 현대적인 감각의 개발자 포트폴리오 및 블로그 프로젝트입니다. 
+단순한 정보 나열을 넘어, 사용자 경험(UX)을 고려한 애니메이션과 견고한 배포 자동화 시스템을 갖추고 있습니다.
+
+## 🔗 Live Demo
 - [Live Demo (GitHub Pages)](https://hamjoong.github.io/portfolio/blog3/)
 
-## Tech Stack
-- **Framework**: React, TypeScript, Vite
+## 🚀 Key Features
+- **Dynamic Interactions**: `Framer Motion`을 활용한 마이크로 인터랙션 및 부드러운 섹션 전환.
+- **Type Safety**: 전역 타입 정의를 통한 안정적인 프로젝트 관리.
+- **Unified Deployment**: 다중 프로젝트를 위한 `GitHub Actions` 통합 배포 워크플로우 구축 (404 에러 및 경로 충돌 방지 전략 적용).
+- **Responsive Design**: Mobile-First 기반의 유연한 레이아웃 제공.
+
+## 🛠 Tech Stack
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: SCSS (BEM Methodology), Tailwind CSS
 - **Animation**: Framer Motion
 - **Icons**: Lucide React
-- **Styling**: Vanilla CSS / SCSS
-- **Deployment**: GitHub Actions
+- **CI/CD**: GitHub Actions (Unified Workflow)
 
-## Key Features
-- **Dynamic Animations**: Framer Motion을 활용한 요소별 마이크로 인터랙션.
-- **Responsive Design**: 모든 기기에서 최적화된 레이아웃 제공.
-- **Type Safety**: TypeScript를 통한 견고한 코드 베이스 구축.
-- **Fast Build**: Vite를 활용한 초고속 빌드 및 HMR(Hot Module Replacement).
+## 📁 Project Highlights
+블로그 내 'Projects' 섹션에는 다음과 같은 주요 프로젝트들이 포함되어 있습니다:
+- **Full-stack Shopping Mall**: Next.js & Spring Boot 기반의 이커머스 시스템.
+- **Milk Tycoon**: Three.js & React 기반의 인터랙티브 게임.
+- **Matrix Calculator**: 가상 DOM 기반의 고성능 연산 도구.
 
-## 🚀 Installation & Run
+## ⚙️ Installation
 ```bash
-cd blog3
+git clone https://github.com/hamjoong/portfolio.git
+cd portfolio/blog3
 npm install
 npm run dev
 ```

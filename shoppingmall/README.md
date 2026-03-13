@@ -1,55 +1,52 @@
-# 🛒 Enterprise Shopping Mall Project
+# 🛒 Modern Full-stack E-Commerce Platform
 
-현대적인 이커머스 시스템의 핵심 기능을 구현한 엔터프라이즈급 쇼핑몰 프로젝트입니다. MSA 아키텍처를 지향하며, 고성능 및 확장성을 고려하여 설계되었습니다.
+실제 운영 가능한 수준의 아키텍처를 지향하는 풀스택 쇼핑몰 프로젝트입니다. 
+강력한 인증 시스템, 클라우드 데이터베이스 연동, 그리고 인프라 최적화에 중점을 두었습니다.
 
-## 🛠 Tech Stack
+## 🔗 Project Links
+- **Frontend (Vercel)**: [https://shoppingmall-hamjoong.vercel.app/](https://shoppingmall-hamjoong.vercel.app/)
+- **Backend (Render)**: [https://shoppingmall-agke.onrender.com/](https://shoppingmall-agke.onrender.com/)
 
-### Frontend
-- **Framework**: Next.js 14+ (App Router)
-- **Styling**: Tailwind CSS, Lucide React
-- **State Management**: React Context API / Signal (Planned)
-- **Deployment**: Vercel / GitHub Pages
-
-### Backend (Auth & Core)
-- **Framework**: Java 21, Spring Boot 3.4.0
-- **Build Tool**: Maven
-- **Database**: PostgreSQL (Supabase), H2 (Local/Test)
-- **Caching**: Redis
-- **Security**: Spring Security, OAuth2 (Google, Kakao), JWT
-
-### Infrastructure & DevOps
-- **Containerization**: Docker, Docker Compose
-- **Orchestration**: Kubernetes (EKS Ready)
-- **CI/CD**: GitHub Actions
-- **Cloud**: AWS (KMS, S3), Supabase
-
-## ✨ Key Features
-- **인증/인가**: JWT 기반 자체 로그인 및 Social Login (Google, Kakao) 지원.
-- **상품 관리**: 카테고리별 상품 조회, 재고 관리 (Optimistic Locking 적용).
-- **주문 시스템**: 장바구니, 주문 생성 및 트랜잭션 처리.
-- **보안**: AWS KMS를 활용한 민감 데이터 암호화 (User Profile 등).
-- **이벤트 처리**: Outbox Pattern을 활용한 서비스 간 데이터 일관성 보장.
-
-## 🏗 Architecture
-- **Layered Architecture**: UI - Controller - Service - Domain - Repository 계층 분리.
-- **Outbox Pattern**: 주문 및 주요 이벤트 발생 시 로컬 트랜잭션 내에서 이벤트를 저장하여 신뢰성 있는 메시지 전송 보장.
-- **Global Exception Handling**: 표준 에러 코드를 통한 일관된 응답 처리.
-
-## 🚦 Getting Started
-
-### Backend
-```bash
-cd shoppingmall/backend
-./mvnw clean install
-./mvnw spring-boot:run
+## 🏗 System Architecture
+```text
+[Frontend: Next.js] <---> [Backend: Spring Boot] <---> [Database: Supabase (PostgreSQL)]
+       |                         |
+ (Vercel Deploy)           (Render Deploy / Docker)
 ```
 
+## 🚀 Key Features
+- **Stateless Authentication**: Spring Security와 JWT를 활용한 무상태(Stateless) 보안 시스템 구축.
+- **Cloud Database**: `Supabase(PostgreSQL)`를 연동하여 실시간 데이터 영속성 확보.
+- **S3 Image Handling**: 서버 부하 최소화를 위한 `AWS S3 Presigned URL` 발급 및 업로드 전략 구현.
+- **Responsive UI**: Tailwind CSS를 사용한 모던하고 직관적인 이커머스 인터페이스.
+- **Dockerized Backend**: Docker 다단계 빌드(Multi-stage build)를 통한 이미지 최적화 및 배포 시간 단축.
+
+## 🛠 Tech Stack
 ### Frontend
+- Next.js 15 (App Router), TypeScript, Tailwind CSS
+- Zustand (State Management), TanStack Query (Data Fetching)
+
+### Backend
+- Java 21, Spring Boot 3.4
+- Spring Data JPA, Spring Security, Hibernate
+- AWS SDK v2 (S3, KMS), Lombok
+
+### Infrastructure & DevOps
+- **Database**: PostgreSQL (Supabase)
+- **Deployment**: Vercel (Frontend), Render (Backend)
+- **Container**: Docker (Customized Layers for Cache)
+- **CI/CD**: GitHub Actions
+
+## ⚙️ Local Development
+로컬 환경에서는 데이터 오염 방지를 위해 `mock` 프로필(H2 인메모리 DB)을 사용하도록 설계되었습니다.
+
 ```bash
+# Backend 실행
+cd shoppingmall/backend
+./start_backend.sh
+
+# Frontend 실행
 cd shoppingmall/frontend
 npm install
 npm run dev
 ```
-
----
-*본 프로젝트는 개인 포트폴리오를 위한 학습 및 실무 적용 사례 연구용입니다.*
