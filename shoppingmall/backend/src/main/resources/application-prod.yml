@@ -6,9 +6,9 @@ spring:
       - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
 
   datasource:
-    # 6543 포트와 Pooler 전용 아이디를 강제로 고정합니다.
-    url: jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres?sslmode=require&prepareThreshold=0
-    username: postgres.gfgkhqohumjzooslpwsq
+    # Supabase 연결 정보는 Render 환경변수에서 주입받습니다.
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
     # 연결 속도 최적화 (무료 티어용)
