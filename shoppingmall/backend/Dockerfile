@@ -10,5 +10,5 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
-# IPv4 스택을 우선 사용하도록 설정하여 Supabase 연결 문제를 해결합니다.
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "-Djava.net.preferIPv4Stack=true", "app.jar"]
+# IPv4 스택 우선 사용 설정을 제거하여 Supabase(IPv6) 연결 유연성을 확보합니다.
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "app.jar"]
