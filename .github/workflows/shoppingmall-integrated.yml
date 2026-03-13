@@ -25,15 +25,13 @@ jobs:
         cd shoppingmall/backend
         ./mvnw clean package -DskipTests -Dmaven.test.skip=true
 
-    # 2. Render 배포 트리거 (이 단계가 실행되어야 Render가 움직입니다)
+    # 2. Render 배포 트리거 (이제 실제 주소로 배포 신호를 보냅니다)
     - name: Trigger Render Deployment
       run: |
         echo "Sending deployment signal to Render..."
-        # 아래 curl 명령어의 주소를 본인의 Render Deploy Hook URL로 교체해야 합니다.
-        # 일단 신호를 보내는 구조를 활성화합니다.
-        curl -X POST https://api.render.com/deploy/srv-ct66vbt69v6s739aqvtg?key=up_Z69ksXVE || echo "Deployment signal sent"
+        curl -X POST https://api.render.com/deploy/srv-d6pr7l2a214c73earr9g?key=JOCKRAFCEwQ
 
     # 3. 배포 확인 로그
     - name: Confirm Status
       run: |
-        echo "CI/CD process completed. Vercel and Render are updating."
+        echo "CI/CD process completed. Vercel and Render are updating automatically."
