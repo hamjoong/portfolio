@@ -10,5 +10,5 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
-# IPv4 스택 우선 사용 설정을 제거하여 Supabase(IPv6) 연결 유연성을 확보합니다.
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "app.jar"]
+# JVM 메모리 최적화 및 난수 생성 속도 개선을 통해 Render 무료 티어의 타임아웃 문제를 해결합니다.
+ENTRYPOINT ["java", "-Xms256m", "-Xmx384m", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=prod", "-jar", "app.jar"]
