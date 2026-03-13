@@ -7,6 +7,9 @@ on:
       - 'blog3/**'  # blog3 폴더 내의 파일이 변경될 때만 실행됩니다!
   workflow_dispatch:
 
+permissions:
+  contents: write # 깃허브 페이지 배포를 위해 쓰기 권한이 필수입니다.
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
