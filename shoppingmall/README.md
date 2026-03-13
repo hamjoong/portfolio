@@ -36,13 +36,13 @@
 - **Container**: Docker (Customized Layers for Cache)
 - **CI/CD**: GitHub Actions
 
-###### Existing system issues
+#### Existing system issues
 - 다소 복잡한 UI/UX 디자인 대규모 트래픽 시스템 문제 보안 취약점과 복잡한 의존성 구조로 인한 유지보수 저하 및 런타임 초기화 에러 발생.
 
-####### System Improvements
+#### System Improvements
 - 복잡한 UI/UX 디자인을 전면 개선 및 Spring Security와 JWT를 통한 무상태 인증을 구현하고, AWS SDK 클라이언트의 지연 초기화 전략 및 환경별 프로필 분리를 통해 시스템 안정성을 80% 이상 향상.
 
-###### Local Development
+#### Local Development
 로컬 환경에서는 데이터 오염 방지를 위해 `mock` 프로필(H2 인메모리 DB)을 사용하도록 설계되었습니다.
 
 ```bash
