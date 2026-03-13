@@ -14,11 +14,6 @@ const api: AxiosInstance = axios.create({
   },
 });
 
-// 디버깅용 로그 추가
-if (typeof window !== 'undefined') {
-  console.log('[API] Initializing with baseURL:', process.env.NEXT_PUBLIC_API_URL || '/api/v1');
-}
-
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     if (typeof window !== 'undefined') {

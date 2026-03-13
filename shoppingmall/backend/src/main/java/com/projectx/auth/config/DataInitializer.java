@@ -21,10 +21,12 @@ import java.util.UUID;
 /**
  * [복구본] 시스템 안정성을 위해 초기 데이터 생성 로직을 단순화했습니다.
  * 데이터가 존재할 경우 재생성하지 않아 상품 ID의 영속성을 보장합니다.
+ * [성능 최적화] 배포 환경(prod)에서는 실행되지 않도록 설정하여 타임아웃을 방지합니다.
  */
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@Profile("!prod")
 public class DataInitializer implements CommandLineRunner {
 
     private final ProductRepository productRepository;
