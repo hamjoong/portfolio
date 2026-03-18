@@ -5,7 +5,9 @@ on:
     branches:
       - main
     paths:
-      - 'milktycoon/**'
+      - 'portfolio/shoppingmall/frontend/**'
+      - 'portfolio/shoppingmall/backend/**'
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
