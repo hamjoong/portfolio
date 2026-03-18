@@ -1,0 +1,14 @@
+    1 name: Shoppingmall Deploy
+    2
+    3 on:
+    4   push:
+    5     branches:
+    6       - main
+    7   workflow_dispatch:
+    8
+    9 jobs:
+   10   test:
+   11     runs-on: ubuntu-latest
+   12     steps:
+   13       - name: Test
+   14         run: echo "It works"
