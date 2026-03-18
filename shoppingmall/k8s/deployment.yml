@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shoppingmall-backend
+  labels:
+    app: shoppingmall-backend
+spec:
+  replicas: 3
+  # [이유] 롤링 업데이트 전략을 통해 구 버전의 Pod를 하나씩 교체하여
+  # 배포 중에도 서비스 중단이 발생하지 않도록 설정합니다.
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: shoppingmall-backend
+  template:
+    metadata:
+      labels:
+        app: shoppingmall-backend
+    spec:
+      containers:
+      - name: shoppingmall-backend
+        image: <YOUR_ECR_REPOSITORY_URL>:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        # [이유] 어플리케이션이 완전히 준비된 후에 트래픽을 허용하도록
+        # Readisness Probe와 Liveness Probe를 설정하여 안정성을 확보합니다.
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 20
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shoppingmall-backend-svc
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: shoppingmall-backend

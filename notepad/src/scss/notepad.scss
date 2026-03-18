@@ -1,0 +1,454 @@
+@charset 'UTF-8';
+
+* {
+  margin: 0px;
+  padding: 0px;
+  font: {
+    size: 10px;
+    family: 'Gowun Batang', serif;
+  };
+};
+
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
+
+html,body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #fff;
+  background-image:
+    linear-gradient(90deg, transparent 7rem, #abced4 7rem, #abced4 8rem, transparent 7rem),
+    linear-gradient(#EEE 0.1rem, transparent 0.1rem);
+  background-size: 100% 1.2rem;
+}
+
+/*메모장 메인 박스 영역*/
+@mixin notepad_main_box {
+  width: 120rem;
+  max-width: 95%;
+  height: 90rem;
+  max-height: 90vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  box-shadow: 0rem 0rem 0.5rem 0.3rem rgb(100,100,100); 
+  background-color: #fff;
+  overflow: hidden;
+}
+
+/*메모장 헤더 영역*/
+@mixin header {
+  width: 100%;
+  height: 10rem;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: {
+    size: 5rem;
+    weight: bold;
+  };
+  color: #7198FF;
+  background-color: #EBE1DD;
+
+  @media screen and (max-width: 768px) {
+    height: 7rem;
+    font-size: 3.5rem;
+  }
+}
+
+/*메모장 미니 박스 영역*/
+@mixin notepad_mini_box {
+  width: 100%;
+  height: calc(100% - 10rem);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+    overflow-y: auto;
+  }
+}
+
+/*메모장 폼 영역*/
+@mixin notepad_title_contents_box {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 2rem;
+
+  @media screen and (max-width: 768px) {
+    width: 95%;
+    padding: 2rem 0;
+  }
+}
+
+/*메모장 제목, 내용 영역*/
+@mixin notepad_title_contents {
+  width: 50rem;
+  max-width: 90%;
+  height: 7rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@mixin notepad_title_contents_font {
+  border-radius: 1rem;
+  box-shadow: 0rem 0rem 0.1rem 0.5rem rgb(100,100,100);
+  font: {
+    size: 5rem;
+    weight: bold;
+  }
+  color: rgb(80,80,80);
+  padding-left: 1rem;
+
+  @media screen and (max-width: 768px) {
+    font-size: 3rem;
+  }
+}
+
+/*메모장 저장 버튼 영역*/
+@mixin notepad_save_button_box {
+  width: 50rem;
+  max-width: 90%;
+  height: 6rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@mixin notepad_save_button_font {
+  width: 6rem;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  border: 1px solid transparent;
+  font: {
+    size: 3rem;
+    weight: bold;
+  }
+  color: rgb(100,100,100);
+}
+
+/*메모장 바디 제목, 내용 표시 박스2 영역*/
+@mixin notepad_title_contents_box2 {
+  width: 55rem;
+  max-width: 95%;
+  height: 75%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  @media screen and (max-width: 768px) {
+    height: 40rem;
+  }
+}
+
+/*메모장 바디 제목, 내용 영역*/
+@mixin notepad_body_title_contents {
+  width: 17rem;
+  height: 17rem;
+  display: flex;
+  flex-flow: column nowrap;
+  border-radius: 1rem;
+  box-shadow: 0rem 0rem 0.1rem 0.5rem rgb(100,100,100);
+  margin: 0.8rem;
+  position: relative;
+  background-color: #fff;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/*메모장 바디 제목, 내용 폰트 영역*/
+@mixin notepad_body_title_contents_font {
+  font: {
+    size: 2rem;
+    weight: bold;
+  }
+  color: rgb(80,80,80);
+}
+
+/*메모장 모달 박스 영역*/
+@mixin model_box {
+  width: 30rem;
+  height: 20rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  border-radius: 2rem;
+  background-color: #7198FF;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+@mixin model {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin model_font {
+  width: 100%;
+  height: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: {
+    size: 2rem;
+    weight: bold;
+  }
+  color: #fff;
+}
+
+@mixin model_button_box {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+@mixin model_button_font {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #EBE1DD;
+  border: 1px solid transparent; 
+  font: {
+    size: 2rem;
+    weight: bold;
+  }
+  color: rgb(80,80,80);
+}
+
+/*메모장 메인 박스 영역*/
+.notepad_main_box {
+  @include notepad_main_box;
+
+  /*메모장 헤더 영역*/
+  header {
+    @include header;
+
+    p {
+      @include header;
+    }
+  }
+
+  /*메모장 미니 박스 영역*/
+  .notepad_mini_box {
+    @include notepad_mini_box;
+
+    /*메모장 폼 영역*/
+    .notepad_title_contents_box {
+      @include notepad_title_contents_box;
+
+      /*메모장 제목 영역*/
+      .notepad_title {
+        @include notepad_title_contents;
+
+        .note_Title {
+          @include notepad_title_contents;
+          @include notepad_title_contents_font;
+        }
+      }
+
+      /*메모장 내용 영역*/
+      .notepad_contents {
+        @include notepad_title_contents;
+        height: 50rem;
+
+        @media screen and (max-width: 768px) {
+          height: 30rem;
+        }
+
+        .note_Contents {
+          @include notepad_title_contents;
+          @include notepad_title_contents_font;
+          height: 50rem;
+
+          @media screen and (max-width: 768px) {
+            height: 30rem;
+          }
+        }
+      }
+
+      /*메모장 저장 버튼 영역*/
+      .notepad_save_button_box {
+        @include notepad_save_button_box;
+        margin: 2rem;
+
+        .notepad_save_button {
+          @include notepad_save_button_font;
+        }
+
+        .notepad_save_button:hover {
+          background-color: #EBE1DD;
+          color: #7198FF;
+          cursor: pointer;
+        }
+      }
+
+      iframe {
+        display: none;
+      }
+    }
+
+    /*메모장 바디 제목, 내용 표시 박스 영역*/
+    .notepad_body_title_contents_box {
+      @include notepad_title_contents_box;
+      flex-flow: row wrap;
+
+      /*메모장 바디 제목, 내용 표시 박스2 영역*/
+      .notepad_body_title_contents_box2 {
+        @include notepad_title_contents_box2;
+
+        article.box {
+          @include notepad_body_title_contents;
+          
+          p.title_box {
+            @include notepad_body_title_contents_font;
+            border-bottom: 1px solid black;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-bottom: 0.5rem;
+          }
+
+          p.contents_box {
+            @include notepad_body_title_contents_font;
+            font-size: 1.6rem;
+            overflow-y: auto;
+            flex-grow: 1;
+            word-break: break-all;
+          }
+
+          .button_container {
+            position: absolute;
+            bottom: 0.5rem;
+            right: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 999;
+          }
+
+          button {
+            padding: 0.3rem 0.6rem;
+            border-radius: 0.5rem;
+            border: 1px solid #ccc;
+            background-color: rgba(255, 255, 255, 0.9);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            transition: all 0.2s;
+
+            i {
+              font-size: 1.4rem;
+              position: static;
+              display: inline-block;
+              width: auto;
+              height: auto;
+            }
+          }
+
+          button.edit_btn:hover {
+            background-color: #7198FF;
+            color: #fff;
+            border-color: #7198FF;
+          }
+
+          button.delete_btn:hover {
+            background-color: #ff4444;
+            color: #fff;
+            border-color: #ff4444;
+          }
+        }
+      }
+    }
+  }
+}
+
+/*메모장 모달 박스 영역*/
+.model_box {
+  @include model_box;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  .model {
+    @include model;
+
+    .model_font {
+      @include model_font;
+    }
+
+    .model_button_box {
+      @include model_button_box;
+
+      .delete_button {
+        @include model_button_font;
+        border-bottom-left-radius: 2rem;
+        border-right: 1px solid black;
+      }
+
+      .cancel_button {
+        @include model_button_font;
+        border-bottom-right-radius: 2rem;
+      }
+
+      .delete_button:hover ,.cancel_button:hover {
+        color: #7198FF;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+/*메모장 푸터 영역*/
+footer {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  
+  p {
+    font: {
+      size: 1.6rem;
+      weight: bold;
+    }
+    color: rgb(80,80,80);
+    text-align: center;
+  }
+}

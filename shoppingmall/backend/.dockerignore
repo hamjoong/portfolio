@@ -1,0 +1,24 @@
+# 빌드 관련 파일 제외 (이미지 크기 및 빌드 속도 최적화)
+target/
+*.log
+*.tmp
+
+# IDE 파일 제외
+.idea/
+.vscode/
+*.iml
+
+# OS 파일 제외
+.DS_Store
+Thumbs.db
+
+# Git 제외
+.git/
+.gitignore
+
+# 문서 파일 제외
+README.md
+docs/
+
+# 테스트 파일 제외 (빌드 시 skipTests=true이지만 안전하게)
+src/test/

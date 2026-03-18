@@ -1,0 +1,299 @@
+@charset "UTF-8";
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font: {
+    size: 10px;
+    family: 'Nanum Gothic', sans-serif;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+html, body {
+	width: 100%;
+	height: 100%;
+	background-color: #F0F0DB;
+}
+
+@mixin mc_main_box {
+	width: 100vw;
+	min-height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+@mixin mc_array_box {
+  width: 100vw;
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1;
+}
+
+@mixin mc_input_array_box {
+  width: 100vw;
+	height: auto;
+  padding: 2vh 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2vw;
+}
+
+@mixin inputArray {
+	width: auto;
+	height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 1vh 0;
+}
+
+@mixin xyinputArray {
+	width: 5vw;
+	height: 5vh;
+  text-align: center;
+	border: 0.1vw solid #393434;
+	border-radius: 0.5vw;
+	background-color: #F0F0DB;
+  margin: 0 0.5vw;
+}
+
+@mixin xyinput_array_font {
+	font-size: 1.5vw;
+	color: rgb(100,100,100);
+}
+
+@mixin buttonBox {
+	width: 5vw;
+	height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+	border: 0.1vw solid #393434;
+	border-radius: 0.5vw;
+	background-color: #F0F0DB;
+  margin: 0 0.5vw;
+  color: rgb(100,100,100);
+  font-size: 2vw;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+@mixin buttonBox2 {
+	width: 8vw;
+	height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+	border: 0.1vw solid #393434;
+	border-radius: 0.5vw;
+	background-color: #F0F0DB;
+  margin: 0 0.5vw;
+  font: {
+    size: 1.2vw;
+    weight: bold;
+  }
+  color: rgb(100,100,100);
+  cursor: pointer;
+}
+
+@mixin mc_print_array_box {
+  width: 100vw;
+  min-height: 50vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-self: center;
+  align-content: flex-start;
+  justify-content: center;
+  padding-top: 5vh;
+  gap: 4vw;
+}
+
+@mixin printArray {
+  min-width: 28vw;
+  width: auto;
+  margin-bottom: 5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin xyprint_Array {
+  width: 3.2vw;
+  height: 4vh;
+  border-radius: 0.5vw;
+  background-color: #F0F0DB;
+  color: rgb(100,100,100);
+  font-size: 1.1vw;
+  text-align: center;
+  margin: 0;
+  border: 0.1vw solid #393434;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.mc_main_box {
+	@include mc_main_box;
+
+	.mc_mini_box {
+		width: 100vw;
+    height: auto;
+
+		.mc_header_box {
+			width: 100vw;
+			height: 10vh;
+      display: flex;
+      justify-content: center;
+      margin: 5vh 0;
+
+			.mc_header_font {
+				font: {
+					size: 5vw;
+					weight: bold;
+				}
+				background-image: linear-gradient( -225deg,#231557 0%, #44107a 29%, #ff1361 67%, #fff800 100%);
+				background-size: 10vw auto;
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				animation: textclip 20s linear infinite;
+
+				@keyframes textclip {
+					to {
+						background-position: 100vw center;
+					}
+				}
+			}
+		}
+	}
+
+  .mc_array_box {
+    @include mc_array_box;
+
+    .mc_input_array_box {
+      @include mc_input_array_box;
+
+      .inputArray {
+        @include inputArray;
+        
+        .xinputArray, .yinputArray {
+          @include xyinputArray;
+          @include xyinput_array_font;
+        }
+
+        .xinputArray:hover, .yinputArray:hover {
+          cursor: pointer;
+          background-color: #EEC5D1;
+        }
+      }
+
+      .inputArray2 {
+        @include inputArray;
+
+        .xinputArray2, .yinputArray2 {
+          @include xyinputArray;
+          @include xyinput_array_font;
+        }
+
+        .xinputArray2:hover, .yinputArray2:hover {
+          cursor: pointer;
+          background-color: #EEC5D1;
+        }
+      }
+
+      .inputArray3 {
+        @include inputArray;
+        width: auto;
+        padding: 0 2vw;
+
+        .button_box_plus, .button_box_minus, .button_box_multi {
+          @include buttonBox;
+        }
+
+        .button_box_plus:hover,.button_box_minus:hover,.button_box_multi:hover {
+          cursor: pointer;
+          background-color: #97b3fb;
+        }
+
+        .button_box_random, .button_box_print, .button_box_reset {
+          @include buttonBox2;
+        }
+
+        .button_box_random:hover,.button_box_print:hover,.button_box_reset:hover {
+        cursor: pointer;
+        background-color: #A4D2FF;
+        }
+      }
+    }
+
+    .mc_print_array_box {
+      @include mc_print_array_box;
+
+      .printArray, .printArray2, .printArray3 {
+        @include printArray;
+
+        .miniBox {
+          @include xyprint_Array;
+        }
+      }
+    }
+  }
+
+  .alert_event_box {
+    width: 20vw;
+    height: 12vh;
+    border: 1vw inset skyblue;
+    background-color: rgba(255,192,203,0.7);
+    color: rgb(100,100,100);
+    font: {
+      size: 1.5vw;
+      weight: bold;
+    }
+    text-align: center;
+    line-height: 11vh;
+    position: absolute;
+    top: 30vh;
+    left: 40vw;
+    display: none;
+
+    .alert_box {
+      font: {
+        size: 1.5vw;
+        weight: bold;
+      }
+    }
+  }
+
+  .copyright {
+    width: 100vw;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2vh;
+
+    .container {
+      small {
+        font-size: 1.4vw;
+        font-weight: bold;
+        color: rgb(100, 100, 100);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  body {
+    overflow-x: auto;
+    min-width: 1000px;
+  }
+}

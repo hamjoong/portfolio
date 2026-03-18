@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://db.gfgkhqohumjzooslpwsq.supabase.co:5432/postgres
+    username: postgres
+    password: "!hjuk11535308"
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        default_schema: public
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+logging:
+  level:
+    com.projectx: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

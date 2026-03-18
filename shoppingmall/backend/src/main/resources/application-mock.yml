@@ -1,0 +1,49 @@
+spring:
+  config:
+    activate:
+      on-profile: mock
+  
+  # H2 인메모리 DB 설정 (스키마 자동 생성 추가)
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      dialect: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    properties:
+      hibernate:
+        # dialect: org.hibernate.dialect.H2Dialect # Already set above
+        format_sql: true
+        # 스키마가 미리 생성되도록 보장
+        javax.persistence.schema-generation.create-source: metadata
+        javax.persistence.schema-generation.scripts.create-target: true
+        # 스키마 생성 시 발생하는 H2 구문 오류를 방지하기 위해 스키마 명시 제거 (hibernate.ddl-auto 가 처리)
+        javax.persistence.schema-generation.schema-action: none
+
+# JWT 비밀키 (HS256 최소 요구사항인 256비트 이상 충족)
+jwt:
+  secret: "this-is-a-very-long-secret-key-that-is-at-least-32-bytes-long-for-jwt-hs256"
+
+# AWS 관련 더미 설정 (Mock 모드에서 빈 생성 시 필요)
+aws:
+  region: ap-northeast-2
+  s3:
+    bucket: mock-bucket
+  kms:
+    key-id: mock-key-id
+
+# 외부 인프라 Mocking은 MockConfig.java에서 담당함
+logging:
+  level:
+    com.projectx: DEBUG
+    org.springframework.web: INFO

@@ -1,0 +1,64 @@
+spring:
+  # Redis 및 캐시를 완전히 차단합니다. (배포 실패의 주범 중 하나)
+  cache:
+    type: none
+  data:
+    redis:
+      repositories:
+        enabled: false
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
+
+  datasource:
+    # Supabase 연결 정보는 Render 환경변수에서 주입받습니다.
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    # 연결 속도 최적화 (무료 티어용)
+    hikari:
+      initialization-fail-timeout: 30000 # 시작 시 DB 연결 대기 시간 30초로 연장
+      connection-timeout: 30000        # 연결 타임아웃 30초
+      maximum-pool-size: 5
+  
+  jpa:
+    hibernate:
+      ddl-auto: update          # [Phase 16.1] 누락된 인기도 컬럼(sales_count 등) 자동 생성을 위해 update로 전환
+    open-in-view: false      # 불필요한 DB 세션 유지 방지
+    show-sql: false          # 운영 환경에서 SQL 로그 비활성화
+    properties:
+      hibernate:
+        format_sql: false
+
+# [Phase 5] AWS 기능 명시적 비활성화 (기동 장애 원천 차단)
+aws:
+  kms:
+    enabled: false
+  s3:
+    enabled: false
+
+server:
+  port: ${PORT:8080}
+
+# Health Check 경량화: Render가 빠르게 healthy로 인식
+management:
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
+  health:
+    db:
+      enabled: false         # Health check에서 DB 확인 제외 (시작 속도 향상)
+    defaults:
+      enabled: false
+
+# 운영 환경: 로그 레벨 조정 (상태 확인을 위한 INFO 레벨 복구)
+logging:
+  level:
+    root: INFO
+    com.zaxxer.hikari: INFO
+    org.springframework.web: INFO
+    com.projectx.auth: DEBUG # 우리 서비스 로직은 상세히 기록

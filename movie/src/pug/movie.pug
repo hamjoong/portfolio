@@ -1,0 +1,158 @@
+doctype html
+html(lang='KO')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+
+    link(rel='preconnect' href='https://fonts.googleapis.com')
+    link(rel='preconnect' href='https://fonts.gstatic.com')
+    link(rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap')
+
+    link(rel='stylesheet' href='//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css')
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js')
+
+    link(rel='icon' type='image/png' href='../../public/favicon/favicon.ico')
+
+    link(rel='stylesheet' href='../css/movie.css')
+    title Movie Box
+  body 
+    // 무비 메인 박스
+    main()
+
+      // 무비 헤더 박스
+      header()
+        p(class='header_font') Movie Box
+
+        // 무비 메뉴 영역
+        nav()
+          ul()
+            li(class='main_nav')
+              p(class='nav1') 영화
+              ul(class='sub_nav')
+                li(class='nav_chart') 무비차트
+                li(class='nav_expected') 상영예정작
+            li(class='main_nav')
+              p() 극장
+              ul(class='sub_nav')
+                li() Movie Box 극장
+                li() 특별관
+            li(class='main_nav')
+              p() 예매
+              ul(class='sub_nav')
+                li() 빠른예매
+                li() 특별관
+            li(class='main_nav')
+              p() 이벤트
+              ul(class='sub_nav')
+                li() 맴버십
+                li() 제휴/할인
+            li(class='main_nav')
+              p() 혜택
+              ul(class='sub_nav')
+                li() 통신사 할인
+                li() 신용카드 할인
+
+      // 무비 차트, 상영예정 영역
+      section(class='movie_box')
+        section(class='movie_box2')
+          p(class='movie_font') 무비차트
+          p(class='movie_font2') 상영예정작
+
+        // 무비 차트 이미지 영역
+        section(class='movie_img_box')
+          section(class='img_box')
+            - for (var i = 1; i <= 6; i++)
+              article(class=`movie_img${i === 1 ? '' : i}`)
+
+        // 무비 상영예정 이미지 영역
+        section(class='movie_img_box2')
+          section(class='img_box2')
+            - for (var i = 7; i <= 12; i++)
+              article(class=`movie_img${i}`)
+
+      // 무비 차트 예고편 영역
+      section(class='movie_trailer_box')
+        - var youtubeIds = ['75b6Uua0pYc', 'X8b3KvxybA4', 'ku9l1fHo5XE', 'xmSuC1SlfbE', 'M-OsBtkztpQ', 'JdDIMx25aA4', 'eRX5_KUyx7c', 'OBP0X4rWoxc', 'V2iR0-jwX0k', 'zZfjZ1xFm94', 'zctKEVenvDQ', 'FQyPXoboK1g']
+        each id, index in youtubeIds
+          - var trailerClass = index === 0 ? 'trailer_box' : `trailer_box${index + 1}`
+          - var iframeClass = index === 0 ? 'movie_trailer' : `movie_trailer${index + 1}`
+          article(class=trailerClass)
+            iframe(class=iframeClass src=`https://www.youtube.com/embed/${id}` title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" loading="lazy" allowfullscreen)
+
+    // 무비 미니 박스
+    section(class='mini_box')
+
+      // 무비 미니 헤더 박스
+      header()
+        p(class='header_font2') Movie Box
+        section(class='mini_header_box')
+          p(class='mini_header_font') 무비차트
+          p(class='mini_header_font2') 상영예정작
+
+      // 무비 차트 리스트 박스
+      section(class='movie_chart_expected_box')
+        section(class='movie_chart_expected_mini_box')
+          - var chartDates = ['2022.11.16 개봉', '2022.11.16 개봉', '2022.11.09 개봉', '2022.11.16 개봉', '2022.10.26 개봉', '2022.11.17 개봉', '2022.10.12 개봉', '2022.11.16 개봉', '2022.11.16 개봉', '2022.11.10 개봉', '2022.11.10 개봉', '2022.09.28 개봉']
+          section(class='movie_chart_box')
+            - for (var i = 1; i <= 6; i++)
+              - var listClass = i === 1 ? 'chart_list_box' : `chart_list_box${i}`
+              - var rankClass = i === 1 ? 'ranking_font' : `ranking_font${i}`
+              - var imgClass = i === 1 ? 'chart_list_img' : `chart_list_img${i}`
+              - var dateClass = i === 1 ? 'data_font' : `data_font${i}`
+              article(class=listClass)
+                article(class=rankClass)
+                  p() No.#{i}
+                article(class=imgClass)
+                article(class=dateClass)
+                  p() #{chartDates[i-1]}
+                  
+          section(class='movie_chart_box2')
+            - for (var i = 7; i <= 12; i++)
+              - var listClass = `chart_list_box${i}`
+              - var rankClass = `ranking_font${i}`
+              - var imgClass = `chart_list_img${i}`
+              - var dateClass = `data_font${i}`
+              article(class=listClass)
+                article(class=rankClass)
+                  p() No.#{i}
+                article(class=imgClass)
+                article(class=dateClass)
+                  p() #{chartDates[i-1]}
+
+      // 무비 상영예정작 리스트 박스
+      section(class='movie_chart_expected_box2')
+        section(class='movie_chart_expected_mini_box2')
+          - var expectedDates = ['2022.11.23 개봉', '2022.11.23 개봉', '2022.11.23 개봉', '2022.11.23 개봉', '2022.11.23 개봉', '2022.11.23 개봉', '2022.11.23 개봉', '2022.11.23 개봉', '2022.11.24 개봉', '2022.11.24 개봉', '2022.11.24 개봉', '2022.11.24 개봉']
+          section(class='movie_expected_box')
+            - for (var i = 1; i <= 6; i++)
+              - var listClass = i === 1 ? 'expected_list_box' : `expected_list_box${i}`
+              - var rankClass = `ranking_font${i + 12}`
+              - var imgClass = i === 1 ? 'expected_list_img' : `expected_list_img${i}`
+              - var dateClass = `data_font${i + 12}`
+              article(class=listClass)
+                article(class=rankClass)
+                  p() No.#{i}
+                article(class=imgClass)
+                article(class=dateClass)
+                  p() #{expectedDates[i-1]}
+                  
+          section(class='movie_expected_box2')
+            - for (var i = 7; i <= 12; i++)
+              - var listClass = `expected_list_box${i}`
+              - var rankClass = `ranking_font${i + 12}`
+              - var imgClass = `expected_list_img${i}`
+              - var dateClass = `data_font${i + 12}`
+              article(class=listClass)
+                article(class=rankClass)
+                  p() No.#{i}
+                article(class=imgClass)
+                article(class=dateClass)
+                  p() #{expectedDates[i-1]}
+
+  // Footer 영역
+  footer()
+    p(class='footer_font') Copyright(C) 2022. Hjuk. All right reserved. 본 사이트는 비상업적인 용도로 제작된 포트폴리오 사이트입니다
+    
+  script(src='../script/movie.js')

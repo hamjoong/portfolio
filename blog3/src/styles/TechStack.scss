@@ -1,0 +1,70 @@
+@use "index" as *;
+
+.tech-stack {
+  background-color: $white;
+  
+  &-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 48px;
+  }
+}
+
+.tech-category {
+  .category-title {
+    font-size: 1.5rem;
+    color: $dark-gray;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid $light-gray;
+    font-family: $font-secondary;
+  }
+}
+
+.tech-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tech-item {
+  padding: 16px;
+  background-color: $light-gray;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+
+  &:hover {
+    background-color: $white;
+    border-color: $primary-color;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transform: translateX(4px);
+  }
+
+  &-name {
+    display: block;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: $primary-color;
+    margin-bottom: 4px;
+  }
+
+  &-desc {
+    font-size: 0.9rem;
+    color: $text-secondary;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 992px) {
+  .tech-stack-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .tech-stack-container {
+    grid-template-columns: 1fr;
+  }
+}

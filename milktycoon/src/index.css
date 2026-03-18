@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&family=Nanum+Gothic:wght@400;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-h-green: #9ADE7B;
+  --color-h-green-light: #E1F0DA;
+  --color-h-brown: #706233;
+  --color-h-bg: #EEF5FF;
+  font-family: 'Nanum Gothic', 'Pretendard', system-ui, sans-serif;
+  font-weight: 800;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-h-bg);
+  color: var(--color-h-brown);
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(112, 98, 51, 0.05);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #9ADE7B;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #706233;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Healing 2.5D Utilities */
+.glass-panel { 
+  @apply bg-h-milk/90 backdrop-blur-md border-4 border-h-milk shadow-2.5d-white; 
+}
+
+.tiled-ground {
+  background-image: 
+    radial-gradient(circle, #E1F0DA 10%, transparent 10.5%), 
+    radial-gradient(circle, #E1F0DA 10%, transparent 10.5%);
+  background-size: 100px 100px;
+  background-position: 0 0, 50px 50px;
+}
+
+.iso-view { transform: rotateX(60deg) rotateZ(-45deg); transform-style: preserve-3d; }
+.iso-item { transform: rotateZ(45deg) rotateX(-60deg); transform-origin: bottom center; }
+
+/* 2.5D Button Legacy support */
+.btn-3d { 
+  @apply transition-all duration-75 border-b-[8px] active:border-b-0 active:translate-y-[8px] shadow-2.5d-md active:shadow-none;
+}
+
+.btn-chunky { 
+  @apply relative transition-all duration-75 border-b-[10px] active:border-b-0 active:translate-y-[10px] shadow-2.5d-md active:shadow-none; 
+}
+
+.badge-floating { 
+  @apply bg-h-milk/95 backdrop-blur-md pl-12 pr-6 py-3 rounded-full border-4 border-h-green-light shadow-2.5d-white relative flex items-center; 
+}
+.badge-icon { 
+  @apply absolute -left-3 w-14 h-14 bg-h-milk rounded-full border-4 border-h-green-base shadow-2.5d-green flex items-center justify-center text-2xl; 
+}
+
+/* Shimmer Effect for Premium/Special items */
+@keyframes shimmer {
+  0% { transform: translateX(-150%) skewX(-20deg); }
+  100% { transform: translateX(150%) skewX(-20deg); }
+}
+.animate-shimmer { 
+  position: relative;
+  overflow: hidden;
+}
+.animate-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 2s infinite;
+}
+
+::-webkit-scrollbar { display: none; }
+.custom-scrollbar::-webkit-scrollbar { display: block; }
