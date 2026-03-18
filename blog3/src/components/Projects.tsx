@@ -120,7 +120,7 @@ const Projects: React.FC = () => {
     },
     {
       title: 'Ssn Validation',
-      period: '2022.08 - 2022.08',
+      period: '2022.08 - 2022.08 03',
       description: '주민등록번호 유효성 검증 애플리케이션으로 사용자가 입력한 주민등록번호의 형식과 유효성을 검사하여 올바른 정보를 제공하는 솔루션입니다.',
       stack: ['Html', 'Css(Scss)', 'JavaScript'],
       problem: 'Ssn Validation에서 유효성 검증 로직이 복잡하여 사용자 경험이 저하되는 문제',
