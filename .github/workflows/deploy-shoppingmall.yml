@@ -10,11 +10,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy-frontend:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - name: Deploy Frontend to Vercel
 
       - name: Install Node.js
         uses: actions/setup-node@v4
