@@ -68,11 +68,13 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({ onEnterRanch }) => {
 
   useEffect(() => {
     if (_hasHydrated && !checkHandled.current) {
-      checkHandled.current = true;
-      const result = userActions.checkAttendance();
-      if (result && result.success) {
-        const timer = setTimeout(() => uiActions.openAttendance(), 1000);
-        return () => clearTimeout(timer);
+      if (userActions && typeof userActions.checkAttendance === 'function') {
+        checkHandled.current = true;
+        const result = userActions.checkAttendance();
+        if (result && result.success) {
+          const timer = setTimeout(() => uiActions.openAttendance(), 1000);
+          return () => clearTimeout(timer);
+        }
       }
     }
   }, [_hasHydrated, userActions, uiActions]);
