@@ -1,13 +1,14 @@
-     name: Shoppingmall Deploy
+      name: Shoppingmall Deploy
     
-     on:
-       push:
-         branches: [ main ]
-         paths:
-           - 'portfolio/shoppingmall/frontend/**'
-           - 'portfolio/shoppingmall/backend/**'
-       workflow_dispatch: # 수동 실행 버튼 활성화
-   
+      on:
+        push:
+          branches:
+            - main
+          paths:
+            - 'portfolio/shoppingmall/frontend/**'
+            - 'portfolio/shoppingmall/backend/**'
+      workflow_dispatch:
+  
     jobs:
       deploy-frontend:
         runs-on: ubuntu-latest
@@ -21,7 +22,7 @@
               vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
               working-directory: portfolio/shoppingmall/frontend
               github-comment: false
-   
+  
       deploy-backend:
         runs-on: ubuntu-latest
         steps:
