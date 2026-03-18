@@ -4,8 +4,8 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'shoppingmall/frontend/**'
-      - 'shoppingmall/backend/**'
+      - 'portfolio/shoppingmall/frontend/**'
+      - 'portfolio/shoppingmall/backend/**'
 
 jobs:
   deploy-frontend:
@@ -18,7 +18,7 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: shoppingmall/frontend
+          working-directory: portfolio/shoppingmall/frontend
           github-comment: false
 
   deploy-backend:
