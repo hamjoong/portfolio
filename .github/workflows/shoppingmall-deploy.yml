@@ -1,28 +1,28 @@
-      name: Shoppingmall Deploy
-    
-      on:
-        push:
-          branches:
-            - main
-          paths:
-            - 'portfolio/shoppingmall/frontend/**'
-            - 'portfolio/shoppingmall/backend/**'
-        workflow_dispatch:
-  
-      jobs:
-        deploy-frontend:
-          runs-on: ubuntu-latest
-          steps:
-            - uses: actions/checkout@v4
-            - name: Deploy Frontend to Vercel
-              uses: amondnet/vercel-action@v20
-              with:
-                vercel-token: ${{ secrets.VERCEL_TOKEN }}
-                vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-                vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-                working-directory: portfolio/shoppingmall/frontend
-                github-comment: false
+name: Shoppingmall Deploy
 
-        deploy-backend:
-          runs-on: ubuntu-latest
-          steps:
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'portfolio/shoppingmall/frontend/**'
+      - 'portfolio/shoppingmall/backend/**'
+  workflow_dispatch:
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy Frontend to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: portfolio/shoppingmall/frontend
+          github-comment: false
+
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
