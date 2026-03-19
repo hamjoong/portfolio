@@ -39,3 +39,4 @@ jobs:
           github-comment: false
 
   deploy-backend:
+    runs-on: ubuntu-latest
