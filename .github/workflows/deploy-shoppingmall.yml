@@ -7,9 +7,9 @@
          paths:
            - 'shoppingmall/frontend/**'
            - 'shoppingmall/backend/**'
-       workflow_dispatch:
+      workflow_dispatch:
    
-     jobs:
+    jobs:
       # 변경사항 감지 작업
       changes:
         runs-on: ubuntu-latest
