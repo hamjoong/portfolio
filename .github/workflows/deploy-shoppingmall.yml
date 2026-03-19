@@ -13,31 +13,10 @@ jobs:
   deploy-frontend:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm ci
-        working-directory: milktycoon
-
-      - name: Build
-        run: npm run build
-        working-directory: milktycoon
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - uses: actions/checkout@v4
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           working-directory: portfolio/shoppingmall/frontend
           github-comment: false
-
-  deploy-backend:
-    runs-on: ubuntu-latest
-    steps:
