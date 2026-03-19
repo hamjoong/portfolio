@@ -11,6 +11,7 @@
        workflow_dispatch:
 
      jobs:
+      # 변경사항 감지 작업
       changes:
         runs-on: ubuntu-latest
         outputs:
@@ -27,6 +28,7 @@
                 backend:
                   - 'shoppingmall/backend/**'
 
+      # 1. 프론트엔드 배포 (Vercel)
       deploy-frontend:
         needs: changes
         if: ${{ needs.changes.outputs.frontend == 'true' }}
@@ -34,10 +36,14 @@
         steps:
           - uses: actions/checkout@v4
 
+          - name: Setup Node.js
+            uses: actions/setup-node@v4
+            with:
+              node-version: '20'
+
           - name: Install dependencies
             working-directory: shoppingmall/frontend
-            run: npm install
-
+            run: npm ci
 
           # 3. Vercel 배포
           - name: Deploy to Vercel
@@ -46,11 +52,13 @@
               vercel-token: ${{ secrets.VERCEL_TOKEN }}
               vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
               vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+              working-directory: shoppingmall/frontend
               # 경로에 띄어쓰기가 있다면 반드시 따옴표로 감싸거나,
               # 가급적 띄어쓰기가 없는 경로명으로 변경하는 것을 권장합니다.
-              vercel-args: '--prod --debug'
+              vercel-args: '--prod'
               github-comment: false
 
+      # 2. 백엔드 배포 (Render)
       deploy-backend:
         needs: changes
         if: ${{ needs.changes.outputs.backend == 'true' }}
