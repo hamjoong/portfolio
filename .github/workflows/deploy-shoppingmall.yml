@@ -4,13 +4,34 @@ on:
   push:
     branches:
       - main
+    # 트리거 조건: 특정 폴더 내 변경사항이 감지될 때만 워크플로우가 시작됨
     paths:
       - 'portfolio/shoppingmall/frontend/**'
       - 'portfolio/shoppingmall/backend/**'
   workflow_dispatch:
 
 jobs:
+  # 1. 어떤 파일이 변경되었는지 감지하는 job
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      frontend: ${{ steps.filter.outputs.frontend }}
+      backend: ${{ steps.filter.outputs.backend }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            frontend:
+              - 'portfolio/shoppingmall/frontend/**'
+            backend:
+              - 'portfolio/shoppingmall/backend/**'
+
+  # 2. 프론트엔드 배포 (필터 결과가 'true'일 때만 실행)
   deploy-frontend:
+    needs: changes
+    if: ${{ needs.changes.outputs.frontend == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,12 +44,10 @@ jobs:
           working-directory: portfolio/shoppingmall/frontend
           github-comment: false
 
-  # 2. 백엔드 배포 (Render Webhook 방식)
+  # 3. 백엔드 배포 (필터 결과가 'true'일 때만 실행)
   deploy-backend:
+    needs: changes
+    if: ${{ needs.changes.outputs.backend == 'true' }}
     runs-on: ubuntu-latest
-    # 백엔드 폴더가 수정되었을 때만 실행
-    if: contains(github.event.head_commit.modified, 'portfolio/shoppingmall/backend/')
     steps:
       - name: Deploy Backend to Render
-        run: |
-          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
