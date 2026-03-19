@@ -41,18 +41,18 @@
               node-version: '20' # Next.js 15는 Node.js 18.17.0 이상을 권장합니다.
 
           - name: Install dependencies
-            working-directory: shoppingmall/frontend
+            working-directory: portfolio/shoppingmall/frontend
             run: npm install
 
           - name: Build Next.js
-            working-directory: shoppingmall/frontend
+            working-directory: portfolio/shoppingmall/frontend
             run: npm run build
             env:
               NODE_ENV: production
               NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }} # 환경변수가 필요한 경우
 
               cache: 'npm'
-              cache-dependency-path: 'shoppingmall/frontend/package-lock.json'
+              cache-dependency-path: 'portfolio/shoppingmall/frontend/package-lock.json'
 
           # 3. Vercel 배포
           - name: Deploy to Vercel
@@ -63,7 +63,7 @@
               vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
               # 경로에 띄어쓰기가 있다면 반드시 따옴표로 감싸거나,
               # 가급적 띄어쓰기가 없는 경로명으로 변경하는 것을 권장합니다.
-              working-directory: 'shoppingmall/frontend'
+              working-directory: 'portfolio/shoppingmall/frontend'
               vercel-args: '--prod --debug'
               github-comment: false
 
