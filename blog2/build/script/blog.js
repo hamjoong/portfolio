@@ -31,10 +31,9 @@ window.addEventListener('DOMContentLoaded', event => {
 
     // 토글 버튼이 보일 때 반응형 내비게이션 바를 접습니다.
     const navbarToggler = document.body.querySelector('.navbar-toggler');
-    const responsiveNavItems = [].slice.call(
-        document.querySelectorAll('#navbarResponsive .nav-link')
-    );
-    responsiveNavItems.map(function (responsiveNavItem) {
+    const responsiveNavItems = document.querySelectorAll('#navbarResponsive .nav-link');
+    
+    responsiveNavItems.forEach(responsiveNavItem => {
         responsiveNavItem.addEventListener('click', () => {
             if (window.getComputedStyle(navbarToggler).display !== 'none') {
                 navbarToggler.click();
