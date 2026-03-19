@@ -33,6 +33,8 @@
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@v4
+          - name: Debug Root Directory
+            run: ls -R  # 루트 디렉토리의 모든 파일과 폴더를 출력
 
           # [디버깅 추가] 정확한 경로 파악을 위한 단계
           - name: List files to find exact path
