@@ -34,6 +34,10 @@
         steps:
           - uses: actions/checkout@v4
 
+          # [디버깅 추가] 정확한 경로 파악을 위한 단계
+          - name: List files to find exact path
+            run: ls -R portfolio/
+
           # 1. Node.js 환경 설정 (필수!)
           - name: Setup Node.js
             uses: actions/setup-node@v4
@@ -63,8 +67,6 @@
               vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
               # 경로에 띄어쓰기가 있다면 반드시 따옴표로 감싸거나,
               # 가급적 띄어쓰기가 없는 경로명으로 변경하는 것을 권장합니다.
-              working-directory: 'portfolio/shoppingmall/frontend'
-              vercel-args: '--prod --debug'
               github-comment: false
 
       deploy-backend:
