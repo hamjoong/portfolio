@@ -48,6 +48,7 @@
             working-directory: shoppingmall/frontend
             run: npm run build
             env:
+              NODE_ENV: production
               NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }} # 환경변수가 필요한 경우
 
               cache: 'npm'
