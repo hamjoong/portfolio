@@ -40,8 +40,11 @@ flyway:
 aws:
   kms:
     enabled: false
+    key-id: dummy
+    region: ap-northeast-2
   s3:
     enabled: false
+    bucket: dummy
 
 server:
   port: ${PORT:8080}
