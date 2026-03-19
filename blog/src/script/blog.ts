@@ -1,696 +1,94 @@
-/*스크롤 태그 영역*/
-$('.blog_nav_home').click(function() {
-  $('html,body').animate({
-    scrollTop : $('.blog_intro_box').offset().top
-  }, 500);
-});
+/**
+ * 블로그 인터랙션 관리 클래스
+ */
+class BlogManager {
+  private readonly $nav = $('nav');
+  private readonly $skillBars = $('.skill_bar');
+  private readonly $skillFonts = $('.blog_skill_bar_html_font2, .blog_skill_bar_script_font2, .blog_skill_bar_css_font2, .blog_skill_bar_nodejs_font2, .blog_skill_bar_sass_font2, .blog_skill_bar_ajax_font2, .blog_skill_bar_pug_font2, .blog_skill_bar_jquery_font2, .blog_skill_bar_mysql_font2, .blog_skill_bar_typescript_font2, .blog_skill_bar_java_font2, .blog_skill_bar_json_font2');
+  private readonly $portImg = $('.blog_portfolio_img, .blog_portfolio_img2, .blog_portfolio_img3, .blog_portfolio_img4, .blog_portfolio_img5, .blog_portfolio_img6, .blog_portfolio_img7, .blog_portfolio_img8');
+  private readonly $portContents = $('.blog_portfolio_contents, .blog_portfolio_contents2, .blog_portfolio_contents3, .blog_portfolio_contents4, .blog_portfolio_contents5, .blog_portfolio_contents6, .blog_portfolio_contents7, .blog_portfolio_contents8');
+  private readonly $portLink = $('.blog_portfolio_link, .blog_portfolio_link2, .blog_portfolio_link3, .blog_portfolio_link4, .blog_portfolio_link5, .blog_portfolio_link6, .blog_portfolio_link7, .blog_portfolio_link8');
+  private readonly $portBtn = $('.blog_portfolio_link_1, .blog_portfolio_link_2, .blog_portfolio_link_3, .blog_portfolio_link_4, .blog_portfolio_link_5, .blog_portfolio_link_6, .blog_portfolio_link_7, .blog_portfolio_link_8');
 
-$('.blog_nav_aboutme').click(function() {
-  $('html,body').animate({
-    scrollTop : $('.blog_aboutme_box').offset().top
-  }, 500);
-});
+  constructor() {
+    this.initScrollEvents();
+    this.initSkillEvents();
+    this.initPortfolioEvents();
+  }
 
-$('.blog_nav_skill').click(function() {
-  $('html,body').animate({
-    scrollTop : $('.blog_aboutme_skill_box').offset().top
-  }, 500);
-});
+  private initScrollEvents() {
+    const navItems = [
+      { selector: '.blog_nav_home', target: '.blog_intro_box', color: 'rgba(135,206,235,0.1)' },
+      { selector: '.blog_nav_aboutme', target: '.blog_aboutme_box', color: 'rgba(255,193,69,0.7)' },
+      { selector: '.blog_nav_skill', target: '.blog_aboutme_skill_box', color: 'rgba(148,180,255,0.7)' },
+      { selector: '.blog_nav_portfolio', target: '.blog_portfolio_box', color: 'rgb(212,184,182,0.7)' }
+    ];
 
-$('.blog_nav_portfolio').click(function() {
-  $('html,body').animate({
-    scrollTop : $('.blog_portfolio_box').offset().top
-  }, 500);
-});
+    navItems.forEach(item => {
+      $(item.selector).on('click', () => {
+        const element = document.querySelector(item.target);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+          this.$nav.css('background-color', item.color);
+        }
+      });
+    });
+  }
 
-/*네비게이션 색상 영역*/
-$('.blog_nav_home').click(function() {
-  $('nav').css('background-color','rgba(135,206,235,0.1)');
-})
+  private initSkillEvents() {
+    const skills = [
+      { img: '.blog_skill_html_img', bar: '.blog_skill_bar_html', font: '.blog_skill_bar_html_font2' },
+      { img: '.blog_skill_script_img', bar: '.blog_skill_bar_script', font: '.blog_skill_bar_script_font2' },
+      { img: '.blog_skill_css_img', bar: '.blog_skill_bar_css', font: '.blog_skill_bar_css_font2' },
+      { img: '.blog_skill_nodejs_img', bar: '.blog_skill_bar_nodejs', font: '.blog_skill_bar_nodejs_font2' },
+      { img: '.blog_skill_sass_img', bar: '.blog_skill_bar_sass', font: '.blog_skill_bar_sass_font2' },
+      { img: '.blog_skill_ajax_img', bar: '.blog_skill_bar_ajax', font: '.blog_skill_bar_ajax_font2' },
+      { img: '.blog_skill_pug_img', bar: '.blog_skill_bar_pug', font: '.blog_skill_bar_pug_font2' },
+      { img: '.blog_skill_jquery_img', bar: '.blog_skill_bar_jquery', font: '.blog_skill_bar_jquery_font2' },
+      { img: '.blog_skill_mysql_img', bar: '.blog_skill_bar_mysql', font: '.blog_skill_bar_mysql_font2' },
+      { img: '.blog_skill_typescript_img', bar: '.blog_skill_bar_typescript', font: '.blog_skill_bar_typescript_font2' },
+      { img: '.blog_skill_java_img', bar: '.blog_skill_bar_java', font: '.blog_skill_bar_java_font2' },
+      { img: '.blog_skill_json_img', bar: '.blog_skill_bar_json', font: '.blog_skill_bar_json_font2' }
+    ];
 
-$('.blog_nav_aboutme').click(function() {
-  $('nav').css('background-color','rgba(255,193,69,0.7)');
-})
+    skills.forEach(skill => {
+      $(skill.img).on('click', () => {
+        this.$skillBars.not(skill.bar).hide();
+        this.$skillFonts.not(skill.font).hide();
+        $(skill.bar).toggle();
+        $(skill.font).toggle();
+      });
+    });
+  }
 
-$('.blog_nav_skill').click(function() {
-  $('nav').css('background-color','rgba(148,180,255,0.7)');
-})
+  private initPortfolioEvents() {
+    const portfolios = [
+      { list: '.portfolio_list2', img: '.blog_portfolio_img', contents: '.blog_portfolio_contents', link: '.blog_portfolio_link', btn: '.blog_portfolio_link_1' },
+      { list: '.portfolio_list3', img: '.blog_portfolio_img2', contents: '.blog_portfolio_contents2', link: '.blog_portfolio_link2', btn: '.blog_portfolio_link_2' },
+      { list: '.portfolio_list4', img: '.blog_portfolio_img3', contents: '.blog_portfolio_contents3', link: '.blog_portfolio_link3', btn: '.blog_portfolio_link_3' },
+      { list: '.portfolio_list5', img: '.blog_portfolio_img4', contents: '.blog_portfolio_contents4', link: '.blog_portfolio_link4', btn: '.blog_portfolio_link_4' },
+      { list: '.portfolio_list6', img: '.blog_portfolio_img5', contents: '.blog_portfolio_contents5', link: '.blog_portfolio_link5', btn: '.blog_portfolio_link_5' },
+      { list: '.portfolio_list7', img: '.blog_portfolio_img6', contents: '.blog_portfolio_contents6', link: '.blog_portfolio_link6', btn: '.blog_portfolio_link_6' },
+      { list: '.portfolio_list8', img: '.blog_portfolio_img7', contents: '.blog_portfolio_contents7', link: '.blog_portfolio_link7', btn: '.blog_portfolio_link_7' },
+      { list: '.portfolio_list9', img: '.blog_portfolio_img8', contents: '.blog_portfolio_contents8', link: '.blog_portfolio_link8', btn: '.blog_portfolio_link_8' }
+    ];
 
-$('.blog_nav_portfolio').click(function() {
-  $('nav').css('background-color','rgb(212,184,182,0.7)');
-})
-
-/*차트 영역*/
-/*$(window).ready(function() {
-	draw(90, '.blog_skill_bar_html', 'rgb(148,180,255)');
-	draw(60, '.blog_skill_bar_script', 'rgb(148,180,255)');
-  draw(90, '.blog_skill_bar_css', 'rgb(148,180,255)');
-  draw(60, '.blog_skill_bar_nodejs', 'rgb(148,180,255)');
-  draw(90, '.blog_skill_bar_sass', 'rgb(148,180,255)');
-  draw(60, '.blog_skill_bar_ajax', 'rgb(148,180,255)');
-  draw(90, '.blog_skill_bar_pug', 'rgb(148,180,255)');
-  draw(50, '.blog_skill_bar_jquery', 'rgb(148,180,255)');
-  draw(60, '.blog_skill_bar_mysql', 'rgb(148,180,255)');
-  draw(40, '.blog_skill_bar_typescript', 'rgb(148,180,255)');
-  draw(40, '.blog_skill_bar_java', 'rgb(148,180,255)');
-  draw(60, '.blog_skill_bar_json', 'rgb(148,180,255)');
-});
-
-function myFunction() {
-	draw(90, '.blog_skill_bar_html', 'rgb(148,180,255)',);
-	draw(60, '.blog_skill_bar_script', 'rgb(148,180,255)');
-  draw(90, '.blog_skill_bar_css', 'rgb(148,180,255)');
-  draw(60, '.blog_skill_bar_nodejs', 'rgb(148,180,255)');
-  draw(90, '.blog_skill_bar_sass', 'rgb(148,180,255)');
-  draw(60, '.blog_skill_bar_ajax', 'rgb(148,180,255)');
-  draw(90, '.blog_skill_bar_pug', 'rgb(148,180,255)');
-  draw(50, '.blog_skill_bar_jquery', 'rgb(148,180,255)');
-  draw(60, '.blog_skill_bar_mysql', 'rgb(148,180,255)');
-  draw(40, '.blog_skill_bar_typescript', 'rgb(148,180,255)');
-  draw(40, '.blog_skill_bar_java', 'rgb(148,180,255)');
-  draw(60, '.blog_skill_bar_json', 'rgb(148,180,255)');
+    portfolios.forEach(port => {
+      $(port.list).on('click', () => {
+        this.$portImg.not(port.img).hide();
+        this.$portContents.not(port.contents).hide();
+        this.$portLink.not(port.link).hide();
+        this.$portBtn.not(port.btn).hide();
+        
+        $(port.img).toggle();
+        $(port.contents).toggle();
+        $(port.link).toggle();
+        $(port.btn).toggle();
+      });
+    });
+  }
 }
 
-function draw(max, classname, colorname) {
-  let i = 0;
-  const func = setInterval(function() {
-    if( i < max ){
-        color(i, classname, colorname);
-        i++;
-    } else {
-      clearInterval(func);
-    }
-  }, 5);
-}
-
-function color(i, classname, colorname) {
-  $(classname).css( {
-    'background' : 'linear-gradient(to right,' + colorname + '0%' + i + '% , rgb(255,255,255)' + i + '%100%)'
-  });
-}*/
-
-/*스킬 클릭 영역*/
-$('.blog_skill_html_img').click(function() {
-  $('.blog_skill_bar_script').hide();
-  $('.blog_skill_bar_script_font2').hide();
-  $('.blog_skill_bar_css').hide();
-  $('.blog_skill_bar_css_font2').hide();
-  $('.blog_skill_bar_nodejs').hide();
-  $('.blog_skill_bar_nodejs_font2').hide();
-  $('.blog_skill_bar_sass').hide();
-  $('.blog_skill_bar_sass_font2').hide();
-  $('.blog_skill_bar_ajax').hide();
-  $('.blog_skill_bar_ajax_font2').hide();
-  $('.blog_skill_bar_pug').hide();
-  $('.blog_skill_bar_pug_font2').hide();
-  $('.blog_skill_bar_jquery').hide();
-  $('.blog_skill_bar_jquery_font2').hide();
-  $('.blog_skill_bar_mysql').hide();
-  $('.blog_skill_bar_mysql_font2').hide();
-  $('.blog_skill_bar_typescript').hide();
-  $('.blog_skill_bar_typescript_font2').hide();
-  $('.blog_skill_bar_java').hide();
-  $('.blog_skill_bar_java_font2').hide();
-  $('.blog_skill_bar_json').hide();
-  $('.blog_skill_bar_json_font2').hide();
-  $('.blog_skill_bar_html').toggle();
-  $('.blog_skill_bar_html_font2').toggle();
-});
-
-$('.blog_skill_script_img').click(function() {
-  $('.blog_skill_bar_html').hide();
-  $('.blog_skill_bar_html_font2').hide();
-  $('.blog_skill_bar_css').hide();
-  $('.blog_skill_bar_css_font2').hide();
-  $('.blog_skill_bar_nodejs').hide();
-  $('.blog_skill_bar_nodejs_font2').hide();
-  $('.blog_skill_bar_sass').hide();
-  $('.blog_skill_bar_sass_font2').hide();
-  $('.blog_skill_bar_ajax').hide();
-  $('.blog_skill_bar_ajax_font2').hide();
-  $('.blog_skill_bar_pug').hide();
-  $('.blog_skill_bar_pug_font2').hide();
-  $('.blog_skill_bar_jquery').hide();
-  $('.blog_skill_bar_jquery_font2').hide();
-  $('.blog_skill_bar_mysql').hide();
-  $('.blog_skill_bar_mysql_font2').hide();
-  $('.blog_skill_bar_typescript').hide();
-  $('.blog_skill_bar_typescript_font2').hide();
-  $('.blog_skill_bar_java').hide();
-  $('.blog_skill_bar_java_font2').hide();
-  $('.blog_skill_bar_json').hide();
-  $('.blog_skill_bar_json_font2').hide();
-  $('.blog_skill_bar_script').toggle();
-  $('.blog_skill_bar_script_font2').toggle();
-}); 
-
-$('.blog_skill_css_img').click(function() {
-  $('.blog_skill_bar_html').hide();
-  $('.blog_skill_bar_html_font2').hide();
-  $('.blog_skill_bar_script').hide();
-  $('.blog_skill_bar_script_font2').hide();
-  $('.blog_skill_bar_nodejs').hide();
-  $('.blog_skill_bar_nodejs_font2').hide();
-  $('.blog_skill_bar_sass').hide();
-  $('.blog_skill_bar_sass_font2').hide();
-  $('.blog_skill_bar_ajax').hide();
-  $('.blog_skill_bar_ajax_font2').hide();
-  $('.blog_skill_bar_pug').hide();
-  $('.blog_skill_bar_pug_font2').hide();
-  $('.blog_skill_bar_jquery').hide();
-  $('.blog_skill_bar_jquery_font2').hide();
-  $('.blog_skill_bar_mysql').hide();
-  $('.blog_skill_bar_mysql_font2').hide();
-  $('.blog_skill_bar_typescript').hide();
-  $('.blog_skill_bar_typescript_font2').hide();
-  $('.blog_skill_bar_java').hide();
-  $('.blog_skill_bar_java_font2').hide();
-  $('.blog_skill_bar_json').hide();
-  $('.blog_skill_bar_json_font2').hide();
-  $('.blog_skill_bar_css').toggle();
-  $('.blog_skill_bar_css_font2').toggle();
-}); 
-
-$('.blog_skill_nodejs_img').click(function() {
-  $('.blog_skill_bar_html').hide();
-  $('.blog_skill_bar_html_font2').hide();
-  $('.blog_skill_bar_script').hide();
-  $('.blog_skill_bar_script_font2').hide();
-  $('.blog_skill_bar_css').hide();
-  $('.blog_skill_bar_css_font2').hide();
-  $('.blog_skill_bar_sass').hide();
-  $('.blog_skill_bar_sass_font2').hide();
-  $('.blog_skill_bar_ajax').hide();
-  $('.blog_skill_bar_ajax_font2').hide();
-  $('.blog_skill_bar_pug').hide();
-  $('.blog_skill_bar_pug_font2').hide();
-  $('.blog_skill_bar_jquery').hide();
-  $('.blog_skill_bar_jquery_font2').hide();
-  $('.blog_skill_bar_mysql').hide();
-  $('.blog_skill_bar_mysql_font2').hide();
-  $('.blog_skill_bar_typescript').hide();
-  $('.blog_skill_bar_typescript_font2').hide();
-  $('.blog_skill_bar_java').hide();
-  $('.blog_skill_bar_java_font2').hide();
-  $('.blog_skill_bar_json').hide();
-  $('.blog_skill_bar_json_font2').hide();
-  $('.blog_skill_bar_nodejs').toggle();
-  $('.blog_skill_bar_nodejs_font2').toggle();
-}); 
-
-$('.blog_skill_sass_img').click(function() {
-  $('.blog_skill_bar_html').hide();
-  $('.blog_skill_bar_html_font2').hide();
-  $('.blog_skill_bar_script').hide();
-  $('.blog_skill_bar_script_font2').hide();
-  $('.blog_skill_bar_css').hide();
-  $('.blog_skill_bar_css_font2').hide();
-  $('.blog_skill_bar_nodejs').hide();
-  $('.blog_skill_bar_nodejs_font2').hide();
-  $('.blog_skill_bar_ajax').hide();
-  $('.blog_skill_bar_ajax_font2').hide();
-  $('.blog_skill_bar_pug').hide();
-  $('.blog_skill_bar_pug_font2').hide();
-  $('.blog_skill_bar_jquery').hide();
-  $('.blog_skill_bar_jquery_font2').hide();
-  $('.blog_skill_bar_mysql').hide();
-  $('.blog_skill_bar_mysql_font2').hide();
-  $('.blog_skill_bar_typescript').hide();
-  $('.blog_skill_bar_typescript_font2').hide();
-  $('.blog_skill_bar_java').hide();
-  $('.blog_skill_bar_java_font2').hide();
-  $('.blog_skill_bar_json').hide();
-  $('.blog_skill_bar_json_font2').hide();
-  $('.blog_skill_bar_sass').toggle();
-  $('.blog_skill_bar_sass_font2').toggle();
-}); 
-
-$('.blog_skill_ajax_img').click(function() {
-  $('.blog_skill_bar_html').hide();
-  $('.blog_skill_bar_html_font2').hide();
-  $('.blog_skill_bar_script').hide();
-  $('.blog_skill_bar_script_font2').hide();
-  $('.blog_skill_bar_css').hide();
-  $('.blog_skill_bar_css_font2').hide();
-  $('.blog_skill_bar_nodejs').hide();
-  $('.blog_skill_bar_nodejs_font2').hide();
-  $('.blog_skill_bar_sass').hide();
-  $('.blog_skill_bar_sass_font2').hide();
-  $('.blog_skill_bar_pug').hide();
-  $('.blog_skill_bar_pug_font2').hide();
-  $('.blog_skill_bar_jquery').hide();
-  $('.blog_skill_bar_jquery_font2').hide();
-  $('.blog_skill_bar_mysql').hide();
-  $('.blog_skill_bar_mysql_font2').hide();
-  $('.blog_skill_bar_typescript').hide();
-  $('.blog_skill_bar_typescript_font2').hide();
-  $('.blog_skill_bar_java').hide();
-  $('.blog_skill_bar_java_font2').hide();
-  $('.blog_skill_bar_json').hide();
-  $('.blog_skill_bar_json_font2').hide();
-  $('.blog_skill_bar_ajax').toggle();
-  $('.blog_skill_bar_ajax_font2').toggle();
-}); 
-
-$('.blog_skill_pug_img').click(function() {
-  $('.blog_skill_bar_html').hide();
-  $('.blog_skill_bar_html_font2').hide();
-  $('.blog_skill_bar_script').hide();
-  $('.blog_skill_bar_script_font2').hide();
-  $('.blog_skill_bar_css').hide();
-  $('.blog_skill_bar_css_font2').hide();
-  $('.blog_skill_bar_nodejs').hide();
-  $('.blog_skill_bar_nodejs_font2').hide();
-  $('.blog_skill_bar_sass').hide();
-  $('.blog_skill_bar_sass_font2').hide();
-  $('.blog_skill_bar_ajax').hide();
-  $('.blog_skill_bar_ajax_font2').hide();
-  $('.blog_skill_bar_jquery').hide();
-  $('.blog_skill_bar_jquery_font2').hide();
-  $('.blog_skill_bar_mysql').hide();
-  $('.blog_skill_bar_mysql_font2').hide();
-  $('.blog_skill_bar_typescript').hide();
-  $('.blog_skill_bar_typescript_font2').hide();
-  $('.blog_skill_bar_java').hide();
-  $('.blog_skill_bar_java_font2').hide();
-  $('.blog_skill_bar_json').hide();
-  $('.blog_skill_bar_json_font2').hide();
-  $('.blog_skill_bar_pug').toggle();
-  $('.blog_skill_bar_pug_font2').toggle();
-}); 
-
-$('.blog_skill_jquery_img').click(function() {
-  $('.blog_skill_bar_html').hide();
-  $('.blog_skill_bar_html_font2').hide();
-  $('.blog_skill_bar_script').hide();
-  $('.blog_skill_bar_script_font2').hide();
-  $('.blog_skill_bar_css').hide();
-  $('.blog_skill_bar_css_font2').hide();
-  $('.blog_skill_bar_nodejs').hide();
-  $('.blog_skill_bar_nodejs_font2').hide();
-  $('.blog_skill_bar_sass').hide();
-  $('.blog_skill_bar_sass_font2').hide();
-  $('.blog_skill_bar_ajax').hide();
-  $('.blog_skill_bar_ajax_font2').hide();
-  $('.blog_skill_bar_pug').hide();
-  $('.blog_skill_bar_pug_font2').hide();
-  $('.blog_skill_bar_mysql').hide();
-  $('.blog_skill_bar_mysql_font2').hide();
-  $('.blog_skill_bar_typescript').hide();
-  $('.blog_skill_bar_typescript_font2').hide();
-  $('.blog_skill_bar_java').hide();
-  $('.blog_skill_bar_java_font2').hide();
-  $('.blog_skill_bar_json').hide();
-  $('.blog_skill_bar_json_font2').hide();
-  $('.blog_skill_bar_jquery').toggle();
-  $('.blog_skill_bar_jquery_font2').toggle();
-}); 
-
-$('.blog_skill_mysql_img').click(function() {
-  $('.blog_skill_bar_html').hide();
-  $('.blog_skill_bar_html_font2').hide();
-  $('.blog_skill_bar_script').hide();
-  $('.blog_skill_bar_script_font2').hide();
-  $('.blog_skill_bar_css').hide();
-  $('.blog_skill_bar_css_font2').hide();
-  $('.blog_skill_bar_nodejs').hide();
-  $('.blog_skill_bar_nodejs_font2').hide();
-  $('.blog_skill_bar_sass').hide();
-  $('.blog_skill_bar_sass_font2').hide();
-  $('.blog_skill_bar_ajax').hide();
-  $('.blog_skill_bar_ajax_font2').hide();
-  $('.blog_skill_bar_pug').hide();
-  $('.blog_skill_bar_pug_font2').hide();
-  $('.blog_skill_bar_jquery').hide();
-  $('.blog_skill_bar_jquery_font2').hide();
-  $('.blog_skill_bar_typescript').hide();
-  $('.blog_skill_bar_typescript_font2').hide();
-  $('.blog_skill_bar_java').hide();
-  $('.blog_skill_bar_java_font2').hide();
-  $('.blog_skill_bar_json').hide();
-  $('.blog_skill_bar_json_font2').hide();
-  $('.blog_skill_bar_mysql').toggle();
-  $('.blog_skill_bar_mysql_font2').toggle();
-}); 
-
-$('.blog_skill_typescript_img').click(function() {
-  $('.blog_skill_bar_html').hide();
-  $('.blog_skill_bar_html_font2').hide();
-  $('.blog_skill_bar_script').hide();
-  $('.blog_skill_bar_script_font2').hide();
-  $('.blog_skill_bar_css').hide();
-  $('.blog_skill_bar_css_font2').hide();
-  $('.blog_skill_bar_nodejs').hide();
-  $('.blog_skill_bar_nodejs_font2').hide();
-  $('.blog_skill_bar_sass').hide();
-  $('.blog_skill_bar_sass_font2').hide();
-  $('.blog_skill_bar_ajax').hide();
-  $('.blog_skill_bar_ajax_font2').hide();
-  $('.blog_skill_bar_pug').hide();
-  $('.blog_skill_bar_pug_font2').hide();
-  $('.blog_skill_bar_jquery').hide();
-  $('.blog_skill_bar_jquery_font2').hide();
-  $('.blog_skill_bar_mysql').hide();
-  $('.blog_skill_bar_mysql_font2').hide();
-  $('.blog_skill_bar_java').hide();
-  $('.blog_skill_bar_java_font2').hide();
-  $('.blog_skill_bar_json').hide();
-  $('.blog_skill_bar_json_font2').hide();
-  $('.blog_skill_bar_typescript').toggle();
-  $('.blog_skill_bar_typescript_font2').toggle();
-}); 
-
-$('.blog_skill_java_img').click(function() {
-  $('.blog_skill_bar_html').hide();
-  $('.blog_skill_bar_html_font2').hide();
-  $('.blog_skill_bar_script').hide();
-  $('.blog_skill_bar_script_font2').hide();
-  $('.blog_skill_bar_css').hide();
-  $('.blog_skill_bar_css_font2').hide();
-  $('.blog_skill_bar_nodejs').hide();
-  $('.blog_skill_bar_nodejs_font2').hide();
-  $('.blog_skill_bar_sass').hide();
-  $('.blog_skill_bar_sass_font2').hide();
-  $('.blog_skill_bar_ajax').hide();
-  $('.blog_skill_bar_ajax_font2').hide();
-  $('.blog_skill_bar_pug').hide();
-  $('.blog_skill_bar_pug_font2').hide();
-  $('.blog_skill_bar_jquery').hide();
-  $('.blog_skill_bar_jquery_font2').hide();
-  $('.blog_skill_bar_mysql').hide();
-  $('.blog_skill_bar_mysql_font2').hide();
-  $('.blog_skill_bar_typescript').hide();
-  $('.blog_skill_bar_typescript_font2').hide();
-  $('.blog_skill_bar_json').hide();
-  $('.blog_skill_bar_json_font2').hide();
-  $('.blog_skill_bar_java').toggle();
-  $('.blog_skill_bar_java_font2').toggle();
-}); 
-
-$('.blog_skill_json_img').click(function() {
-  $('.blog_skill_bar_html').hide();
-  $('.blog_skill_bar_html_font2').hide();
-  $('.blog_skill_bar_script').hide();
-  $('.blog_skill_bar_script_font2').hide();
-  $('.blog_skill_bar_css').hide();
-  $('.blog_skill_bar_css_font2').hide();
-  $('.blog_skill_bar_nodejs').hide();
-  $('.blog_skill_bar_nodejs_font2').hide();
-  $('.blog_skill_bar_sass').hide();
-  $('.blog_skill_bar_sass_font2').hide();
-  $('.blog_skill_bar_ajax').hide();
-  $('.blog_skill_bar_ajax_font2').hide();
-  $('.blog_skill_bar_pug').hide();
-  $('.blog_skill_bar_pug_font2').hide();
-  $('.blog_skill_bar_jquery').hide();
-  $('.blog_skill_bar_jquery_font2').hide();
-  $('.blog_skill_bar_mysql').hide();
-  $('.blog_skill_bar_mysql_font2').hide();
-  $('.blog_skill_bar_typescript').hide();
-  $('.blog_skill_bar_typescript_font2').hide();
-  $('.blog_skill_bar_java').hide();
-  $('.blog_skill_bar_java_font2').hide();
-  $('.blog_skill_bar_json').toggle();
-  $('.blog_skill_bar_json_font2').toggle();
-}); 
-
-/*클릭 영역*/
-$('.portfolio_list2').click(function() {
-  $('.blog_portfolio_img2').hide();
-  $('.blog_portfolio_contents2').hide();
-  $('.blog_portfolio_link2').hide();
-  $('.blog_portfolio_link_2').hide();
-  $('.blog_portfolio_img3').hide();
-  $('.blog_portfolio_contents3').hide();
-  $('.blog_portfolio_link3').hide();
-  $('.blog_portfolio_link_3').hide();
-  $('.blog_portfolio_img4').hide();
-  $('.blog_portfolio_contents4').hide();
-  $('.blog_portfolio_link4').hide();
-  $('.blog_portfolio_link_4').hide();
-  $('.blog_portfolio_img5').hide();
-  $('.blog_portfolio_contents5').hide();
-  $('.blog_portfolio_link5').hide();
-  $('.blog_portfolio_link_5').hide();
-  $('.blog_portfolio_img6').hide();
-  $('.blog_portfolio_contents6').hide();
-  $('.blog_portfolio_link6').hide();
-  $('.blog_portfolio_link_6').hide();
-  $('.blog_portfolio_img7').hide();
-  $('.blog_portfolio_contents7').hide();
-  $('.blog_portfolio_link7').hide();
-  $('.blog_portfolio_link_7').hide();
-  $('.blog_portfolio_img8').hide();
-  $('.blog_portfolio_contents8').hide();
-  $('.blog_portfolio_link8').hide();
-  $('.blog_portfolio_link_8').hide();
-  $('.blog_portfolio_img').toggle();
-  $('.blog_portfolio_contents').toggle();
-  $('.blog_portfolio_link').toggle();
-  $('.blog_portfolio_link_1').toggle();
-});
-
-$('.portfolio_list3').click(function() {
-  $('.blog_portfolio_img').hide();
-  $('.blog_portfolio_contents').hide();
-  $('.blog_portfolio_link').hide();
-  $('.blog_portfolio_link_1').hide();
-  $('.blog_portfolio_img3').hide();
-  $('.blog_portfolio_contents3').hide();
-  $('.blog_portfolio_link3').hide();
-  $('.blog_portfolio_link_3').hide();
-  $('.blog_portfolio_img4').hide();
-  $('.blog_portfolio_contents4').hide();
-  $('.blog_portfolio_link4').hide();
-  $('.blog_portfolio_link_4').hide();
-  $('.blog_portfolio_img5').hide();
-  $('.blog_portfolio_contents5').hide();
-  $('.blog_portfolio_link5').hide();
-  $('.blog_portfolio_link_5').hide();
-  $('.blog_portfolio_img6').hide();
-  $('.blog_portfolio_contents6').hide();
-  $('.blog_portfolio_link6').hide();
-  $('.blog_portfolio_link_6').hide();
-  $('.blog_portfolio_img7').hide();
-  $('.blog_portfolio_contents7').hide();
-  $('.blog_portfolio_link7').hide();
-  $('.blog_portfolio_link_7').hide();
-  $('.blog_portfolio_img8').hide();
-  $('.blog_portfolio_contents8').hide();
-  $('.blog_portfolio_link8').hide();
-  $('.blog_portfolio_link_8').hide();
-  $('.blog_portfolio_img2').toggle();
-  $('.blog_portfolio_contents2').toggle();
-  $('.blog_portfolio_link2').toggle();
-  $('.blog_portfolio_link_2').toggle();
-}); 
-
-$('.portfolio_list4').click(function() {
-  $('.blog_portfolio_img').hide();
-  $('.blog_portfolio_contents').hide();
-  $('.blog_portfolio_link').hide();
-  $('.blog_portfolio_link_1').hide();
-  $('.blog_portfolio_img2').hide();
-  $('.blog_portfolio_contents2').hide();
-  $('.blog_portfolio_link2').hide();
-  $('.blog_portfolio_link_2').hide();
-  $('.blog_portfolio_img4').hide();
-  $('.blog_portfolio_contents4').hide();
-  $('.blog_portfolio_link4').hide();
-  $('.blog_portfolio_link_4').hide();
-  $('.blog_portfolio_img5').hide();
-  $('.blog_portfolio_contents5').hide();
-  $('.blog_portfolio_link5').hide();
-  $('.blog_portfolio_link_5').hide();
-  $('.blog_portfolio_img6').hide();
-  $('.blog_portfolio_contents6').hide();
-  $('.blog_portfolio_link6').hide();
-  $('.blog_portfolio_link_6').hide();
-  $('.blog_portfolio_img7').hide();
-  $('.blog_portfolio_contents7').hide();
-  $('.blog_portfolio_link7').hide();
-  $('.blog_portfolio_link_7').hide();
-  $('.blog_portfolio_img8').hide();
-  $('.blog_portfolio_contents8').hide();
-  $('.blog_portfolio_link8').hide();
-  $('.blog_portfolio_link_8').hide();
-  $('.blog_portfolio_img3').toggle();
-  $('.blog_portfolio_contents3').toggle();
-  $('.blog_portfolio_link3').toggle();
-  $('.blog_portfolio_link_3').toggle();
-}); 
-
-$('.portfolio_list5').click(function() {
-  $('.blog_portfolio_img').hide();
-  $('.blog_portfolio_contents').hide();
-  $('.blog_portfolio_link').hide();
-  $('.blog_portfolio_link_1').hide();
-  $('.blog_portfolio_img2').hide();
-  $('.blog_portfolio_contents2').hide();
-  $('.blog_portfolio_link2').hide();
-  $('.blog_portfolio_link_2').hide();
-  $('.blog_portfolio_img3').hide();
-  $('.blog_portfolio_contents3').hide();
-  $('.blog_portfolio_link3').hide();
-  $('.blog_portfolio_link_3').hide();
-  $('.blog_portfolio_img5').hide();
-  $('.blog_portfolio_contents5').hide();
-  $('.blog_portfolio_link5').hide();
-  $('.blog_portfolio_link_5').hide();
-  $('.blog_portfolio_img6').hide();
-  $('.blog_portfolio_contents6').hide();
-  $('.blog_portfolio_link6').hide();
-  $('.blog_portfolio_link_6').hide();
-  $('.blog_portfolio_img7').hide();
-  $('.blog_portfolio_contents7').hide();
-  $('.blog_portfolio_link7').hide();
-  $('.blog_portfolio_link_7').hide();
-  $('.blog_portfolio_img8').hide();
-  $('.blog_portfolio_contents8').hide();
-  $('.blog_portfolio_link8').hide();
-  $('.blog_portfolio_link_8').hide();
-  $('.blog_portfolio_img4').toggle();
-  $('.blog_portfolio_contents4').toggle();
-  $('.blog_portfolio_link4').toggle();
-  $('.blog_portfolio_link_4').toggle();
-}); 
-
-$('.portfolio_list6').click(function() {
-  $('.blog_portfolio_img').hide();
-  $('.blog_portfolio_contents').hide();
-  $('.blog_portfolio_link').hide();
-  $('.blog_portfolio_link_1').hide();
-  $('.blog_portfolio_img2').hide();
-  $('.blog_portfolio_contents2').hide();
-  $('.blog_portfolio_link2').hide();
-  $('.blog_portfolio_link_2').hide();
-  $('.blog_portfolio_img3').hide();
-  $('.blog_portfolio_contents3').hide();
-  $('.blog_portfolio_link3').hide();
-  $('.blog_portfolio_link_3').hide();
-  $('.blog_portfolio_img4').hide();
-  $('.blog_portfolio_contents4').hide();
-  $('.blog_portfolio_link4').hide();
-  $('.blog_portfolio_link_4').hide();
-  $('.blog_portfolio_img6').hide();
-  $('.blog_portfolio_contents6').hide();
-  $('.blog_portfolio_link6').hide();
-  $('.blog_portfolio_link_6').hide();
-  $('.blog_portfolio_img7').hide();
-  $('.blog_portfolio_contents7').hide();
-  $('.blog_portfolio_link7').hide();
-  $('.blog_portfolio_link_7').hide();
-  $('.blog_portfolio_img8').hide();
-  $('.blog_portfolio_contents8').hide();
-  $('.blog_portfolio_link8').hide();
-  $('.blog_portfolio_link_8').hide();
-  $('.blog_portfolio_img5').toggle();
-  $('.blog_portfolio_contents5').toggle();
-  $('.blog_portfolio_link5').toggle();
-  $('.blog_portfolio_link_5').toggle();
-}); 
-
-$('.portfolio_list7').click(function() {
-  $('.blog_portfolio_img').hide();
-  $('.blog_portfolio_contents').hide();
-  $('.blog_portfolio_link').hide();
-  $('.blog_portfolio_link_1').hide();
-  $('.blog_portfolio_img2').hide();
-  $('.blog_portfolio_contents2').hide();
-  $('.blog_portfolio_link2').hide();
-  $('.blog_portfolio_link_2').hide();
-  $('.blog_portfolio_img3').hide();
-  $('.blog_portfolio_contents3').hide();
-  $('.blog_portfolio_link3').hide();
-  $('.blog_portfolio_link_3').hide();
-  $('.blog_portfolio_img4').hide();
-  $('.blog_portfolio_contents4').hide();
-  $('.blog_portfolio_link4').hide();
-  $('.blog_portfolio_link_4').hide();
-  $('.blog_portfolio_img5').hide();
-  $('.blog_portfolio_contents5').hide();
-  $('.blog_portfolio_link5').hide();
-  $('.blog_portfolio_link_5').hide();
-  $('.blog_portfolio_img7').hide();
-  $('.blog_portfolio_contents7').hide();
-  $('.blog_portfolio_link7').hide();
-  $('.blog_portfolio_link_7').hide();
-  $('.blog_portfolio_img8').hide();
-  $('.blog_portfolio_contents8').hide();
-  $('.blog_portfolio_link8').hide();
-  $('.blog_portfolio_link_8').hide();
-  $('.blog_portfolio_img6').toggle();
-  $('.blog_portfolio_contents6').toggle();
-  $('.blog_portfolio_link6').toggle();
-  $('.blog_portfolio_link_6').toggle();
-}); 
-
-$('.portfolio_list8').click(function() {
-  $('.blog_portfolio_img').hide();
-  $('.blog_portfolio_contents').hide();
-  $('.blog_portfolio_link').hide();
-  $('.blog_portfolio_link_1').hide();
-  $('.blog_portfolio_img2').hide();
-  $('.blog_portfolio_contents2').hide();
-  $('.blog_portfolio_link2').hide();
-  $('.blog_portfolio_link_2').hide();
-  $('.blog_portfolio_img3').hide();
-  $('.blog_portfolio_contents3').hide();
-  $('.blog_portfolio_link3').hide();
-  $('.blog_portfolio_link_3').hide();
-  $('.blog_portfolio_img4').hide();
-  $('.blog_portfolio_contents4').hide();
-  $('.blog_portfolio_link4').hide();
-  $('.blog_portfolio_link_4').hide();
-  $('.blog_portfolio_img5').hide();
-  $('.blog_portfolio_contents5').hide();
-  $('.blog_portfolio_link5').hide();
-  $('.blog_portfolio_link_5').hide();
-  $('.blog_portfolio_img6').hide();
-  $('.blog_portfolio_contents6').hide();
-  $('.blog_portfolio_link6').hide();
-  $('.blog_portfolio_link_6').hide();
-  $('.blog_portfolio_img8').hide();
-  $('.blog_portfolio_contents8').hide();
-  $('.blog_portfolio_link8').hide();
-  $('.blog_portfolio_link_8').hide();
-  $('.blog_portfolio_img7').toggle();
-  $('.blog_portfolio_contents7').toggle();
-  $('.blog_portfolio_link7').toggle();
-  $('.blog_portfolio_link_7').toggle();
-}); 
-
-$('.portfolio_list9').click(function() {
-  $('.blog_portfolio_img').hide();
-  $('.blog_portfolio_contents').hide();
-  $('.blog_portfolio_link').hide();
-  $('.blog_portfolio_link_1').hide();
-  $('.blog_portfolio_img2').hide();
-  $('.blog_portfolio_contents2').hide();
-  $('.blog_portfolio_link2').hide();
-  $('.blog_portfolio_link_2').hide();
-  $('.blog_portfolio_img3').hide();
-  $('.blog_portfolio_contents3').hide();
-  $('.blog_portfolio_link3').hide();
-  $('.blog_portfolio_link_3').hide();
-  $('.blog_portfolio_img4').hide();
-  $('.blog_portfolio_contents4').hide();
-  $('.blog_portfolio_link4').hide();
-  $('.blog_portfolio_link_4').hide();
-  $('.blog_portfolio_img5').hide();
-  $('.blog_portfolio_contents5').hide();
-  $('.blog_portfolio_link5').hide();
-  $('.blog_portfolio_link_5').hide();
-  $('.blog_portfolio_img6').hide();
-  $('.blog_portfolio_contents6').hide();
-  $('.blog_portfolio_link6').hide();
-  $('.blog_portfolio_link_6').hide();
-  $('.blog_portfolio_img7').hide();
-  $('.blog_portfolio_contents7').hide();
-  $('.blog_portfolio_link7').hide();
-  $('.blog_portfolio_link_7').hide();
-  $('.blog_portfolio_img8').toggle();
-  $('.blog_portfolio_contents8').toggle();
-  $('.blog_portfolio_link8').toggle();
-  $('.blog_portfolio_link_8').toggle();
+$(() => {
+  new BlogManager();
 });
