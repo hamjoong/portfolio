@@ -19,46 +19,46 @@ html(lang='KO')
     
     title Note Pad
   body 
-    <!--Note Pad Main Box 메모장 메인 박스 영역-->
+    <!--메모장 메인 박스 영역-->
     main(class='notepad_main_box')
 
-      <!--Note Pad Header 메모장 헤더 영역-->
+      <!--메모장 헤더 영역-->
       header
         p Note Pad 메모장
 
-      <!--Note Pad Mini Box 메모장 미니 박스 영역-->
+      <!--메모장 미니 박스 영역-->
       section(class='notepad_mini_box')
 
-        <!--Note Pad Title,Contents Box 메모장 제목,내용 박스 영역-->
+        <!--메모장 제목,내용 박스 영역-->
         section(class='notepad_title_contents_box')
 
-        <!--Note Pad Form 메모장 폼 영역-->
+        <!--메모장 폼 영역-->
         form(method='post' class='notepad_title_contents_box' target='form')
 
-          <!--Note Pad Title 메모장 제목 영역-->
+          <!--메모장 제목 영역-->
           article(class='notepad_title')
             input(type="text" name="Title" value='' class='note_Title' id='note_Title' placeholder='제목을 작성하세요')
 
-          <!--Note Pad Save Button 메모장 저장 버튼 영역-->
+          <!--메모장 저장 버튼 영역-->
           section(class='notepad_save_button_box')
             input(type='submit' name='notepad_save_button' value='저장' class='notepad_save_button' id='notepad_save_button' placeholder='저장')
 
-          <!--Note Pad Contents 메모장 내용 영역-->
+          <!--메모장 내용 영역-->
           article(class='notepad_contents')
             textarea(type='text' name="Contents", value='내용을 작성하세요.' cols="30" rows="10" class='note_Contents' id='note_Contents' placeholder='내용을 작성하세요.')
 
           iframe(name='form')
 
-        <!--Note Pad Body Title,Contents View Box 메모장 바디 제목,내용 보여지는 박스 영역-->
+        <!--메모장 바디 제목,내용 보여지는 박스 영역-->
         section(class='notepad_body_title_contents_box')
           
-          <!--Note Pad Body Title,Contents view Box 메모장 바디 제목,내용 보여지는 박스2 영역-->
+          <!--메모장 바디 제목,내용 보여지는 박스2 영역-->
           section(class='notepad_body_title_contents_box2')
 
-        <!--Note Pad delete_button 메모장 delete 버튼 영역-->
+        <!--메모장 delete 버튼 영역-->
         section(class='delete_button')
 
-    <!--Note Pad Model Box 메모장 모달 박스 영역-->
+    <!--메모장 모달 박스 영역-->
     section(class='model_box')
       section(class='model')
         p(class='model_font') 정말 삭제 하시겠습니까?
@@ -66,7 +66,7 @@ html(lang='KO')
           button(class='delete_button') 삭제
           button(class='cancel_button') 취소
 
-    <!--Note Pad Footer 메모장 푸터 영역-->
+    <!--메모장 푸터 영역-->
     footer 
       p(class='footer_font') Copyright(C) 2022. Hjuk. All right reserved. 본 사이트는 비상업적인 용도로 제작된 포트폴리오 사이트입니다
 

@@ -20,17 +20,17 @@ html, body {
   background-size: 100% 1.2rem;
 }
 
-/*Note Pad Main Box 메모장 메인 박스 영역*/
-/*Note Pad Header 메모장 헤더 영역*/
-/*Note Pad Mini Box 메모장 미니 박스 영역*/
-/*Note Pad Form 메모장 폼 영역*/
-/*Note Pad Title,contents 메모장 제목,내용 영역*/
-/*Note Pad Save Button 메모장 저장 버튼 영역*/
-/*Note Pad Body Title,Contents view Box 메모장 바디 제목,내용 보여지는 박스2 영역*/
-/*Note Pad Body Title,Contents 메모장 바디 제목,내용 영역*/
-/*Note Pad Body Title,Contents font 메모장 바디 제목,내용 그려지는 폰트 영역*/
-/*Note Pad Model Box 메모장 모달 박스 영역*/
-/*Note Pad Main Box 메모장 메인 박스 영역*/
+/*메모장 메인 박스 영역*/
+/*메모장 헤더 영역*/
+/*메모장 미니 박스 영역*/
+/*메모장 폼 영역*/
+/*메모장 제목,내용 영역*/
+/*메모장 저장 버튼 영역*/
+/*메모장 바디 제목,내용 보여지는 박스2 영역*/
+/*메모장 바디 제목,내용 영역*/
+/*메모장 바디 제목,내용 그려지는 폰트 영역*/
+/*메모장 모달 박스 영역*/
+/*메모장 메인 박스 영역*/
 .notepad_main_box {
   width: 120rem;
   height: 90rem;
@@ -39,8 +39,8 @@ html, body {
   justify-content: center;
   align-items: center;
   box-shadow: 0rem 0rem 0.5rem 0.3rem rgb(100, 100, 100);
-  /*Note Pad Header 메모장 헤더 영역*/
-  /*Note Pad Mini Box 메모장 미니 박스 영역*/
+  /*메모장 헤더 영역*/
+  /*메모장 미니 박스 영역*/
 }
 .notepad_main_box header {
   width: 100%;
@@ -70,8 +70,8 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /*Note Pad Form 메모장 폼 영역*/
-  /*Note Pad Body Title,Contents View Box 메모장 바디 제목,내용 보여지는 박스 영역*/
+  /*메모장 폼 영역*/
+  /*메모장 바디 제목,내용 보여지는 박스 영역*/
 }
 .notepad_main_box .notepad_mini_box .notepad_title_contents_box {
   width: 60%;
@@ -80,9 +80,9 @@ html, body {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  /*Note Pad Title 메모장 제목 영역*/
-  /*Note Pad Contents 메모장 내용 영역*/
-  /*Note Pad Save Button 메모장 저장 버튼 영역*/
+  /*메모장 제목 영역*/
+  /*메모장 내용 영역*/
+  /*메모장 저장 버튼 영역*/
 }
 .notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_title {
   width: 50rem;
@@ -162,7 +162,7 @@ html, body {
   justify-content: center;
   align-items: center;
   flex-flow: row wrap;
-  /*Note Pad Body Title,Contents view Box 메모장 바디 제목,내용 보여지는 박스2 영역*/
+  /*메모장 바디 제목,내용 보여지는 박스2 영역*/
 }
 .notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 {
   width: 55rem;
@@ -207,7 +207,7 @@ html, body {
   cursor: pointer;
 }
 
-/*Note Pad Model Box 메모장 모달 박스 영역*/
+/*메모장 모달 박스 영역*/
 .model_box {
   width: 30rem;
   height: 30rem;
@@ -278,7 +278,7 @@ html, body {
   cursor: pointer;
 }
 
-/*Note Pad Footer 메모장 푸터 영역*/
+/*메모장 푸터 영역*/
 footer {
   width: 120rem;
   height: 1rem;

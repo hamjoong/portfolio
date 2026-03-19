@@ -1,8 +1,8 @@
-/*Note Pad DB Json 파싱*/
+/*DB Json 파싱*/
 /*const json = '{"get_notepad": ""}'
 const obj = JSON.parse(json)*/
 
-/*Note Pad input 메모장 입력 영역*/
+/*메모장 입력 영역*/
 window.addEventListener('load', () => {
   const noteTitle = document.querySelector('#note_Title');
   const noteContents = document.querySelector('#note_Contents');
