@@ -32,7 +32,8 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./milktycoon/dist
-          destination_dir: milktycoon
-          force_orphan: true # <--- 이 옵션을 양쪽 워크플로우에 모두 추가
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: portfolio/shoppingmall/frontend
+          github-comment: false
