@@ -21,57 +21,57 @@ html, body {
   background-color: rgba(135, 206, 235, 0.3);
 }
 
-/*kiosk intro_page 키오스크 인트로페이지 영역*/
-/*kiosk main box 키오스크 메인 박스 영역*/
-/*kiosk menu choice 키오스크 메뉴 선택 영역*/
-/*kiosk menu header 키오스크 메뉴 헤더 영역*/
-/*kiosk menu nav 키오스크 메뉴 메뉴바 영역*/
-/*kiosk menu list 키오스크 메뉴 리스트 영역*/
-/*kiosk menu box 키오스크 메뉴박스 영역*/
-/*kiosk coffe ice hot button 키오스크 커피메뉴 아이스 핫 버튼 영역*/
-/*kiosk buy button model 키오스크 결제 버튼 모달창 영역*/
-/*kiosk shopping cart box 키오스크 메뉴 장바구니 박스 영역*/
-/*kiosk shopping cart xeicon 키오스크 장바구니 아이콘 영역*/
-/*kiosk shopping cart order list box 키오스크 장바구니 주문리스트 박스 영역*/
-/*kiosk shopping cart order list 키오스크 장바구니 주문리스트 영역*/
-/*kiosk shopping cart sum value 키오스크 장바구니 주문합계 영역*/
-/*kiosk shopping cart buy button 키오스크 장바구니 구매버튼 영역*/
-/*kiosk menu extra orders choice 키오스크 추가메뉴 선택 영역*/
-/*kiosk menu extra orders choice img box 키오스크 추가메뉴 선택 이미지 박스 영역*/
-/*kiosk menu extra orders choice img 키오스크 추가메뉴 선택 이미지 영역*/
-/*kiosk menu extra orders choice name 키오스크 추가메뉴 선택 메뉴명 영역*/
-/*kiosk menu extra orders information 키오스크 추가메뉴 정보 박스 영역*/
-/*kiosk menu extra orders select box 키오스크 추가메뉴 선택 박스 영역*/
-/*kiosk menu extra next box 키오스크 추가메뉴 다음 박스 영역*/
-/*kiosk point signup box 키오스크 포인트 간단가입 박스 영역*/
-/*kiosk xeicon back 키오스크 아이콘 빽 영역*/
-/*kiosk point signup box2 키오스크 포인트 간단가입 박스2 영역*/
-/*kiosk point box 키오스크 포인트 박스 영역*/
-/*kiosk signup box 키오스크 간단가입 박스 영역*/
-/*kiosk pay box 키오스크 결제하기 박스 영역*/
-/*kiosk pay img box 키오스크 결제하기 이미지 박스 영역*/
-/*kiosk pay button 키오스크 결제하기 버튼 영역*/
-/*kiosk point signup number input box 키오스크 포인트 간단가입 넘버 인풋 박스 영역*/
-/*kiosk point number box 키오스크 포인트 넘버 인풋 박스 영역*/
-/*kiosk number input box 키오스크 넘버 인풋 박스 영역*/
-/*kiosk point keypad box 키오스크 키패드 박스 영역*/
-/*kiosk pay screen box 키오스크 결제화면 박스 영역*/
-/*kiosk pay box 키오스크 결제 박스 영역*/
-/*kiosk card box 키오스크 카드 박스 영역*/
-/*kiosk card slot 키오스크 카드 슬롯 영역*/
-/*kiosk card 키오스크 카드 영역*/
-/*kiosk card font 키오스크 카드 폰트 영역*/
-/*kiosk pay list 키오스크 결제 리스트 영역*/
-/*kiosk pay list 키오스크 결제 리스트 영역*/
-/*kiosk pay list div 키오스크 결제 리스트 박스 영역*/
-/*kiosk pay list sum 키오스크 결제 리스트 합계 영역*/
-/*kiosk pay 키오스크 결제하기 영역*/
-/*kiosk receipt list box 키오스크 영수증 리스트 박스 영역*/
-/*kiosk point save complete 키오스크 포인트 적립완료 영역*/
-/*kiosk point save img box 키오스크 포인트 적립 이미지 박스 영역*/
-/*kiosk point save font 키오스크 포인트 적립 폰트 영역*/
-/*kiosk point save main button 키오스크 포인트 적립 메인화면 버튼 영역*/
-/*kiosk intro_page 키오스크 인트로페이지 영역*/
+/*키오스크 인트로페이지 영역*/
+/*키오스크 메인 박스 영역*/
+/*키오스크 메뉴 선택 영역*/
+/*키오스크 메뉴 헤더 영역*/
+/*키오스크 메뉴 메뉴바 영역*/
+/*키오스크 메뉴 리스트 영역*/
+/*키오스크 메뉴박스 영역*/
+/*키오스크 커피메뉴 아이스 핫 버튼 영역*/
+/*키오스크 결제 버튼 모달창 영역*/
+/*키오스크 메뉴 장바구니 박스 영역*/
+/*키오스크 장바구니 아이콘 영역*/
+/*키오스크 장바구니 주문리스트 박스 영역*/
+/*키오스크 장바구니 주문리스트 영역*/
+/*키오스크 장바구니 주문합계 영역*/
+/*키오스크 장바구니 구매버튼 영역*/
+/*키오스크 추가메뉴 선택 영역*/
+/*키오스크 추가메뉴 선택 이미지 박스 영역*/
+/*키오스크 추가메뉴 선택 이미지 영역*/
+/*키오스크 추가메뉴 선택 메뉴명 영역*/
+/*키오스크 추가메뉴 정보 박스 영역*/
+/*키오스크 추가메뉴 선택 박스 영역*/
+/*키오스크 메뉴 다음 박스 영역*/
+/*키오스크 포인트 간단가입 박스 영역*/
+/*키오스크 아이콘 빽 영역*/
+/*키오스크 포인트 간단가입 박스2 영역*/
+/*키오스크 포인트 박스 영역*/
+/*키오스크 간단가입 박스 영역*/
+/*키오스크 결제하기 박스 영역*/
+/*키오스크 결제하기 이미지 박스 영역*/
+/*키오스크 결제하기 버튼 영역*/
+/*키오스크 포인트 간단가입 넘버 인풋 박스 영역*/
+/*키오스크 포인트 넘버 인풋 박스 영역*/
+/*키오스크 넘버 인풋 박스 영역*/
+/*키오스크 키패드 박스 영역*/
+/*키오스크 결제화면 박스 영역*/
+/*키오스크 결제 박스 영역*/
+/*키오스크 카드 박스 영역*/
+/*slot 키오스크 카드 슬롯 영역*/
+/*키오스크 카드 영역*/
+/*키오스크 카드 폰트 영역*/
+/*list 키오스크 결제 리스트 영역*/
+/*list 키오스크 결제 리스트 영역*/
+/*list div 키오스크 결제 리스트 박스 영역*/
+/*list sum 키오스크 결제 리스트 합계 영역*/
+/*키오스크 결제하기 영역*/
+/*키오스크 영수증 리스트 박스 영역*/
+/*오스크 포인트 적립완료 영역*/
+/*키오스크 포인트 적립 이미지 박스 영역*/
+/*키오스크 포인트 적립 폰트 영역*/
+/*키오스크 포인트 적립 메인화면 버튼 영역*/
+/*키오스크 인트로페이지 영역*/
 .intro_page {
   width: 120rem;
   height: 90rem;
@@ -82,7 +82,7 @@ html, body {
   cursor: pointer;
 }
 
-/*kiosk main box 키오스크 메인 박스 영역*/
+/*키오스크 메인 박스 영역*/
 .main_box {
   width: 120rem;
   height: 90rem;
@@ -94,15 +94,15 @@ html, body {
   background-color: rgb(250, 250, 250);
   border: 0.1rem solid black;
   display: none;
-  /*kiosk menu choice 키오스크 메뉴 선택 영역*/
+  /*키오스크 메뉴 선택 영역*/
 }
 .main_box .menu_choice {
   width: 120rem;
   height: 90rem;
   display: flex;
   flex-flow: column nowrap;
-  /*kiosk menu header 키오스크 메뉴 헤더 영역*/
-  /*kiosk menu choice2 키오스크 메뉴 선택2 영역*/
+  /*키오스크 메뉴 헤더 영역*/
+  /*키오스크 메뉴 선택2 영역*/
 }
 .main_box .menu_choice .menu_header {
   width: 120rem;
@@ -127,9 +127,9 @@ html, body {
   display: flex;
   flex-flow: column nowrap;
   flex-flow: row nowrap;
-  /*kiosk menu nav 키오스크 메뉴 메뉴바 영역*/
-  /*kiosk menu list 키오스크 메뉴 리스트 영역*/
-  /*kiosk shopping cart box 키오스크 메뉴 장바구니 박스 영역*/
+  /*키오스크 메뉴 메뉴바 영역*/
+  /*키오스크 메뉴 리스트 영역*/
+  /*키오스크 메뉴 장바구니 박스 영역*/
 }
 .main_box .menu_choice .menu_choice2 .menu_nav {
   width: 20rem;
@@ -157,12 +157,12 @@ html, body {
   height: 100%;
   display: flex;
   flex-flow: row wrap;
-  /*kiosk famousmenu 키오스크 인기메뉴 영역*/
-  /*kiosk coffe ice 키오스크 커피메뉴 아이스 영역*/
-  /*kiosk coffe hot 키오스크 커피메뉴 핫 영역*/
-  /*kiosk drink 키오스크 음료메뉴 영역*/
-  /*kiosk dessert 키오스크 디저트메뉴 영역*/
-  /*kiosk buy button model_box 키오스크 결제 버튼 모달창 영역*/
+  /*키오스크 인기메뉴 영역*/
+  /*키오스크 커피메뉴 아이스 영역*/
+  /*키오스크 커피메뉴 핫 영역*/
+  /*키오스크 음료메뉴 영역*/
+  /*키오스크 디저트메뉴 영역*/
+  /*키오스크 결제 버튼 모달창 영역*/
 }
 .main_box .menu_choice .menu_choice2 .menu_list .menu_all_box {
   width: 100%;
@@ -252,7 +252,7 @@ html, body {
   flex-flow: row wrap;
   justify-content: space-around;
   align-items: center;
-  /*kiosk coffe ice button 키오스크 커피메뉴 아이스 버튼 영역*/
+  /*키오스크 커피메뉴 아이스 버튼 영역*/
 }
 .main_box .menu_choice .menu_choice2 .menu_list .menu_all_box2 .hot_ice_button_box {
   width: 90%;
@@ -638,10 +638,10 @@ html, body {
   justify-content: space-between;
   align-items: center;
   border-left: 0.1rem solid black;
-  /*kiosk shopping cart xeicon 키오스크 장바구니 아이콘 영역*/
-  /*kiosk shopping cart order list box 키오스크 장바구니 주문리스트 박스 영역*/
-  /*kiosk shopping cart sum value 키오스크 장바구니 주문합계 영역*/
-  /*kiosk shopping cart buy button 키오스크 장바구니 구매버튼 영역*/
+  /*키오스크 장바구니 아이콘 영역*/
+  /*키오스크 장바구니 주문리스트 박스 영역*/
+  /*키오스크 장바구니 주문합계 영역*/
+  /*키오스크 장바구니 구매버튼 영역*/
 }
 .main_box .menu_choice .menu_choice2 .shopping_cart .trash_button {
   width: 100%;
@@ -662,7 +662,7 @@ html, body {
   width: 100%;
   height: 51rem;
   background-color: rgb(230, 230, 230);
-  /*kiosk shopping cart order list 키오스크 장바구니 주문리스트 영역*/
+  /*키오스크 장바구니 주문리스트 영역*/
 }
 .main_box .menu_choice .menu_choice2 .shopping_cart .order_list .order_list_data {
   width: 100%;
@@ -719,7 +719,7 @@ html, body {
   cursor: pointer;
 }
 
-/*kiosk menu extra orders list box 키오스크 추가메뉴 리스트 박스 영역*/
+/*키오스크 추가메뉴 리스트 박스 영역*/
 .extra_order_list_box {
   width: 120rem;
   height: 90rem;
@@ -737,8 +737,8 @@ html, body {
   height: 90rem;
   display: flex;
   flex-flow: column nowrap;
-  /*kiosk menu extra orders choice 키오스크 추가메뉴 선택 영역*/
-  /*kiosk menu extra next box 키오스크 추가메뉴 다음 박스 영역*/
+  /*키오스크 추가메뉴 선택 영역*/
+  /*키오스크 추가메뉴 다음 박스 영역*/
 }
 .extra_order_list_box .extra_orders_list .select_menu_box {
   width: 100%;
@@ -748,9 +748,9 @@ html, body {
   justify-content: space-around;
   align-items: center;
   align-content: center;
-  /*kiosk menu extra orders choice xeicon back 키오스크 추가메뉴 리스트 선택 아이콘 백 영역*/
-  /*kiosk menu extra orders choice img 키오스크 추가메뉴 선택 이미지 영역*/
-  /*kiosk menu extra orders information 키오스크 추가메뉴 정보 박스 영역*/
+  /*키오스크 추가메뉴 리스트 선택 아이콘 백 영역*/
+  /*키오스크 추가메뉴 선택 이미지 영역*/
+  /*키오스크 추가메뉴 정보 박스 영역*/
 }
 .extra_order_list_box .extra_orders_list .select_menu_box .xi-arrow-left-button {
   width: 100%;
@@ -777,8 +777,8 @@ html, body {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  /*kiosk menu extra orders choice img 키오스크 추가메뉴 선택 이미지 영역*/
-  /*kiosk menu extra orders choice name 키오스크 추가메뉴 선택 메뉴명 영역*/
+  /*키오스크 추가메뉴 선택 이미지 영역*/
+  /*키오스크 추가메뉴 선택 메뉴명 영역*/
 }
 .extra_order_list_box .extra_orders_list .select_menu_box .select_menu_img_box .select_menu_img {
   width: 100%;
@@ -806,9 +806,9 @@ html, body {
   justify-content: center;
   align-items: center;
   /*kiosk menu extra orders select box 키오스크 추가메뉴 선택 박스 영역*/
-  /*kiosk menu extra orders select hot box2 키오스크 추가메뉴 선택 hot 박스 영역2*/
-  /*kiosk menu extra orders select drink box3 키오스크 추가메뉴 선택 drink 박스 영역3*/
-  /*kiosk menu extra orders select dessert box4 키오스크 추가메뉴 선택 dessert 박스 영역4*/
+  /*추가메뉴 선택 hot 박스 영역2*/
+  /*키오스크 추가메뉴 선택 drink 박스 영역3*/
+  /*키오스크 추가메뉴 선택 dessert 박스 영역4*/
 }
 .extra_order_list_box .extra_orders_list .select_menu_box .select_menu_info_box .select_menu_info_seolmyeong {
   width: 80rem;
@@ -1190,7 +1190,7 @@ html, body {
   height: 10rem;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-it
   background-color: #AF4444;
   font-size: 5rem;
   font-weight: bold;
@@ -1198,7 +1198,7 @@ html, body {
   cursor: pointer;
 }
 
-/*kiosk point signup & pay 키오스크 포인트 간단가입&사용하기&결제하기 박스 영역*/
+/*키오스크 포인트 간단가입&사용하기&결제하기 박스 영역*/
 .point_signup_pay_box {
   width: 120rem;
   height: 90rem;
@@ -1217,8 +1217,8 @@ html, body {
   display: flex;
   flex-flow: column nowrap;
   flex-flow: row wrap;
-  /*kiosk point signup box 키오스크 포인트 간단가입 박스 영역*/
-  /*kiosk pay box 키오스크 결제하기 박스 영역*/
+  /*키오스크 포인트 간단가입 박스 영역*/
+  /*키오스크 결제하기 박스 영역*/
 }
 .point_signup_pay_box .point_signup_pay .point_signup_box {
   width: 60rem;
@@ -1230,8 +1230,8 @@ html, body {
   border-bottom-right-radius: 5rem;
   box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem rgb(80, 80, 80);
   background-color: rgb(100, 100, 100);
-  /*kiosk point_signup pay xeicon back 키오스크 포인트 간단가입 페이 아이콘 빽 영역*/
-  /*kiosk point signup box2 키오스크 포인트 간단가입 박스2 영역*/
+  /*키오스크 포인트 간단가입 페이 아이콘 빽 영역*/
+  /*키오스크 포인트 간단가입 박스2 영역*/
 }
 .point_signup_pay_box .point_signup_pay .point_signup_box .xi-arrow-left_button {
   width: 100%;
@@ -1258,7 +1258,7 @@ html, body {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  /*kiosk point box 키오스크 포인트 박스 영역*/
+  /*키오스크 포인트 박스 영역*/
 }
 .point_signup_pay_box .point_signup_pay .point_signup_box .point_signup_box2 .point_signup_box3 {
   width: 60rem;
@@ -1267,8 +1267,8 @@ html, body {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  /*kiosk signup box 키오스크 간단가입 박스 영역*/
-  /*kiosk use box 키오스크 사용하기 박스 영역*/
+  /*키오스크 간단가입 박스 영역*/
+  /*키오스크 사용하기 박스 영역*/
 }
 .point_signup_pay_box .point_signup_pay .point_signup_box .point_signup_box2 .point_signup_box3 .point_box {
   width: 100%;
@@ -1320,7 +1320,7 @@ html, body {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  /*kiosk pay box2 키오스크 결제하기 박스2 영역*/
+  /*키오스크 결제하기 박스2 영역*/
 }
 .point_signup_pay_box .point_signup_pay .pay_box .pay_box2 {
   width: 60rem;
@@ -1329,8 +1329,8 @@ html, body {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  /*kiosk pay img box 키오스크 결제하기 이미지 박스 영역*/
-  /*kiosk pay button 키오스크 결제하기 버튼 영역*/
+  /*키오스크 결제하기 이미지 박스 영역*/
+  /*키오스크 결제하기 버튼 영역*/
 }
 .point_signup_pay_box .point_signup_pay .pay_box .pay_box2 .pay_img_box {
   width: 100%;
@@ -1368,7 +1368,7 @@ html, body {
   color: rgb(250, 250, 250);
 }
 
-/*kiosk point signup number 키오스크 포인트 간단가입 넘버 박스 영역*/
+/*키오스크 포인트 간단가입 넘버 박스 영역*/
 .point_signup_number_box {
   width: 120rem;
   height: 90rem;
@@ -1387,7 +1387,7 @@ html, body {
   height: 90rem;
   display: flex;
   flex-flow: column nowrap;
-  /*kiosk number form 키오스크 포인트 넘버 폼 영역*/
+  /*키오스크 포인트 넘버 폼 영역*/
 }
 .point_signup_number_box .point_signup_number .point_number_form {
   width: 120rem;
@@ -1396,8 +1396,8 @@ html, body {
   flex-flow: column nowrap;
   flex-flow: column wrap;
   justify-content: center;
-  /*kiosk point signup number input box 키오스크 포인트 간단가입 넘버 인풋 박스 영역*/
-  /*kiosk point keypad box 키오스크 키패드 박스 영역*/
+  /*키오스크 포인트 간단가입 넘버 인풋 박스 영역*/
+  /*키오스크 키패드 박스 영역*/
 }
 .point_signup_number_box .point_signup_number .point_number_form .point_number_input_box {
   width: 70rem;
@@ -1406,9 +1406,9 @@ html, body {
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: center;
-  /*kiosk point signum number xeicon back 키오스크 포인트 간단가입 넘버 아이콘 빽 영역*/
-  /*kiosk number box 키오스크 넘버 박스 영역*/
-  /*kiosk number input box 키오스크 넘버 인풋 박스 영역*/
+  /*키오스크 포인트 간단가입 넘버 아이콘 빽 영역*/
+  /*키오스크 넘버 박스 영역*/
+  /*키오스크 넘버 인풋 박스 영역*/
 }
 .point_signup_number_box .point_signup_number .point_number_form .point_number_input_box .xi-arrow-left_button {
   width: 100%;
@@ -1511,7 +1511,7 @@ html, body {
   color: rgb(250, 250, 250);
 }
 
-/*kiosk point inquire number box 키오스크 포인트 조회하기 넘버 박스 영역*/
+/*키오스크 포인트 조회하기 넘버 박스 영역*/
 .point_inquire_number_box {
   width: 120rem;
   height: 90rem;
@@ -1530,7 +1530,7 @@ html, body {
   height: 90rem;
   display: flex;
   flex-flow: column nowrap;
-  /*kiosk number inquire form 키오스크 넘보 조회하기 폼 영역*/
+  /*키오스크 넘보 조회하기 폼 영역*/
 }
 .point_inquire_number_box .point_inquire_number .point_inquire_form {
   width: 120rem;
@@ -1539,8 +1539,8 @@ html, body {
   flex-flow: column nowrap;
   flex-flow: column wrap;
   justify-content: center;
-  /*kiosk number inquire input box 키오스크 넘버 조회하기 인풋 박스 영역*/
-  /*kiosk point keypad box 키오스크 키패드 박스 영역*/
+  /*키오스크 넘버 조회하기 인풋 박스 영역*/
+  /*키오스크 키패드 박스 영역*/
 }
 .point_inquire_number_box .point_inquire_number .point_inquire_form .point_inquire_number_input_box {
   width: 70rem;
@@ -1549,9 +1549,9 @@ html, body {
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: center;
-  /*kiosk point inquire number back xeicon 키오스크 포인트 조회하기 넘버 아이콘 빽 영빽*/
-  /*kiosk number inquire box 키오스크 넘버 조회하기 박스 영역-*/
-  /*kiosk number input inquire box 키오스크 넘버 조회하기 인풋 박스 영역*/
+  /*키오스크 포인트 조회하기 넘버 아이콘 빽 영빽*/
+  /*키오스크 넘버 조회하기 박스 영역-*/
+  /*키오스크 넘버 조회하기 인풋 박스 영역*/
 }
 .point_inquire_number_box .point_inquire_number .point_inquire_form .point_inquire_number_input_box .xi-arrow-left_button {
   width: 100%;
@@ -1654,7 +1654,7 @@ html, body {
   color: rgb(250, 250, 250);
 }
 
-/*kiosk point remaining box 키오스크 잔여포인트 박스 영역*/
+/*키오스크 잔여포인트 박스 영역*/
 .point_remaining_box {
   width: 120rem;
   height: 90rem;
@@ -1673,7 +1673,7 @@ html, body {
   height: 90rem;
   display: flex;
   flex-flow: column nowrap;
-  /*kiosk number remaining form 키오스크 넘버 잔여포인트 폼 영역*/
+  /*키오스크 넘버 잔여포인트 폼 영역*/
 }
 .point_remaining_box .point_remaining .point_remaining_form {
   width: 120rem;
@@ -1682,8 +1682,8 @@ html, body {
   flex-flow: column nowrap;
   flex-flow: column wrap;
   justify-content: center;
-  /*kiosk number remaining input box 키오스크 넘버 잔여포인트 인풋 박스 영역*/
-  /*kiosk point keypad box 키오스크 키패드 박스 영역*/
+  /*키오스크 넘버 잔여포인트 인풋 박스 영역*/
+  /*키오스크 키패드 박스 영역*/
 }
 .point_remaining_box .point_remaining .point_remaining_form .point_remaining_number_input_box {
   width: 70rem;
@@ -1692,9 +1692,9 @@ html, body {
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: center;
-  /*kiosk point remaining back xeicon 키오스크 포인트 잔여포인트 아이콘 빽 영빽*/
-  /*kiosk point remaining box 키오스크 잔여포인트 조회하기 박스 영역-*/
-  /*kiosk point input remaining box 키오스크 잔여폰인트 인풋 박스 영역*/
+  /*키오스크 포인트 잔여포인트 아이콘 빽 영빽*/
+  /*키오스크 잔여포인트 조회하기 박스 영역-*/
+  /*키오스크 잔여폰인트 인풋 박스 영역*/
 }
 .point_remaining_box .point_remaining .point_remaining_form .point_remaining_number_input_box .xi-arrow-left_button {
   width: 100%;
@@ -1803,7 +1803,7 @@ html, body {
   color: rgb(250, 250, 250);
 }
 
-/*kiosk pay screen box 키오스크 결제화면 박스 영역*/
+/*키오스크 결제화면 박스 영역*/
 .pay_screen_box {
   width: 120rem;
   height: 90rem;
@@ -1820,8 +1820,8 @@ html, body {
   height: 100%;
   display: flex;
   align-items: center;
-  /*kiosk pay box 키오스크 결제 박스 영역*/
-  /*kiosk pay list 키오스크 결제 리스트 영역*/
+  /*키오스크 결제 박스 영역*/
+  /*키오스크 결제 리스트 영역*/
 }
 .pay_screen_box .pay_screen .pay_box3 {
   width: 90rem;
@@ -1830,8 +1830,8 @@ html, body {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  /*kiosk pay xeicon back 키오스크 결제하기 아이콘 빽 영역*/
-  /*kiosk card box 키오스크 카드 박스 영역*/
+  /*키오스크 결제하기 아이콘 빽 영역*/
+  /*키오스크 카드 박스 영역*/
 }
 .pay_screen_box .pay_screen .pay_box3 .xi-arrow-left_button {
   width: 100%;
@@ -1860,9 +1860,9 @@ html, body {
   justify-content: center;
   align-items: center;
   align-self: center;
-  /*kiosk card slot 키오스크 카드 슬롯 영역*/
-  /*kiosk card 키오스크 카드 영역*/
-  /*kiosk card font 키오스크 카드 폰트 영역*/
+  /*slot  키오스크 카드 슬롯 영역*/
+  /*키오스크 카드 영역*/
+  /*키오스크 카드 폰트 영역*/
 }
 .pay_screen_box .pay_screen .pay_box3 .card_box .card_slot {
   width: 95%;
@@ -1901,8 +1901,8 @@ html, body {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  /*kiosk pay list 키오스크 결제 리스트 영역*/
-  /*kiosk pay 키오스크 결제하기 영역*/
+  /*키오스크 결제 리스트 영역*/
+  /*키오스크 결제하기 영역*/
 }
 .pay_screen_box .pay_screen .pay_list_box .pay_list {
   width: 100%;
@@ -1911,7 +1911,7 @@ html, body {
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: center;
-  /*kiosk pay list sum 키오스크 결제 리스트 합계 영역*/
+  /*키오스크 결제 리스트 합계 영역*/
 }
 .pay_screen_box .pay_screen .pay_list_box .pay_list .pay_list_font {
   width: 100%;
@@ -1959,7 +1959,7 @@ html, body {
   cursor: pointer;
 }
 
-/*kiosk receipt box 키오스크 영수증 박스 영역*/
+/*키오스크 영수증 박스 영역*/
 .receipt_box {
   width: 120rem;
   height: 90rem;
@@ -1980,8 +1980,8 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /*kiosk receipt list box 키오스크 영수증 리스트 박스 영역*/
-  /*kiosk receipt list close button box 키오스크 영수증 리스트 닫기 버튼 박스 영역*/
+  /*키오스크 영수증 리스트 박스 영역*/
+  /*키오스크 영수증 리스트 닫기 버튼 박스 영역*/
 }
 .receipt_box .receipt .receipt_list_box {
   width: 40rem;
@@ -1994,7 +1994,7 @@ html, body {
   box-shadow: 0.1rem 0.1rem 0.2rem 0.2rem rgb(180, 180, 180);
   background-color: rgb(240, 240, 240);
   margin-top: 13rem;
-  /*kiosk receipt list button box 키오스크 영수증 리스트 버튼 박스 영역*/
+  /*키오스크 영수증 리스트 버튼 박스 영역*/
 }
 .receipt_box .receipt .receipt_list_box .receipt_list_number_box {
   width: 100%;
@@ -2099,7 +2099,7 @@ html, body {
   cursor: pointer;
 }
 
-/*kiosk point save box 키오스트 포인트 적립 박스 영역*/
+/*키오스트 포인트 적립 박스 영역*/
 .point_save_box {
   width: 120rem;
   height: 90rem;
@@ -2118,7 +2118,7 @@ html, body {
   height: 90rem;
   display: flex;
   flex-flow: column nowrap;
-  /*kiosk point save form 키오스크 포인트 적립 폼 영역*/
+  /*키오스크 포인트 적립 폼 영역*/
 }
 .point_save_box .point_save .point_save_form {
   width: 120rem;
@@ -2126,8 +2126,8 @@ html, body {
   display: flex;
   flex-flow: column nowrap;
   flex-flow: row nowrap;
-  /*kiosk point save input box 키오스크 포인트 적립 인풋 박스 영역*/
-  /*kiosk point keypad box 키오스크 포인트 적립 키패드 박스 영역*/
+  /*키오스크 포인트 적립 인풋 박스 영역*/
+  /*키오스크 포인트 적립 키패드 박스 영역*/
 }
 .point_save_box .point_save .point_save_form .point_save_number_input_box {
   width: 70rem;
@@ -2136,8 +2136,8 @@ html, body {
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: center;
-  /*kiosk point save box 키오스크 포인트 적립 박스 영역-*/
-  /*kiosk point save input box 키오스크 포인트 적립 인풋 박스 영역*/
+  /*키오스크 포인트 적립 박스 영역-*/
+  /*키오스크 포인트 적립 인풋 박스 영역*/
 }
 .point_save_box .point_save .point_save_form .point_save_number_input_box .point_save_number_input_box2 {
   width: 100%;
@@ -2221,7 +2221,7 @@ html, body {
   color: rgb(250, 250, 250);
 }
 
-/*kiosk point save complete box 키오스크 포인트 적립완료 박스 영역*/
+/*키오스크 포인트 적립완료 박스 영역*/
 .point_save_complete_box {
   width: 120rem;
   height: 90rem;
@@ -2242,8 +2242,8 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /*kiosk point save complete 키오스크 포인트 적립완료 영역*/
-  /*kiosk point save main button 키오스크 포인트 적립 메인화면 버튼 영역*/
+  /*키오스크 포인트 적립완료 영역*/
+  /*키오스크 포인트 적립 메인화면 버튼 영역*/
 }
 .point_save_complete_box .point_save_complete .save_complete_box {
   width: 50rem;
@@ -2253,8 +2253,8 @@ html, body {
   justify-content: space-between;
   align-items: center;
   margin-top: 15rem;
-  /*kiosk point save img box 키오스크 포인트 적립 이미지 박스 영역*/
-  /*kiosk point save font 키오스크 포인트 적립 폰트 영역*/
+  /*키오스크 포인트 적립 이미지 박스 영역*/
+  /*키오스크 포인트 적립 폰트 영역*/
 }
 .point_save_complete_box .point_save_complete .save_complete_box .save_img_box {
   width: 100%;

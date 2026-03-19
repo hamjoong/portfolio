@@ -191,7 +191,7 @@ console.log($('.menu_name_1').text());
 console.log($(`.menu_price_1_${this.name}`).text());
 };
 
-/*shopping_cart data pay_list 장바구니 data 카드결제 출력 영역*/
+/*장바구니 data 카드결제 출력 영역*/
 pl_obj() {
 const pay_list_font = document.querySelector('.pay_list_font');
 pay_list_font.innerHTML += `
@@ -204,7 +204,7 @@ pay_list_font.innerHTML += `
   `;
 };
 
-/*shopping_cart data receipt_list 장바구니 data 영수증 출력 영역*/
+/*장바구니 data 영수증 출력 영역*/
 rl_obj() {
 const receipt_list_menuname  = document.querySelector('.receipt_list_menuname');
 receipt_list_menuname.innerHTML += `
@@ -215,14 +215,14 @@ receipt_list_menuname.innerHTML += `
   `;
 };
 
-/*shopping_cart plus sum 장바구니 더하기버튼 합계 영역*/
+/*장바구니 더하기버튼 합계 영역*/
 plus_sum() {
   this.amount++;
   $(`.menu_number_${this.name}`).html(this.amount);
   $(`.menu_price_1_${this.name}`).html((this.price * this.amount).toLocaleString() + '원');
 };
 
-/*shopping_cart minus sum 장바구니 빼기버튼 합계 영역*/
+/*장바구니 빼기버튼 합계 영역*/
 minus_sum() {
   this.amount--;
   if (this.amount < 1) {
@@ -234,7 +234,7 @@ minus_sum() {
   }
 }
 
-/*shopping_cart keyvalue remove 장바구니 키값 제거 영역*/
+/*장바구니 키값 제거 영역*/
 remove_value() {
   this.amount = 0;
     $('.order_list_data').empty();
@@ -246,7 +246,7 @@ remove_value() {
   };
 };
 
-/*shopping_cart menu db 장바구니 메뉴 db 파싱*/
+/*장바구니 메뉴 db 파싱*/
 $(window).on('load', function() {
   const app = new XMLHttpRequest();
   app.onreadystatechange = function() {
@@ -261,7 +261,7 @@ $(window).on('load', function() {
       menu_list_arr.push(kioskmenu);
     };
 
-    /*shopping_cart menu img click data famousmenu send  장바구니 메뉴 이미지 클릭 데이터 인기메뉴 전송 영역*/
+    /*장바구니 메뉴 이미지 클릭 데이터 인기메뉴 전송 영역*/
     for (let i = 0; i < menu_list_arr.length; i++) {
       $(`#coffe_${i}`).click( () => {
         if (menu_list_arr[i].amount < 1) {
@@ -277,7 +277,7 @@ $(window).on('load', function() {
         console.log(menu_list_arr);
       });
 
-      /*shopping_cart menu img click data coffe send 장바구니 메뉴 이미지 클릭 데이터 커피 전송 영역*/
+      /*장바구니 메뉴 이미지 클릭 데이터 커피 전송 영역*/
       $(`#coffe_${i}_${i}`).click( () => {
         if (menu_list_arr[i].amount < 1) {
           menu_list_arr[i].sc_obj();
@@ -292,7 +292,7 @@ $(window).on('load', function() {
         console.log(menu_list_arr);
       });
 
-      /*shopping_cart menu img click data receipt send 장바구니 메뉴 이미지 클릭 데이터 영수증 전송 영역*/
+      /*장바구니 메뉴 이미지 클릭 데이터 영수증 전송 영역*/
       $('[id*="coffe_"]').click( () => {
         for (let i = 0; i < price_arr.length; i++) {
           price_counter += price_arr[i][1];
@@ -304,7 +304,7 @@ $(window).on('load', function() {
         price_counter = 0;
       });
 
-      /*shopping_cart plus_menu_button 장바구니 플러스 버튼 영역*/
+      /*장바구니 플러스 버튼 영역*/
       $(document).on('click', `.plus_menu_button_${i}`, () => {
       console.log(price_arr);
       menu_list_arr[i].plus_sum();
@@ -319,7 +319,7 @@ $(window).on('load', function() {
         price_counter = 0;
       });
 
-      /*shopping_cart minus_menu_button 장바구니 빼기 버튼 영역*/
+      /*장바구니 빼기 버튼 영역*/
       $(document).on('click', `.minus_menu_button_${i}`, () => {
       console.log(price_arr);
       menu_list_arr[i].minus_sum();
@@ -344,7 +344,7 @@ $(window).on('load', function() {
         price_counter = 0;
       });
 
-      /*shopping_cart xeicon keyvalue delete 장바구니 아이콘 키값 제거 영역*/
+      /*장바구니 아이콘 키값 제거 영역*/
       $('.xi-trash, .receipt_close_button_box, .save_main_button').click( () => {
         menu_list_arr[i].remove_value();
         price_arr.length = 0;
@@ -374,7 +374,7 @@ app.open('GET', '../nodejs/kioskmenu.json?t=' + Math.random(), true);
 app.send();
 });
 
-/*kiosk receipt box 키오스크 영수증 박스 영역 대기번호*/
+/*키오스크 영수증 박스 영역 대기번호*/
 $(document).ready( () => {
   let waitingNumber = localStorage.getItem('waitingNumber') || 1;
   document.querySelector('.receipt_list_number2').innerHTML = waitingNumber + '&nbsp;번&nbsp;';
@@ -383,7 +383,7 @@ $(document).ready( () => {
   });
 });
 
-/*kiosk point save complete box 키오스크 포인트 적립완료 박스 영역 포인트넘버*/
+/*키오스크 포인트 적립완료 박스 영역 포인트넘버*/
 $(document).ready( () => {
   const randomNumber = Math.random() * 999
   const randomNumberFloor = Math.floor(randomNumber + 1)
@@ -395,7 +395,7 @@ $(document).ready( () => {
   })
 })
 
-/*kiosk menu choice page model 키오스크 메뉴 선택 페이지 결제하기 모달 영역*/
+/*키오스크 메뉴 선택 페이지 결제하기 모달 영역*/
 $('.buy_button').click(function() {
   if($('.order_list_data').children().is("div")) {
     $('.main_box').hide();
@@ -409,8 +409,8 @@ $('.model_close_button').click(function() {
   $('.model_box').hide();
 })
 
-/*kiosk menu extra orders list box 키오스크 추가메뉴 리스트 박스 영역*/
-/*kiosk menu img 키오스크 메뉴 이미지 영역*/
+/*키오스크 추가메뉴 리스트 박스 영역*/
+/*키오스크 메뉴 이미지 영역*/
 const extra_menu_img = [
   'url("/img/아메리카노_크기수정.png")',
   'url("/img/아이스-바닐라라떼.png")',
@@ -471,7 +471,7 @@ const extra_menu_img2 = [
   'url("../img/더-진한-캐롯-케이크.png")'
 ];
 
-/*kiosk menu list name 키오스크 메뉴 리스트 영역*/
+/*키오스크 메뉴 리스트 영역*/
 const extra_menu_name = [
   '아메리카노',
   '바닐라 라떼',
@@ -502,7 +502,7 @@ const extra_menu_name = [
   '더 진한 캐롯'
 ];
 
-/*kiosk menu description 키오스크 메뉴 상세 설명 영역*/
+/*키오스크 메뉴 상세 설명 영역*/
 const extra_menu_ex = [
   '에스프레소와 정수된 물, 얼음을 혼합한 아이스 커피',
   '고소한 바닐라와 우유에 에스프레소를 혼합한 아이스 커피',
@@ -549,7 +549,7 @@ $('.menu_list > section > article').each(function(index) {
   });
 });
 
-/*extra order list hot click 추가주문 hot 선택 영역 */
+/*추가주문 hot 선택 영역 */
 $('.menu_all_box3').each(function(index) {
   $(this).click(function() {
     $('.select_menu_info_box2').hide();
@@ -557,7 +557,7 @@ $('.menu_all_box3').each(function(index) {
   });
 });
 
-/*extra order list drink click 추가주문 음료 선택 영역 */
+/*click 추가주문 음료 선택 영역 */
 $('.menu_all_box4').each(function(index) {
   $(this).click(function() {
   $('.select_menu_info_box2').hide();
@@ -565,7 +565,7 @@ $('.menu_all_box4').each(function(index) {
   });
 });
 
-/*extra order list dessert click 추가주문 디저트 선택 영역 */
+/*추가주문 디저트 선택 영역 */
 $('.menu_all_box5').each(function(index) {
   $(this).click(function() {
   $('.select_menu_info_box2').hide();
@@ -573,7 +573,7 @@ $('.menu_all_box5').each(function(index) {
   });
 });
 
-/*extra order list menu select 추가주문 오더 리스트 메뉴 선택 영역*/
+/*추가주문 오더 리스트 메뉴 선택 영역*/
 $('.store_box').click( () => {
   $('.store_box').css({'background':'#AF4444'});
   $('.packaging_box').css({'background':'#555'});
@@ -654,7 +654,7 @@ $('.packaging_box4').click( () => {
   $('.store_box4').css({'background':'#555'});
 });
 
-/*extra order list menu select back 추가주문 오더 리스트 메뉴 선택 원상복귀 영역*/
+/*추가주문 오더 리스트 메뉴 선택 원상복귀 영역*/
 $('.xi-arrow-left').click( () => {
   $('.store_box').css({'background':'#555'});
   $('.packaging_box').css({'background':'#555'});
@@ -674,9 +674,9 @@ $('.xi-arrow-left').click( () => {
   $('.packaging_box4').css({'background':'#555'});  
 });
 
-/*kiosk menu extra orders list 키오스크 추가메뉴 리스트 페이지에서 다음버튼 영역*/
+/*list 키오스크 추가메뉴 리스트 페이지에서 다음버튼 영역*/
 $('.extra_order_next_box').click(function() {
-  /*kiosk menu select Coffe 키오스크 메뉴 셀렉트 커피 매장, 포장 선택영역*/
+  /*키오스크 메뉴 셀렉트 커피 매장, 포장 선택영역*/
   if ($('.select_menu_info_box2').is(':visible')) {
     if ($('.store_box').css('background-color') === 'rgb(85, 85, 85)' && 
         $('.packaging_box').css('background-color') === 'rgb(85, 85, 85)') {
@@ -686,7 +686,7 @@ $('.extra_order_next_box').click(function() {
     }
   }
   
-  /*kiosk menu select Coffe 키오스크 메뉴 셀렉트 커피 매장, 포장 선택영역*/
+  /*키오스크 메뉴 셀렉트 커피 매장, 포장 선택영역*/
   else if ($('.select_menu_info_box3').is(':visible')) {
     if ($('.store_box2').css('background-color') === 'rgb(85, 85, 85)' && 
         $('.packaging_box2').css('background-color') === 'rgb(85, 85, 85)') {
@@ -696,7 +696,7 @@ $('.extra_order_next_box').click(function() {
     }
   }
   
-  /*kiosk menu select Drink 키오스크 메뉴 셀렉트 드링크 매장,포장,hot,ice 선택영역*/
+  /*키오스크 메뉴 셀렉트 드링크 매장,포장,hot,ice 선택영역*/
   else if ($('.select_menu_info_box4').is(':visible')) {
     let store_selected = !($('.store_box3').css('background-color') === 'rgb(85, 85, 85)' && 
                           $('.packaging_box3').css('background-color') === 'rgb(85, 85, 85)');
@@ -718,7 +718,7 @@ $('.extra_order_next_box').click(function() {
     }
   }
   
-  /*kiosk menu select Dessert 키오스크 메뉴 셀렉트 디저트 매장 포장 선택영역*/
+  /*키오스크 메뉴 셀렉트 디저트 매장 포장 선택영역*/
   else if ($('.select_menu_info_box5').is(':visible')) {
     if ($('.store_box4').css('background-color') === 'rgb(85, 85, 85)' && 
         $('.packaging_box4').css('background-color') === 'rgb(85, 85, 85)') {
@@ -731,65 +731,65 @@ $('.extra_order_next_box').click(function() {
   $('.extra_order_list_box').hide();
   $('.main_box').show();
 
-  /*kiosk color Reset 키오스크 컬러 리셋 영역*/
+  /*키오스크 컬러 리셋 영역*/
   $('.store_box, .packaging_box, .generally_box, .aplenty_box, .shot_box2, .shot_box3, .store_box2, .packaging_box2, .shot_box4, .shot_box5, .store_box3, .packaging_box3, .hotice_box, .hotice_box2, .store_box4, .packaging_box4').css({'background':'#555'});
 });
 
-/*kiosk point back button 키오스크 포인트 뒤로가기 영역*/
+/*키오스크 포인트 뒤로가기 영역*/
 $('#xi-arrow-left').click(function() {
   $('.point_signup_pay_box').hide();
   $('.main_box').show();
 });
 
-/*kiosk point number back button 키오스크 포인트 넘버 뒤로가기 영역*/
+/*키오스크 포인트 넘버 뒤로가기 영역*/
 $('#xi-arrow-left2').click(function() {
   $('.point_signup_number_box').hide();
   $('.point_signup_pay_box').show();
 });
 
-/*kiosk point remaining back button 키오스크 포인트 잔여포인트 뒤로가기  영역*/
+/*키오스크 포인트 잔여포인트 뒤로가기  영역*/
 $('#xi-arrow-left3').click(function() {
   $('.point_inquire_number_box').hide();
   $('.point_signup_pay_box').show();
 });
 
-/*kiosk point remaining back xeicon 키오스크 포인트 잔여포인트 아이콘 빽 영빽*/
+/*키오스크 포인트 잔여포인트 아이콘 빽 영빽*/
 $('#xi-arrow-left4').click(function() {
   $('.point_remaining_box').hide();
   $('.point_signup_pay_box').show();
 });
 
-/*kiosk pay card box back button 키오스크 결제하기 카드 박스 뒤로가기 영역*/
+/*키오스크 결제하기 카드 박스 뒤로가기 영역*/
 $('#xi-arrow-left5').click(function() {
   $('.pay_screen_box').hide();
   $('.point_signup_pay_box').show();
 });
 
-/*kiosk menu extra orders choice xeicon back 키오스크 추가메뉴 리스트 선택 아이콘 백 영역*/
+/*키오스크 추가메뉴 리스트 선택 아이콘 백 영역*/
 $('#xi-arrow-left6').click(function() {
   $('.extra_order_list_box').hide();
   $('.main_box').show();
 });
 
-/*kiosk point signup 키오스크 포인트 간단가입 영역*/
+/*키오스크 포인트 간단가입 영역*/
 $('.signup_box').click(function() {
   $('.point_signup_pay_box').hide();
   $('.point_signup_number_box').show();
 });
 
-/*kiosk point use 키오스크 포인트 사용하기 영역*/
+/*키오스크 포인트 사용하기 영역*/
 $('.use_box').click(function() {
   $('.point_signup_pay_box').hide();
   $('.point_inquire_number_box').show();
 });
 
-/*kiosk point pay 키오스크 포인트 결제하기 영역*/
+/*키오스크 포인트 결제하기 영역*/
 $('.pay_img, .pay').click(function() {
   $('.point_signup_pay_box').hide();
   $('.pay_screen_box').show();
 });
 
-/*kiosk point next button 키오스크 포인트 확인 버튼 영역*/
+/*키오스크 포인트 확인 버튼 영역*/
 $('.confirm_button').click(function() {
   let val = $('.number_input_box > input').val();
   if (val == "" || val.length < 11) {
@@ -801,7 +801,7 @@ $('.confirm_button').click(function() {
   $('.pay_screen_box').show();
 });
 
-/*kiosk point inquire next button 키오스크 포인트 조회하기 버튼 영역*/
+/*키오스크 포인트 조회하기 버튼 영역*/
 $('.inquire_button').click(function() {
   let val = $('.number_inquire_input_box > input').val();
   if (val == "" || val.length < 11) {
@@ -813,7 +813,7 @@ $('.inquire_button').click(function() {
   $('.point_remaining_box').show();
 });
 
-/*kiosk point remaining next button 키오스크 잔여포인트 버튼 영역*/
+/*키오스크 잔여포인트 버튼 영역*/
 $('.pointuse_button').click(function() {
   let val = $('.point_remaining_input_box > input').val();
   let remaining_text = $('.point_remaining_font2').text().replace(/[^0-9]/g, '');
@@ -834,12 +834,12 @@ $('.pointuse_button').click(function() {
   $('.pay_screen_box').show();
 });
 
-/*kiosk pay 키오스크 결제하기 영역*/
+/*키오스크 결제하기 영역*/
 $('.pay2').click(function() {
   $('.pay_screen_box').hide();
   $('.receipt_box').show();
 
-  /*kiosk pay 영수증 대기화면 넘버 영역*/
+  /*영수증 대기화면 넘버 영역*/
   let current = parseInt(localStorage.getItem('waitingNumber') || 1);
   localStorage.setItem('waitingNumber', current + 1);
 });
@@ -849,7 +849,7 @@ $('.receipt_list_button').click(function() {
   window.print();
 });
 
-/*kiosk point save number 키오스크 포인트 적립 넘버 영역*/
+/*키오스크 포인트 적립 넘버 영역*/
 $('.receipt_list_button2').click( () => {
   $('.receipt_box').hide();
   $('.point_save_box').show();
@@ -867,7 +867,7 @@ $('.pointsave_button').click( () => {
   $('.point_save_complete_box').show();
 })
 
-/*kiosk point signup number 키오스크 포인트 간단가입 넘버 박스 영역*/
+/*키오스크 포인트 간단가입 넘버 박스 영역*/
 $('.point_keypad_box > article').each(function(index) {
   $(this).click(function(){
     console.log('point_keypad_box');
@@ -894,7 +894,7 @@ $('.point_keypad_box > article').each(function(index) {
   });
 });
 
-/*kiosk point inquire number box 키오스크 포인트 조회하기 넘버 박스 영역*/
+/*키오스크 포인트 조회하기 넘버 박스 영역*/
 $('.point_keypad_box2 > article').each(function(index) {
   $(this).click(function(){
     console.log('point_keypad_box2');
@@ -921,7 +921,7 @@ $('.point_keypad_box2 > article').each(function(index) {
   });
 });
 
-/*kiosk point remaining box 키오스크 잔여포인트 박스 영역*/
+/*키오스크 잔여포인트 박스 영역*/
 $('.point_keypad_box3 > article').each(function(index) {
   $(this).click(function(){
     console.log('point_keypad_box3');
@@ -948,7 +948,7 @@ $('.point_keypad_box3 > article').each(function(index) {
   });
 });
 
-/*kiosk point save box 키오스트 포인트 적립 박스 영역*/
+/*키오스트 포인트 적립 박스 영역*/
 $('.point_keypad_box4 > article').each(function(index) {
   $(this).click(function(){
     console.log('point_keypad_box4');
