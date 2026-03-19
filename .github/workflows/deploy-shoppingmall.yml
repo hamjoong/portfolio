@@ -61,12 +61,16 @@
           - name: Deploy to Vercel (CLI)
             working-directory: shoppingmall/frontend
             run: |
-              npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }} --cwd .
-              npx vercel build --prod --token=${{ secrets.VERCEL_TOKEN }} --cwd .
-              npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} --cwd .
+              npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+              npx vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+              npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
             env:
               VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
               VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+              # 환경변수 주입 (로그인/API 연동에 필수)
+              NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+              NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+              NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
           # 3. Vercel 배포
           - name: Deploy to Vercel
