@@ -23,9 +23,10 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 192, 203, 0.3);
-  /*주민등록번호 유효성 검사 박스 영역*/
+  background-color: rgba(255, 192, 203, 0.3)
 }
+
+/*주민등록번호 유효성 검사 박스 영역*/
 .ssn_box .ssn_number_validation {
   width: 100%;
   height: 100%;
@@ -40,10 +41,9 @@ html, body {
   font-weight: bold;
   color: rgba(138, 43, 226, 0.6);
   -webkit-animation: text 0.5s linear;
-          animation: text 0.5s linear;
-  /*주민등록번호 박스 영역*/
-  /*주민등록번호 입력 영역*/
+          animation: text 0.5s linear
 }
+/*주민등록번호 박스 영역*/
 @-webkit-keyframes text {
   0% {
     letter-spacing: -0.5rem;
@@ -58,6 +58,7 @@ html, body {
     opacity: 1;
   }
 }
+
 @keyframes text {
   0% {
     letter-spacing: -0.5rem;
@@ -72,6 +73,8 @@ html, body {
     opacity: 1;
   }
 }
+
+/*주민등록번호 입력 영역*/
 .ssn_box .ssn_number_validation .ssn_number {
   width: 98%;
   height: 10rem;
@@ -83,6 +86,7 @@ html, body {
   font-size: 5rem;
   color: white;
 }
+
 .ssn_box .ssn_number_validation .ssncheck_box {
   width: 30rem;
   height: 20rem;
@@ -90,9 +94,10 @@ html, body {
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
-  margin-top: 17rem;
-  /*주민등록번호 검사 영역*/
+  margin-top: 17rem
 }
+
+/*주민등록번호 검사 영역*/
 .ssn_box .ssn_number_validation .ssncheck_box .ssnNumber {
   width: 30rem;
   height: 5rem;

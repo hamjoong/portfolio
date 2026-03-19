@@ -21,7 +21,7 @@ function ssnvalidation() {
   /*검증용 가중치 상수화*/
   const WEIGHTS = [2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5];
   const MODULUS = 11;
-  const CHECK_INDEX = 12; // 13번째 자리 (인덱스 12)
+  const CHECK_INDEX = 12; /* 13번째 자리 (인덱스 12) */
   
   let tempSum = 0;
   for (let i = 0; i < WEIGHTS.length; i++) {
