@@ -11,7 +11,6 @@
        workflow_dispatch:
 
      jobs:
-      # 변경사항 감지 작업
       changes:
         runs-on: ubuntu-latest
         outputs:
@@ -28,7 +27,6 @@
                 backend:
                   - 'shoppingmall/backend/**'
 
-      # 1. 프론트엔드 배포 (Vercel)
       deploy-frontend:
         needs: changes
         if: ${{ needs.changes.outputs.frontend == 'true' }}
@@ -36,42 +34,10 @@
         steps:
           - uses: actions/checkout@v4
 
-          - name: Setup Node.js
-            uses: actions/setup-node@v4
-            with:
-              node-version: '20'
-
           - name: Install dependencies
             working-directory: shoppingmall/frontend
             run: npm install
 
-          # 빌드 과정을 독립적으로 실행 (이 단계에서 에러가 나면 상세 로그가 출력됩니다)
-          - name: Build and Deploy
-            working-directory: shoppingmall/frontend
-            run: |
-              npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
-              # Vercel 프로젝트 연결 및 빌드
-              npx vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-              # 빌드 완료 후 배포
-              npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
-            env:
-              VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-              VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          
-          # [중요] Vercel 액션 대신 CLI로 직접 배포하여 에러 로그를 강제 출력합니다.
-          - name: Deploy to Vercel (CLI)
-            working-directory: shoppingmall/frontend
-            run: |
-              npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-              npx vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-              npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
-            env:
-              VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-              VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-              # 환경변수 주입 (로그인/API 연동에 필수)
-              NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
-              NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-              NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
           # 3. Vercel 배포
           - name: Deploy to Vercel
@@ -80,13 +46,11 @@
               vercel-token: ${{ secrets.VERCEL_TOKEN }}
               vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
               vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-              working-directory: shoppingmall/frontend
               # 경로에 띄어쓰기가 있다면 반드시 따옴표로 감싸거나,
               # 가급적 띄어쓰기가 없는 경로명으로 변경하는 것을 권장합니다.
-              vercel-args: '--prod'
+              vercel-args: '--prod --debug'
               github-comment: false
 
-      # 2. 백엔드 배포 (Render)
       deploy-backend:
         needs: changes
         if: ${{ needs.changes.outputs.backend == 'true' }}
