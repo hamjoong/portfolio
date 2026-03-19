@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy-frontend:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -37,7 +37,3 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           working-directory: portfolio/shoppingmall/frontend
           github-comment: false
-
-  deploy-backend:
-    runs-on: ubuntu-latest
-    steps:
