@@ -1,63 +1,63 @@
-     name: Shoppingmall Deploy
+name: Shoppingmall Deploy
     
-     on:
-       push:
-         branches:
-           - main
-         paths:
-           - 'shoppingmall/frontend/**'
-           - 'shoppingmall/backend/**'
-      workflow_dispatch:
-   
-    jobs:
-      # 변경사항 감지 작업
-      changes:
-        runs-on: ubuntu-latest
-        outputs:
-          frontend: ${{ steps.filter.outputs.frontend }}
-          backend: ${{ steps.filter.outputs.backend }}
-        steps:
-          - uses: actions/checkout@v4
-          - uses: dorny/paths-filter@v3
-            id: filter
-            with:
-              filters: |
-                frontend:
-                  - 'shoppingmall/frontend/**'
-                backend:
-                  - 'shoppingmall/backend/**'
-   
-      # 1. 프론트엔드 배포 (Vercel)
-      deploy-frontend:
-        needs: changes
-        if: ${{ needs.changes.outputs.frontend == 'true' }}
-        runs-on: ubuntu-latest
-        steps:
-          - uses: actions/checkout@v4
-   
-          - name: Setup Node.js
-            uses: actions/setup-node@v4
-            with:
-              node-version: '20'
-   
-          - name: Install dependencies
-            working-directory: shoppingmall/frontend
-            run: npm ci
-   
-          - name: Deploy to Vercel
-            uses: amondnet/vercel-action@v20
-            with:
-              vercel-token: ${{ secrets.VERCEL_TOKEN }}
-              vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-              vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-              working-directory: shoppingmall/frontend
-              vercel-args: '--prod'
-              github-comment: false
-   
-      # 2. 백엔드 배포 (Render)
-      deploy-backend:
-        needs: changes
-        if: ${{ needs.changes.outputs.backend == 'true' }}
-        runs-on: ubuntu-latest
-        steps:
-          - name: Deploy Backend to Render
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'shoppingmall/frontend/**'
+      - 'shoppingmall/backend/**'
+  workflow_dispatch:
+
+jobs:
+  # 변경사항 감지 작업
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      frontend: ${{ steps.filter.outputs.frontend }}
+      backend: ${{ steps.filter.outputs.backend }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            frontend:
+              - 'shoppingmall/frontend/**'
+            backend:
+              - 'shoppingmall/backend/**'
+
+  # 1. 프론트엔드 배포 (Vercel)
+  deploy-frontend:
+    needs: changes
+    if: ${{ needs.changes.outputs.frontend == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+  
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+  
+      - name: Install dependencies
+        working-directory: shoppingmall/frontend
+        run: npm ci
+  
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: shoppingmall/frontend
+          vercel-args: '--prod'
+          github-comment: false
+  
+  # 2. 백엔드 배포 (Render)
+  deploy-backend:
+    needs: changes
+    if: ${{ needs.changes.outputs.backend == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Backend to Render
