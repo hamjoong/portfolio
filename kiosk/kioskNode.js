@@ -17,22 +17,22 @@ app.use(bodyParser.urlencoded({
   extended : false
 }));
 
-/*화면 엔진을 ejs로 설정*/
+/*화면 engine을 ejs로 설정*/
 /*app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);*/
 
-/*뷰 html 경로 설정*/
+/*view html 경로 설정*/
 /*app.set('view engine', 'html');
 app.set('views', './build/html');*/
 
-/*뷰 pug 경로 설정*/
+/*view pug 경로 설정*/
 app.set('view engine', 'pug');
 app.set('views', './build/html');
 
-/*정적 경로 설정*/
+/*스테틱 경로 설정*/
 app.use(express.static('build'));
 
-/*json kiosk menu, point 파싱 html*/
+/*json kiosk menu,point 파싱 html*/
 /*app.get('/', (req, res) => {
   client.query('SELECT * FROM kioskpoint', (error, result) => {
     fs.writeFileSync('./build/nodejs/kioskpoint.json', 'get_kioskpoint=' + JSON.stringify(result));
@@ -40,13 +40,11 @@ app.use(express.static('build'));
   });
 });*/
 
-/*json kiosk menu, point 파싱 pug*/
+/*json kiosk menu,point 파싱 pug*/
 app.get('/', (req, res) => {
   client.query('SELECT * FROM kioskpoint', (error, result) => {
-    fs.writeFile('./build/nodejs/kioskpoint.json', 'get_kioskpoint=' + JSON.stringify(result), (err) => {
-      if (err) console.error(err);
-      res.render('kiosk');
-    });
+    fs.writeFileSync('./build/nodejs/kioskpoint.json', 'get_kioskpoint=' + JSON.stringify(result));
+    res.render('kiosk');
   });
 });
 
@@ -64,4 +62,3 @@ app.get('/', (req, res) => {
 app.listen(3030, () => {
   console.log('Server Running 3030...');
 });*/
-

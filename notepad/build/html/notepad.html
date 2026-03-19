@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="KO">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang&amp;display=swap">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="icon" type="image/png" href="../favicon/favicon.ico">
+    <link rel="stylesheet" href="../css/notepad.css">
+    <title>Note Pad</title>
+  </head>
+  <body>
+     <!--Note Pad Main Box 메모장 메인 박스 영역-->
+    <main class="notepad_main_box"><!--Note Pad Header 메모장 헤더 영역-->
+      <header>
+        <p>Note Pad 메모장</p>
+      </header><!--Note Pad Mini Box 메모장 미니 박스 영역-->
+      <section class="notepad_mini_box"><!--Note Pad Form 메모장 폼 영역-->
+        <form class="notepad_title_contents_box" method="post" target="form"><!--Note Pad Title 메모장 제목 영역-->
+          <article class="notepad_title">
+            <input class="note_Title" type="text" name="Title" value="" id="note_Title" placeholder="제목을 작성하세요">
+          </article><!--Note Pad Save Button 메모장 저장 버튼 영역-->
+          <section class="notepad_save_button_box">
+            <input class="notepad_save_button" type="button" name="notepad_save_button" value="저장" id="notepad_save_button" placeholder="저장">
+          </section><!--Note Pad Contents 메모장 내용 영역-->
+          <article class="notepad_contents">
+            <textarea class="note_Contents" type="text" name="Contents" value="내용을 작성하세요." cols="30" rows="10" id="note_Contents" placeholder="내용을 작성하세요."></textarea>
+          </article>
+          <iframe name="form"></iframe>
+        </form><!--Note Pad Body Title,Contents View Box 메모장 바디 제목,내용 보여지는 박스 영역-->
+        <section class="notepad_body_title_contents_box"><!--Note Pad Body Title,Contents view Box2 메모장 바디 제목,내용 보여지는 박스2 영역-->
+          <section class="notepad_body_title_contents_box2"></section>
+        </section><!--Note Pad delete_button 메모장 delete 버튼 영역-->
+        <section class="delete_button"></section>
+      </section>
+    </main><!--Note Pad Model Box 메모장 모달 박스 영역-->
+    <section class="model_box">
+      <section class="model">
+        <p class="model_font">정말 삭제 하시겠습니까?</p>
+        <section class="model_button_box">
+          <button class="delete_button">삭제</button>
+          <button class="cancel_button">취소</button>
+        </section>
+      </section>
+    </section><!--Note Pad Footer 메모장 푸터 영역-->
+    <footer> 
+      <p class="footer_font">Copyright(C) 2022. Hjuk. All right reserved. 본 사이트는 비상업적인 용도로 제작된 포트폴리오 사이트입니다</p>
+    </footer>
+    <script src="../nodejs/notepad.json" type="text/javascript"></script>
+    <script src="../script/notepad.js"></script>
+  </body>
+</html>

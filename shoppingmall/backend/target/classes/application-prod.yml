@@ -1,0 +1,51 @@
+spring:
+  # Redis를 완전히 차단합니다. (배포 실패의 주범 중 하나)
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
+
+  datasource:
+    # Supabase 연결 정보는 Render 환경변수에서 주입받습니다.
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    # 연결 속도 최적화 (무료 티어용)
+    hikari:
+      initialization-fail-timeout: 0
+      maximum-pool-size: 5
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate    # update → validate: 매번 스키마 비교 방지 (시작 속도 향상)
+    open-in-view: false      # 불필요한 DB 세션 유지 방지
+    show-sql: false          # 운영 환경에서 SQL 로그 비활성화
+    properties:
+      hibernate:
+        format_sql: false
+        default_schema: public
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: ${PORT:8080}
+
+# Health Check 경량화: Render가 빠르게 healthy로 인식
+management:
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
+  health:
+    db:
+      enabled: false         # Health check에서 DB 확인 제외 (시작 속도 향상)
+    defaults:
+      enabled: false
+
+# 운영 환경: 로그 레벨 최소화 (시작 시 I/O 감소)
+logging:
+  level:
+    root: WARN
+    com.zaxxer.hikari: WARN
+    org.springframework.web: WARN

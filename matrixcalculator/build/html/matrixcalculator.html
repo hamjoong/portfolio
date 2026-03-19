@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="KO">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="icon" type="image/png" href="../../public/favicon/favicon.ico">
+    <link rel="stylesheet" href="../css/matrixcalculator.css">
+    <title>Matrix Calculator</title>
+  </head>
+  <body> 
+    <section class="mc_main_box">
+      <section class="mc_mini_box">
+        <section class="mc_header_box">
+          <header class="mc_header_font">Matrix Calculator</header>
+        </section>
+      </section>
+      <section class="mc_array_box">
+        <section class="mc_print_array_box control_top">
+          <section class="printArray">
+            <section class="inputArray">
+              <input class="xinputArray" id="xinputArray" type="number" title="xinputArray" min="1" max="9" value="" placeholder="행">
+              <input class="yinputArray" id="yinputArray" type="number" title="yinputArray" min="1" max="9" value="" placeholder="열">
+            </section>
+          </section>
+          
+          <section class="printArray2">
+            <section class="inputArray2">
+              <input class="xinputArray2" id="xinputArray2" type="number" title="xinputArray2" min="1" max="9" value="" placeholder="행">
+              <input class="yinputArray2" id="yinputArray2" type="number" title="yinputArray2" min="1" max="9" value="" placeholder="열">
+            </section>
+          </section>
+
+          <section class="printArray3">
+            <section class="inputArray3">
+              <button class="button_box_plus" id="button_box_plus">+</button>
+              <button class="button_box_minus" id="button_box_minus">-</button>
+              <button class="button_box_multi" id="button_box_multi">×</button>
+              <button class="button_box_random" id="button_box_random">자동완성</button>
+              <button class="button_box_print" id="button_box_print">직접입력</button>
+              <button class="button_box_reset" id="button_box_reset">리셋</button>
+            </section>
+          </section>
+        </section>
+
+        <section class="mc_print_array_box">
+          <section class="printArray"> 
+            <section class="xprint_Array" id="xprint_Array"> </section>
+          </section>
+          <section class="printArray2"> 
+            <section class="yprint_Array" id="yprint_Array"> </section>
+          </section>
+          <section class="printArray3"> 
+            <section class="print_Array" id="print_Array"> </section>
+          </section>
+        </section>
+      </section>
+      <section class="alert_event_box" id="alert_event_box"> 
+        <p class="alert_box" id="alert_box"> </p>
+      </section>
+      <div class="copyright">
+        <div class="container"><small>Copyright(C) 2022. Hjuk. All right reserved. 본 사이트는 비상업적인 용도로 제작된 포트폴리오 사이트입니다</small></div>
+      </div>
+    </section>
+    <script src="../../src/script/matrixcalculator.js"> </script>
+  </body>
+</html>

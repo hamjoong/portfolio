@@ -1,0 +1,24 @@
+[
+  {"id":"1","menu_name":"아메리카노","menu_price":"5500","menu_description":"에스프레소와 정수된 물,얼음을 혼합한 아이스 커피","amount":"1"},
+  {"id":"2","menu_name":"바닐라라떼","menu_price":"5800","menu_description":"고소한 바닐라와 우유에 에스프레소를 혼합한 아이스 커피","amount":"2"},
+  {"id":"3","menu_name":"카페라떼","menu_price":"5000","menu_description":"농도 짙은 에스프레소와 우유, 얼음을 혼합한 아이스 커피","amount":"3"},
+  {"id":"4","menu_name":"카페모카","menu_price":"5500","menu_description":"달콤한 초콜릿과 우유에 에스프레소를 혼합 한 후, 생크림을 얹은 아이스 커피","amount":"4"},
+  {"id":"5","menu_name":"헤이오트라떼","menu_price":"5800","menu_description":"골든색 원두와 헤이즐넛 향의 풍미가 식물성 귀리음료와 어우러져 달콤 고소한 파스쿠찌만의 ...","amount":"5"},
+  {"id":"6","menu_name":"시그니처크림커피","menu_price":"5800","menu_description":"부드럽게 흘러내리는 플랫크림과 커피와의 만남","amount":"6"},
+  {"id":"7","menu_name":"아메리카노HOT","menu_price":"4500","menu_description":"뜨거운물에 에스프레소를 희석, 한층 부드럽고 깊은 아로마를 느낄 수 있는 레귤러 커피","amount":"7"},
+  {"id":"8","menu_name":"카페모카HOT","menu_price":"5500","menu_description":"달콤한 다크 초콜릿과 에스프레소에 부드러운 스팀 밀크를 혼합 한 후,생크림을 얹은 베리...","amount":"8"},
+  {"id":"9","menu_name":"카푸치노HOT","menu_price":"5000","menu_description":"에스프레소와 부드러운 벨벳 밀크폼을 혼합하여커피와 우유거품의 절묘한 풍미를 느낄 수 있...","amount":"9"},
+  {"id":"10","menu_name":"자색고구마라떼","menu_price":"5500","menu_description":"달콤한 자색 고구마를 활용한 부드러운 라떼","amount":"10"},
+  {"id":"11","menu_name":"흑임자오트라떼","menu_price":"5800","menu_description":"고소한 흑임자와 식물성 귀리음료로 어우러진 고소한 라떼","amount":"11"},
+  {"id":"12","menu_name":"아이스초코","menu_price":"5800","menu_description":"달콤한 다크 초콜릿과 우유를 혼합한 아이스 초콜릿 음료","amount":"12"},
+  {"id":"13","menu_name":"자몽스파클링","menu_price":"5500","menu_description":"자몽베이스와 탄산수를 혼합한 스파클링 음료","amount":"13"},
+  {"id":"14","menu_name":"레몬스파클링","menu_price":"5500","menu_description":"상큼한 레몬베이스와 탄산수를 혼합한 스파클링 음료","amount":"14"},
+  {"id":"15","menu_name":"청포도스파클링","menu_price":"5000","menu_description":"청포도의 상큼한 맛과 탄산수가 조화를 이루는 스파클링 음료","amount":"15"},
+  {"id":"16","menu_name":"허니브레드","menu_price":"6200","menu_description":"고소한 버터, 달달한 꿀을 품은 바삭한 식빵위에 달콤한 메이플 시럽이 잘 어우러진 허니브...","amount":"16"},
+  {"id":"17","menu_name":"플레인베이글","menu_price":"3900","menu_description":"담백한 플레인 베이글과 함께 제공되는 부드러운 크림치즈","amount":"17"},
+  {"id":"18","menu_name":"에그타르트","menu_price":"1500","menu_description":"달걀의 풍미를 가득 담은 고소하고 환상적인 타르트","amount":"18"},
+  {"id":"19","menu_name":"오마이초코","menu_price":"6500","menu_description":"가득한 딸기와 초코 시트 속 베리 콤포트가 어우러진 초코 가나슈 생크림 케이크","amount":"19"},
+  {"id":"20","menu_name":"치즈케이크","menu_price":"5500","menu_description":"촉촉하고 부드러운 식감과 진한 풍미의 치즈 맛을느낄 수 있는 수플레 타입 치즈 케이크","amount":"20"},
+  {"id":"21","menu_name":"더진한캐롯","menu_price":"6300","menu_description":"담백한 당근을 듬뿍 넣은 캐롯시트와 더 진한 크림치즈가 어우러진 파스쿠찌 캐롯케이크","amount":"21"}
+]
+

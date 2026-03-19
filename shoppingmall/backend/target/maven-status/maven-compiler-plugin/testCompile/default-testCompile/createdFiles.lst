@@ -1,0 +1,5 @@
+com/projectx/auth/service/OrderServiceScenarioTest.class
+com/projectx/auth/service/OrderConcurrencyTest.class
+com/projectx/auth/config/TestConfig.class
+com/projectx/auth/service/OrderIntegrationTest.class
+com/projectx/auth/controller/ProductApiIntegrationTest.class

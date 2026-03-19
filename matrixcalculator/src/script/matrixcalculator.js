@@ -58,23 +58,11 @@ class matrix_calculator {
 
 	plusArray () {
 		this.calArray = '';
-		const matrixA = [];
-		const matrixB = [];
-
-		for (let i = 0; i < this.xArray; i++) {
-			matrixA.push([]);
-			matrixB.push([]);
-			for (let j = 0; j < this.yArray; j++) {
-				matrixA[i].push(parseInt($("#inputA" + i + "_" + j).val()) || 0);
-				matrixB[i].push(parseInt($("#inputB" + i + "_" + j).val()) || 0);
-			}
-		}
-
 		let i = 0;
 		while (i < this.xArray) {
 			let j = 0;
 			while (j < this.yArray) {
-				const resVal = matrixA[i][j] + matrixB[i][j];
+				const resVal = (parseInt($("#inputA" + i + "_" + j).val()) + parseInt($("#inputB" + i + "_" + j).val()));
 				this.calArray += '<input class="miniBox" type="text" value="' + resVal + '" readonly>';
 				j++;
 			}
@@ -84,23 +72,11 @@ class matrix_calculator {
 
 	minusArray () {
 		this.calArray = '';
-		const matrixA = [];
-		const matrixB = [];
-
-		for (let i = 0; i < this.xArray; i++) {
-			matrixA.push([]);
-			matrixB.push([]);
-			for (let j = 0; j < this.yArray; j++) {
-				matrixA[i].push(parseInt($("#inputA" + i + "_" + j).val()) || 0);
-				matrixB[i].push(parseInt($("#inputB" + i + "_" + j).val()) || 0);
-			}
-		}
-
 		let i = 0;
 		while (i < this.xArray) {
 			let j = 0;
 			while (j < this.yArray) {
-				const resVal = matrixA[i][j] - matrixB[i][j];
+				const resVal = (parseInt($("#inputA" + i + "_" + j).val()) - parseInt($("#inputB" + i + "_" + j).val()));
 				this.calArray += '<input class="miniBox" type="text" value="' + resVal + '" readonly>';
 				j++;
 			}
@@ -120,7 +96,7 @@ const alertEvent = (selectors, body) => {
 	});
 }
 
-$(".xinputArray, .yinputArray, .xinputArray2, .yinputArray2").on("keyup", function () {
+$("input").on("keyup", function () {
 	const checkIn = /^[-0]|[\.]/g;
 	if (checkIn.test($(this).val())) {
 		alertEvent(this, "1~9까지 입력해 주세요.");
@@ -138,28 +114,12 @@ $(document).on("click", function (e) {
 	const inputValue2 = new matrix_calculator(xinputValue2, yinputValue2);
 
 	const multiArray = () => {
-		const matrixA = [];
-		for (let i = 0; i < xinputValue; i++) {
-			matrixA.push([]);
-			for (let k = 0; k < yinputValue; k++) {
-				matrixA[i].push(parseInt($('#inputA' + i + "_" + k).val()) || 0);
-			}
-		}
-
-		const matrixB = [];
-		for (let k = 0; k < xinputValue2; k++) {
-			matrixB.push([]);
-			for (let j = 0; j < yinputValue2; j++) {
-				matrixB[k].push(parseInt($('#inputB' + k + "_" + j).val()) || 0);
-			}
-		}
-
 		let newArray = '';
 		for (let i = 0; i < xinputValue; i++) {
 			for (let j = 0; j < yinputValue2; j++) {
 				let totalValue = 0;
 				for (let k = 0; k < yinputValue; k++) {
-					totalValue += matrixA[i][k] * matrixB[k][j];
+					totalValue += parseInt($('#inputA' + i + "_" + k).val()) * parseInt($('#inputB' + k + "_" + j).val());
 				}
 				newArray += '<input class="miniBox" type="text" value="' + totalValue + '" readonly>';
 			}

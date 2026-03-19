@@ -9,26 +9,26 @@ const con = mysql.createConnection( {
 
 con.connect ( function (err) {
   if (err) throw err;
-  console.log('연결됨!');
+  console.log('Connected!');
 
   const sql = 'CREATE TABLE kioskmenu (id INT AUTO_INCREMENT PRIMARY KEY, menu_name CHAR(20), menu_price INT, menu_description VARCHAR(255))';
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log('테이블 생성됨');
+    console.log('Table Created');
   });
 
   /*테이블 변경*/
   /*const sql = 'ALTER TABLE kioskmenu ADD COLUMN menu_description VARCHAR(255)';
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log('테이블 생성됨');
+    console.log('Table created');
   });*/
 
   /*레코드 삽입*/
   /*const sql = "INSERT INTO kioskmenu (menu_name, menu_price, menu_description) VALUES ('커피', 5600, '커피')";
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log('1개의 레코드 삽입됨');
+    console.log('1 record inserted');
   });*/
 
   //레코드 다중 삽입
@@ -58,7 +58,6 @@ con.connect ( function (err) {
   ];
   con.query(sql, [values], function (err,result){
     if (err) throw err;
-    console.log("레코드 삽입 횟수: " + result.affectedRows);
+    console.log("Number of recorde inserted: " + result.affectedRows);
   });*/
-
 });

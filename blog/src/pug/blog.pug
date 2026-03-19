@@ -20,37 +20,42 @@ html(lang='KO')
     title 무한히 발전하는 함중욱 입니다.
   body 
 
-    <!--메인 영역-->
+    <!--Main 메인 영역-->
     section(class='blog_main_box')
       section(class='blog_mini_box')
 
-        <!--인트로 영역-->
+        <!--Intro 인트로 영역-->
         section(class='blog_intro_box')
 
-          <!--인트로 로고 영역-->
+          <!--Intro 인트로 로고 영역-->
           section(class='blog_intro_logo_img')
 
-          <!--인트로 헤더 영역-->
+          <!--Intro 인트로 헤더 영역-->
           header(class='blog_intro_header_box')
             p(class='blog_intro_header_font') Ham Joong Uk
             p(class='blog_intro_header_font2') Front-end Developer 
             p(class='blog_intro_header_font3') 가공되지 않은 원석 Developer <br> 성실, 열정으로 열심히 하겠습니다 
 
-          <!--인트로 이미지 영역-->
+          <!--Intro 인트로 이미지 영역-->
           section(class='blog_intro_img')
 
-          <!--인트로 메뉴 영역-->
+          <!--Intro 인트로 메뉴 영역-->
           nav(class='blog_nav_box')
             ul(class='blog_nav_menu')
               li(class='blog_nav_home') Home 
+              //a(class='blog_nav_home' href='#blog_intro_box') Home
               li(class='blog_nav_aboutme') About Me 
+              //a(class='blog_nav_aboutme' href='#blog_aboutme_box') About Me
               li(class='blog_nav_skill') Skill 
+              //a(class='blog_nav_skill' href='#blog_aboutme_skill_box') Skill
               li(class='blog_nav_portfolio') Portfolio 
+              //a(class='blog_nav_portfolio' href='#blog_portfolio_box') Portfolio
 
-      <!--어바웃미 영역-->
+      <!--About Me 어바웃미 영역-->
       main(class='blog_aboutme_box')
         section(class='blog_aboutme_box2')
           section(class='blog_aboutme_img')
+          //img(id='blog_aboutme_img' class='blog_aboutme_img')
 
           section(class='blog_aboutme_font_box')
             p(class='blog_aboutme_font') 함중욱
@@ -64,7 +69,7 @@ html(lang='KO')
           section(class='blog_aboutme_font_box3')
             p(class='blog_aboutme_font6') 2006~2008 경일고등학교 졸업 <br> 2008~2012 안산1대학(글로벌 IT 비즈니스) 졸업 <br> 2022.05~2022.12 라인컴퓨터아트학원 Java기반 스마트웹&앱 개발
 
-      <!--어바웃미 스킬 영역-->
+      <!--About Me Skill 어바웃미 스킬 영역-->
       main(class='blog_aboutme_skill_box')
         section(class='blog_skill_img_box')
           section(class='blog_skill_html_img' onclick='myFunction();')
@@ -92,7 +97,7 @@ html(lang='KO')
 
           section(class='blog_skill_json_img' onclick='myFunction();')
 
-      <!--어바웃미 스킬 바 영역-->
+      <!--Aboutme Skill Bar 어바웃미 스킬 바 영역-->
       main(class='blog_skill_bar_box')
         sectopm(class='blog_skill_bar_box2')
           section(class='blog_skill_bar_html skill_bar')
@@ -143,7 +148,7 @@ html(lang='KO')
             span(class='blog_skill_bar_json_font json') 60%
           span(class='blog_skill_bar_json_font2') Json에 대한 기본적인 문법을 이해하고 서버와 클라이언트 간의 비동기 통신을 하여 Json형태의 배열, 객체 형태의 파일을 주고받을 수 있습니다.
 
-      <!--포트폴리오 영역-->
+      <!--Portfolio 영역-->
       main(class='blog_portfolio_box')
         section(class='blog_portfolio_box2')
           section(class='blog_portfolio')
@@ -199,18 +204,18 @@ html(lang='KO')
               span(class='blog_portfolio_contents8') 
 
             section(class='blog_portfolio_link_box')
-              button(class='blog_portfolio_link' type='button' onclick="window.open('https://github.com/hamjoong/portfolio/tree/main/matrixcalculator')") 바로가기
-              button(class='blog_portfolio_link_1' type='button' onclick="window.open('https://github.com/hamjoong/portfolio/tree/main/matrixcalculator/public/pdf')") PDF 바로가기
+              button(class='blog_portfolio_link' type='button' onclick="window.open('https://github.com/hamjoong/matrixcalculator')") 바로가기
+              button(class='blog_portfolio_link_1' type='button' onclick="window.open('https://github.com/hamjoong/matrixcalculator/tree/main/public/pdf')") PDF 바로가기
 
-              button(class='blog_portfolio_link2' type='button' onclick="window.open('https://github.com/hamjoong/portfolio/tree/main/kiosk')") 바로가기
-              button(class='blog_portfolio_link_2' type='button' onclick="window.open('https://github.com/hamjoong/portfolio/tree/main/kiosk/public/pdf')") PDF 바로가기
+              button(class='blog_portfolio_link2' type='button' onclick="window.open('https://github.com/hamjoong/kiosk')") 바로가기
+              button(class='blog_portfolio_link_2' type='button' onclick="window.open('https://github.com/hamjoong/kiosk/tree/main/build/pdf')") PDF 바로가기
               
-              button(class='blog_portfolio_link3' type='button' onclick="window.open('https://github.com/hamjoong/portfolio/tree/main/notepad')") 바로가기
-              button(class='blog_portfolio_link_3' type='button' onclick="window.open('https://github.com/hamjoong/portfolio/tree/main/notepad/public/pdf')") PDF 바로가기
+              button(class='blog_portfolio_link3' type='button' onclick="window.open('https://github.com/hamjoong/notepad')") 바로가기
+              button(class='blog_portfolio_link_3' type='button' onclick="window.open('https://github.com/hamjoong/notepad/tree/main/build/pdf')") PDF 바로가기
               
-              button(class='blog_portfolio_link4' type='button' onclick="window.open('https://github.com/hamjoong/portfolio/tree/main/movie')") 바로가기
+              button(class='blog_portfolio_link4' type='button' onclick="window.open('https://github.com/hamjoong/movie')") 바로가기
               
-              button(class='blog_portfolio_link5' type='button' onclick="window.open('https://github.com/hamjoong/portfolio/tree/main/ssnvalidation')") 바로가기
+              button(class='blog_portfolio_link5' type='button' onclick="window.open('https://github.com/hamjoong/ssnvalidation')") 바로가기
 
               button(class='blog_portfolio_link6' type='button' onclick="window.open('')") 바로가기
               button(class='blog_portfolio_link_6' type='button' onclick="window.open('')") PDF 바로가기

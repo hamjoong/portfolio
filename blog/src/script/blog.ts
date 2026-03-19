@@ -41,7 +41,7 @@ $('.blog_nav_portfolio').click(function() {
 })
 
 /*bar 차트 영역*/
-$(window).ready(function() {
+/*$(window).ready(function() {
 	draw(90, '.blog_skill_bar_html', 'rgb(148,180,255)');
 	draw(60, '.blog_skill_bar_script', 'rgb(148,180,255)');
   draw(90, '.blog_skill_bar_css', 'rgb(148,180,255)');
@@ -55,6 +55,21 @@ $(window).ready(function() {
   draw(40, '.blog_skill_bar_java', 'rgb(148,180,255)');
   draw(60, '.blog_skill_bar_json', 'rgb(148,180,255)');
 });
+
+function myFunction() {
+	draw(90, '.blog_skill_bar_html', 'rgb(148,180,255)',);
+	draw(60, '.blog_skill_bar_script', 'rgb(148,180,255)');
+  draw(90, '.blog_skill_bar_css', 'rgb(148,180,255)');
+  draw(60, '.blog_skill_bar_nodejs', 'rgb(148,180,255)');
+  draw(90, '.blog_skill_bar_sass', 'rgb(148,180,255)');
+  draw(60, '.blog_skill_bar_ajax', 'rgb(148,180,255)');
+  draw(90, '.blog_skill_bar_pug', 'rgb(148,180,255)');
+  draw(50, '.blog_skill_bar_jquery', 'rgb(148,180,255)');
+  draw(60, '.blog_skill_bar_mysql', 'rgb(148,180,255)');
+  draw(40, '.blog_skill_bar_typescript', 'rgb(148,180,255)');
+  draw(40, '.blog_skill_bar_java', 'rgb(148,180,255)');
+  draw(60, '.blog_skill_bar_json', 'rgb(148,180,255)');
+}
 
 function draw(max, classname, colorname) {
   let i = 0;
@@ -72,43 +87,610 @@ function color(i, classname, colorname) {
   $(classname).css( {
     'background' : 'linear-gradient(to right,' + colorname + '0%' + i + '% , rgb(255,255,255)' + i + '%100%)'
   });
-}
+}*/
 
-/*skill 클릭 영역*/
-$('[class^="blog_skill_"][class$="_img"]').click(function() {
-  const clickedClass = $(this).attr('class');
-  const skill = clickedClass.split('_')[2];
-
-  $('[class^="blog_skill_bar_"]').hide();
-  $('[class^="blog_skill_bar_"][class$="_font2"]').hide();
-
-  $('.blog_skill_bar_' + skill).toggle();
-  $('.blog_skill_bar_' + skill + '_font2').toggle();
+/*skill onClick 영역*/
+$('.blog_skill_html_img').click(function() {
+  $('.blog_skill_bar_script').hide();
+  $('.blog_skill_bar_script_font2').hide();
+  $('.blog_skill_bar_css').hide();
+  $('.blog_skill_bar_css_font2').hide();
+  $('.blog_skill_bar_nodejs').hide();
+  $('.blog_skill_bar_nodejs_font2').hide();
+  $('.blog_skill_bar_sass').hide();
+  $('.blog_skill_bar_sass_font2').hide();
+  $('.blog_skill_bar_ajax').hide();
+  $('.blog_skill_bar_ajax_font2').hide();
+  $('.blog_skill_bar_pug').hide();
+  $('.blog_skill_bar_pug_font2').hide();
+  $('.blog_skill_bar_jquery').hide();
+  $('.blog_skill_bar_jquery_font2').hide();
+  $('.blog_skill_bar_mysql').hide();
+  $('.blog_skill_bar_mysql_font2').hide();
+  $('.blog_skill_bar_typescript').hide();
+  $('.blog_skill_bar_typescript_font2').hide();
+  $('.blog_skill_bar_java').hide();
+  $('.blog_skill_bar_java_font2').hide();
+  $('.blog_skill_bar_json').hide();
+  $('.blog_skill_bar_json_font2').hide();
+  $('.blog_skill_bar_html').toggle();
+  $('.blog_skill_bar_html_font2').toggle();
 });
 
-/*portfolio 클릭 영역*/
-$('[class^="portfolio_list"]').click(function() {
-  const clickedClass = $(this).attr('class');
-  const listIndex = parseInt(clickedClass.replace('portfolio_list', ''), 10);
+$('.blog_skill_script_img').click(function() {
+  $('.blog_skill_bar_html').hide();
+  $('.blog_skill_bar_html_font2').hide();
+  $('.blog_skill_bar_css').hide();
+  $('.blog_skill_bar_css_font2').hide();
+  $('.blog_skill_bar_nodejs').hide();
+  $('.blog_skill_bar_nodejs_font2').hide();
+  $('.blog_skill_bar_sass').hide();
+  $('.blog_skill_bar_sass_font2').hide();
+  $('.blog_skill_bar_ajax').hide();
+  $('.blog_skill_bar_ajax_font2').hide();
+  $('.blog_skill_bar_pug').hide();
+  $('.blog_skill_bar_pug_font2').hide();
+  $('.blog_skill_bar_jquery').hide();
+  $('.blog_skill_bar_jquery_font2').hide();
+  $('.blog_skill_bar_mysql').hide();
+  $('.blog_skill_bar_mysql_font2').hide();
+  $('.blog_skill_bar_typescript').hide();
+  $('.blog_skill_bar_typescript_font2').hide();
+  $('.blog_skill_bar_java').hide();
+  $('.blog_skill_bar_java_font2').hide();
+  $('.blog_skill_bar_json').hide();
+  $('.blog_skill_bar_json_font2').hide();
+  $('.blog_skill_bar_script').toggle();
+  $('.blog_skill_bar_script_font2').toggle();
+}); 
 
-  // 모든 포트폴리오 요소 숨기기
-  $('[class^="blog_portfolio_img"]').hide();
-  $('[class^="blog_portfolio_contents"]').hide();
-  $('[class^="blog_portfolio_link"]').hide();
+$('.blog_skill_css_img').click(function() {
+  $('.blog_skill_bar_html').hide();
+  $('.blog_skill_bar_html_font2').hide();
+  $('.blog_skill_bar_script').hide();
+  $('.blog_skill_bar_script_font2').hide();
+  $('.blog_skill_bar_nodejs').hide();
+  $('.blog_skill_bar_nodejs_font2').hide();
+  $('.blog_skill_bar_sass').hide();
+  $('.blog_skill_bar_sass_font2').hide();
+  $('.blog_skill_bar_ajax').hide();
+  $('.blog_skill_bar_ajax_font2').hide();
+  $('.blog_skill_bar_pug').hide();
+  $('.blog_skill_bar_pug_font2').hide();
+  $('.blog_skill_bar_jquery').hide();
+  $('.blog_skill_bar_jquery_font2').hide();
+  $('.blog_skill_bar_mysql').hide();
+  $('.blog_skill_bar_mysql_font2').hide();
+  $('.blog_skill_bar_typescript').hide();
+  $('.blog_skill_bar_typescript_font2').hide();
+  $('.blog_skill_bar_java').hide();
+  $('.blog_skill_bar_java_font2').hide();
+  $('.blog_skill_bar_json').hide();
+  $('.blog_skill_bar_json_font2').hide();
+  $('.blog_skill_bar_css').toggle();
+  $('.blog_skill_bar_css_font2').toggle();
+}); 
 
-  // 대상 인덱스 결정
-  let targetIndex;
-  if (listIndex === 2) {
-    targetIndex = '';
-  } else if (listIndex > 2) {
-    targetIndex = (listIndex - 1).toString();
-  }
+$('.blog_skill_nodejs_img').click(function() {
+  $('.blog_skill_bar_html').hide();
+  $('.blog_skill_bar_html_font2').hide();
+  $('.blog_skill_bar_script').hide();
+  $('.blog_skill_bar_script_font2').hide();
+  $('.blog_skill_bar_css').hide();
+  $('.blog_skill_bar_css_font2').hide();
+  $('.blog_skill_bar_sass').hide();
+  $('.blog_skill_bar_sass_font2').hide();
+  $('.blog_skill_bar_ajax').hide();
+  $('.blog_skill_bar_ajax_font2').hide();
+  $('.blog_skill_bar_pug').hide();
+  $('.blog_skill_bar_pug_font2').hide();
+  $('.blog_skill_bar_jquery').hide();
+  $('.blog_skill_bar_jquery_font2').hide();
+  $('.blog_skill_bar_mysql').hide();
+  $('.blog_skill_bar_mysql_font2').hide();
+  $('.blog_skill_bar_typescript').hide();
+  $('.blog_skill_bar_typescript_font2').hide();
+  $('.blog_skill_bar_java').hide();
+  $('.blog_skill_bar_java_font2').hide();
+  $('.blog_skill_bar_json').hide();
+  $('.blog_skill_bar_json_font2').hide();
+  $('.blog_skill_bar_nodejs').toggle();
+  $('.blog_skill_bar_nodejs_font2').toggle();
+}); 
 
-  // 올바른 요소 토글
-  if (targetIndex !== undefined) {
-    $('.blog_portfolio_img' + targetIndex).toggle();
-    $('.blog_portfolio_contents' + targetIndex).toggle();
-    $('.blog_portfolio_link' + targetIndex).toggle();
-    $('.blog_portfolio_link_' + (targetIndex === '' ? '1' : targetIndex)).toggle();
-  }
+$('.blog_skill_sass_img').click(function() {
+  $('.blog_skill_bar_html').hide();
+  $('.blog_skill_bar_html_font2').hide();
+  $('.blog_skill_bar_script').hide();
+  $('.blog_skill_bar_script_font2').hide();
+  $('.blog_skill_bar_css').hide();
+  $('.blog_skill_bar_css_font2').hide();
+  $('.blog_skill_bar_nodejs').hide();
+  $('.blog_skill_bar_nodejs_font2').hide();
+  $('.blog_skill_bar_ajax').hide();
+  $('.blog_skill_bar_ajax_font2').hide();
+  $('.blog_skill_bar_pug').hide();
+  $('.blog_skill_bar_pug_font2').hide();
+  $('.blog_skill_bar_jquery').hide();
+  $('.blog_skill_bar_jquery_font2').hide();
+  $('.blog_skill_bar_mysql').hide();
+  $('.blog_skill_bar_mysql_font2').hide();
+  $('.blog_skill_bar_typescript').hide();
+  $('.blog_skill_bar_typescript_font2').hide();
+  $('.blog_skill_bar_java').hide();
+  $('.blog_skill_bar_java_font2').hide();
+  $('.blog_skill_bar_json').hide();
+  $('.blog_skill_bar_json_font2').hide();
+  $('.blog_skill_bar_sass').toggle();
+  $('.blog_skill_bar_sass_font2').toggle();
+}); 
+
+$('.blog_skill_ajax_img').click(function() {
+  $('.blog_skill_bar_html').hide();
+  $('.blog_skill_bar_html_font2').hide();
+  $('.blog_skill_bar_script').hide();
+  $('.blog_skill_bar_script_font2').hide();
+  $('.blog_skill_bar_css').hide();
+  $('.blog_skill_bar_css_font2').hide();
+  $('.blog_skill_bar_nodejs').hide();
+  $('.blog_skill_bar_nodejs_font2').hide();
+  $('.blog_skill_bar_sass').hide();
+  $('.blog_skill_bar_sass_font2').hide();
+  $('.blog_skill_bar_pug').hide();
+  $('.blog_skill_bar_pug_font2').hide();
+  $('.blog_skill_bar_jquery').hide();
+  $('.blog_skill_bar_jquery_font2').hide();
+  $('.blog_skill_bar_mysql').hide();
+  $('.blog_skill_bar_mysql_font2').hide();
+  $('.blog_skill_bar_typescript').hide();
+  $('.blog_skill_bar_typescript_font2').hide();
+  $('.blog_skill_bar_java').hide();
+  $('.blog_skill_bar_java_font2').hide();
+  $('.blog_skill_bar_json').hide();
+  $('.blog_skill_bar_json_font2').hide();
+  $('.blog_skill_bar_ajax').toggle();
+  $('.blog_skill_bar_ajax_font2').toggle();
+}); 
+
+$('.blog_skill_pug_img').click(function() {
+  $('.blog_skill_bar_html').hide();
+  $('.blog_skill_bar_html_font2').hide();
+  $('.blog_skill_bar_script').hide();
+  $('.blog_skill_bar_script_font2').hide();
+  $('.blog_skill_bar_css').hide();
+  $('.blog_skill_bar_css_font2').hide();
+  $('.blog_skill_bar_nodejs').hide();
+  $('.blog_skill_bar_nodejs_font2').hide();
+  $('.blog_skill_bar_sass').hide();
+  $('.blog_skill_bar_sass_font2').hide();
+  $('.blog_skill_bar_ajax').hide();
+  $('.blog_skill_bar_ajax_font2').hide();
+  $('.blog_skill_bar_jquery').hide();
+  $('.blog_skill_bar_jquery_font2').hide();
+  $('.blog_skill_bar_mysql').hide();
+  $('.blog_skill_bar_mysql_font2').hide();
+  $('.blog_skill_bar_typescript').hide();
+  $('.blog_skill_bar_typescript_font2').hide();
+  $('.blog_skill_bar_java').hide();
+  $('.blog_skill_bar_java_font2').hide();
+  $('.blog_skill_bar_json').hide();
+  $('.blog_skill_bar_json_font2').hide();
+  $('.blog_skill_bar_pug').toggle();
+  $('.blog_skill_bar_pug_font2').toggle();
+}); 
+
+$('.blog_skill_jquery_img').click(function() {
+  $('.blog_skill_bar_html').hide();
+  $('.blog_skill_bar_html_font2').hide();
+  $('.blog_skill_bar_script').hide();
+  $('.blog_skill_bar_script_font2').hide();
+  $('.blog_skill_bar_css').hide();
+  $('.blog_skill_bar_css_font2').hide();
+  $('.blog_skill_bar_nodejs').hide();
+  $('.blog_skill_bar_nodejs_font2').hide();
+  $('.blog_skill_bar_sass').hide();
+  $('.blog_skill_bar_sass_font2').hide();
+  $('.blog_skill_bar_ajax').hide();
+  $('.blog_skill_bar_ajax_font2').hide();
+  $('.blog_skill_bar_pug').hide();
+  $('.blog_skill_bar_pug_font2').hide();
+  $('.blog_skill_bar_mysql').hide();
+  $('.blog_skill_bar_mysql_font2').hide();
+  $('.blog_skill_bar_typescript').hide();
+  $('.blog_skill_bar_typescript_font2').hide();
+  $('.blog_skill_bar_java').hide();
+  $('.blog_skill_bar_java_font2').hide();
+  $('.blog_skill_bar_json').hide();
+  $('.blog_skill_bar_json_font2').hide();
+  $('.blog_skill_bar_jquery').toggle();
+  $('.blog_skill_bar_jquery_font2').toggle();
+}); 
+
+$('.blog_skill_mysql_img').click(function() {
+  $('.blog_skill_bar_html').hide();
+  $('.blog_skill_bar_html_font2').hide();
+  $('.blog_skill_bar_script').hide();
+  $('.blog_skill_bar_script_font2').hide();
+  $('.blog_skill_bar_css').hide();
+  $('.blog_skill_bar_css_font2').hide();
+  $('.blog_skill_bar_nodejs').hide();
+  $('.blog_skill_bar_nodejs_font2').hide();
+  $('.blog_skill_bar_sass').hide();
+  $('.blog_skill_bar_sass_font2').hide();
+  $('.blog_skill_bar_ajax').hide();
+  $('.blog_skill_bar_ajax_font2').hide();
+  $('.blog_skill_bar_pug').hide();
+  $('.blog_skill_bar_pug_font2').hide();
+  $('.blog_skill_bar_jquery').hide();
+  $('.blog_skill_bar_jquery_font2').hide();
+  $('.blog_skill_bar_typescript').hide();
+  $('.blog_skill_bar_typescript_font2').hide();
+  $('.blog_skill_bar_java').hide();
+  $('.blog_skill_bar_java_font2').hide();
+  $('.blog_skill_bar_json').hide();
+  $('.blog_skill_bar_json_font2').hide();
+  $('.blog_skill_bar_mysql').toggle();
+  $('.blog_skill_bar_mysql_font2').toggle();
+}); 
+
+$('.blog_skill_typescript_img').click(function() {
+  $('.blog_skill_bar_html').hide();
+  $('.blog_skill_bar_html_font2').hide();
+  $('.blog_skill_bar_script').hide();
+  $('.blog_skill_bar_script_font2').hide();
+  $('.blog_skill_bar_css').hide();
+  $('.blog_skill_bar_css_font2').hide();
+  $('.blog_skill_bar_nodejs').hide();
+  $('.blog_skill_bar_nodejs_font2').hide();
+  $('.blog_skill_bar_sass').hide();
+  $('.blog_skill_bar_sass_font2').hide();
+  $('.blog_skill_bar_ajax').hide();
+  $('.blog_skill_bar_ajax_font2').hide();
+  $('.blog_skill_bar_pug').hide();
+  $('.blog_skill_bar_pug_font2').hide();
+  $('.blog_skill_bar_jquery').hide();
+  $('.blog_skill_bar_jquery_font2').hide();
+  $('.blog_skill_bar_mysql').hide();
+  $('.blog_skill_bar_mysql_font2').hide();
+  $('.blog_skill_bar_java').hide();
+  $('.blog_skill_bar_java_font2').hide();
+  $('.blog_skill_bar_json').hide();
+  $('.blog_skill_bar_json_font2').hide();
+  $('.blog_skill_bar_typescript').toggle();
+  $('.blog_skill_bar_typescript_font2').toggle();
+}); 
+
+$('.blog_skill_java_img').click(function() {
+  $('.blog_skill_bar_html').hide();
+  $('.blog_skill_bar_html_font2').hide();
+  $('.blog_skill_bar_script').hide();
+  $('.blog_skill_bar_script_font2').hide();
+  $('.blog_skill_bar_css').hide();
+  $('.blog_skill_bar_css_font2').hide();
+  $('.blog_skill_bar_nodejs').hide();
+  $('.blog_skill_bar_nodejs_font2').hide();
+  $('.blog_skill_bar_sass').hide();
+  $('.blog_skill_bar_sass_font2').hide();
+  $('.blog_skill_bar_ajax').hide();
+  $('.blog_skill_bar_ajax_font2').hide();
+  $('.blog_skill_bar_pug').hide();
+  $('.blog_skill_bar_pug_font2').hide();
+  $('.blog_skill_bar_jquery').hide();
+  $('.blog_skill_bar_jquery_font2').hide();
+  $('.blog_skill_bar_mysql').hide();
+  $('.blog_skill_bar_mysql_font2').hide();
+  $('.blog_skill_bar_typescript').hide();
+  $('.blog_skill_bar_typescript_font2').hide();
+  $('.blog_skill_bar_json').hide();
+  $('.blog_skill_bar_json_font2').hide();
+  $('.blog_skill_bar_java').toggle();
+  $('.blog_skill_bar_java_font2').toggle();
+}); 
+
+$('.blog_skill_json_img').click(function() {
+  $('.blog_skill_bar_html').hide();
+  $('.blog_skill_bar_html_font2').hide();
+  $('.blog_skill_bar_script').hide();
+  $('.blog_skill_bar_script_font2').hide();
+  $('.blog_skill_bar_css').hide();
+  $('.blog_skill_bar_css_font2').hide();
+  $('.blog_skill_bar_nodejs').hide();
+  $('.blog_skill_bar_nodejs_font2').hide();
+  $('.blog_skill_bar_sass').hide();
+  $('.blog_skill_bar_sass_font2').hide();
+  $('.blog_skill_bar_ajax').hide();
+  $('.blog_skill_bar_ajax_font2').hide();
+  $('.blog_skill_bar_pug').hide();
+  $('.blog_skill_bar_pug_font2').hide();
+  $('.blog_skill_bar_jquery').hide();
+  $('.blog_skill_bar_jquery_font2').hide();
+  $('.blog_skill_bar_mysql').hide();
+  $('.blog_skill_bar_mysql_font2').hide();
+  $('.blog_skill_bar_typescript').hide();
+  $('.blog_skill_bar_typescript_font2').hide();
+  $('.blog_skill_bar_java').hide();
+  $('.blog_skill_bar_java_font2').hide();
+  $('.blog_skill_bar_json').toggle();
+  $('.blog_skill_bar_json_font2').toggle();
+}); 
+
+/*portfolio onClick 영역*/
+$('.portfolio_list2').click(function() {
+  $('.blog_portfolio_img2').hide();
+  $('.blog_portfolio_contents2').hide();
+  $('.blog_portfolio_link2').hide();
+  $('.blog_portfolio_link_2').hide();
+  $('.blog_portfolio_img3').hide();
+  $('.blog_portfolio_contents3').hide();
+  $('.blog_portfolio_link3').hide();
+  $('.blog_portfolio_link_3').hide();
+  $('.blog_portfolio_img4').hide();
+  $('.blog_portfolio_contents4').hide();
+  $('.blog_portfolio_link4').hide();
+  $('.blog_portfolio_link_4').hide();
+  $('.blog_portfolio_img5').hide();
+  $('.blog_portfolio_contents5').hide();
+  $('.blog_portfolio_link5').hide();
+  $('.blog_portfolio_link_5').hide();
+  $('.blog_portfolio_img6').hide();
+  $('.blog_portfolio_contents6').hide();
+  $('.blog_portfolio_link6').hide();
+  $('.blog_portfolio_link_6').hide();
+  $('.blog_portfolio_img7').hide();
+  $('.blog_portfolio_contents7').hide();
+  $('.blog_portfolio_link7').hide();
+  $('.blog_portfolio_link_7').hide();
+  $('.blog_portfolio_img8').hide();
+  $('.blog_portfolio_contents8').hide();
+  $('.blog_portfolio_link8').hide();
+  $('.blog_portfolio_link_8').hide();
+  $('.blog_portfolio_img').toggle();
+  $('.blog_portfolio_contents').toggle();
+  $('.blog_portfolio_link').toggle();
+  $('.blog_portfolio_link_1').toggle();
+});
+
+$('.portfolio_list3').click(function() {
+  $('.blog_portfolio_img').hide();
+  $('.blog_portfolio_contents').hide();
+  $('.blog_portfolio_link').hide();
+  $('.blog_portfolio_link_1').hide();
+  $('.blog_portfolio_img3').hide();
+  $('.blog_portfolio_contents3').hide();
+  $('.blog_portfolio_link3').hide();
+  $('.blog_portfolio_link_3').hide();
+  $('.blog_portfolio_img4').hide();
+  $('.blog_portfolio_contents4').hide();
+  $('.blog_portfolio_link4').hide();
+  $('.blog_portfolio_link_4').hide();
+  $('.blog_portfolio_img5').hide();
+  $('.blog_portfolio_contents5').hide();
+  $('.blog_portfolio_link5').hide();
+  $('.blog_portfolio_link_5').hide();
+  $('.blog_portfolio_img6').hide();
+  $('.blog_portfolio_contents6').hide();
+  $('.blog_portfolio_link6').hide();
+  $('.blog_portfolio_link_6').hide();
+  $('.blog_portfolio_img7').hide();
+  $('.blog_portfolio_contents7').hide();
+  $('.blog_portfolio_link7').hide();
+  $('.blog_portfolio_link_7').hide();
+  $('.blog_portfolio_img8').hide();
+  $('.blog_portfolio_contents8').hide();
+  $('.blog_portfolio_link8').hide();
+  $('.blog_portfolio_link_8').hide();
+  $('.blog_portfolio_img2').toggle();
+  $('.blog_portfolio_contents2').toggle();
+  $('.blog_portfolio_link2').toggle();
+  $('.blog_portfolio_link_2').toggle();
+}); 
+
+$('.portfolio_list4').click(function() {
+  $('.blog_portfolio_img').hide();
+  $('.blog_portfolio_contents').hide();
+  $('.blog_portfolio_link').hide();
+  $('.blog_portfolio_link_1').hide();
+  $('.blog_portfolio_img2').hide();
+  $('.blog_portfolio_contents2').hide();
+  $('.blog_portfolio_link2').hide();
+  $('.blog_portfolio_link_2').hide();
+  $('.blog_portfolio_img4').hide();
+  $('.blog_portfolio_contents4').hide();
+  $('.blog_portfolio_link4').hide();
+  $('.blog_portfolio_link_4').hide();
+  $('.blog_portfolio_img5').hide();
+  $('.blog_portfolio_contents5').hide();
+  $('.blog_portfolio_link5').hide();
+  $('.blog_portfolio_link_5').hide();
+  $('.blog_portfolio_img6').hide();
+  $('.blog_portfolio_contents6').hide();
+  $('.blog_portfolio_link6').hide();
+  $('.blog_portfolio_link_6').hide();
+  $('.blog_portfolio_img7').hide();
+  $('.blog_portfolio_contents7').hide();
+  $('.blog_portfolio_link7').hide();
+  $('.blog_portfolio_link_7').hide();
+  $('.blog_portfolio_img8').hide();
+  $('.blog_portfolio_contents8').hide();
+  $('.blog_portfolio_link8').hide();
+  $('.blog_portfolio_link_8').hide();
+  $('.blog_portfolio_img3').toggle();
+  $('.blog_portfolio_contents3').toggle();
+  $('.blog_portfolio_link3').toggle();
+  $('.blog_portfolio_link_3').toggle();
+}); 
+
+$('.portfolio_list5').click(function() {
+  $('.blog_portfolio_img').hide();
+  $('.blog_portfolio_contents').hide();
+  $('.blog_portfolio_link').hide();
+  $('.blog_portfolio_link_1').hide();
+  $('.blog_portfolio_img2').hide();
+  $('.blog_portfolio_contents2').hide();
+  $('.blog_portfolio_link2').hide();
+  $('.blog_portfolio_link_2').hide();
+  $('.blog_portfolio_img3').hide();
+  $('.blog_portfolio_contents3').hide();
+  $('.blog_portfolio_link3').hide();
+  $('.blog_portfolio_link_3').hide();
+  $('.blog_portfolio_img5').hide();
+  $('.blog_portfolio_contents5').hide();
+  $('.blog_portfolio_link5').hide();
+  $('.blog_portfolio_link_5').hide();
+  $('.blog_portfolio_img6').hide();
+  $('.blog_portfolio_contents6').hide();
+  $('.blog_portfolio_link6').hide();
+  $('.blog_portfolio_link_6').hide();
+  $('.blog_portfolio_img7').hide();
+  $('.blog_portfolio_contents7').hide();
+  $('.blog_portfolio_link7').hide();
+  $('.blog_portfolio_link_7').hide();
+  $('.blog_portfolio_img8').hide();
+  $('.blog_portfolio_contents8').hide();
+  $('.blog_portfolio_link8').hide();
+  $('.blog_portfolio_link_8').hide();
+  $('.blog_portfolio_img4').toggle();
+  $('.blog_portfolio_contents4').toggle();
+  $('.blog_portfolio_link4').toggle();
+  $('.blog_portfolio_link_4').toggle();
+}); 
+
+$('.portfolio_list6').click(function() {
+  $('.blog_portfolio_img').hide();
+  $('.blog_portfolio_contents').hide();
+  $('.blog_portfolio_link').hide();
+  $('.blog_portfolio_link_1').hide();
+  $('.blog_portfolio_img2').hide();
+  $('.blog_portfolio_contents2').hide();
+  $('.blog_portfolio_link2').hide();
+  $('.blog_portfolio_link_2').hide();
+  $('.blog_portfolio_img3').hide();
+  $('.blog_portfolio_contents3').hide();
+  $('.blog_portfolio_link3').hide();
+  $('.blog_portfolio_link_3').hide();
+  $('.blog_portfolio_img4').hide();
+  $('.blog_portfolio_contents4').hide();
+  $('.blog_portfolio_link4').hide();
+  $('.blog_portfolio_link_4').hide();
+  $('.blog_portfolio_img6').hide();
+  $('.blog_portfolio_contents6').hide();
+  $('.blog_portfolio_link6').hide();
+  $('.blog_portfolio_link_6').hide();
+  $('.blog_portfolio_img7').hide();
+  $('.blog_portfolio_contents7').hide();
+  $('.blog_portfolio_link7').hide();
+  $('.blog_portfolio_link_7').hide();
+  $('.blog_portfolio_img8').hide();
+  $('.blog_portfolio_contents8').hide();
+  $('.blog_portfolio_link8').hide();
+  $('.blog_portfolio_link_8').hide();
+  $('.blog_portfolio_img5').toggle();
+  $('.blog_portfolio_contents5').toggle();
+  $('.blog_portfolio_link5').toggle();
+  $('.blog_portfolio_link_5').toggle();
+}); 
+
+$('.portfolio_list7').click(function() {
+  $('.blog_portfolio_img').hide();
+  $('.blog_portfolio_contents').hide();
+  $('.blog_portfolio_link').hide();
+  $('.blog_portfolio_link_1').hide();
+  $('.blog_portfolio_img2').hide();
+  $('.blog_portfolio_contents2').hide();
+  $('.blog_portfolio_link2').hide();
+  $('.blog_portfolio_link_2').hide();
+  $('.blog_portfolio_img3').hide();
+  $('.blog_portfolio_contents3').hide();
+  $('.blog_portfolio_link3').hide();
+  $('.blog_portfolio_link_3').hide();
+  $('.blog_portfolio_img4').hide();
+  $('.blog_portfolio_contents4').hide();
+  $('.blog_portfolio_link4').hide();
+  $('.blog_portfolio_link_4').hide();
+  $('.blog_portfolio_img5').hide();
+  $('.blog_portfolio_contents5').hide();
+  $('.blog_portfolio_link5').hide();
+  $('.blog_portfolio_link_5').hide();
+  $('.blog_portfolio_img7').hide();
+  $('.blog_portfolio_contents7').hide();
+  $('.blog_portfolio_link7').hide();
+  $('.blog_portfolio_link_7').hide();
+  $('.blog_portfolio_img8').hide();
+  $('.blog_portfolio_contents8').hide();
+  $('.blog_portfolio_link8').hide();
+  $('.blog_portfolio_link_8').hide();
+  $('.blog_portfolio_img6').toggle();
+  $('.blog_portfolio_contents6').toggle();
+  $('.blog_portfolio_link6').toggle();
+  $('.blog_portfolio_link_6').toggle();
+}); 
+
+$('.portfolio_list8').click(function() {
+  $('.blog_portfolio_img').hide();
+  $('.blog_portfolio_contents').hide();
+  $('.blog_portfolio_link').hide();
+  $('.blog_portfolio_link_1').hide();
+  $('.blog_portfolio_img2').hide();
+  $('.blog_portfolio_contents2').hide();
+  $('.blog_portfolio_link2').hide();
+  $('.blog_portfolio_link_2').hide();
+  $('.blog_portfolio_img3').hide();
+  $('.blog_portfolio_contents3').hide();
+  $('.blog_portfolio_link3').hide();
+  $('.blog_portfolio_link_3').hide();
+  $('.blog_portfolio_img4').hide();
+  $('.blog_portfolio_contents4').hide();
+  $('.blog_portfolio_link4').hide();
+  $('.blog_portfolio_link_4').hide();
+  $('.blog_portfolio_img5').hide();
+  $('.blog_portfolio_contents5').hide();
+  $('.blog_portfolio_link5').hide();
+  $('.blog_portfolio_link_5').hide();
+  $('.blog_portfolio_img6').hide();
+  $('.blog_portfolio_contents6').hide();
+  $('.blog_portfolio_link6').hide();
+  $('.blog_portfolio_link_6').hide();
+  $('.blog_portfolio_img8').hide();
+  $('.blog_portfolio_contents8').hide();
+  $('.blog_portfolio_link8').hide();
+  $('.blog_portfolio_link_8').hide();
+  $('.blog_portfolio_img7').toggle();
+  $('.blog_portfolio_contents7').toggle();
+  $('.blog_portfolio_link7').toggle();
+  $('.blog_portfolio_link_7').toggle();
+}); 
+
+$('.portfolio_list9').click(function() {
+  $('.blog_portfolio_img').hide();
+  $('.blog_portfolio_contents').hide();
+  $('.blog_portfolio_link').hide();
+  $('.blog_portfolio_link_1').hide();
+  $('.blog_portfolio_img2').hide();
+  $('.blog_portfolio_contents2').hide();
+  $('.blog_portfolio_link2').hide();
+  $('.blog_portfolio_link_2').hide();
+  $('.blog_portfolio_img3').hide();
+  $('.blog_portfolio_contents3').hide();
+  $('.blog_portfolio_link3').hide();
+  $('.blog_portfolio_link_3').hide();
+  $('.blog_portfolio_img4').hide();
+  $('.blog_portfolio_contents4').hide();
+  $('.blog_portfolio_link4').hide();
+  $('.blog_portfolio_link_4').hide();
+  $('.blog_portfolio_img5').hide();
+  $('.blog_portfolio_contents5').hide();
+  $('.blog_portfolio_link5').hide();
+  $('.blog_portfolio_link_5').hide();
+  $('.blog_portfolio_img6').hide();
+  $('.blog_portfolio_contents6').hide();
+  $('.blog_portfolio_link6').hide();
+  $('.blog_portfolio_link_6').hide();
+  $('.blog_portfolio_img7').hide();
+  $('.blog_portfolio_contents7').hide();
+  $('.blog_portfolio_link7').hide();
+  $('.blog_portfolio_link_7').hide();
+  $('.blog_portfolio_img8').toggle();
+  $('.blog_portfolio_contents8').toggle();
+  $('.blog_portfolio_link8').toggle();
+  $('.blog_portfolio_link_8').toggle();
 });

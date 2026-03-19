@@ -1,0 +1,294 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap");
+* {
+  margin: 0px;
+  padding: 0px;
+  font-size: 10px;
+  font-family: "Gowun Batang", serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #fff;
+  background-image: linear-gradient(90deg, transparent 7rem, #abced4 7rem, #abced4 8rem, transparent 7rem), linear-gradient(#EEE 0.1rem, transparent 0.1rem);
+  background-size: 100% 1.2rem;
+}
+
+/*Note Pad Main Box 메모장 메인 박스 영역*/
+/*Note Pad Header 메모장 헤더 영역*/
+/*Note Pad Mini Box 메모장 미니 박스 영역*/
+/*Note Pad Form 메모장 폼 영역*/
+/*Note Pad Title,contents 메모장 제목,내용 영역*/
+/*Note Pad Save Button 메모장 저장 버튼 영역*/
+/*Note Pad Body Title,Contents view Box 메모장 바디 제목,내용 보여지는 박스2 영역*/
+/*Note Pad Body Title,Contents 메모장 바디 제목,내용 영역*/
+/*Note Pad Body Title,Contents font 메모장 바디 제목,내용 그려지는 폰트 영역*/
+/*Note Pad Model Box 메모장 모달 박스 영역*/
+/*Note Pad Main Box 메모장 메인 박스 영역*/
+.notepad_main_box {
+  width: 120rem;
+  height: 90rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0rem 0rem 0.5rem 0.3rem rgb(100, 100, 100);
+  /*Note Pad Header 메모장 헤더 영역*/
+  /*Note Pad Mini Box 메모장 미니 박스 영역*/
+}
+.notepad_main_box header {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+  font-weight: bold;
+  color: #7198FF;
+  background-color: #EBE1DD;
+}
+.notepad_main_box header p {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+  font-weight: bold;
+  color: #7198FF;
+  background-color: #EBE1DD;
+}
+.notepad_main_box .notepad_mini_box {
+  width: 100%;
+  height: 80rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*Note Pad Form 메모장 폼 영역*/
+  /*Note Pad Body Title,Contents View Box 메모장 바디 제목,내용 보여지는 박스 영역*/
+}
+.notepad_main_box .notepad_mini_box .notepad_title_contents_box {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  /*Note Pad Title 메모장 제목 영역*/
+  /*Note Pad Contents 메모장 내용 영역*/
+  /*Note Pad Save Button 메모장 저장 버튼 영역*/
+}
+.notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_title {
+  width: 50rem;
+  height: 7rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_title .note_Title {
+  width: 50rem;
+  height: 7rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 1rem;
+  box-shadow: 0rem 0rem 0.1rem 0.5rem rgb(100, 100, 100);
+  font-size: 5rem;
+  font-weight: bold;
+  color: rgb(80, 80, 80);
+  padding-left: 1rem;
+}
+.notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_contents {
+  width: 50rem;
+  height: 7rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 50rem;
+}
+.notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_contents .note_Contents {
+  width: 50rem;
+  height: 7rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 1rem;
+  box-shadow: 0rem 0rem 0.1rem 0.5rem rgb(100, 100, 100);
+  font-size: 5rem;
+  font-weight: bold;
+  color: rgb(80, 80, 80);
+  padding-left: 1rem;
+  height: 50rem;
+}
+.notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_save_button_box {
+  width: 50rem;
+  height: 6rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 2rem;
+}
+.notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_save_button_box .notepad_save_button {
+  width: 6rem;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  border: 1px solid transparent;
+  font-size: 3rem;
+  font-weight: bold;
+  color: rgb(100, 100, 100);
+}
+.notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_save_button_box .notepad_save_button:hover {
+  background-color: #EBE1DD;
+  color: #7198FF;
+  cursor: pointer;
+}
+.notepad_main_box .notepad_mini_box .notepad_title_contents_box iframe {
+  display: none;
+}
+.notepad_main_box .notepad_mini_box .notepad_body_title_contents_box {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row wrap;
+  /*Note Pad Body Title,Contents view Box 메모장 바디 제목,내용 보여지는 박스2 영역*/
+}
+.notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 {
+  width: 55rem;
+  height: 75%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  overflow-x: hidden;
+}
+.notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 article.box {
+  width: 17rem;
+  height: 17rem;
+  display: flex;
+  flex-flow: column nowrap;
+  border-radius: 1rem;
+  box-shadow: 0rem 0rem 0.1rem 0.5rem rgb(100, 100, 100);
+  margin: 0.8rem;
+}
+.notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 article.box p.title_box {
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgb(80, 80, 80);
+  border-bottom: 1px solid black;
+}
+.notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 article.box p.contents_box {
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgb(80, 80, 80);
+}
+.notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 article.box i {
+  width: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: -5.5rem;
+  left: 13rem;
+}
+.notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 article.box i:hover {
+  color: #7198FF;
+  cursor: pointer;
+}
+
+/*Note Pad Model Box 메모장 모달 박스 영역*/
+.model_box {
+  width: 30rem;
+  height: 30rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  border-radius: 2rem;
+  background-color: #7198FF;
+  display: none;
+  top: 30rem;
+}
+.model_box .model {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.model_box .model .model_font {
+  width: 100%;
+  height: 30rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgb(80, 80, 80);
+}
+.model_box .model .model_button_box {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.model_box .model .model_button_box .delete_button {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #EBE1DD;
+  border: 1px solid transparent;
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgb(80, 80, 80);
+  border-bottom-left-radius: 2rem;
+  border-right: 1px solid black;
+}
+.model_box .model .model_button_box .cancel_button {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #EBE1DD;
+  border: 1px solid transparent;
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgb(80, 80, 80);
+  border-bottom-right-radius: 2rem;
+}
+.model_box .model .model_button_box .delete_button:hover, .model_box .model .model_button_box .cancel_button:hover {
+  color: #7198FF;
+  cursor: pointer;
+}
+
+/*Note Pad Footer 메모장 푸터 영역*/
+footer {
+  width: 120rem;
+  height: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+footer p {
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgb(80, 80, 80);
+}
