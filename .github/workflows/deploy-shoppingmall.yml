@@ -43,7 +43,18 @@
 
           - name: Install dependencies
             working-directory: shoppingmall/frontend
-            run: npm install --verbose
+            run: npm install
+
+          # [중요] Vercel 액션 대신 CLI로 직접 배포하여 에러 로그를 강제 출력합니다.
+          - name: Deploy to Vercel (CLI)
+            working-directory: shoppingmall/frontend
+            run: |
+              npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }} --cwd .
+              npx vercel build --prod --token=${{ secrets.VERCEL_TOKEN }} --cwd .
+              npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} --cwd .
+            env:
+              VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+              VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
           # 3. Vercel 배포
           - name: Deploy to Vercel
