@@ -1,4 +1,4 @@
-/*Movie Nav slide 무비 메뉴바 슬라이드 영역*/
+/*무비 메뉴바 슬라이드 영역*/
 $('header nav > ul').mouseenter(function() {
   $('ul.sub_nav').stop().slideDown(500)
 })
@@ -7,7 +7,7 @@ $('header nav > ul').mouseleave(function() {
   $('ul.sub_nav').stop().slideUp(300)
 })
 
-/*Movie Font 무비 무비차트,상영예정 클릭시 리스트 변경영역*/
+/*무비 무비차트,상영예정 클릭시 리스트 변경영역*/
 $('.movie_font').click( () => {
   $('.movie_img_box2').hide();
   $('.movie_img_box').show();
@@ -28,7 +28,7 @@ $('.movie_font2').click( () => {
   $('.movie_font').css('color', 'rgb(80,80,80)');  
 })
 
-/*Movie Img Click 무비 이미지 클릭시 영상 변경 영역*/
+/*무비 이미지 클릭시 영상 변경 영역*/
 $('.movie_img').click( () => {
   $('.trailer_box2').hide();
   $('.trailer_box3').hide();
@@ -210,7 +210,7 @@ $('.movie_img12').click( () => {
   $('.trailer_box12').show();
 })
 
-/*Movie Main Mini Click 무비 페이지 변경 영역*/
+/*무비 페이지 변경 영역*/
 $('.nav1').click( () => {
   $('main').hide();
   $('.mini_box').show();
@@ -222,7 +222,7 @@ $('.header_font2').click( () => {
   $('main').show();
 })
 
-/*Movie Mini Header Font 무비 미니 헤더 폰트 영역 클릭시 색상 변경 영역*/
+/*무비 미니 헤더 폰트 영역 클릭시 색상 변경 영역*/
 $('.mini_header_font').click( () => {
   $('.mini_header_font').css('background-color', 'rgb(255,192,203)')
   $('.mini_header_font').css('color', '#555')
@@ -237,7 +237,7 @@ $('.mini_header_font2').click( () => {
   $('.mini_header_font').css('color', '#FFF') 
 })
 
-/*Movie Mini Heade Font 무비 미니 헤더 폰트 클릭시 LIST 바뀌는 영역*/
+/*무비 미니 헤더 폰트 클릭시 LIST 바뀌는 영역*/
 $('.mini_header_font').click( () => {
   $('.movie_chaert_expected_box2').hide();
   $('.movie_chaert_expected_box').show();

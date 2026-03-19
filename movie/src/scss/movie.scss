@@ -23,7 +23,7 @@ html, body {
   align-content: center;
 }
 
-/*Movie Main Box 무비 메인 박스*/
+/*무비 메인 박스*/
 @mixin movie_main_box {
   width: 85vw;
   height: 90vh;
@@ -35,7 +35,7 @@ html, body {
   border: 1px solid black;
 }
 
-/*Movie Header Box 무비 헤더 박스*/
+/*무비 헤더 박스*/
 @mixin movie_header_box {
   width: 100%;
   height: 15vh;
@@ -59,7 +59,7 @@ html, body {
   color: #FFF;
 }
 
-/*Movie Nav 무비 메뉴 영역*/
+/*무비 메뉴 영역*/
 @mixin nav {
   width: 50vw;
   margin: 0 0 0 19.27vw;
@@ -87,7 +87,7 @@ html, body {
   margin-top: 2rem;
 }
 
-/*Movie Chart,Expected 무비 차트,상영예정 영역*/
+/*무비 차트,상영예정 영역*/
 @mixin movie_box {
   width: 100%;
   height: 40vh;
@@ -110,7 +110,7 @@ html, body {
   color: rgb(80,80,80);
 }
 
-/*Movie Chart,Expected Img 무비 차트,상영예정 이미지 영역*/
+/*무비 차트,상영예정 이미지 영역*/
 @mixin movie_img_box {
   width: 100%;
   height: 30vh;
@@ -141,7 +141,7 @@ html, body {
   cursor: pointer;
 }
 
-/*Movie Chaert Trailer 무비 차트 예고편 영역*/
+/*무비 차트 예고편 영역*/
 @mixin movie_trailer_box {
   width: 100%;
   height: 40vh;
@@ -156,7 +156,7 @@ html, body {
   height: 40vh;
 }
 
-/*Movie Mini Header Box 무비 미니 헤더 박스*/
+/*무비 미니 헤더 박스*/
 @mixin mini_header_box {
   width: 90%;
   display: flex;
@@ -164,7 +164,7 @@ html, body {
   align-items: center;
 }
 
-/*Movie Chaert,Expected Box 무비 차트,상영예정작 리스트 박스*/
+/*무비 차트,상영예정작 리스트 박스*/
 @mixin movie_chaert_expected_box {
   width: 100%;
   height: 75vh;
@@ -225,7 +225,7 @@ html, body {
   align-items: center;
 }
 
-/*Movie Main Box 무비 메인 박스*/
+/*무비 메인 박스*/
 main {
   @include movie_main_box;
 
@@ -236,7 +236,7 @@ main {
       @include move_header_font;
     }
 
-    /*Movie Nav 무비 메뉴 영역*/
+    /*무비 메뉴 영역*/
     nav {
       @include nav;
 
@@ -282,7 +282,7 @@ main {
     }
   }
 
-  /*Movie Chart,Expected 무비 차트,상영예정*/
+  /*무비 차트,상영예정*/
   .movie_box {
     @include movie_box;
 
@@ -302,7 +302,7 @@ main {
       }
     }
 
-    /*Movie Chart Img 무비 차트 이미지 영역*/
+    /*무비 차트 이미지 영역*/
     .movie_img_box {
       @include movie_img_box;
 
@@ -341,7 +341,7 @@ main {
       }
     }
 
-    /*Movie Expected Img 무비 상영예정 이미지 영역*/
+    /*무비 상영예정 이미지 영역*/
     .movie_img_box2 {
       @include movie_img_box;
       display: none;
@@ -382,7 +382,7 @@ main {
     }
   }
 
-  /*Movie Chaert Trailer 무비 차트 예고편 영역*/
+  /*무비 차트 예고편 영역*/
   .movie_trailer_box {
     @include movie_trailer_box;
 
@@ -495,12 +495,12 @@ main {
   }
 }
 
-/*Movie Mini Box 무비 미니 박스*/
+/*무비 미니 박스*/
 .mini_box {
   @include movie_main_box;
   display: none;
 
-  /*Movie Mini Header Box 무비 미니 헤더 박스*/
+  /*무비 미니 헤더 박스*/
   header {
     @include movie_header_box;
     height: 10.9vh;
@@ -533,7 +533,7 @@ main {
     }
   }
 
-  /*Movie Chaert Box 무비 차트 리스트 박스*/
+  /*무비 차트 리스트 박스*/
   .movie_chaert_expected_box {
     @include movie_chaert_expected_box;
 
@@ -934,7 +934,7 @@ main {
     }
     }
 
-  /*Movie expected Box 무비 상영예정 리스트 박스*/
+  /*무비 상영예정 리스트 박스*/
   .movie_chaert_expected_box2 {
     @include movie_chaert_expected_box;
 

@@ -19,15 +19,15 @@ html, body {
   align-content: center;
 }
 
-/*Movie Main Box 무비 메인 박스*/
-/*Movie Header Box 무비 헤더 박스*/
-/*Movie Nav 무비 메뉴 영역*/
-/*Movie Chart,Expected 무비 차트,상영예정 영역*/
-/*Movie Chart,Expected Img 무비 차트,상영예정 이미지 영역*/
-/*Movie Chaert Trailer 무비 차트 예고편 영역*/
-/*Movie Mini Header Box 무비 미니 헤더 박스*/
-/*Movie Chaert,Expected Box 무비 차트,상영예정작 리스트 박스*/
-/*Movie Main Box 무비 메인 박스*/
+/*무비 메인 박스*/
+/*무비 헤더 박스*/
+/*무비 메뉴 영역*/
+/*무비 차트,상영예정 영역*/
+/*무비 차트,상영예정 이미지 영역*/
+/*무비 차트 예고편 영역*/
+/*무비 미니 헤더 박스*/
+/*무비 차트,상영예정작 리스트 박스*/
+/*무비 메인 박스*/
 main {
   width: 85vw;
   height: 90vh;
@@ -37,8 +37,8 @@ main {
   align-items: center;
   align-content: center;
   border: 1px solid black;
-  /*Movie Chart,Expected 무비 차트,상영예정*/
-  /*Movie Chaert Trailer 무비 차트 예고편 영역*/
+  /*무비 차트,상영예정*/
+  /*무비 차트 예고편 영역*/
 }
 main header {
   width: 100%;
@@ -48,7 +48,7 @@ main header {
   justify-content: space-around;
   align-items: center;
   background-color: #555;
-  /*Movie Nav 무비 메뉴 영역*/
+  /*무비 메뉴 영역*/
 }
 main header .header_font {
   width: 25%;
@@ -112,8 +112,8 @@ main .movie_box {
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
-  /*Movie Chart Img 무비 차트 이미지 영역*/
-  /*Movie Expected Img 무비 상영예정 이미지 영역*/
+  /*무비 차트 이미지 영역*/
+  /*무비 상영예정 이미지 영역*/
 }
 main .movie_box .movie_box2 {
   width: 100%;
@@ -439,7 +439,7 @@ main .movie_trailer_box .trailer_box12 .movie_trailer12 {
   height: 40vh;
 }
 
-/*Movie Mini Box 무비 미니 박스*/
+/*무비 미니 박스*/
 .mini_box {
   width: 85vw;
   height: 90vh;
@@ -450,9 +450,9 @@ main .movie_trailer_box .trailer_box12 .movie_trailer12 {
   align-content: center;
   border: 1px solid black;
   display: none;
-  /*Movie Mini Header Box 무비 미니 헤더 박스*/
-  /*Movie Chaert Box 무비 차트 리스트 박스*/
-  /*Movie expected Box 무비 상영예정 리스트 박스*/
+  /*무비 미니 헤더 박스*/
+  /*무비 차트 리스트 박스*/
+  /*무비 상영예정 리스트 박스*/
 }
 .mini_box header {
   width: 100%;
