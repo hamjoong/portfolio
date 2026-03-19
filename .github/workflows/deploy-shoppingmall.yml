@@ -65,11 +65,11 @@ deploy-frontend:
         working-directory: 'shoppingmall/frontend'
         github-comment: false
 
-deploy-backend:
-  needs: changes
-  if: ${{ needs.changes.outputs.backend == 'true' }}
-  runs-on: ubuntu-latest
-  steps:
-    - name: Deploy Backend to Render
-      run: |
-        # Render 배포 훅 호출
+      deploy-backend:
+        needs: changes
+        if: ${{ needs.changes.outputs.backend == 'true' }}
+        runs-on: ubuntu-latest
+        steps:
+          - name: Deploy Backend to Render
+            run: |
+              # Render 배포 훅 호출
