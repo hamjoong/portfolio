@@ -49,6 +49,7 @@
           - name: Build and Deploy
             working-directory: shoppingmall/frontend
             run: |
+              npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
               # Vercel 프로젝트 연결 및 빌드
               npx vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
               # 빌드 완료 후 배포
