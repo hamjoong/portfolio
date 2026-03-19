@@ -13,8 +13,8 @@ jobs:
   deploy-frontend:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Deploy Frontend to Vercel
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Install Node.js
         uses: actions/setup-node@v4
@@ -37,3 +37,5 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           working-directory: portfolio/shoppingmall/frontend
           github-comment: false
+
+  deploy-backend:
