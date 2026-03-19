@@ -43,7 +43,7 @@
 
           - name: Install dependencies
             working-directory: shoppingmall/frontend
-            run: npm ci
+            run: npm install --verbose
 
           # 3. Vercel 배포
           - name: Deploy to Vercel
