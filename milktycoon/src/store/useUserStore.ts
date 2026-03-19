@@ -140,7 +140,7 @@ export const useUserStore = create<UserState>()(
       },
     }),
     { 
-      name: 'milk-tycoon-user-v18', 
+      name: 'milk-tycoon-user-v2', 
       storage: createJSONStorage(() => localStorage),
       onRehydrateStorage: () => (state) => {
         if (state) state.actions.setHasHydrated(true);
