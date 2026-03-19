@@ -1,6 +1,6 @@
 #  Blog (Blog2)
 개발자 블로그 템플릿 프로젝트입니다.
 
-##  Tech Stack
+#  Tech Stack
 - **Frontend**: Html(Pug) / Css(SCSS)
 - **Script**: JavaScript / jquery
