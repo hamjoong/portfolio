@@ -1,61 +1,50 @@
-     name: Shoppingmall Deploy
-    
-     on:
-       push:
-         branches:
-           - main
-         paths:
-           # 루트가 portfolio 폴더라면, 여기서부터 경로를 시작하세요.
-           - 'shoppingmall/frontend/**'
-           - 'shoppingmall/backend/**'
-       workflow_dispatch:
+name: Deploy ShoppingMall
 
-     jobs:
-      changes:
-        runs-on: ubuntu-latest
-        outputs:
-          frontend: ${{ steps.filter.outputs.frontend }}
-          backend: ${{ steps.filter.outputs.backend }}
-        steps:
-          - uses: actions/checkout@v4
-          - uses: dorny/paths-filter@v3
-            id: filter
-            with:
-              filters: |
-                frontend:
-                  - 'shoppingmall/frontend/**'
-                backend:
-                  - 'shoppingmall/backend/**'
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'shoppingmall/frontend/**'
+      - 'shoppingmall/backend/**'
 
-      deploy-frontend:
-        needs: changes
-        if: ${{ needs.changes.outputs.frontend == 'true' }}
-        runs-on: ubuntu-latest
-        steps:
-          - uses: actions/checkout@v4
+jobs:
+  # 변경된 경로 감지
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      frontend: ${{ steps.filter.outputs.frontend }}
+      backend: ${{ steps.filter.outputs.backend }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            frontend:
+              - 'shoppingmall/frontend/**'
+            backend:
+              - 'shoppingmall/backend/**'
 
-          - name: Install dependencies
-            working-directory: shoppingmall/frontend
-            run: npm install
+  # 프론트엔드 배포 (Vercel)
+  deploy-frontend:
+    needs: changes
+    if: ${{ needs.changes.outputs.frontend == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: shoppingmall/frontend
 
-
-          # 3. Vercel 배포
-          - name: Deploy to Vercel
-            uses: amondnet/vercel-action@v20
-            with:
-              vercel-token: ${{ secrets.VERCEL_TOKEN }}
-              vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-              vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-              # 경로에 띄어쓰기가 있다면 반드시 따옴표로 감싸거나,
-              # 가급적 띄어쓰기가 없는 경로명으로 변경하는 것을 권장합니다.
-              vercel-args: '--prod --debug'
-              github-comment: false
-
-      deploy-backend:
-        needs: changes
-        if: ${{ needs.changes.outputs.backend == 'true' }}
-        runs-on: ubuntu-latest
-        steps:
-          - name: Deploy Backend to Render
-            run: |
-              # Render 배포 훅 호출
+  # 백엔드 배포 (Render Deploy Hook)
+  deploy-backend:
+    needs: changes
+    if: ${{ needs.changes.outputs.backend == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render Deploy
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
