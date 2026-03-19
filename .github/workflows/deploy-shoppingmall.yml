@@ -45,6 +45,18 @@
             working-directory: shoppingmall/frontend
             run: npm install
 
+          # 빌드 과정을 독립적으로 실행 (이 단계에서 에러가 나면 상세 로그가 출력됩니다)
+          - name: Build and Deploy
+            working-directory: shoppingmall/frontend
+            run: |
+              # Vercel 프로젝트 연결 및 빌드
+              npx vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+              # 빌드 완료 후 배포
+              npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+            env:
+              VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+              VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          
           # [중요] Vercel 액션 대신 CLI로 직접 배포하여 에러 로그를 강제 출력합니다.
           - name: Deploy to Vercel (CLI)
             working-directory: shoppingmall/frontend
