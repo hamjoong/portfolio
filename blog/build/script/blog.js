@@ -1,5 +1,5 @@
 "use strict";
-/*scroll 태그 영역*/
+/*스크롤 태그 영역*/
 $('.blog_nav_home').click(function () {
     $('html,body').animate({
         scrollTop: $('.blog_intro_box').offset().top
@@ -20,7 +20,7 @@ $('.blog_nav_portfolio').click(function () {
         scrollTop: $('.blog_portfolio_box').offset().top
     }, 500);
 });
-/*nav color 영역*/
+/*네비게이션 색상 영역*/
 $('.blog_nav_home').click(function () {
     $('nav').css('background-color', 'rgba(135,206,235,0.1)');
 });
@@ -33,7 +33,7 @@ $('.blog_nav_skill').click(function () {
 $('.blog_nav_portfolio').click(function () {
     $('nav').css('background-color', 'rgb(212,184,182,0.7)');
 });
-/*bar 차트 영역*/
+/*차트 영역*/
 /*$(window).ready(function() {
     draw(90, '.blog_skill_bar_html', 'rgb(148,180,255)');
     draw(60, '.blog_skill_bar_script', 'rgb(148,180,255)');
@@ -81,7 +81,7 @@ function color(i, classname, colorname) {
     'background' : 'linear-gradient(to right,' + colorname + '0%' + i + '% , rgb(255,255,255)' + i + '%100%)'
   });
 }*/
-/*skill onClick 영역*/
+/*스킬 클릭 영역*/
 $('.blog_skill_html_img').click(function () {
     $('.blog_skill_bar_script').hide();
     $('.blog_skill_bar_script_font2').hide();
@@ -394,7 +394,7 @@ $('.blog_skill_json_img').click(function () {
     $('.blog_skill_bar_json').toggle();
     $('.blog_skill_bar_json_font2').toggle();
 });
-/*portfolio onClick 영역*/
+/*포트폴리오 클릭 영역*/
 $('.portfolio_list2').click(function () {
     $('.blog_portfolio_img2').hide();
     $('.blog_portfolio_contents2').hide();

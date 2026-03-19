@@ -17,30 +17,30 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
   display: none;
 }
 
-/*Main 메인 영억*/
-/*Intro 인트로 영역*/
-/*Intro 인트로 헤더영역*/
-/*Intro 인트로 메뉴 영역*/
-/*About Me 어바웃미 영역*/
-/*About Me Skill 어바웃미 스킬 영역*/
-/*About Me Skill Bar 어바웃미 스킬 바 영역*/
-/*Portfolio 포트폴리오 영역*/
+/*메인 영억*/
+/*인트로 영역*/
+/*인트로 헤더영역*/
+/*인트로 메뉴 영역*/
+/*어바웃미 영역*/
+/*어바웃미 스킬 영역*/
+/*어바웃미 스킬 바 영역*/
+/*포트폴리오 영역*/
 /*Footer 영역*/
-/*Main 메인 영역*/
+/*메인 영역*/
 .blog_main_box {
   width: 85vw;
   height: 100vh;
   margin-left: 15vw;
-  /*About Me 어바웃미 영역*/
-  /*Aboutme skill 어바웃미 스킬 영역*/
-  /*Aboutme skill bar 어바웃미 스킬 바 영역*/
-  /*Portfolio 포트폴리오 영역*/
+  /*어바웃미 영역*/
+  /*어바웃미 스킬 영역*/
+  /*어바웃미 스킬 바 영역*/
+  /*포트폴리오 영역*/
   /*Footer 영역*/
 }
 .blog_main_box .blog_mini_box {
   width: 85vw;
   height: 100vh;
-  /*Intro 인트로 영역*/
+  /*인트로 영역*/
 }
 .blog_main_box .blog_mini_box .blog_intro_box {
   width: 85vw;
@@ -50,10 +50,10 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
   justify-content: center;
   align-items: center;
   align-content: center;
-  /*Intro 인트로 로고 영역*/
-  /*Intro 인트로 헤더 영역*/
-  /*Intro 인트로 이미지 영역*/
-  /*Intro 인트로 메뉴 영역*/
+  /*인트로 로고 영역*/
+  /*인트로 헤더 영역*/
+  /*인트로 이미지 영역*/
+  /*인트로 메뉴 영역*/
 }
 .blog_main_box .blog_mini_box .blog_intro_box .blog_intro_logo_img {
   background-image: url("../../public/img/blog.png");

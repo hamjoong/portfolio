@@ -21,13 +21,13 @@ html, body {
   }
 }
 
-/*Main 메인 영억*/
+/*메인 영억*/
 @mixin blog_box {
 	width: 85vw;
   height: 100vh;
 }
 
-/*Intro 인트로 영역*/
+/*인트로 영역*/
 @mixin blog_intro_box {
 	width: 85vw;
   height: 100vh;
@@ -38,7 +38,7 @@ html, body {
   align-content: center;
 }
 
-/*Intro 인트로 헤더영역*/
+/*인트로 헤더영역*/
 @mixin blog_intro_header_box {
 	width: 35vw;
 	height: 17vh;
@@ -51,7 +51,7 @@ html, body {
 	color: transparent;
 }
 
-/*Intro 인트로 메뉴 영역*/
+/*인트로 메뉴 영역*/
 @mixin blog_nav_box {
 	width: 15vw;
 	height: 100vh;
@@ -87,7 +87,7 @@ html, body {
 	height: 0.5vh;
 }
 
-/*About Me 어바웃미 영역*/
+/*어바웃미 영역*/
 @mixin blog_aboutme_box {
   width: 85vw;
 	height: 100vh;
@@ -112,7 +112,7 @@ html, body {
   //color: rgba(70,10,220,0.7);
 }
 
-/*About Me Skill 어바웃미 스킬 영역*/
+/*어바웃미 스킬 영역*/
 @mixin blog_aboutme_skill_box {
 	width: 85vw;
   height: 100vh;
@@ -149,7 +149,7 @@ html, body {
   transition: all 0.3s ease;
 }
 
-/*About Me Skill Bar 어바웃미 스킬 바 영역*/
+/*어바웃미 스킬 바 영역*/
 @mixin blog_skill_bar_box {
   width: 85vw;
   display: flex;
@@ -340,7 +340,7 @@ html, body {
   color: rgb(100,100,100);
 }
 
-/*Main 메인 영역*/
+/*메인 영역*/
 .blog_main_box {
 	@include blog_box;
   margin-left: 15vw;
@@ -348,11 +348,11 @@ html, body {
 	.blog_mini_box {
 		@include blog_box;
 
-		/*Intro 인트로 영역*/
+		/*인트로 영역*/
 		.blog_intro_box {
 			@include blog_intro_box;
 
-      /*Intro 인트로 로고 영역*/
+      /*인트로 로고 영역*/
 			.blog_intro_logo_img{
 				background-image: url("../../public/img/blog.png");
 				background-repeat: no-repeat;
@@ -366,7 +366,7 @@ html, body {
         z-index: 2;
 			}
 
-			/*Intro 인트로 헤더 영역*/
+			/*인트로 헤더 영역*/
 			.blog_intro_header_box {
 				@include blog_intro_header_box;
         margin-top: 78vh;
@@ -408,7 +408,7 @@ html, body {
 				}
 			}
 
-			/*Intro 인트로 이미지 영역*/
+			/*인트로 이미지 영역*/
 			.blog_intro_img {
 				background-image: url("../../public/img/blog2.png");
 				background-repeat: no-repeat;
@@ -427,7 +427,7 @@ html, body {
         }
 			}
 
-			/*Intro 인트로 메뉴 영역*/
+			/*인트로 메뉴 영역*/
 			.blog_nav_box {
 				@include blog_nav_box;
         margin-left: -100vw;
@@ -475,7 +475,7 @@ html, body {
 		}
 	}
 
-	/*About Me 어바웃미 영역*/
+	/*어바웃미 영역*/
 	.blog_aboutme_box {
 		@include blog_aboutme_box;
 
@@ -564,7 +564,7 @@ html, body {
 		}
   }
 
-  /*Aboutme skill 어바웃미 스킬 영역*/	
+  /*어바웃미 스킬 영역*/	
   .blog_aboutme_skill_box {
     @include blog_aboutme_skill_box;
 
@@ -680,7 +680,7 @@ html, body {
     }
   }
 
-  /*Aboutme skill bar 어바웃미 스킬 바 영역*/
+  /*어바웃미 스킬 바 영역*/
   .blog_skill_bar_box {
     @include blog_skill_bar_box;
 
@@ -761,7 +761,7 @@ html, body {
     }
   }
 
-	/*Portfolio 포트폴리오 영역*/
+	/*포트폴리오 영역*/
 	.blog_portfolio_box {
 		@include blog_portfolio_box;
 
