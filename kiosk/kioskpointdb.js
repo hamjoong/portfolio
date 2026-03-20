@@ -9,25 +9,25 @@ const con = mysql.createConnection( {
 
 con.connect ( function (err) {
   if (err) throw err;
-  console.log('Connected!');
+  console.log('연결됨!');
 
   const sql = 'CREATE TABLE kioskpoint (id INT AUTO_INCREMENT PRIMARY KEY, phone_number CHAR(11) NOT NULL, point INT)';
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log('Table Created');
+    console.log('테이블 생성됨');
   });
 
-  /*테이블 변경*/
+  /* 테이블 변경 */
   /*const sql2 = 'ALTER TABLE kioskpoint ADD COLUMN point int';
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log('Table created');
+    console.log('테이블 생성됨');
   });*/
 
-  /*레코드 삽입*/
+  /* 레코드 삽입 */
   /*const sql = "INSERT INTO kioskpoint (phone_number, point) VALUES (01073555308, 9000000)";
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log('1 record inserted');
+    console.log('1개 레코드 삽입됨');
   });*/
 });
