@@ -1,23 +1,24 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import MainScreen from './components/MainScreen';
 import LobbyScreen from './components/LobbyScreen';
 import RanchScreen from './components/RanchScreen';
-import AttendanceModal from './components/AttendanceModal';
 import SplashScreen from './components/SplashScreen';
-import SettingsModal from './components/SettingsModal';
-import RankingModal from './components/RankingModal';
-import ShopModal from './components/ShopModal';
-import QuestModal from './components/QuestModal';
-import AchievementModal from './components/AchievementModal';
-import IAPModal from './components/IAPModal';
-import UpgradeModal from './components/UpgradeModal';
-import FactoryModal from './components/FactoryModal';
-import StableModal from './components/StableModal';
-import TutorialOverlay from './components/TutorialOverlay';
 import { useGameLoop } from './hooks/useGameLoop';
 import { useUIStore } from './store/useUIStore';
 import { useUserStore } from './store/useUserStore';
+
+const AttendanceModal = lazy(() => import('./components/AttendanceModal'));
+const SettingsModal = lazy(() => import('./components/SettingsModal'));
+const RankingModal = lazy(() => import('./components/RankingModal'));
+const ShopModal = lazy(() => import('./components/ShopModal'));
+const QuestModal = lazy(() => import('./components/QuestModal'));
+const AchievementModal = lazy(() => import('./components/AchievementModal'));
+const IAPModal = lazy(() => import('./components/IAPModal'));
+const UpgradeModal = lazy(() => import('./components/UpgradeModal'));
+const FactoryModal = lazy(() => import('./components/FactoryModal'));
+const StableModal = lazy(() => import('./components/StableModal'));
+const TutorialOverlay = lazy(() => import('./components/TutorialOverlay'));
 
 /**
  * @function App
@@ -61,7 +62,7 @@ function App() {
   const renderScreen = () => {
     switch (currentScreen) {
       case 'MAIN': return <MainScreen onStart={handleStart} />;
-      case 'LOBBY': return <LobbyScreen onEnterRanch={() => uiActions.setScreen('RANCH')} onBack={() => ui.actions.setScreen('MAIN')} />;
+      case 'LOBBY': return <LobbyScreen onEnterRanch={() => uiActions.setScreen('RANCH')} onBack={() => uiActions.setScreen('MAIN')} />;
       case 'RANCH': return <RanchScreen onBack={() => uiActions.setScreen('LOBBY')} />;
       default: return <MainScreen onStart={handleStart} />;
     }
@@ -77,17 +78,19 @@ function App() {
             {renderScreen()}
 
             {/* 전역 모달 */}
-            <IAPModal />
-            <SettingsModal isOpen={isSettingsOpen} onClose={uiActions.closeSettings} />
-            <RankingModal isOpen={isRankingOpen} onClose={uiActions.closeRanking} />
-            <ShopModal isOpen={isShopOpen} onClose={uiActions.closeShop} />
-            <QuestModal isOpen={isQuestOpen} onClose={uiActions.closeQuest} />
-            <AchievementModal isOpen={isAchievementOpen} onClose={uiActions.closeAchievement} />
-            <AttendanceModal isOpen={isAttendanceOpen} onClose={uiActions.closeAttendance} />
-            <UpgradeModal />
-            <FactoryModal />
-            <StableModal isOpen={isStableOpen} onClose={uiActions.closeStable} />
-            <TutorialOverlay />
+            <Suspense fallback={null}>
+              <IAPModal />
+              <SettingsModal isOpen={isSettingsOpen} onClose={uiActions.closeSettings} />
+              <RankingModal isOpen={isRankingOpen} onClose={uiActions.closeRanking} />
+              <ShopModal isOpen={isShopOpen} onClose={uiActions.closeShop} />
+              <QuestModal isOpen={isQuestOpen} onClose={uiActions.closeQuest} />
+              <AchievementModal isOpen={isAchievementOpen} onClose={uiActions.closeAchievement} />
+              <AttendanceModal isOpen={isAttendanceOpen} onClose={uiActions.closeAttendance} />
+              <UpgradeModal />
+              <FactoryModal />
+              <StableModal isOpen={isStableOpen} onClose={uiActions.closeStable} />
+              <TutorialOverlay />
+            </Suspense>
           </motion.div>
         )}
       </AnimatePresence>

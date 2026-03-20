@@ -12,6 +12,7 @@ import { LobbyBackground, RankingBoard } from './LobbyComponents';
 
 interface LobbyScreenProps {
   onEnterRanch: () => void;
+  onBack: () => void;
 }
 
 /** 
@@ -20,7 +21,7 @@ interface LobbyScreenProps {
  * 퀘스트, 업적, 상점, 랭킹 등 다양한 메뉴로 진입하는 허브 역할을 합니다.
  * @param {LobbyScreenProps} props - 컴포넌트 props
  */
-const LobbyScreen: React.FC<LobbyScreenProps> = ({ onEnterRanch }) => {
+const LobbyScreen: React.FC<LobbyScreenProps> = ({ onEnterRanch, onBack }) => {
   const _hasHydrated = useUserStore((state) => state._hasHydrated);
   const tutorialPhase = useUserStore((state) => state.tutorialPhase);
   const isTutorialSkipped = useUserStore((state) => state.isTutorialSkipped);
@@ -86,6 +87,7 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({ onEnterRanch }) => {
       {/* 2. LEFT MENU AREA (1/3 Width) */}
       <div className="w-[32%] h-full flex flex-col relative z-10 p-8 pt-6">
         <div className="mb-10 drop-shadow-xl"><StatusBar /></div>
+        <button onClick={onBack}>뒤로가기</button>
         
         <div className="flex-1 flex flex-col gap-4 justify-center py-4 overflow-y-auto custom-scrollbar pr-2">
           <MenuListItem 
