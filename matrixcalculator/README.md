@@ -4,7 +4,7 @@
 
 # Tech Stack
 - **Frontend**: HTML5 / CSS3 (SCSS)
-- **Script**: JavaScript (ES6+) / jQuert
+- **Script**: JavaScript (ES6+) / jQuery
 - **Templating**: Pug
 
 # Key Features

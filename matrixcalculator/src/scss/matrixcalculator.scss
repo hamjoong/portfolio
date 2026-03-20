@@ -1,5 +1,7 @@
+
 @charset "UTF-8";
 
+// 기본 초기화 설정
 * {
   margin: 0px;
   padding: 0px;
@@ -10,6 +12,7 @@
   }
 }
 
+// 폰트 임포트
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 
 html, body {
@@ -18,6 +21,7 @@ html, body {
 	background-color: #F0F0DB;
 }
 
+// 메인 컨테이너 믹스인
 @mixin mc_main_box {
 	width: 100vw;
 	min-height: 100vh;
@@ -25,6 +29,7 @@ html, body {
   flex-flow: column nowrap;
 }
 
+// 행렬 영역 믹스인
 @mixin mc_array_box {
   width: 100vw;
   display: flex;
@@ -32,6 +37,7 @@ html, body {
   flex: 1;
 }
 
+// 입력 필드 그룹 믹스인
 @mixin mc_input_array_box {
   width: 100vw;
 	height: auto;
@@ -42,6 +48,7 @@ html, body {
   gap: 2vw;
 }
 
+// 개별 행렬 입력 영역 믹스인
 @mixin inputArray {
 	width: auto;
 	height: auto;
@@ -52,6 +59,7 @@ html, body {
   margin: 1vh 0;
 }
 
+// 행/열 크기 입력 input 믹스인
 @mixin xyinputArray {
 	width: 5vw;
 	height: 5vh;
@@ -62,11 +70,13 @@ html, body {
   margin: 0 0.5vw;
 }
 
+// 입력 필드 폰트 스타일
 @mixin xyinput_array_font {
 	font-size: 1.5vw;
 	color: rgb(100,100,100);
 }
 
+// 연산 버튼(+,-,*) 믹스인
 @mixin buttonBox {
 	width: 5vw;
 	height: 5vh;
@@ -87,6 +97,7 @@ html, body {
   -webkit-appearance: none;
 }
 
+// 기능 버튼(자동완성, 리셋 등) 믹스인
 @mixin buttonBox2 {
 	width: 8vw;
 	height: 5vh;
@@ -105,6 +116,7 @@ html, body {
   cursor: pointer;
 }
 
+// 행렬 출력 영역 믹스인
 @mixin mc_print_array_box {
   width: 100vw;
   min-height: 50vh;
@@ -117,6 +129,7 @@ html, body {
   gap: 4vw;
 }
 
+// 개별 행렬 컨테이너 믹스인
 @mixin printArray {
   min-width: 28vw;
   width: auto;
@@ -126,6 +139,7 @@ html, body {
   align-items: center;
 }
 
+// 행렬 내 개별 셀(input) 믹스인
 @mixin xyprint_Array {
   width: 3.2vw;
   height: 4vh;
@@ -142,9 +156,11 @@ html, body {
   padding: 0;
 }
 
+// 클래스 정의 시작
 .mc_main_box {
 	@include mc_main_box;
 
+	// 헤더 영역
 	.mc_mini_box {
 		width: 100vw;
     height: auto;
@@ -176,9 +192,11 @@ html, body {
 		}
 	}
 
+  // 행렬 연산 영역
   .mc_array_box {
     @include mc_array_box;
 
+    // 입력 필드 박스
     .mc_input_array_box {
       @include mc_input_array_box;
 
@@ -210,6 +228,7 @@ html, body {
         }
       }
 
+      // 버튼 그룹
       .inputArray3 {
         @include inputArray;
         width: auto;
@@ -235,6 +254,7 @@ html, body {
       }
     }
 
+    // 행렬 출력 결과 영역
     .mc_print_array_box {
       @include mc_print_array_box;
 
@@ -248,6 +268,7 @@ html, body {
     }
   }
 
+  // 알림 팝업 창
   .alert_event_box {
     width: 20vw;
     height: 12vh;
@@ -273,6 +294,7 @@ html, body {
     }
   }
 
+  // 카피라이트 영역
   .copyright {
     width: 100vw;
     height: 5vh;
@@ -291,6 +313,7 @@ html, body {
   }
 }
 
+// 반응형 설정 (태블릿/모바일 대응을 위한 최소 너비 지정)
 @media screen and (max-width: 1024px) {
   body {
     overflow-x: auto;

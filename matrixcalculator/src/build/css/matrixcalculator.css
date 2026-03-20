@@ -1,7 +1,10 @@
+@charset "UTF-8";
+
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
 * {
   margin: 0px;
   padding: 0px;
+  box-sizing: border-box;
   font-size: 10px;
   font-family: "Nanum Gothic", sans-serif;
 }
@@ -14,37 +17,29 @@ html, body {
 
 .mc_main_box {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-flow: column nowrap;
 }
 .mc_main_box .mc_mini_box {
   width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-flow: column nowrap;
+  height: auto;
 }
 .mc_main_box .mc_mini_box .mc_header_box {
   width: 100vw;
   height: 10vh;
   display: flex;
   justify-content: center;
-  margin-top: 5vh;
+  margin: 5vh 0;
 }
 .mc_main_box .mc_mini_box .mc_header_box .mc_header_font {
   font-size: 5vw;
   font-weight: bold;
   background-image: linear-gradient(-225deg, #231557 0%, #44107a 29%, #ff1361 67%, #fff800 100%);
   background-size: 10vw auto;
-  -webkit-background-clip: text;  
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  -webkit-animation: textclip 20s linear infinite;
-          animation: textclip 20s linear infinite;
-}
-@-webkit-keyframes textclip {
-  to {
-    background-position: 100vw center;
-  }
+  animation: textclip 20s linear infinite;
 }
 @keyframes textclip {
   to {
@@ -53,34 +48,37 @@ html, body {
 }
 .mc_main_box .mc_array_box {
   width: 100vw;
-  height: 95vh;
   display: flex;
   flex-flow: column nowrap;
-  margin-top: -55vh;
+  flex: 1;
 }
 .mc_main_box .mc_array_box .mc_input_array_box {
   width: 100vw;
-  height: 10vh;
+  height: auto;
+  padding: 2vh 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2vw;
 }
 .mc_main_box .mc_array_box .mc_input_array_box .inputArray {
-  width: 13vw;
-  height: 10vh;
+  width: auto;
+  height: auto;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
   position: relative;
-  left: 6vw;
+  margin: 1vh 0;
 }
 .mc_main_box .mc_array_box .mc_input_array_box .inputArray .xinputArray, .mc_main_box .mc_array_box .mc_input_array_box .inputArray .yinputArray {
-  width: 4.7vw;
+  width: 5vw;
   height: 5vh;
   text-align: center;
   border: 0.1vw solid #393434;
   border-radius: 0.5vw;
   background-color: #F0F0DB;
-  margin: auto 0.5vw;
-  font-size: 2vw;
+  margin: 0 0.5vw;
+  font-size: 1.5vw;
   color: rgb(100, 100, 100);
 }
 .mc_main_box .mc_array_box .mc_input_array_box .inputArray .xinputArray:hover, .mc_main_box .mc_array_box .mc_input_array_box .inputArray .yinputArray:hover {
@@ -88,22 +86,23 @@ html, body {
   background-color: #EEC5D1;
 }
 .mc_main_box .mc_array_box .mc_input_array_box .inputArray2 {
-  width: 13vw;
-  height: 10vh;
+  width: auto;
+  height: auto;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
   position: relative;
-  left: 11vw;
+  margin: 1vh 0;
 }
 .mc_main_box .mc_array_box .mc_input_array_box .inputArray2 .xinputArray2, .mc_main_box .mc_array_box .mc_input_array_box .inputArray2 .yinputArray2 {
-  width: 4.7vw;
+  width: 5vw;
   height: 5vh;
   text-align: center;
   border: 0.1vw solid #393434;
   border-radius: 0.5vw;
   background-color: #F0F0DB;
-  margin: auto 0.5vw;
-  font-size: 2vw;
+  margin: 0 0.5vw;
+  font-size: 1.5vw;
   color: rgb(100, 100, 100);
 }
 .mc_main_box .mc_array_box .mc_input_array_box .inputArray2 .xinputArray2:hover, .mc_main_box .mc_array_box .mc_input_array_box .inputArray2 .yinputArray2:hover {
@@ -111,43 +110,52 @@ html, body {
   background-color: #EEC5D1;
 }
 .mc_main_box .mc_array_box .mc_input_array_box .inputArray3 {
-  width: 13vw;
-  height: 10vh;
+  width: auto;
+  height: auto;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
   position: relative;
-  width: 35vw;
-  left: 4vw;
+  margin: 1vh 0;
+  padding: 0 2vw;
 }
 .mc_main_box .mc_array_box .mc_input_array_box .inputArray3 .button_box_plus, .mc_main_box .mc_array_box .mc_input_array_box .inputArray3 .button_box_minus, .mc_main_box .mc_array_box .mc_input_array_box .inputArray3 .button_box_multi {
-  width: 5.3vw;
-  height: 4.9vh;
+  width: 5vw;
+  height: 5vh;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 0.1vw solid #393434;
   border-radius: 0.5vw;
   background-color: #F0F0DB;
-  margin: auto 0.5vw;
+  margin: 0 0.5vw;
   color: rgb(100, 100, 100);
+  font-size: 2vw;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
 }
 .mc_main_box .mc_array_box .mc_input_array_box .inputArray3 .button_box_plus:hover, .mc_main_box .mc_array_box .mc_input_array_box .inputArray3 .button_box_minus:hover, .mc_main_box .mc_array_box .mc_input_array_box .inputArray3 .button_box_multi:hover {
   cursor: pointer;
   background-color: #97b3fb;
 }
 .mc_main_box .mc_array_box .mc_input_array_box .inputArray3 .button_box_random, .mc_main_box .mc_array_box .mc_input_array_box .inputArray3 .button_box_print, .mc_main_box .mc_array_box .mc_input_array_box .inputArray3 .button_box_reset {
-  width: 5.5vw;
-  height: 5.2vh;
+  width: 8vw;
+  height: 5vh;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 0.1vw solid #393434;
   border-radius: 0.5vw;
   background-color: #F0F0DB;
-  margin: auto 0.5vw;
-  font-size: 1vw;
+  margin: 0 0.5vw;
+  font-size: 1.2vw;
   font-weight: bold;
   color: rgb(100, 100, 100);
+  cursor: pointer;
 }
 .mc_main_box .mc_array_box .mc_input_array_box .inputArray3 .button_box_random:hover, .mc_main_box .mc_array_box .mc_input_array_box .inputArray3 .button_box_print:hover, .mc_main_box .mc_array_box .mc_input_array_box .inputArray3 .button_box_reset:hover {
   cursor: pointer;
@@ -155,62 +163,37 @@ html, body {
 }
 .mc_main_box .mc_array_box .mc_print_array_box {
   width: 100vw;
-  height: 70vh;
+  min-height: 50vh;
   display: flex;
+  flex-wrap: wrap;
   align-self: center;
-  align-content: center;
+  align-content: flex-start;
   justify-content: center;
+  padding-top: 5vh;
+  gap: 4vw;
 }
-.mc_main_box .mc_array_box .mc_print_array_box .printArray {
-  width: 32vw;
-  height: 45vh;
+.mc_main_box .mc_array_box .mc_print_array_box .printArray, .mc_main_box .mc_array_box .mc_print_array_box .printArray2, .mc_main_box .mc_array_box .mc_print_array_box .printArray3 {
+  min-width: 28vw;
+  width: auto;
+  margin-bottom: 5vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
-.mc_main_box .mc_array_box .mc_print_array_box .printArray .xprint_Array, .mc_main_box .mc_array_box .mc_print_array_box .printArray .miniBox {
-  width: 2.5vw;
-  height: 3vh;
+.mc_main_box .mc_array_box .mc_print_array_box .printArray .miniBox, .mc_main_box .mc_array_box .mc_print_array_box .printArray2 .miniBox, .mc_main_box .mc_array_box .mc_print_array_box .printArray3 .miniBox {
+  width: 3.2vw;
+  height: 4vh;
   border-radius: 0.5vw;
   background-color: #F0F0DB;
   color: rgb(100, 100, 100);
-  font-size: 1vw;
-  text-align: right;
-  margin: 0.3vw;
-}
-.mc_main_box .mc_array_box .mc_print_array_box .printArray2 {
-  width: 32vw;
-  height: 45vh;
+  font-size: 1.1vw;
+  text-align: center;
+  margin: 0;
+  border: 0.1vw solid #393434;
   display: flex;
+  align-items: center;
   justify-content: center;
-}
-.mc_main_box .mc_array_box .mc_print_array_box .printArray2 .yprint_Array, .mc_main_box .mc_array_box .mc_print_array_box .printArray2 .miniBox {
-  width: 2.5vw;
-  height: 3vh;
-  border-radius: 0.5vw;
-  background-color: #F0F0DB;
-  color: rgb(100, 100, 100);
-  font-size: 1vw;
-  text-align: right;
-  margin: 0.3vw;
-}
-.mc_main_box .mc_array_box .mc_print_array_box .printArray3 {
-  width: 32vw;
-  height: 45vh;
-  display: flex;
-  justify-content: center;
-}
-.mc_main_box .mc_array_box .mc_print_array_box .printArray3 .print_Array, .mc_main_box .mc_array_box .mc_print_array_box .printArray3 .miniBox {
-  width: 2.5vw;
-  height: 3vh;
-  border-radius: 0.5vw;
-  background-color: #F0F0DB;
-  color: rgb(100, 100, 100);
-  font-size: 1vw;
-  text-align: right;
-  margin: 0.3vw;
-  width: 2.8vw;
-  height: 3.4vh;
-  font-size: 0.8vw;
+  padding: 0;
 }
 .mc_main_box .alert_event_box {
   width: 20vw;
@@ -230,4 +213,24 @@ html, body {
 .mc_main_box .alert_event_box .alert_box {
   font-size: 1.5vw;
   font-weight: bold;
+}
+.mc_main_box .copyright {
+  width: 100vw;
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2vh;
+}
+.mc_main_box .copyright .container small {
+  font-size: 1.4vw;
+  font-weight: bold;
+  color: rgb(100, 100, 100);
+}
+
+@media screen and (max-width: 1024px) {
+  body {
+    overflow-x: auto;
+    min-width: 1000px;
+  }
 }
