@@ -3,7 +3,7 @@
 안정적인 인증 시스템과 고성능 상품 검색에 중점을 두며 강력한 인증 시스템, 클라우드 데이터베이스 연동, 그리고 인프라 최적화에 중점을 두었습니다.
 
 # Project Links
-- **Frontend (Vercel)**: [https://shoppingmallfrontend.vercel.app/](https://shoppingmall-hamjoong.vercel.app/)
+- **Frontend (Vercel)**: [https://shoppingmall-frontend.vercel.app/](https://shoppingmall-hamjoong.vercel.app/)
 - **Backend (Render)**: [https://shoppingmall-backend-gtg5.onrender.com](https://shoppingmall-agke.onrender.com/)
 
 # System Architecture
