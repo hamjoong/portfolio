@@ -24,7 +24,7 @@ const Intro: React.FC = () => {
           <h2 className="section-title">안녕하세요 기술의 본질을 탐구하는 개발자입니다.</h2>
           {/* 철학 구절을 강조하여 개인의 핵심 개발 모토를 명확히 전달함 */}
           <p className="intro-philosophy">
-            "좋은 사용자 경험은 결국 좋은 기술적 선택에서 시작된다고 믿습니다."
+            &quot;좋은 사용자 경험은 결국 좋은 기술적 선택에서 시작된다고 믿습니다.&quot;
           </p>
           <div className="intro-description">
             <p>
