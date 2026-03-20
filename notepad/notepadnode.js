@@ -1,71 +1,51 @@
-const express = require('express');
+const express = require ('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const app = express();
+const path = require('path');
+const fs = require('fs');
+const { join } = require('path');
 
 const client = mysql.createConnection({
   host: "localhost",
   user: "c16st30",
   password: "Z9U7dffwthoQloDI",
-  database: "c16st30"
+	database: "c16st30"
 });
 
 app.use(bodyParser.urlencoded({
-  extended: false
+  extended : false
 }));
 
 /*view pug 경로 설정*/
 app.set('view engine', 'pug');
-app.set('views', './src/pug');
+app.set('views', './build/html');
 
 /*스테틱 경로 설정*/
 app.use(express.static('build'));
 
 /*json notepad 파싱 pug*/
-app.get('/', (req, res) => {
-  res.render('notepad');
-});
-
-/* 메모 데이터 조회 API */
-app.get('/notes', (req, res) => {
-  client.query('SELECT * FROM notepad', (error, result) => {
-    if (error) {
-      console.error(error);
-      res.status(500).send('Database Error');
-    } else {
-      res.json(result);
-    }
-  });
-});
+/*app.get('/', (req, res) => {
+    res.render('notepad');
+});*/
 
 /*DB서버 전송*/
-app.post('/', (req, res) => {
+/*app.post('/', async (req, res, next) => {
+  console.log(req.body);
   const body = req.body;
   client.query('INSERT INTO notepad (title, contents) VALUES (?,?)', [
     body.Title, body.Contents,
   ], (error, result) => {
-    if (error) {
-      console.error(error);
-      res.status(500).send('Database Error');
-    } else {
-      res.json({ id: result.insertId });
-    }
-  });
-});
-
-/* 메모 삭제 API */
-app.delete('/notes/:id', (req, res) => {
-  const id = req.params.id;
-  client.query('DELETE FROM notepad WHERE id = ?', [id], (error, result) => {
-    if (error) {
-      console.error(error);
-      res.status(500).send('Database Error');
-    } else {
+      client.query('SELECT * FROM notepad', (error, result) => {
+        console.log(result);
+        
+        fs.writeFileSync('./build/nodejs/notepad.json', 'get_notepad=' + JSON.stringify(result));
+        fs.writeFileSync('./build/nodejs/notepad.json', JSON.stringify(result));
+      });
       res.send();
-    }
   });
 });
 
 app.listen(3030, () => {
   console.log('Server Running 3030...');
-});
+});*/
