@@ -1,11 +1,13 @@
-@charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap");
+@charset 'UTF-8';
+
 * {
   margin: 0px;
   padding: 0px;
   font-size: 10px;
-  font-family: "Gowun Batang", serif;
+  font-family: 'Gowun Batang', serif;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
 
 html, body {
   width: 100%;
@@ -21,16 +23,6 @@ html, body {
 }
 
 /*메모장 메인 박스 영역*/
-/*메모장 헤더 영역*/
-/*메모장 미니 박스 영역*/
-/*메모장 폼 영역*/
-/*메모장 제목,내용 영역*/
-/*메모장 저장 버튼 영역*/
-/*메모장 바디 제목,내용 보여지는 박스2 영역*/
-/*메모장 바디 제목,내용 영역*/
-/*메모장 바디 제목,내용 그려지는 폰트 영역*/
-/*메모장 모달 박스 영역*/
-/*메모장 메인 박스 영역*/
 .notepad_main_box {
   width: 120rem;
   max-width: 95%;
@@ -43,8 +35,9 @@ html, body {
   box-shadow: 0rem 0rem 0.5rem 0.3rem rgb(100, 100, 100);
   background-color: #fff;
   overflow: hidden;
-  /*메모장 헤더 영역*/
 }
+
+/*메모장 헤더 영역*/
 .notepad_main_box header {
   width: 100%;
   height: 10rem;
@@ -57,12 +50,14 @@ html, body {
   color: #7198FF;
   background-color: #EBE1DD;
 }
+
 @media screen and (max-width: 768px) {
   .notepad_main_box header {
     height: 7rem;
     font-size: 3.5rem;
   }
 }
+
 .notepad_main_box header p {
   width: 100%;
   height: 10rem;
@@ -75,15 +70,15 @@ html, body {
   color: #7198FF;
   background-color: #EBE1DD;
 }
+
 @media screen and (max-width: 768px) {
   .notepad_main_box header p {
     height: 7rem;
     font-size: 3.5rem;
   }
 }
-.notepad_main_box {
-  /*메모장 미니 박스 영역*/
-}
+
+/*메모장 미니 박스 영역*/
 .notepad_main_box .notepad_mini_box {
   width: 100%;
   height: calc(100% - 10rem);
@@ -92,6 +87,7 @@ html, body {
   align-items: flex-start;
   overflow: hidden;
 }
+
 @media screen and (max-width: 768px) {
   .notepad_main_box .notepad_mini_box {
     flex-direction: column;
@@ -99,9 +95,8 @@ html, body {
     overflow-y: auto;
   }
 }
-.notepad_main_box .notepad_mini_box {
-  /*메모장 폼 영역*/
-}
+
+/*메모장 폼 영역*/
 .notepad_main_box .notepad_mini_box .notepad_title_contents_box {
   width: 60%;
   height: 100%;
@@ -111,15 +106,15 @@ html, body {
   align-items: center;
   padding-top: 2rem;
 }
+
 @media screen and (max-width: 768px) {
   .notepad_main_box .notepad_mini_box .notepad_title_contents_box {
     width: 95%;
     padding: 2rem 0;
   }
 }
-.notepad_main_box .notepad_mini_box .notepad_title_contents_box {
-  /*메모장 제목 영역*/
-}
+
+/*메모장 제목 영역*/
 .notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_title {
   width: 50rem;
   max-width: 90%;
@@ -128,6 +123,7 @@ html, body {
   justify-content: space-around;
   align-items: center;
 }
+
 .notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_title .note_Title {
   width: 50rem;
   max-width: 90%;
@@ -142,32 +138,33 @@ html, body {
   color: rgb(80, 80, 80);
   padding-left: 1rem;
 }
+
 @media screen and (max-width: 768px) {
   .notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_title .note_Title {
     font-size: 3rem;
   }
 }
-.notepad_main_box .notepad_mini_box .notepad_title_contents_box {
-  /*메모장 내용 영역*/
-}
+
+/*메모장 내용 영역*/
 .notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_contents {
   width: 50rem;
   max-width: 90%;
-  height: 7rem;
+  height: 50rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 50rem;
 }
+
 @media screen and (max-width: 768px) {
   .notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_contents {
     height: 30rem;
   }
 }
+
 .notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_contents .note_Contents {
   width: 50rem;
   max-width: 90%;
-  height: 7rem;
+  height: 50rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -178,22 +175,15 @@ html, body {
   color: rgb(80, 80, 80);
   padding-left: 1rem;
 }
+
 @media screen and (max-width: 768px) {
   .notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_contents .note_Contents {
     font-size: 3rem;
-  }
-}
-.notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_contents .note_Contents {
-  height: 50rem;
-}
-@media screen and (max-width: 768px) {
-  .notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_contents .note_Contents {
     height: 30rem;
   }
 }
-.notepad_main_box .notepad_mini_box .notepad_title_contents_box {
-  /*메모장 저장 버튼 영역*/
-}
+
+/*메모장 저장 버튼 영역*/
 .notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_save_button_box {
   width: 50rem;
   max-width: 90%;
@@ -203,6 +193,7 @@ html, body {
   align-items: center;
   margin: 2rem;
 }
+
 .notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_save_button_box .notepad_save_button {
   width: 6rem;
   height: 6rem;
@@ -215,36 +206,36 @@ html, body {
   font-weight: bold;
   color: rgb(100, 100, 100);
 }
+
 .notepad_main_box .notepad_mini_box .notepad_title_contents_box .notepad_save_button_box .notepad_save_button:hover {
   background-color: #EBE1DD;
   color: #7198FF;
   cursor: pointer;
 }
+
 .notepad_main_box .notepad_mini_box .notepad_title_contents_box iframe {
   display: none;
 }
-.notepad_main_box .notepad_mini_box {
-  /*메모장 바디 제목,내용 보여지는 박스 영역*/
-}
+
+/*메모장 바디 제목,내용 보여지는 박스 영역*/
 .notepad_main_box .notepad_mini_box .notepad_body_title_contents_box {
   width: 60%;
   height: 100%;
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row wrap;
   justify-content: flex-start;
   align-items: center;
   padding-top: 2rem;
 }
+
 @media screen and (max-width: 768px) {
   .notepad_main_box .notepad_mini_box .notepad_body_title_contents_box {
     width: 95%;
     padding: 2rem 0;
   }
 }
-.notepad_main_box .notepad_mini_box .notepad_body_title_contents_box {
-  flex-flow: row wrap;
-  /*메모장 바디 제목,내용 보여지는 박스2 영역*/
-}
+
+/*메모장 바디 제목,내용 보여지는 박스2 영역*/
 .notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 {
   width: 55rem;
   max-width: 95%;
@@ -256,11 +247,13 @@ html, body {
   overflow-x: hidden;
   overflow-y: auto;
 }
+
 @media screen and (max-width: 768px) {
   .notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 {
     height: 40rem;
   }
 }
+
 .notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 article.box {
   width: 17rem;
   height: 17rem;
@@ -274,6 +267,7 @@ html, body {
   padding: 1rem;
   box-sizing: border-box;
 }
+
 .notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 article.box p.title_box {
   font-size: 2rem;
   font-weight: bold;
@@ -284,15 +278,16 @@ html, body {
   white-space: nowrap;
   margin-bottom: 0.5rem;
 }
+
 .notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 article.box p.contents_box {
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: bold;
   color: rgb(80, 80, 80);
-  font-size: 1.6rem;
   overflow-y: auto;
   flex-grow: 1;
   word-break: break-all;
 }
+
 .notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 article.box .button_container {
   position: absolute;
   bottom: 0.5rem;
@@ -301,6 +296,7 @@ html, body {
   gap: 0.5rem;
   z-index: 999;
 }
+
 .notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 article.box button {
   padding: 0.3rem 0.6rem;
   border-radius: 0.5rem;
@@ -315,6 +311,7 @@ html, body {
   color: #333;
   transition: all 0.2s;
 }
+
 .notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 article.box button i {
   font-size: 1.4rem;
   position: static;
@@ -322,11 +319,13 @@ html, body {
   width: auto;
   height: auto;
 }
+
 .notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 article.box button.edit_btn:hover {
   background-color: #7198FF;
   color: #fff;
   border-color: #7198FF;
 }
+
 .notepad_main_box .notepad_mini_box .notepad_body_title_contents_box .notepad_body_title_contents_box2 article.box button.delete_btn:hover {
   background-color: #ff4444;
   color: #fff;
@@ -351,6 +350,7 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .model_box .model {
   width: 100%;
   height: 100%;
@@ -359,6 +359,7 @@ html, body {
   justify-content: space-between;
   align-items: center;
 }
+
 .model_box .model .model_font {
   width: 100%;
   height: 15rem;
@@ -369,6 +370,7 @@ html, body {
   font-weight: bold;
   color: #fff;
 }
+
 .model_box .model .model_button_box {
   width: 100%;
   height: 5rem;
@@ -376,6 +378,7 @@ html, body {
   justify-content: center;
   align-items: center;
 }
+
 .model_box .model .model_button_box .delete_button {
   width: 50%;
   height: 100%;
@@ -390,6 +393,7 @@ html, body {
   border-bottom-left-radius: 2rem;
   border-right: 1px solid black;
 }
+
 .model_box .model .model_button_box .cancel_button {
   width: 50%;
   height: 100%;
@@ -403,7 +407,9 @@ html, body {
   color: rgb(80, 80, 80);
   border-bottom-right-radius: 2rem;
 }
-.model_box .model .model_button_box .delete_button:hover, .model_box .model .model_button_box .cancel_button:hover {
+
+.model_box .model .model_button_box .delete_button:hover,
+.model_box .model .model_button_box .cancel_button:hover {
   color: #7198FF;
   cursor: pointer;
 }
@@ -418,6 +424,7 @@ footer {
   padding: 2rem;
   box-sizing: border-box;
 }
+
 footer p {
   font-size: 1.6rem;
   font-weight: bold;

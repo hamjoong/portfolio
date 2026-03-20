@@ -1,7 +1,3 @@
-/*DB Json 파싱*/
-/*const json = '{"get_notepad": ""}'
-const obj = JSON.parse(json)*/
-
 /*메모장 입력 영역*/
 window.addEventListener('load', () => {
   const noteTitle = document.querySelector('#note_Title');
@@ -12,7 +8,7 @@ window.addEventListener('load', () => {
   let articleToDelete = null;
 
   /*메모 생성 함수*/
-  function createMemo(title, contents, id = Date.now()) {
+  function createMemo(title, contents, id) {
     const html = `
       <article class='box' data-id='${id}'>
         <p class='title_box'>${title}</p>
@@ -26,7 +22,8 @@ window.addEventListener('load', () => {
   }
 
   /*저장 버튼 클릭 이벤트*/
-  saveBtn.addEventListener('click', () => {
+  saveBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     const title = noteTitle.value.trim();
     const contents = noteContents.value.trim();
 
@@ -36,24 +33,34 @@ window.addEventListener('load', () => {
       return;
     }
 
-    createMemo(title, contents);
-    
-    /*입력창 초기화*/
-    noteTitle.value = "";
-    noteContents.value = "";
+    /* AJAX 요청 */
+    $.post('/', { Title: title, Contents: contents }, (response) => {
+       createMemo(title, contents, response.id);
+       /*입력창 초기화*/
+       noteTitle.value = "";
+       noteContents.value = "";
+    });
   });
 
   /*수정 버튼 클릭 이벤트 (이벤트 위임)*/
   $(document).on('click', '.edit_btn', function() {
     const article = $(this).closest('article');
+    const id = article.data('id');
     const title = article.find('.title_box').text();
     const contents = article.find('.contents_box').text();
     
     noteTitle.value = title === "제목 없음" ? "" : title;
     noteContents.value = contents === "내용 없음" ? "" : contents;
     
-    article.remove();
-    noteTitle.focus();
+    /* DB에서도 삭제 */
+    $.ajax({
+        url: '/notes/' + id,
+        type: 'DELETE',
+        success: function(result) {
+            article.remove();
+            noteTitle.focus();
+        }
+    });
   });
 
   /*삭제 버튼 클릭 이벤트(모달 표시)*/
@@ -65,8 +72,15 @@ window.addEventListener('load', () => {
   /*모달 삭제 확인 버튼*/
   $('.model_box .delete_button').on('click', function() {
     if (articleToDelete) {
-      articleToDelete.remove();
-      articleToDelete = null;
+      const id = articleToDelete.data('id');
+      $.ajax({
+        url: '/notes/' + id,
+        type: 'DELETE',
+        success: function(result) {
+            articleToDelete.remove();
+            articleToDelete = null;
+        }
+      });
     }
     modal.hide();
   });
@@ -78,7 +92,7 @@ window.addEventListener('load', () => {
   });
 
   /*초기 데이터 로드 (JSON)*/
-  $.getJSON('../nodejs/notepad.json', (jsonData) => {
+  $.getJSON('/notes', (jsonData) => {
     if (jsonData && jsonData.length) {
       jsonData.forEach(item => {
         createMemo(item.title, item.contents, item.id);

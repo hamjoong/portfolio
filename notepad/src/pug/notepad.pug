@@ -13,9 +13,9 @@ html(lang='KO')
 
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js')
 
-    link(rel='icon' type='image/png' href='../favicon/favicon.ico')
+    link(rel='icon' type='image/png' href='/favicon/favicon.ico')
 
-    link(rel='stylesheet' href='../css/notepad.css')
+    link(rel='stylesheet' href='/css/notepad.css')
     
     title Note Pad
   body 
@@ -38,7 +38,7 @@ html(lang='KO')
 
           <!--메모장 저장 버튼 영역-->
           section(class='notepad_save_button_box')
-            input(type='button' name='notepad_save_button' value='저장' class='notepad_save_button' id='notepad_save_button' placeholder='저장')
+            input(type='submit' name='notepad_save_button' value='저장' class='notepad_save_button' id='notepad_save_button' placeholder='저장')
 
           <!--메모장 내용 영역-->
           article(class='notepad_contents')
@@ -67,5 +67,4 @@ html(lang='KO')
     footer 
       p(class='footer_font') Copyright(C) 2022. Hjuk. All right reserved. 본 사이트는 비상업적인 용도로 제작된 포트폴리오 사이트입니다
 
-    script(src='../nodejs/notepad.json' type='text/javascript')
-    script(src='../script/notepad.js')
+    script(src='/script/notepad.js')
