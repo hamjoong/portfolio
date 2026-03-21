@@ -78,17 +78,14 @@ public class SecurityConfig {
             .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
-    }
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         // [CORS 보안 및 호환성 강화]
         // 1. 운영 환경의 다양한 Vercel 서브도메인을 포함하여 명시적으로 허용
         config.setAllowedOriginPatterns(java.util.Arrays.asList(
+            "https://shoppingmallfrontend.vercel.app",
             "https://shoppingmall-*.vercel.app",
-            "https://shoppingmall-hamjoong.vercel.app",
-            "https://shoppingmall-tau-azure.vercel.app",
             "http://localhost:3000"
         ));
         

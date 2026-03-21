@@ -3,6 +3,7 @@ package com.projectx.auth.service;
 import com.projectx.auth.domain.entity.Product;
 import com.projectx.auth.domain.entity.ProductStatus;
 import com.projectx.auth.domain.repository.ProductRepository;
+import com.projectx.auth.dto.ProductCreateRequest;
 import com.projectx.auth.dto.ProductResponse;
 import com.projectx.auth.exception.BusinessException;
 import com.projectx.auth.exception.ErrorCode;
@@ -109,7 +110,7 @@ public class ProductService {
 
     @CacheEvict(value = "products", allEntries = true)
     @Transactional
-    public UUID createProduct(com.projectx.auth.dto.ProductCreateRequest request) {
+    public UUID createProduct(ProductCreateRequest request) {
         Product product = Product.builder()
                 .name(request.getName())
                 .description(request.getDescription())
