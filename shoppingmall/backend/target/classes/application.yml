@@ -29,6 +29,8 @@ spring:
       hibernate:
         format_sql: true
         default_schema: public
+        # 환경 변수로 Dialect 주입 가능하게 변경 (기본값은 H2)
+        dialect: ${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT:org.hibernate.dialect.H2Dialect}
 
   security:
     oauth2:

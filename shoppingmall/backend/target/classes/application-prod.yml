@@ -1,11 +1,5 @@
 spring:
-  # Redis 및 캐시를 완전히 차단합니다. (배포 실패의 주범 중 하나)
-  cache:
-    type: none
-  data:
-    redis:
-      repositories:
-        enabled: false
+  # Redis를 완전히 차단합니다. (배포 실패의 주범 중 하나)
   autoconfigure:
     exclude:
       - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
@@ -19,32 +13,19 @@ spring:
     driver-class-name: org.postgresql.Driver
     # 연결 속도 최적화 (무료 티어용)
     hikari:
-      initialization-fail-timeout: 30000 # 시작 시 DB 연결 대기 시간 30초로 연장
-      connection-timeout: 30000        # 연결 타임아웃 30초
+      initialization-fail-timeout: 0
       maximum-pool-size: 5
   
   jpa:
     hibernate:
-      ddl-auto: validate
-    open-in-view: false
-    show-sql: false
+      ddl-auto: validate    # update → validate: 매번 스키마 비교 방지 (시작 속도 향상)
+    open-in-view: false      # 불필요한 DB 세션 유지 방지
+    show-sql: false          # 운영 환경에서 SQL 로그 비활성화
     properties:
       hibernate:
         format_sql: false
-
-flyway:
-  enabled: true
-  baseline-on-migrate: true
-
-# [Phase 5] AWS 기능 명시적 비활성화 (기동 장애 원천 차단)
-aws:
-  kms:
-    enabled: false
-    key-id: dummy
-    region: ap-northeast-2
-  s3:
-    enabled: false
-    bucket: dummy
+        default_schema: public
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 server:
   port: ${PORT:8080}
@@ -62,10 +43,9 @@ management:
     defaults:
       enabled: false
 
-# 운영 환경: 로그 레벨 조정 (상태 확인을 위한 INFO 레벨 복구)
+# 운영 환경: 로그 레벨 최소화 (시작 시 I/O 감소)
 logging:
   level:
-    root: INFO
-    com.zaxxer.hikari: INFO
-    org.springframework.web: INFO
-    com.projectx.auth: DEBUG # 우리 서비스 로직은 상세히 기록
+    root: WARN
+    com.zaxxer.hikari: WARN
+    org.springframework.web: WARN

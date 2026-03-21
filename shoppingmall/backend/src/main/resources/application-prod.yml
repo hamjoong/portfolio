@@ -25,26 +25,19 @@ spring:
   
   jpa:
     hibernate:
-      ddl-auto: validate
-    open-in-view: false
-    show-sql: false
+      ddl-auto: update          # [Phase 16.1] 누락된 인기도 컬럼(sales_count 등) 자동 생성을 위해 update로 전환
+    open-in-view: false      # 불필요한 DB 세션 유지 방지
+    show-sql: false          # 운영 환경에서 SQL 로그 비활성화
     properties:
       hibernate:
         format_sql: false
-
-flyway:
-  enabled: true
-  baseline-on-migrate: true
 
 # [Phase 5] AWS 기능 명시적 비활성화 (기동 장애 원천 차단)
 aws:
   kms:
     enabled: false
-    key-id: dummy
-    region: ap-northeast-2
   s3:
     enabled: false
-    bucket: dummy
 
 server:
   port: ${PORT:8080}

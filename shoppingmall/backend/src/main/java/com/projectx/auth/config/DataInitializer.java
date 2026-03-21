@@ -2,8 +2,6 @@ package com.projectx.auth.config;
 
 import com.projectx.auth.domain.entity.Category;
 import com.projectx.auth.domain.entity.Product;
-import com.projectx.auth.domain.entity.ProductQna;
-import com.projectx.auth.domain.entity.Review;
 import com.projectx.auth.domain.entity.User;
 import com.projectx.auth.domain.entity.UserProfile;
 import com.projectx.auth.domain.entity.UserStatus;
@@ -145,7 +143,7 @@ public class DataInitializer implements CommandLineRunner {
         log.info("[Init] Sample data sync and cleanup completed.");
     }
 
-    private void seedReviewsAndQnas(UUID userId) {
+    private void seedReviewsAndQnas(java.util.UUID userId) {
         log.info("[Init] Seeding reviews and QNAs...");
         productRepository.findAll().forEach(product -> {
             // 리뷰 생성 (상품당 2개)
@@ -153,14 +151,14 @@ public class DataInitializer implements CommandLineRunner {
                 Review r1 = Review.builder()
                         .userId(userId)
                         .productId(product.getId())
-                        .orderId(UUID.randomUUID())
+                        .orderId(java.util.UUID.randomUUID())
                         .rating(5)
                         .content("상품이 정말 마음에 듭니다! 배송도 빨라요. " + product.getName() + " 최고입니다.")
                         .build();
                 Review r2 = Review.builder()
                         .userId(userId)
                         .productId(product.getId())
-                        .orderId(UUID.randomUUID())
+                        .orderId(java.util.UUID.randomUUID())
                         .rating(4)
                         .content("생상보다 훨씬 퀄리티가 좋네요. 가성비 갑입니다.")
                         .build();
@@ -170,7 +168,7 @@ public class DataInitializer implements CommandLineRunner {
 
             // Q&A 생성 (상품당 2개, 하나는 답변 완료)
             if (productQnaRepository.findByProductId(product.getId(), PageRequest.of(0, 1)).isEmpty()) {
-                ProductQna q1 = ProductQna.builder()
+                com.projectx.auth.domain.entity.ProductQna q1 = com.projectx.auth.domain.entity.ProductQna.builder()
                         .userId(userId)
                         .productId(product.getId())
                         .title("배송 문의")
@@ -178,7 +176,7 @@ public class DataInitializer implements CommandLineRunner {
                         .build();
                 q1.addAnswer("안녕하세요 고객님! 오늘 주문 건은 익일 발송 예정이며, 보통 2-3일 내에 수령 가능하십니다.");
 
-                ProductQna q2 = ProductQna.builder()
+                com.projectx.auth.domain.entity.ProductQna q2 = com.projectx.auth.domain.entity.ProductQna.builder()
                         .userId(userId)
                         .productId(product.getId())
                         .title("재고 문의")

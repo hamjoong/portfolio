@@ -7,7 +7,8 @@ const nextConfig = {
     ppr: 'incremental',
   },
   */
-  /*
+  // [이유] 개발 환경에서 백엔드 API와의 CORS 이슈를 방지하기 위해 
+  // API 요청을 백엔드 서버로 프록시 처리하도록 설정할 수 있습니다.
   async rewrites() {
     return [
       {
@@ -16,7 +17,6 @@ const nextConfig = {
       },
     ];
   },
-  */
   // [이유] 정적 이미지 최적화를 위해 외부 도메인 허용이 필요한 경우 이곳에 정의합니다.
   images: {
     remotePatterns: [
