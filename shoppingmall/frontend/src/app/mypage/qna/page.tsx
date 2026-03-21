@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { qnaService, QnaResponse } from '@/services/qna.service';
 import { ArrowLeft, MessageSquare, ChevronDown, ChevronUp, Lock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function MyQnaPage() {
   const router = useRouter();
@@ -63,8 +64,8 @@ export default function MyQnaPage() {
                   <div className="flex-1 min-w-0 flex items-center gap-4">
                     {/* 상품 이미지 추가 */}
                     {qna.productImageUrl && (
-                      <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 border border-gray-100">
-                        <img src={qna.productImageUrl} alt={qna.productName} className="w-full h-full object-cover" />
+                      <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 border border-gray-100 relative">
+                        <Image src={qna.productImageUrl} alt={qna.productName} fill className="object-cover" />
                       </div>
                     )}
                     <div className="min-w-0 flex-1">

@@ -9,6 +9,7 @@ import { useCart } from '@/hooks/useCart';
 import { productService } from '@/services/product.service';
 import { CreditCard, MapPin, CheckCircle2, List, Edit3, Home } from 'lucide-react';
 import { Button } from '@/components/common/Button';
+import Image from 'next/image';
 
 function OrderContent() {
   const router = useRouter();
@@ -241,7 +242,7 @@ function OrderContent() {
                 singleProduct && (
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 bg-gray-100 rounded-xl overflow-hidden relative">
-                      <img src={singleProduct.mainImageUrl} alt={singleProduct.name} className="object-cover w-full h-full" />
+                      <Image src={singleProduct.mainImageUrl} alt={singleProduct.name} fill className="object-cover" />
                     </div>
                     <div className="flex-1">
                       <p className="font-bold text-gray-900">{singleProduct.name}</p>
@@ -253,7 +254,7 @@ function OrderContent() {
                 cartProducts.map((p) => (
                   <div key={p.id} className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-gray-100 rounded-xl overflow-hidden relative">
-                      <img src={p.mainImageUrl} alt={p.name} className="object-cover w-full h-full" />
+                      <Image src={p.mainImageUrl} alt={p.name} fill className="object-cover" />
                     </div>
                     <div className="flex-1">
                       <p className="text-sm font-bold text-gray-900">{p.name}</p>
