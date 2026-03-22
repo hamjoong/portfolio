@@ -1,20 +1,41 @@
-# Smart Kiosk System
-Kiosk시스템은 사용자 친화적인 인터페이스와 빠른 응답성을 제공하여 주문 및 결제 과정을 간소화하는 솔루션입니다.
-주문 처리와 포인트 적립, 메뉴 관리 기능을 포함합니다.
+# 프로젝트 : Kiosk System
 
-# Tech Stack
-- **Frontend**: Html / Css
-- **Script**: JavaScript / jQuert / JSON
-- **Middleware**: Body-parser, Cookie-parser, Connect-multiparty
+# 프로젝트 개요 : 
+Kiosk시스템은 사용자 친화적인 인터페이스를 통해 복잡한 주문 및 결제 과정을 간소화하는 키오스크 솔루션입니다.
 
-# Key Features
-- **Order Management**: 실시간 메뉴 선택 및 주문 총액 계산.
-- **Point System**: 사용자별 포인트 적립 및 사용 내역 관리.
-- **Menu Administration**: 관리자 페이지를 통한 메뉴 등록 및 수정 (이미지 업로드 포함).
-- **Responsive Web UI**: 매장 내 대형 스크린과 모바일 기기를 모두 지원하는 UI.
+# 스킬 스택 :
+Frontend: Pug (HTML), CSS, SCSS, JavaScript, jQuery, JSON
+Backend: Node.js, Express
 
-# Existing system issues
-- Kiosk시스템에서 페이지 로딩 속도가 느리고 이미지 최적화가 부족하여 사용자 경험이 저하되는 문제
+# 스킬 선택 이유 :
+Pug: HTML의 가독성을 높이고 서버 사이드 렌더링을 통해 동적 데이터를 효율적으로 템플릿에 주입하기 위해 사용했습니다.
+SCSS: 믹스인(Mixin)과 변수 기능을 활용하여 복잡한 키오스크 UI의 스타일을 체계적으로 관리하고 유지보수성을 높였습니다.
 
-# System Improvements
-- 이미지 최적화 및 비동기 데이터 로딩을 구현하여 페이지 로딩 속도를 50% 이상 개선하고 사용자 인터페이스를 직관적으로 재설계하여 주문 과정의 편의성을 향상
+# 아키텍처 :
+Static Site Architecture: 별도의 서버 없이 클라이언트 사이드 기술만으로 구성된 정적 웹사이트입니다.
+Component-based Design: Pug의 `mixin` 기능을 활용하여 포트폴리오 아이템과 스킬 항목을 컴포넌트화하여 재사용성을 극대화했습니다.
+Source (src/): 개발자가 작성하는 원본 코드 (Pug, SCSS, JS)
+Build (build/): 브라우저가 해석할 수 있도록 컴파일된 코드 (HTML, CSS, JS, img, favicon)
+
+# 프로젝트 구조 :
+portfolio/kiosk/
+├── build/             # 컴파일된 결과물 (HTML, CSS, JS)
+│   ├── css/           # SCSS에서 컴파일된 CSS 파일
+│   ├── html/          # Pug에서 컴파일된 HTML 파일
+│   ├── img/           # 메뉴 및 시스템 이미지 자원
+│   ├── nodejs/        # 데이터를 파싱한 JSON 파일 (kioskpoint.json 등)
+│   └── script/        # 클라이언트 사이드 JavaScript (kiosk.js)
+├── src/               # 개발 소스 파일
+│   ├── pug/           # Pug 템플릿 소스 (kiosk.pug)
+│   └── scss/          # 스타일 시트 소스 (kiosk.scss)
+└── package.json       # 프로젝트 의존성 및 정보 설정
+
+# 핵심 트러블 슈팅 
+문제: 키오스크 초기 로딩 시 메뉴 이미지와 포인트 데이터를 불러오는 속도가 느려 사용자 경험이 저하됨.
+원인: 고해상도 이미지 파일의 최적화 및 로딩 속도가 느려 사용자 경험이 저하됨
+해결: 이미지 최적화 작업을 통해 리소스 크기를 줄이고 데이터를 JSON 파일(nodejs/*.json)로 캐싱하여 클라이언트에서 비동기적으로 빠르게 접근할 수 있도록 개선.
+배운 점: 클라이언트-서버 간의 데이터 전송 효율성과 정적 리소스 최적화가 전체 시스템의 퍼포먼스에 미치는 결정적인 영향을 깊이 이해하게 됨.
+
+# 성능 개선 수치 :
+페이지 로딩 속도: 이미지 최적화 및 JSON 캐싱 적용 전 대비 50% 이상 단축
+응답성: 비동기 데이터 로딩 구현을 통해 주문 과정에서의 화면 전환 지연 시간 대폭 감소
