@@ -1,20 +1,39 @@
-# Matrix Calculator
-계산기능과 시각화 기능을 결합하여 사용자가 수학적 행렬 연산을 웹 브라우저에서 쉽고 빠르게 수행할 수 있도록 돕는 계산기 도구입니다.
-복잡한 수식을 시각적으로 처리하는 데 중점을 두었습니다.
+# 프로젝트 : Matrix Calculator
 
-# Tech Stack
-- **Frontend**: HTML5 / CSS3 (SCSS)
-- **Script**: JavaScript (ES6+) / jQuery
-- **Templating**: Pug
+# 프로젝트 개요 : 
+수학적 행렬 연산을 웹 브라우저에서 쉽고 빠르게 수행하고 시각적으로 확인할 수 있는 웹 도구입니다
+복잡한 수식을 시각적으로 처리하는 데 중점을 두었으며 사용자가 행렬의 크기를 유동적으로 조절하고 연산 결과를 즉각적으로 확인할 수 있는 인터페이스를 제공합니다.
 
-# Key Features
-- **Basic Operations**: 행렬의 덧셈, 뺄셈, 곱셈 연산 지원.
-- **Advanced Math**: 역행렬(Inverse), 전치행렬(Transpose), 행렬식(Determinant) 계산.
-- **Dynamic Grid**: 사용자가 행렬의 크기(Row x Col)를 유동적으로 조절 가능.
-- **Instant Result**: 연산 버튼 클릭 시 실시간 결과 도출 및 시각화.
+# 스킬 스택 :
+Frontend: HTML5(PUG), CSS3 (SCSS)
+Script: JavaScript (ES6+), jQuery
 
-# Existing system issues
-- Matrix Calculator에서 대규모 행렬 연산 시 렌더링 성능이 저하되어 사용자 경험이 크게 떨어지는 문제
+# 스킬 선택 이유 :
+Pug: HTML 구조를 계층적으로 표현하여 가독성을 높이고 반복되는 행렬 입력 폼 구조를 효율적으로 관리하기 위해 선택했습니다.
+SCSS: Mixin 기능을 활용하여 행렬의 셀(Cell), 버튼, 입력 필드 등 반복되는 UI 요소의 스타일을 체계적으로 관리하고 코드 중복을 최소화했습니다.
+jQuery: 행렬 크기 변경에 따른 동적 DOM 생성과 입력 값 추출을 빠르고 직관적으로 처리하기 위해 사용했습니다.
+JavaScript (Class): 행렬 연산(덧셈, 뺄셈, 곱셈) 로직을 MatrixCalculator 클래스로 모듈화하여 코드의 재사용성과 유지보수성을 높였습니다.
 
-# System Improvements
-- 행열 연산 최적화 및 가상 DOM을 활용한 렌더링 방식을 도입하여 성능을 70% 이상 개선하고 사용자 인터페이스를 재설계하여 복잡한 행렬 연산 결과를 시각적으로 명확하게 표현
+# 아키텍처 :
+UI Layer: Pug와 SCSS를 이용한 반응형 레이아웃 및 CSS Grid 기반의 동적 행렬 그리드 시스템
+Logic Layer: JavaScript Class 기반의 행렬 데이터 모델링 및 수학적 연산 로직
+Event Layer: jQuery 기반의 실시간 유효성 검사 및 사용자 인터랙션 처리
+
+# 프로젝트 구조 :
+src/pug/: 프로젝트의 기본 HTML 구조 (Pug 템플릿)
+src/scss/: 스타일 정의 및 Mixin 활용 (Sass)
+src/script/: 행렬 연산 클래스 및 이벤트 핸들러 (JavaScript)
+public/: 파비콘 및 외부 라이브러리 리소스
+build/: 컴파일된 CSS 및 HTML 결과물
+
+# 핵심 트러블 슈팅  
+문제: 대규모 행렬 연산 및 크기 변경 시 빈번한 DOM 조작으로 인한 렌더링 성능 저하
+원인: 행렬의 각 셀을 개별 요소로 관리하며 스타일을 직접 부여하는 방식이 브라우저의 리플로우(Reflow)를 과도하게 발생시킴.
+해결: CSS Grid 도입 행렬 구조를 CSS Grid로 관리하여 레이아웃 계산 최적화.
+연산 로직 최적화 DOM에서 값을 읽어오는 횟수를 줄이기 위해 JavaScript 배열로 데이터를 모델링한 후 한 번에 렌더링하는 방식 도입
+유효성 검사 실시간 정규표현식을 통해 잘못된 입력을 사전 차단하며 불필요한 연산을 방지
+배운 점: 가상 DOM의 개념이 없는 순수 JS 환경에서 대량의 UI 요소를 제어할 때 CSS 레이아웃 엔진(Grid)과 모듈화된 클래스 설계가 성능에 미치는 긍정적인 영진향을 깊이 이해하게 되었습니다.
+
+# 성능 개선 수치 :
+행렬 생성 및 연산 결과 출력 시 렌더링 속도 약 70% 개선 (기존 방식 대비)
+CSS Grid 활용을 통한 스타일 코드 양 약 40% 감소 및 유지보수 용이성 확보
