@@ -32,7 +32,8 @@ const Header: React.FC = () => {
       {/* 개발자의 핵심 기술 셋을 메인 제목과 함께 노출하여 첫 화면에서 정체성을 명확히 함 */}
       <div className="header-intro">
         <h1>Developer</h1>
-        <p>Html | Javascript | Css | Sass | React | TypeScript | Next.js | Java</p>
+        <p>FrontEnd | BackEnd | DataBase | DevOps | AI Agent</p>
+        <p></p>
       </div>
     </motion.header>
   );
