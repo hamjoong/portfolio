@@ -1,315 +1,443 @@
-Developer
+# Developer
+
+---
+
 # Context Engineering Project Guideline
 
-# 본 문서는 프로젝트 전반의 의사결정, 협업 규칙, 개발 표준, 아키텍처 방향성을 명확히 정의하기 위한 실행 가이드입니다. **10명의 시니어 전문가 협업 기준**
-대상: 프론트엔드 / 백엔드 / 풀스택 / UI/UX / DBA / 보안 / QA / 기획 / 마케팅 / 인프라
+---
+
+# 목적
+이 문서는 프로젝트 전반의 의사결정, 협업 규칙, 개발 표준, 아키텍처 방향성을 명확하게 정의하기 위한 실행 가이드입니다.
+
+# 운영 기준
+- 10명의 시니어 전문가 협업 기준
+- 안정성 우선
+- 보안 우선
+- 유지보수성 우선
+- 확장성 우선
+- 자동화 우선
+
+# 1. 프로젝트 개요
+이 프로젝트는 AI가 사용자의 입력을 분석하여 문서의 목적과 맥락을 자동으로 구분하고,  
+그에 맞는 규칙과 출력 형식을 적용할 수 있도록 설계된 컨텍스트 엔지니어링 기반 문서 체계입니다.
+
+# 대상 역할
+- 프론트엔드
+- 백엔드
+- 풀스택
+- UI/UX 디자이너
+- DBA
+- 보안
+- QA
+- 기획
+- 마케팅
+- 인프라
 
 ---
 
-# Context (컨텍스트) : 프로젝트의 본질적 배경, 문제 정의, 비즈니스 환경, 콘텍스트를 설명합니다.
+# 2. 핵심 목표
 
-## Background (백그라운드)
-### 현재 해결해야 하는 문제
-1. 기존 서비스의 확장성 부족
-2. 증가하는 트래픽 대응 필요
-3. 사용자 경험 저하
-4. 운영 비용 증가
-5. 보안 위협 증가
-6. 데이터 증가로 인한 성능 문제
+# 비즈니스 목표
+- 사용자 증가
+- 매출 증가
+- 운영 효율화
+- 데이터 기반 의사결정
 
-### 시장 상황
-1. SaaS 플랫폼 경쟁 심화
-2. 데이터 기반 의사결정 요구 증가
-3. 빠른 서비스 출시 요구
-4. AI 기반 서비스 확산
-
-### 내부 조직 요구사항
-1. 개발 생산성 향상
-2. 유지보수 가능한 구조
-3. 자동화된 배포 시스템
-4. 보안 중심 아키텍처
+# 기술 목표
+- API 응답 속도 200ms 이하
+- 시스템 가용성 99.9% 이상
+- Zero Trust Architecture 구현
+- DevSecOps 환경 구축
+- 자동 배포 시스템 구축
+- Observability 기반 운영
 
 ---
 
-# Problem Statement (시스템 문제) : 현재 시스템의 주요 문제
-1. 확장성 부족
-2. 사용자 경험 문제
-3. 운영 비용 증가
-4. 보안 취약점
-5. 코드 유지보수 어려움
-6. 기술 부채 증가
+# 3. 프로젝트 원칙
+- 안정성 우선
+- 보안 우선
+- 유지보수성 우선
+- 확장성 우선
+- 자동화 우선
+- 불확실한 정보는 추측하지 않고 명확히 표시
+- 특정 스택 강요 금지
+- 실무 중심 제안
+- 보안 취약한 방법 제안 금지
+- 최신 트렌드보다 검증된 안정성 우선
 
 ---
 
-# Project Scope (프로젝트 범위)
-## 포함 범위
-1. 신규 서비스 개발
-2. 기존 시스템 개선
-3. API 플랫폼 구축
-4. 데이터 분석 기반 대시보드
-5. DevOps 자동화 구축
+# 4. 문서 구조
+본 프로젝트의 모든 문서는 Markdown 기반으로 작성한다.
 
-## 제외 범위
-1. 외부 파트너 시스템
-2. 레거시 시스템 전면 리팩토링
-3. 타 조직 내부 시스템 변경
-
----
-
-# 규칙 Rule 정의 : 협업 및 커뮤니케이션 방식
-
----
-
-# 책임 Responsibility 정의 : 상세 R&R 확정
+```text
+/docs
+├ PRD.md
+├ TRD.md
+├ ARCHITECTURE.md
+├ API.md
+├ SECURITY.md
+├ DEPLOYMENT.md
+├ QA.md
+├ RULES.md
+├ ROLES.md
+├ STANDARDS.md
+```
 
 ---
 
-# PRD (Product Requirements Document) : 제품 요구사항 정의서 PRD는 기획 중심 문서입니다. "무엇을 (What), 왜 (Why) 만드는가?"
+# 5. 문서 타입 정의
+
+# PRD (Product Requirements Document) : 제품 요구사항 정의서 PRD는 기획 중심 문서입니다.
+- 무엇을 만드는가
+- 왜 만드는가
+- 어떤 문제를 해결하는가
+
+# TRD (Technical Requirements Document) : 기술 상세 설계서 TRD는 개발 중심 문서입니다.
+- 어떻게 구현하는가
+- 어떤 기술 선택을 하는가
+- 어떤 제약과 예외가 있는가
+
+# ARCHITECTURE
+- 시스템 구조
+- 서비스 경계
+- 계층 분리
+- 확장 전략
+
+# SECURITY
+- 인증/인가
+- 암호화
+- 취약점 대응
+- 접근 통제
+
+# DEPLOYMENT
+- 배포 방식
+- 환경 분리
+- 롤백 전략
+- CI/CD
+
+# QA
+- 테스트 전략
+- 품질 기준
+- 릴리즈 조건
+
+# RULES
+- 협업 규칙
+- 커뮤니케이션 규칙
+- 변경 관리 규칙
+
+# ROLES
+- 역할 정의
+- 책임 범위
+- 승인 권한
+
+# STANDARDS
+- 코딩 규칙
+- API 표준
+- 폴더 구조
+- 예외 처리 표준
+- 개발 단계의 DB / 배포 관련은 테스트 환경으로 한다.
 
 ---
 
-# TRD (Technical Requirements Document) : 기술 상세 설계서 TRD는 개발 중심 문서입니다. "어떻게(How) 기술적으로 구현할 것인가?를 정의합니다."
+# 6. AI 동작 원칙
+AI는 사용자의 입력을 아래 기준으로 분류하여 문서를 생성하거나 수정한다.
+
+# 분류 규칙
+- 목적, 문제, 범위, 사용자, 기대효과 → PRD
+- API, DB, 구조, 성능, 예외, ARCHITECTURE, 구현 → TRD
+- 보안, 인증, 인가, 암호화, 취약점 → SECURITY
+- 배포, 환경, CI/CD, 롤백, 운영 → DEPLOYMENT
+- 테스트, 검증, 부하, 회귀 → QA
+- 협업, 승인, 커뮤니케이션, 책임 → RULES / ROLES
+
+# 출력 원칙
+- Markdown 기반 작성
+- 구조적 문서 작성
+- 코드 블록 사용
+- JSON / YAML 표준 사용
+- 두괄식 설명
+- 쉬운 비유 설명
+- 용어 설명 포함
+- 정보 부족 시 질문
 
 ---
 
-# Persona (페르소나)
-Primary : 복잡한 데이터를 실시간으로 확인하려는 엔터프라이즈 사용자
-
-Secondary : 보안성과 안정성을 중요하게 생각하는 내부 관리자
-
-Custom : 실제 서비스 타겟 고객
+# 7. 운영 방식
+- Agile 기반 Sprint 운영
+- Sprint 기간: 2주
+- Daily Standup: 15분
+- Sprint Review 수행
+- Sprint Retrospective 수행
 
 ---
 
-## 신규 페르소나 Primary Persona 
+# 8. 기술 스택
 
-| Persona | Description |
-|--------|-------------|
+# Frontend
+- HTML
+- CSS
+- SCSS
+- Tailwind CSS
+- JavaScript (ES6+)
+- TypeScript
+- React
+- Vue
+- Next.js
+- Python
+
+# Backend
+- Node.js
+- Spring Boot
+- Java
+- NestJS
+- FastAPI
+- Python
+
+# Database
+- SQL
+- MySQL
+- PostgreSQL
+- Redis
+- MongoDB
+- AWS EKS
+- Terraform
+
+# Infra
+- AWS
+- Docker
+- Kubernetes
+
+# CI/CD
+- GitHub
+- GitHub Actions
+- Jenkins
+- AWS CI/CD
+- Amazon EC2
+- Amazon ECS
+
+---
+
+# 9. 핵심 품질 기준
+
+# 성능 Performance
+프론트엔드는 Lighthouse 점수 90점 이상을 목표로 하며, 백엔드는 DB 인덱싱 최적화와 캐싱 전략을 수립합니다.
+DB 인덱스 최적화, CDN 활용, 비동기 메시지 큐를 통한 부하 분산.
+캐싱, 로드밸런싱, DB인덱싱 전략
+
+- API 응답 200ms 이하
+- DB Index 최적화
+- Redis Cache 활용
+- CDN 사용
+- Lazy Loading 적용
+- Pagination 적용
+- Query Plan 분석
+- 이미지 최적화
+- 불필요한 API 호출 방지
+- 불필요한 DB 조회 방지
+
+# 보안
+- HTTPS 사용
+- JWT 인증
+- OWASP Top 10 대응
+- XSS 방어
+- CSRF 방어
+- Rate Limiting
+- RBAC 접근 제어
+- Zero Trust Architecture
+- Secret Manager 사용
+- API Key 노출 금지(.env 활용)
+- 인증/인가 분리
+
+# 운영 도구 모니터링
+- Prometheus
+- Grafana
+- ELK Stack
+- OpenTelemetry
+- CPU, Memory, API Latency, Error Rate, DB Query Time 모니터링
+
+---
+
+# 10. 작성 원칙
+- 문서는 명확하고 짧게 작성한다.
+- 책임자와 승인자를 명시한다.
+- 모호한 표현을 제거한다.
+- 수치 기준을 넣는다.
+- 예외 상황을 포함한다.
+- 변경 가능성이 높은 내용은 별도 문서로 분리한다.
+- 공통 규칙은 `STANDARDS.md`로 모은다.
+- 구현 세부는 `TRD.md`로 이동한다.
+- 의사결정은 `ARCHITECTURE.md` 또는 ADR로 남긴다.
+
+---
+
+# 11. README 작성 원칙
+README는 누구나 보고 빠르게 이해할 수 있어야 한다.
+
+- 프로젝트 이름
+- 프로젝트 개요
+- 기술 스택
+- 기술 선택 이유
+- 아키텍처
+- 핵심 트러블슈팅
+- 성능 개선 수치
+- 실행 방법
+
+---
+
+# PRD.md
+
+---
+
+# Product Requirements Document
+
+---
+
+# 1. 문서 목적
+이 문서는 무엇을 만들고 왜 만드는지를 정의한다.
+
+# 2. 배경
+# 현재 문제
+- 기존 서비스의 확장성 부족
+- 증가하는 트래픽 대응 필요
+- 사용자 경험 저하
+- 운영 비용 증가
+- 보안 위협 증가
+- 데이터 증가로 인한 성능 문제
+
+# 시장 상황
+- SaaS 플랫폼 경쟁 심화
+- 데이터 기반 의사결정 요구 증가
+- 빠른 서비스 출시 요구
+- AI 기반 서비스 확산
+
+# 내부 요구사항
+- 개발 생산성 향상
+- 유지보수 가능한 구조
+- 자동화된 배포 시스템
+- 보안 중심 아키텍처
+
+---
+
+# 3. 문제 정의
+- 확장성 부족
+- 사용자 경험 문제
+- 운영 비용 증가
+- 보안 취약점
+- 코드 유지보수 어려움
+- 기술 부채 증가
+
+---
+
+# 4. 프로젝트 범위
+# 포함 범위
+- 신규 서비스 개발
+- 기존 시스템 개선
+- API 플랫폼 구축
+- 데이터 분석 기반 대시보드
+- DevOps 자동화 구축
+
+# 제외 범위
+- 외부 파트너 시스템
+- 레거시 시스템 전면 리팩토링
+- 타 조직 내부 시스템 변경
+
+---
+
+# 5. 페르소나
+# Primary Persona
+복잡한 데이터를 실시간으로 확인하려는 엔터프라이즈 사용자
+
+# Secondary Persona
+보안성과 안정성을 중요하게 생각하는 내부 관리자
+
+# Custom Persona
+실제 서비스 타겟 고객
+
+# 사용자 유형
+
+| 구분 | 설명 |
+|------|------|
 | End User | 일반 사용자 |
 | Admin | 관리자 |
 | Operator | 운영 담당자 |
 
----
-
-## 기술 페르소나 Technical Persona
-
-| Role | Responsibility |
-|-----|---------------|
-| Developer | 서비스 개발 |
-| Designer | UX 설계 |
-| QA | 품질 검증 |
-| DevOps | 인프라 운영 |
-
-포함 내용
-1. 사용자 유형
-2. 사용자 목표
-3. Pain Point
-4. User Journey Map
+# 포함 항목
+- 사용자 유형
+- 사용자 목표
+- Pain Point
+- User Journey Map
 
 ---
 
-# Vision (비전) : 기술적 한계를 뛰어넘는 **사용자 중심 무결성 기반 확장 가능한 플랫폼 구축**
-1. Scalability
-2. Security
-3. User Experience
-4. Observability
-5. Long-term Maintainability
+# 6. 비전
+기술적 한계를 뛰어넘는 사용자 중심 무결성 기반 확장 가능한 플랫폼 구축
+
+# 비전 키워드
+- Scalability
+- Security
+- User Experience
+- Observability
+- Long-term Maintainability
 
 ---
 
-# Goal (목표)
-1. 사용자 증가
-2. 매출 증가
-3. 운영 효율화
-4. 데이터 기반 의사결정
+# 7. 목표
+- 사용자 증가
+- 매출 증가
+- 운영 효율화
+- 데이터 기반 의사결정
 
 ---
 
-## 기술 목표 Technical Goal
-1. API 응답 속도 **200ms 이하**
-2. 시스템 가용성 **99.9% 이상**
-3. Zero Trust Architecture 구현
-4. DevSecOps 환경 구축
-5. 자동 배포 시스템
-6. Observability 기반 운영
+# 8. 성공 기준
+- 사용자 만족도 향상
+- 장애 감소
+- 배포 안정성 향상
+- 운영 비용 절감
+- 응답 속도 개선
 
 ---
 
-# Role (역할 정의) : 10명의 시니어 전문가 역할
-
-| Role | Description |
-|-----|-------------|
-| Frontend Developer | UI 개발, 상태 관리, 성능 최적화 |
-| Backend Developer | 서버 개발, 비즈니스 로직 구현 및 API 설계 |
-| Fullstack Developer | 전체 서비스 |
-| UI/UX Designer | UX 설계 사용자 여정(User Journey) 및 와이어프레임 최적화, 디자인 시스템 구축 |
-| DBA | DB 설계 데이터 모델링, 쿼리 튜닝, 샤딩 전략 수립, DB Schema 설계 및 최적화, 성능 튜닝, 백업 정책 |
-| Security Engineer | 방화벽, 인증/인가(OAuth2), 암호화 프로토콜, 보안정책 및 접근제어 설계, 취약점 분석 |
-| QA Engineer | 테스트, 자동화 테스트 구축, 부하 테스트, 회귀 테스트, 품질 정책 정의 및 테스트케이스 작성 |
-| Planner | 서비스 기획, 요구사항 구체화, 비즈니스 로직 정의, 로드맵 관리 |
-| Marketer | 마케팅 전략, 시장 분석, 유저 피드백 수집, SEO 및 성장 지표 관리 |
-| Infra Engineer | 인프라 구축, K8s 클러스터 운영, 배포 CI/CD 파이프라인, 모니터링 구성 |
+# 9. 이해관계자
+- 기획
+- 개발
+- QA
+- 보안
+- 인프라
+- 운영
+- 마케팅
+- 경영진
 
 ---
 
-# Project Operation Rule (프로젝트 규칙)
-1. Agile 기반 Sprint
-2. Sprint 기간 : 2주
-3. Daily Standup : 15분
-4. Sprint Review
-5. Sprint Retrospective
+# 10. 승인 기준
+- 요구사항 정의 완료
+- 범위 확정
+- 우선순위 정리
+- 일정 승인
+- 책임자 지정
 
 ---
 
-## Schedule Rule
-
-| Phase | Duration |
-|------|----------|
-| Planning | 2 weeks |
-| Development | 12 weeks |
-| QA | 4 weeks |
+# TRD.md
 
 ---
 
-# Documentation Rule : 모든 문서는 Markdown 기반
-1. 예시
-/docs
-├ PRD.md
-├ TRD.md
-├ Architecture.md
-├ API.md
-├ Security.md
-├ Deployment.md
+# Technical Requirements Document
 
 ---
 
-# Output Rule : AI 또는 개발자가 작성하는 출력 규칙
-1. Markdown 기반 작성
-2. 구조적 문서 작성
-3. 코드 블록 사용
-4. JSON / YAML 표준 사용
-5. 두괄식 설명
-6. 쉬운 비유 설명
-7. 용어 설명 포함
-8. 정보 부족 시 질문
+# 1. 문서 목적
+이 문서는 어떻게 기술적으로 구현할 것인지를 정의한다.
 
----
-
-# Responsibility (R&R) 주요 책임 : 각 파트장은 코드 리뷰 및 아키텍처 승인 권한 보유
-1. 기술 가이드 제공
-2. 주니어 멘토링
-3. 코드 리뷰
-4. 품질 관리
-
-제약 조건
-1. 외부 라이브러리 도입 시 보안 승인 필수
-2. 보안 취약 코드 금지
-3. 안정성 우선
-4. 불확실한 정보는 추측하지 않고 명확히 표시합니다.
-5. 특정 스택 강요하지 않음 (상황 기반 제안)
-6. 과도한 이론 설명 지양 -> 실무 중심
-7. 보안 취약한 방법 제안 금지
-8. 최신 트렌드보다 안정성 우선
-
----
-
-# Development Standard & Architecture
-
-## 기술 스택 Technology Stack
-
-| Layer | Technology |
-|------|------------|
-| Frontend | HTML / CSS / Scss / Tailwind CSS / JavaScript (ES6+) / TypeScript / React / Vue / Next.js / Python|
-| Backend | Node.js / Spring Boot / Java 21 (Spring Boot 3.x) / NestJS / FastAPI / Python |
-| Database | SQL / MySQL / PostgreSQL / Redis / MongoDB / AWS (EKS) / Terraform |
-| Infra | AWS / Docker / Kubernetes |
-| CI/CD | GitHub / GitHub Actions / Jenkins / AWS CI/CD / Amazon EC2 / Amazon ECS |
-
----
-
-# 코딩 규칙 Coding Rules
-1. 클린 코드 Clean Code 원칙 준수
-2. SOLID Principles
-3. 중복 제거 DRY
-4. 복잡도 Cyclomatic Complexity < 10 이하 유지
-5. ESLint
-6. Prettier
-7. Naming Convention
-8. 가독성: 변수명은 줄여 쓰지 않습니다. data 대신 userProfileData 와 같이 의미가 명확한 변수명을 사용합니다.
-9. 단일 책임 원칙(SRP) 하나의 함수 / 클래스는 반드시 하나의 일만 수행합니다.
-10. 불변성 유지 원본 데이터를 직접 수정하지 않고 새로운 객체를 변환합니다.
-11. Error Handling 명확화 "알 수 없는 에러"와 같은 메시지 대신, 사용자가 다음에 무엇을 해야 하는지 안내하는 예외 처리를 권장합니다.
-12. Security: API Key (.env 활용) 노출 금지, 환경 변수 (.env) 사용, SQL Injection 방지 로직을 기본적으로 적용합니다. 
-13. 단순성 유지 KISS
-14. 매직 넘버 금지
-15. 테스트 가능한 코드 작성
-16. 읽기 쉬운 코드
-17. 함수 길이 50줄 이하
-18. 클래스 300줄 이하
-19. 중첩 depth 3 이하
-20. 주석 처리 주석은 한글로 처리 할것 어떻게(How) 보다 왜(Why) 인지로 처리
-
----
-
-# 유지 관리 Maintainability
-1. 모듈화 구조 유지
-2. 코드 리뷰 정책
-3. 테스트 커버리지 80% 이상
-4. SemVer 버전관리
-5. 의존성 최소화
-6. 리팩토링 정책
-7. 한 파일에 너무 많은 기능 넣지 않기
-8. 중복된 로직 제외
-9. 유지보수 가능한 구조 제안
-
----
-
-# 스킬셋 Skill Set
-Role			Skills
-1. Frontend		Html / Css / Scss / Tailwind CSS / JavaScript (ES6+) / TypeScript / React / Vue / Next.js / TypeScript / Python
-
-2. Backend		Node.js / Spring / Java 21 (Spring Boot 3.x) / NestJS / FastAPI / Python / Spring Boot / RESTful API 설계 / 인			증/인가 (JWT, OAuth) / 예외 처리 구조화 / API Key 노출 금지(.env 사용)
-
-3. Database		SQL / MySQL / PostgreSQL / Redis / AWS (EKS) / Terraform / MongoDB (Log / NoSQL) / API Key 노출 금지			(.env 사용)
-
-4. Infra		AWS / Docker
-
-5. CI/CD		GitHub / GitHub Actions / Jenkins CI/CD / AWS CI/CD / Amazon EC2 / Amazon ECS
-
----
-
-# API Standard
-RESTful API Level 3
-Swagger(OpenAPI 3.0)
-JSON 기반 표준
-에러형식 코드 정의
-명확한 리소스 중심 URL
-표준 HTTP 상태 코드 사용
-모든 API는 에러 응답 구조 통일
-사용자 메시지와 내부 로그 분리
-API Key 노출 금지(.env 사용)
-
-예시
-GET /users
-POST /users
-PUT /users/{id}
-DELETE /users/{id}
-
-
-응답 예시
-{
-"success": true,
-"data": {}
-}
-
----
-
-# 시스템 아키텍쳐 System Architecture
+# 2. 시스템 아키텍쳐 System Architecture
+시스템은 계층형 구조를 기본으로 하며, UI, API, 비즈니스 로직, 데이터 접근 계층을 분리한다.
 마이크로서비스 / 모놀리식 / 하이브리드 선택 근거
 계층형 구조 : UI - API Gateway - Business Logic - Data Access
 관심사 분리 : 각 기능은 모듈화되어 서로의 영역을 침범하지 않습니다.
 
-예시
+```text
 Client
 ↓
 CDN
@@ -321,156 +449,175 @@ API Gateway
 Service Layer
 ↓
 Database
+```
 
 ---
 
-# 도구 Observability
-1. Prometheus
-2. Grafana
-3. ELK Stack
-4. OpenTelemetry
-
-모니터링 Monitoring
-1. CPU
-2. Memory
-3. API Latency
-4. Error Rate
-5. DB Query Time
+# 3. 아키텍처 원칙
+- 관심사 분리
+- 모듈화
+- 확장성 우선
+- 안정성 우선
+- 보안 우선
+- 테스트 가능성 확보
 
 ---
 
-# 보안 정책 Security
-1. HTTPS
-2. JWT 인증
-3. OWASP TOP 10 대응
-4. XSS 방어
-5. CSRF 방어
-6. Rate Limiting
-7. RBAC 접근제어 레벨 분리
-8. Zero Trust Architecture
-9. Secret Manager 사용
-10. API Key 노출 금지(.env 활용)
-11. 인증/인가 분리
+# 4. 기술 스택
+
+# Frontend
+- HTML / CSS / SCSS / Tailwind CSS
+- JavaScript / TypeScript
+- React / Vue / Next.js
+
+# Backend
+- Node.js
+- Spring Boot
+- Java
+- NestJS
+- FastAPI
+
+# Database
+- MySQL
+- PostgreSQL
+- Redis
+- MongoDB
+
+# Infra
+- AWS
+- Docker
+- Kubernetes
+- Terraform
+
+# CI/CD
+- GitHub Actions
+- Jenkins
+- AWS CI/CD
 
 ---
 
-# 성능 기준 Performance 프론트엔드는 Lighthouse 점수 90점 이상을 목표로 하며, 백엔드는 DB 인덱싱 최적화와 캐싱 전략을 수립합니다.
-DB 인덱스 최적화, CDN 활용, 비동기 메시지 큐를 통한 부하 분산.
-캐싱, 로드밸런싱, DB인덱싱 전략
+# 5. API 표준
+- RESTful API Level 3
+- Swagger(OpenAPI 3.0)
+- JSON 표준
+- 리소스 중심 URL
+- 표준 HTTP 상태 코드 사용
+- 에러 응답 구조 통일
+- 사용자 메시지와 내부 로그 분리
+- API Key 노출 금지(.env 사용)
 
-1. API 응답 < 200ms
-2. DB Index 최적화
-3. Redis Cache
-4. CDN 사용
-5. Lazy Loading
-6. Pagination
-7. Query Plan 분석
-8. 이미지 최적화
-9. 불필요한 API 호출 방지
-10. 불필요한 DB 조회 금지
+# 예시
 
----
+```http
+GET /users
+POST /users
+PUT /users/{id}
+DELETE /users/{id}
+```
 
-# 배포 전략 Deployment Strategy Blue-Green Deployment 또는 Canary Release를 통한 무중단 배포.
-CI/CD, Canary Release, Rollback 시나리오
+# 응답 예시
 
-1. Blue-Green Deployment
-2. Canary Release
-3. Rollback 전략
-4. CI/CD 자동화
-5. 개발 / 스테이징 / 운영 분리
-6. GitHub / GitHub Actions / Jenkins CI/CD / AWS CI/CD / Amazon EC2 / Amazon ECS
-
----
-
-# CI/CD Pipeline
-예시
-Commit
-↓
-Lint
-↓
-Build
-↓
-Test
-↓
-Security Scan
-↓
-Performance Test
-↓
-Deploy
-
+```json
+{
+  "success": true,
+  "data": {}
+}
+```
 
 ---
 
-# 폴더 구조 Folder Structure
+# 6. 예외 처리
+- 전역 예외 처리기 사용
+- 표준 에러 코드 응답
+- 변경 사항은 RFC 형식으로 문서화
 
-Frontend
-예시
+# 표준 에러 코드
+- 400 BAD REQUEST
+- 401 UNAUTHORIZED
+- 403 FORBIDDEN
+- 404 NOT FOUND
+- 500 SERVER ERROR
+
+---
+
+# 7. 성능 기준
+- API 응답 200ms 이하
+- DB Index 최적화
+- Redis Cache 적용
+- CDN 사용
+- Lazy Loading
+- Pagination
+- Query Plan 분석
+- 이미지 최적화
+- 불필요한 API 호출 방지
+- 불필요한 DB 조회 방지
+
+---
+
+# 8. 코드 구조
+# Frontend
+
+```text
 src/
 ├ components
 ├ pages
 ├ hooks
 ├ services
 ├ utils
+```
 
+# Backend
 
-Backend
-예시
+```text
 src/
 ├ controller
 ├ service
 ├ repository
 ├ domain
+```
 
 ---
 
-# 예외 처리 Exception Handling 전역 예외 처리기(Global Exception Handler)를 통한 표준 에러 코드 응답.
-설계 변경 프로세스 문서화 (RFC 형식)
-
-표준 에러 코드
-예시
-400 BAD REQUEST
-401 UNAUTHORIZED
-403 FORBIDDEN
-404 NOT FOUND
-500 SERVER ERROR
-
----
-
-# 환경 분리 Deployment Environment
-1. Local
-2. Dev
-3. Staging
-4. Production
-
----
-
-# 테스트 전략 QA Strategy
-1. Unit Test
-2. Integration Test
-3. E2E Test
-4. Load Test
-5. Security Test
+# 9. 코딩 규칙
+- Clean Code
+- SOLID Principles
+- DRY (중복 제거)
+- Cyclomatic Complexity (복잡도) 10 이하
+- ESLint
+- Prettier
+- SonarQube
+- Naming Convention 명확한 네이밍
+- 가독성: 변수명은 줄여 쓰지 않습니다. data 대신 userProfileData 와 같이 의미가 명확한 변수명을 사용합니다.
+- SRP (단일 책임 원칙) 하나의 함수 / 클래스는 반드시 하나의 일만 수행 준수
+- 불변성 유지 원본 데이터를 직접 수정하지 않고 새로운 객체를 변환 준수
+- 명확한 에러 처리  Error Handling 준수
+- 환경 변수 사용 Security: API Key (.env 활용) 노출 금지, 환경 변수 (.env) 준수
+- SQL Injection 방지
+- KISS 단순성 준수
+- 매직 넘버 금지
+- 테스트 가능한 코드
+- 함수 길이 50줄 이하
+- 클래스 300줄 이하
+- 중첩 depth 3 이하
+- 주석은 왜(Why) 중심으로 한국어 작성
+- 개발 단계의 DB / 배포 관련은 테스트 환경으로 한다.
 
 ---
 
-# CI 파이프라인에서 자동 수행 DevSecOps
-1. SAST
-2. DAST
-3. Dependency Scan
-4. Container Scan
+# 10. 유지보수 기준
+- 모듈화 구조 유지
+- 코드 리뷰 정책 준수
+- 테스트 커버리지 80% 이상
+- SemVer 버전관리
+- 의존성 최소화
+- 리팩토링 정책 준수
+- 한 파일에 너무 많은 기능 넣지 않기
+- 중복 로직 제거
 
 ---
 
-# 프로젝트 핵심 원칙 Final Principle
-1. 안정성 우선
-2. 보안 우선
-3. 유지보수성
-4. 확장성
-5. 자동화
-
-
-# 개발 품질 단계 Code Quality Pipeline
+# 11. 품질 파이프라인
+```text
 Lint
 ↓
 Static Analysis
@@ -486,79 +633,376 @@ Refactoring
 Regression Test
 ↓
 Final Lint Validation
+```
 
 ---
 
-## Lint 단계
-도구
-- ESLint
-- Prettier
-- SonarQube
-
-규칙
-1. 빌드 전 자동 실행
-2. Warning 0
-3. Error 0
+# 12. 최종 검증
+- Lint 재실행
+- Static Analysis 재실행
+- Unit Test 재실행
+- Memory Leak 검사
+- Dead Code 제거
 
 ---
 
-## Static Analysis 목적 : 잠재적 버그 사전 탐지
-도구
+# RULES.md
+
+---
+
+# Collaboration Rules
+
+---
+
+# 1. 문서 목적
+이 문서는 협업 방식, 커뮤니케이션 규칙, 변경 관리 기준을 정의한다.
+
+# 2. 협업 원칙
+- Agile 기반 Sprint 운영
+- Sprint 기간은 2주
+- Daily Standup은 15분
+- Sprint Review 수행
+- Sprint Retrospective 수행
+
+---
+
+# 3. 커뮤니케이션 규칙
+- 모호한 요청은 명확히 질문한다.
+- 추측으로 결정하지 않는다.
+- 변경 요청은 문서로 남긴다.
+- 중요한 결정은 기록한다.
+- 기술적 판단과 기획 판단을 분리한다.
+
+---
+
+# 4. 변경 관리
+- 요구사항 변경은 영향 범위를 먼저 분석한다.
+- 일정, 비용, 품질 영향도를 함께 기록한다.
+- 승인 전 구현하지 않는다.
+- 변경 이력은 버전으로 관리한다.
+
+---
+
+# 5. 책임 원칙
+- 각 파트장은 코드 리뷰 및 아키텍처 승인 권한을 가진다.
+- 주니어는 구현 중심, 시니어는 설계와 품질 중심으로 책임을 진다.
+- 보안과 인프라 이슈는 별도 승인 절차를 따른다.
+- 외부 라이브러리 도입은 보안 승인 필수다.
+
+---
+
+# 6. 제약 조건
+- 외부 라이브러리 도입 시 보안 승인 필수
+- 보안 취약 코드 금지
+- 안정성 우선
+- 불확실한 정보는 추측하지 않고 명확히 표시
+- 특정 스택 강요 금지
+- 과도한 이론 설명 지양
+- 실무 중심 제안
+- 보안 취약한 방법 제안 금지
+- 최신 트렌드보다 안정성 우선
+
+---
+
+# ROLES.md
+
+---
+
+# Roles & Responsibilities
+
+# 1. 역할 정의
+본 프로젝트는 10명의 시니어 전문가 협업을 기준으로 한다.
+
+| Role | Description |
+|------|-------------|
+| Frontend Developer | UI 개발, 상태 관리, 성능 최적화 |
+| Backend Developer | 서버 개발, 비즈니스 로직 구현, API 설계 |
+| Fullstack Developer | 전체 서비스 구현 |
+| UI/UX Designer | UX 설계, 사용자 여정, 와이어프레임, 디자인 시스템 |
+| DBA | DB 설계, 데이터 모델링, 쿼리 튜닝, 샤딩 전략, 백업 정책 |
+| Security Engineer | 방화벽, 인증/인가, 암호화, 접근 제어, 취약점 분석 |
+| QA Engineer | 테스트 자동화, 부하 테스트, 회귀 테스트, 품질 정책 |
+| Planner | 서비스 기획, 요구사항 구체화, 로드맵 관리 |
+| Marketer | 마케팅 전략, 시장 분석, 유저 피드백, SEO, 성장 지표 |
+| Infra Engineer | 인프라 구축, K8s 운영, CI/CD, 모니터링 구성 |
+
+---
+
+# 2. 공통 책임
+- 기술 가이드 제공
+- 주니어 멘토링
+- 코드 리뷰
+- 품질 관리
+
+---
+
+# 3. 승인 권한
+- 아키텍처 변경 승인
+- 보안 정책 승인
+- 배포 정책 승인
+- 품질 기준 승인
+- 대규모 리팩토링 승인
+
+---
+
+# 4. 파트별 책임
+# Frontend
+- UI 구현
+- 성능 최적화
+- 접근성 고려
+- 상태 관리 안정화
+
+# Backend
+- API 설계
+- 비즈니스 로직 구현
+- 에러 처리
+- 성능과 확장성 고려
+
+# DBA
+- 스키마 설계
+- 인덱스 최적화
+- 쿼리 튜닝
+- 백업 및 복구 정책
+
+# Security
+- 인증/인가 설계
+- 취약점 점검
+- 보안 정책 수립
+- 비밀정보 관리
+
+# QA
+- 테스트 케이스 작성
+- 자동화 테스트 구축
+- 회귀 검증
+- 품질 기준 관리
+
+# Infra
+- 배포 자동화
+- 모니터링 구성
+- 장애 대응
+- 환경 분리 관리
+
+---
+
+# SECURITY.md
+
+---
+
+# Security Standard
+
+---
+
+# 1. 보안 원칙
+- HTTPS 사용
+- JWT 인증
+- OWASP Top 10 대응
+- XSS 방어
+- CSRF 방어
+- Rate Limiting
+- RBAC 접근 제어
+- Zero Trust Architecture
+- Secret Manager 사용
+- API Key 노출 금지(.env 사용)
+- 인증/인가 분리
+
+---
+
+# 2. 비밀정보 관리
+- 환경 변수는 `.env` 또는 Secret Manager로 관리한다.
+- 코드 저장소에 직접 포함하지 않는다.
+- 로그에 민감정보를 출력하지 않는다.
+
+---
+
+# 3. 인증/인가
+- 인증과 인가는 분리한다.
+- 역할 기반 접근 제어를 적용한다.
+- 관리자 기능은 별도 권한 레벨로 분리한다.
+
+---
+
+# 4. 개발 시 금지 사항
+- 하드코딩된 API Key 사용 금지
+- 검증되지 않은 입력 직접 사용 금지
+- SQL Injection 취약 코드 금지
+- 민감정보 로그 출력 금지
+- 보안 승인 없는 라이브러리 도입 금지
+
+---
+
+# DEPLOYMENT.md
+
+---
+
+# Deployment Strategy
+
+---
+
+# 1. 배포 원칙
+- 무중단 배포를 목표로 한다.
+- 운영 영향도를 최소화한다.
+- 배포 실패 시 빠르게 롤백할 수 있어야 한다.
+
+---
+
+# 2. 배포 방식
+Deployment Strategy Blue-Green Deployment 또는 Canary Release를 통한 무중단 배포
+CI/CD, Canary Release, Rollback 시나리오
+
+- Blue-Green Deployment
+- Canary Release
+- Rollback 전략
+- CI/CD 자동화
+- 개발 / 스테이징 / 운영 분리
+- GitHub / GitHub Actions / Jenkins CI/CD / AWS CI/CD / Amazon EC2 / Amazon ECS
+
+---
+
+# 3. 환경 분리
+- Local
+- Dev
+- Staging
+- Production
+
+---
+
+# 4. CI/CD Pipeline
+```text
+Commit
+↓
+Lint
+↓
+Build
+↓
+Test
+↓
+Security Scan
+↓
+Performance Test
+↓
+Deploy
+```
+
+---
+
+# 5. DevSecOps
+CI 파이프라인에서 자동 수행한다.
+
+- SAST
+- DAST
+- Dependency Scan
+- Container Scan
+
+---
+
+# 6. 운영 체크
+- 배포 전 테스트 통과 확인
+- 보안 스캔 통과 확인
+- 성능 기준 확인
+- 롤백 기준 확인
+- 모니터링 대시보드 확인
+
+---
+
+# QA.md
+
+---
+
+# QA Strategy
+
+---
+
+# 1. 품질 목표
+- 안정적으로 동작해야 한다.
+- 회귀가 없어야 한다.
+- 릴리즈 후 장애를 최소화해야 한다.
+
+---
+
+# 2. 테스트 전략
+- Unit Test
+- Integration Test
+- E2E Test
+- Load Test
+- Security Test
+
+---
+
+# 3. 품질 기준
+- 테스트 커버리지 80% 이상
+- 주요 시나리오 E2E 검증
+- 장애 재현 시나리오 확보
+- 회귀 테스트 자동화
+
+---
+
+# 4. 검증 원칙
+- 기능 변경 후 테스트 수행
+- 리팩토링 후 회귀 검증 수행
+- 배포 전 필수 시나리오 확인
+- 성능 이슈 발생 시 부하 테스트 수행
+
+---
+
+# 5. 프로젝트 핵심 원칙 Final Principle
+- 안정성 우선
+- 보안 우선
+- 유지보수성
+- 확장성
+- 자동화
+
+---
+
+# 6. Static Analysis 목적 : 잠재적 버그 사전 탐지
+#도구
 - SonarQube
 - CodeQL
 
 ---
 
-## Debug
-규칙
-1. Null Safety 확인
-2. 예외 처리 명확화
-3. Error Message 명확화
+# 7. Debug
+# 규칙
+- Null Safety 확인
+- 예외 처리 명확화
+- Error Message 명확화
 
 ---
 
-## 최적화 대상 Performance Optimization
-1. DB Query
-2. API Response
-3. Frontend Rendering
-4. Network Request
+# 8. 최적화 대상 Performance Optimization
+- DB Query
+- API Response
+- Frontend Rendering
+- Network Request
 
-주의사항
+# 주의사항
 성능 최적화 이후 **기능 변경 금지**
 
 ---
 
-## Refactoring
-규칙
-1. 기능 변경 금지
-2. 테스트 통과 필수
-3. 코드 가독성 향상
+# 9. Refactoring
+# 규칙
+- 기능 변경 금지
+- 테스트 통과 필수
+- 코드 가독성 향상
 
 ---
 
-## Regression Test : 리팩토링 이후 기존 기능 검증
+# 10. Regression Test : 리팩토링 이후 기존 기능 검증
 
 ---
 
-## Final Lint Validation : 성능 최적화 이후 반드시 실행
-1. Lint 재실행
-2. Static Analysis 재실행
-3. Unit Test 재실행
-4. Memory Leak 검사
-5. Dead Code 제거
+# 11. Final Lint Validation : 성능 최적화 이후 반드시 실행
+- Lint 재실행
+- Static Analysis 재실행
+- Unit Test 재실행
+- Memory Leak 검사
+- Dead Code 제거
 
 ---
 
-# README.MD 작성 원칙 해당 프로젝트의 내용을 알기 쉽도록 작성
-1. 프로젝트의 이름
-2. 프로젝트의 개요
-3. 프로젝트의 스킬 스택
-4. 프로젝트의 스킬 선택 이유
-5. 프로젝트의 아키텍처
-6. 프로젝트의 핵심 트러블 슈팅
-- 1. 문제:
-- 2. 원인:
-- 3. 해결:
-- 4. 배운 점:
-7. 프로젝트의 성능 개선 수치
-8. 프로젝트의 실행 방법
+# 12. 규칙
+- 빌드 전 자동 실행
+- Warning 0
+- Error 0
+
+---
