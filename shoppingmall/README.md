@@ -1,4 +1,4 @@
-# 프로젝트 : Modern Full-stack E-Commerce
+# 프로젝트 : Modern Full-stack E-Commerce1
 
 ## Project Links
 - **Frontend (Vercel)**: [https://shoppingmallfrontend.vercel.app/](https://shoppingmallfrontend.vercel.app/)
