@@ -33,7 +33,6 @@ const Header: React.FC = () => {
       <div className="header-intro">
         <h1>Developer</h1>
         <p>FrontEnd | BackEnd | DataBase | DevOps | AI Agent</p>
-        <p></p>
       </div>
     </motion.header>
   );

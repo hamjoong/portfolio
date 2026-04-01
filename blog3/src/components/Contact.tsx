@@ -26,7 +26,7 @@ const Contact: React.FC = () => {
               </div>
               <div className="link-info">
                 <span>Email</span>
-                <strong>your.email@example.com</strong>
+                <strong>hamjoong@gmail.com</strong>
               </div>
             </a>
             
@@ -36,7 +36,7 @@ const Contact: React.FC = () => {
               </div>
               <div className="link-info">
                 <span>GitHub</span>
-                <strong>Project Repository</strong>
+                <strong>github.com/hamjoong</strong>
               </div>
             </a>
           </div>

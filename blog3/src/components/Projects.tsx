@@ -9,31 +9,31 @@ const ProjectCard: React.FC<Project> = ({ title, period, description, stack, pro
     whileHover={{ y: -10 }}
     className="project-card"
   >
-    <div className="project-visual-header">
+    <div className="project-card-visual-header">
       <Code2 size={40} strokeWidth={1.5} />
     </div>
-    <div className="project-info">
-      <div className="project-header">
-        <h3 className="project-title">{title}</h3>
-        <span className="project-period">{period}</span>
+    <div className="project-card-info">
+      <div className="project-card-header">
+        <h3 className="project-card-title">{title}</h3>
+        <span className="project-card-period">{period}</span>
       </div>
-      <p className="project-description">{description}</p>
-      <div className="project-tags">
+      <p className="project-card-description">{description}</p>
+      <div className="project-card-tags">
         {stack.map((tag, idx) => (
-          <span key={idx} className="tag">{tag}</span>
+          <span key={idx} className="project-card-tag">{tag}</span>
         ))}
       </div>
-      <div className="project-details">
-        <div className="detail-item">
+      <div className="project-card-details">
+        <div className="project-card-detail-item">
           <strong>Problem:</strong>
           <p>{problem}</p>
         </div>
-        <div className="detail-item">
+        <div className="project-card-detail-item">
           <strong>Solution:</strong>
           <p>{solution}</p>
         </div>
       </div>
-      <div className="project-links">
+      <div className="project-card-links">
         {links?.demo && <a href={links.demo} className="btn btn-primary btn-sm" target="_blank" rel="noreferrer">Live Demo</a>}
         {links?.github && <a href={links.github} className="btn btn-outline btn-sm" target="_blank" rel="noreferrer">GitHub</a>}
       </div>
@@ -42,8 +42,6 @@ const ProjectCard: React.FC<Project> = ({ title, period, description, stack, pro
 );
 
 const Projects: React.FC = () => {
-  const projects = React.useMemo(() => PROJECTS, []);
-
   return (
     <section id="projects" className="projects">
       <motion.div
@@ -54,7 +52,7 @@ const Projects: React.FC = () => {
       >
         <h2 className="section-title">Projects</h2>
         <div className="projects-grid">
-          {projects.map((project, idx) => (
+          {PROJECTS.map((project, idx) => (
             <ProjectCard key={idx} {...project} />
           ))}
         </div>

@@ -18,7 +18,7 @@
   display: flex;
   flex-direction: column;
 
-  .project-visual-header {
+  &-visual-header {
     height: 120px;
     background: linear-gradient(135deg, $primary-color 0%, color.scale($primary-color, $lightness: 30%) 100%);
     display: flex;
@@ -28,88 +28,88 @@
     transition: all 0.3s ease;
   }
 
-  &:hover .project-visual-header {
+  &:hover &-visual-header {
     height: 140px;
   }
 
-  .project-info {
+  &-info {
     padding: 24px;
     display: flex;
     flex-direction: column;
     flex: 1;
   }
 
-  .project-header {
+  &-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
   }
 
-  .project-title {
+  &-title {
     font-size: 1.25rem;
     color: $dark-gray;
   }
 
-  .project-period {
+  &-period {
     font-size: 0.85rem;
     color: $text-secondary;
     font-family: $font-secondary;
   }
 
-  .project-description {
+  &-description {
     font-size: 0.95rem;
     color: $text-secondary;
     margin-bottom: 20px;
     line-height: 1.5;
   }
 
-  .project-tags {
+  &-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 24px;
-
-    .tag {
-      padding: 4px 12px;
-      background-color: $light-gray;
-      color: $text-secondary;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
   }
 
-  .project-details {
+  &-tag {
+    padding: 4px 12px;
+    background-color: $light-gray;
+    color: $text-secondary;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  &-details {
     margin-bottom: 24px;
     padding: 16px;
     background-color: $light-gray;
     border-radius: 8px;
+  }
 
-    .detail-item {
-      margin-bottom: 12px;
-      
-      &:last-child {
-        margin-bottom: 0;
-      }
+  &-detail-item {
+    margin-bottom: 12px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
 
-      strong {
-        display: block;
-        font-size: 0.85rem;
-        color: $primary-color;
-        margin-bottom: 4px;
-        text-transform: uppercase;
-      }
+    strong {
+      display: block;
+      font-size: 0.85rem;
+      color: $primary-color;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
 
-      p {
-        font-size: 0.9rem;
-        color: $text-primary;
-        line-height: 1.4;
-      }
+    p {
+      font-size: 0.9rem;
+      color: $text-primary;
+      line-height: 1.4;
     }
   }
 
-  .project-links {
+  &-links {
     display: flex;
     gap: 12px;
     margin-top: auto;
