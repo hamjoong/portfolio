@@ -11,7 +11,8 @@ import type {
   WeaponType, 
   ProductType, 
   Cow, 
-  RankingEntry
+  RankingEntry,
+  ProductionTask
 } from '../types/game';
 import { 
   calculateMaxCows, 
@@ -19,23 +20,6 @@ import {
   getProductionRateByCowType, 
   getWeaponDamage 
 } from '../utils/gameHelpers';
-
-/**
- * @interface ProductionTask
- * @description 생산 중인 작업의 정보를 담는 인터페이스입니다.
- * @property {string} id - 작업의 고유 ID
- * @property {ProductType} type - 생산 중인 제품의 종류
- * @property {number} quantity - 생산 수량
- * @property {number} remainingTime - 남은 생산 시간 (초)
- * @property {number} totalTime - 총 생산 시간 (초)
- */
-interface ProductionTask {
-  id: string;
-  type: ProductType;
-  quantity: number;
-  remainingTime: number;
-  totalTime: number;
-}
 
 /**
  * @interface GameState
@@ -256,12 +240,22 @@ export const useGameStore = create<GameState>()(
         /** 제품을 판매하고 골드와 경험치를 얻습니다. */
         sellProduct: (type, amount, price) => {
           const goldEarned = Math.floor(amount * price);
-          const key = type === 'GOLDEN_CHEESE' ? 'goldenCheese' : type === 'ICE_CREAM' ? 'iceCream' : type.toLowerCase() as keyof GameState['inventory'];
-          set(() => ({
-            inventory: { ...get().inventory, [key]: (get().inventory[key] as number) - amount },
-            stats: { ...get().stats, totalGoldEarned: (get().stats.totalGoldEarned || 0) + goldEarned, totalMilkSold: (get().stats.totalMilkSold || 0) + amount },
-            dailyRanking: get().dailyRanking.map(r => r.name === '나(Player)' ? { ...r, score: r.score + goldEarned } : r),
-            weeklyRanking: get().weeklyRanking.map(r => r.name === '나(Player)' ? { ...r, score: r.score + goldEarned } : r),
+          const productMap: Record<string, keyof GameState['inventory']> = {
+            'MILK': 'milk',
+            'YOGURT': 'yogurt',
+            'BUTTER': 'butter',
+            'CHEESE': 'cheese',
+            'CREAM': 'cream',
+            'ICE_CREAM': 'iceCream',
+            'GOLDEN_CHEESE': 'goldenCheese'
+          };
+          const key = productMap[type.toUpperCase()] || type.toLowerCase() as keyof GameState['inventory'];
+          
+          set((s) => ({
+            inventory: { ...s.inventory, [key]: Math.max(0, (s.inventory[key] as number) - amount) },
+            stats: { ...s.stats, totalGoldEarned: (s.stats.totalGoldEarned || 0) + goldEarned, totalMilkSold: (s.stats.totalMilkSold || 0) + amount },
+            dailyRanking: s.dailyRanking.map(r => r.name === '나(Player)' ? { ...r, score: r.score + goldEarned } : r),
+            weeklyRanking: s.weeklyRanking.map(r => r.name === '나(Player)' ? { ...r, score: r.score + goldEarned } : r),
           }));
           get().actions.addExperience(amount * 50);
           return goldEarned;
@@ -453,9 +447,16 @@ export const useGameStore = create<GameState>()(
         /** 늑대 이벤트를 토글합니다. 활성화 시 15초 후 자동으로 비활성화됩니다. */
         toggleWolfEvent: (active) => {
           set({ isWolfEventActive: active });
+          // Note: Timeout based auto-disable is a fallback. 
+          // damageWolf also disables it when HP reaches 0.
           if (active) {
+            const currentWolfLevel = get().wolfStats.level;
             setTimeout(() => {
-              set({ isWolfEventActive: false });
+              // Only disable if it's still the same event (simplistic check)
+              const state = get();
+              if (state.isWolfEventActive && state.wolfStats.level === currentWolfLevel) {
+                set({ isWolfEventActive: false });
+              }
             }, 15000);
           }
         },

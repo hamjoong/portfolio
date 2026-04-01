@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, Clock, Calendar, Medal } from 'lucide-react';
 import type { RankingEntry } from '../types/game';
@@ -17,7 +17,10 @@ export const RankingBoard: React.FC<RankingBoardProps> = React.memo(({ dailyRank
   const [rankTab, setRankTab] = useState<'DAILY' | 'WEEKLY'>('DAILY');
   
   const currentRanking = rankTab === 'DAILY' ? dailyRanking : weeklyRanking;
-  const sortedRanking = [...currentRanking].sort((a, b) => b.score - a.score);
+  
+  const sortedRanking = useMemo(() => {
+    return [...currentRanking].sort((a, b) => b.score - a.score);
+  }, [currentRanking]);
 
   return (
     <div className="w-full h-full bg-h-cream/95 backdrop-blur-md rounded-[4rem] border-l-[16px] border-h-brown-deep/5 shadow-2.5d-lg flex flex-col overflow-hidden border-4 border-h-milk/50">

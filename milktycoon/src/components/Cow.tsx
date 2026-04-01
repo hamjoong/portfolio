@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, Moon } from 'lucide-react';
 import type { CowType, CowStatus } from '../types/game';
+import { useGameStore } from '../store/useGameStore';
+import { cn } from '../utils/cn';
 
 /** 
  * @interface CowProps
@@ -16,16 +18,14 @@ interface CowProps {
   milkGauge: number;
   /** 소의 현재 상태 (정상, 가득 참, 기절/탈진) */
   status: CowStatus;
-  /** 우유 추출(클릭) 시 호출될 함수 */
-  onMilk: () => boolean;
-  /** 과도한 클릭이나 게이지 부족 시 탈진 처리를 위한 함수 */
-  onOverload: () => void;
 }
 
-const Cow: React.FC<CowProps> = React.memo(({ type, milkGauge, status, onMilk, onOverload }) => {
+const Cow: React.FC<CowProps> = React.memo(({ id, type, milkGauge, status }) => {
   const [clickCount, setClickCount] = useState(0);
   const [lastClickTime, setLastClickTime] = useState(0);
   const [milkPopups, setMilkPopups] = useState<{id: number, type: 'MILK' | 'FULL'}[]>([]);
+  
+  const actions = useGameStore((state) => state.actions);
 
   const cowEmoji = {
     'BASIC': '🐄',
@@ -34,7 +34,7 @@ const Cow: React.FC<CowProps> = React.memo(({ type, milkGauge, status, onMilk, o
     'GOLDEN': '🐄'
   }[type];
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     
     // 이미 기절 상태면 클릭 무시
@@ -42,7 +42,7 @@ const Cow: React.FC<CowProps> = React.memo(({ type, milkGauge, status, onMilk, o
 
     // 게이지가 0인데 착유 시도 시 즉시 기절 (탈진 페널티)
     if (milkGauge <= 0) {
-      onOverload();
+      actions.setCowStatus(id, 'EXHAUSTED', 10);
       return;
     }
 
@@ -53,7 +53,7 @@ const Cow: React.FC<CowProps> = React.memo(({ type, milkGauge, status, onMilk, o
       const newCount = clickCount + 1;
       setClickCount(newCount);
       if (newCount > 12) {
-        onOverload();
+        actions.setCowStatus(id, 'EXHAUSTED', 10);
         setClickCount(0);
         return;
       }
@@ -62,17 +62,18 @@ const Cow: React.FC<CowProps> = React.memo(({ type, milkGauge, status, onMilk, o
     }
     setLastClickTime(now);
 
-    const success = onMilk();
+    const success = actions.produceMilk(type);
     const popupId = Math.random();
     
     if (success) {
+      actions.updateCowGauge(id, -10);
       setMilkPopups(prev => [...prev, { id: popupId, type: 'MILK' as const }].slice(-5));
     } else {
       setMilkPopups(prev => [...prev, { id: popupId, type: 'FULL' as const }].slice(-5));
     }
     
     setTimeout(() => setMilkPopups(prev => prev.filter(p => p.id !== popupId)), 800);
-  };
+  }, [id, type, milkGauge, status, actions, lastClickTime, clickCount]);
 
   return (
     <div className="relative flex flex-col items-center select-none cursor-pointer group" onClick={handleClick}>
@@ -101,7 +102,10 @@ const Cow: React.FC<CowProps> = React.memo(({ type, milkGauge, status, onMilk, o
               key={p.id} 
               initial={{ y: -20, opacity: 1, scale: 0.5 }} 
               animate={{ y: -120, opacity: 0, scale: 1.5 }} 
-              className={`absolute left-1/2 -translate-x-1/2 font-black whitespace-nowrap ${p.type === 'FULL' ? 'text-red-500 text-sm' : 'text-4xl'}`}
+              className={cn(
+                "absolute left-1/2 -translate-x-1/2 font-black whitespace-nowrap",
+                p.type === 'FULL' ? "text-red-500 text-sm" : "text-4xl"
+              )}
             >
               {p.type === 'FULL' ? '저장 공간 부족!' : '🥛'}
             </motion.div>
@@ -131,9 +135,12 @@ const Cow: React.FC<CowProps> = React.memo(({ type, milkGauge, status, onMilk, o
           rotate: { repeat: Infinity, duration: 2.5, ease: "easeInOut" },
           scaleX: { type: "spring", stiffness: 100 }
         }}
-        className={`relative z-10 text-[64px] leading-none mb-1 drop-shadow-lg ${type === 'GOLDEN' ? 'filter drop-shadow-[0_0_15px_rgba(251,191,36,0.6)]' : ''}`}
+        className={cn(
+          "relative z-10 text-[64px] leading-none mb-1 drop-shadow-lg",
+          type === 'GOLDEN' && "filter drop-shadow-[0_0_15px_rgba(251,191,36,0.6)]"
+        )}
       >
-        <span className={type === 'GOLDEN' ? 'brightness-110 saturate-150' : ''}>
+        <span className={cn(type === 'GOLDEN' && "brightness-110 saturate-150")}>
           {cowEmoji}
         </span>
         {type === 'GOLDEN' && (
@@ -151,7 +158,10 @@ const Cow: React.FC<CowProps> = React.memo(({ type, milkGauge, status, onMilk, o
       <div className="mt-[-5px] w-14 h-2 bg-slate-200 rounded-full overflow-hidden border border-slate-300 z-20">
         <motion.div 
           animate={{ width: `${milkGauge}%` }}
-          className={`h-full ${status === 'FULL' ? 'bg-red-500' : (type === 'GOLDEN' ? 'bg-yellow-300' : 'bg-yellow-400')}`}
+          className={cn(
+            "h-full",
+            status === 'FULL' ? "bg-red-500" : type === 'GOLDEN' ? "bg-yellow-300" : "bg-yellow-400"
+          )}
         />
       </div>
     </div>

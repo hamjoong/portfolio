@@ -49,6 +49,13 @@ export interface Cow {
 
 export interface RankingEntry { name: string; score: number; }
 
+export interface GameStats {
+  totalMilkSold: number;
+  totalWolvesKilled: number;
+  totalGoldEarned: number;
+  totalMilkClicks: number;
+}
+
 export const PRODUCT_CONFIG: Record<ProductType, {
   milkCost: number;
   time: number;

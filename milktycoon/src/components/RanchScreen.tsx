@@ -15,6 +15,7 @@ import {
   GrassBackground 
 } from './IsometricAssets';
 import { RanchHUD, ShootingButton } from './RanchUI';
+import type { Cow } from '../types/game';
 
 /**
  * @interface RanchScreenProps
@@ -24,6 +25,33 @@ import { RanchHUD, ShootingButton } from './RanchUI';
 interface RanchScreenProps {
   onBack: () => void;
 }
+
+/**
+ * @function CowRenderer
+ * @description 개별 소의 이동 애니메이션과 컴포넌트 렌더링을 담당하는 컴포넌트입니다.
+ */
+const CowRenderer: React.FC<{ cow: Cow }> = React.memo(({ cow }) => {
+  return (
+    <motion.div 
+      animate={{ 
+        left: `${cow.position.x}%`, 
+        top: `${cow.position.y}%`,
+        zIndex: Math.floor(cow.position.y)
+      }}
+      transition={{ duration: 8, ease: "linear" }}
+      className="absolute w-24 h-24 -translate-x-1/2 -translate-y-1/2"
+    >
+      <div className="relative group pointer-events-auto">
+        <CowComponent 
+          id={cow.id}
+          type={cow.type}
+          milkGauge={cow.milkGauge}
+          status={cow.status}
+        />
+      </div>
+    </motion.div>
+  );
+});
 
 /** 
  * @function RanchScreen
@@ -118,33 +146,7 @@ const RanchScreen: React.FC<RanchScreenProps> = ({ onBack }) => {
         {/* 소 렌더링 */}
         <div className="absolute inset-0 pointer-events-none">
           {cows.map((cow) => (
-            <motion.div 
-              key={cow.id}
-              animate={{ 
-                left: `${cow.position.x}%`, 
-                top: `${cow.position.y}%`,
-                zIndex: Math.floor(cow.position.y)
-              }}
-              transition={{ duration: 8, ease: "linear" }}
-              className="absolute w-24 h-24 -translate-x-1/2 -translate-y-1/2"
-            >
-              <div className="relative group pointer-events-auto">
-                <CowComponent 
-                  id={cow.id}
-                  type={cow.type}
-                  milkGauge={cow.milkGauge}
-                  status={cow.status}
-                  onMilk={() => {
-                    const success = gameActions.produceMilk(cow.type);
-                    if (success) {
-                      gameActions.updateCowGauge(cow.id, -10);
-                    }
-                    return success;
-                  }}
-                  onOverload={() => gameActions.setCowStatus(cow.id, 'EXHAUSTED', 10)}
-                />
-              </div>
-            </motion.div>
+            <CowRenderer key={cow.id} cow={cow} />
           ))}
         </div>
 

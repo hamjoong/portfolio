@@ -9,6 +9,7 @@ import {
   Settings, Award, CalendarCheck, ChevronRight, HelpCircle, Hammer
 } from 'lucide-react';
 import { LobbyBackground, RankingBoard } from './LobbyComponents';
+import { calculateProgress } from '../utils/gameHelpers';
 
 interface LobbyScreenProps {
   onEnterRanch: () => void;
@@ -43,27 +44,13 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({ onEnterRanch, onBack }) => {
   // 보상 가능 여부 확인
   const hasClaimableQuest = [...dailyQuests, ...weeklyQuests].some(q => {
     if (q.isClaimed) return false;
-    let progress = 0;
-    switch (q.targetType) {
-      case 'MILK_SOLD': progress = stats.totalMilkSold || 0; break;
-      case 'WOLF_KILLED': progress = stats.totalWolvesKilled || 0; break;
-      case 'COW_COUNT': progress = cows?.length || 0; break;
-      case 'GOLD_EARNED': progress = stats.totalGoldEarned || 0; break;
-      case 'MILK_ACTION': progress = stats.totalMilkClicks || 0; break;
-    }
+    const progress = calculateProgress(q.targetType, stats, cows, ranchLevel);
     return progress >= q.targetValue;
   });
 
   const hasClaimableAchievement = achievements.some(a => {
     if (a.isClaimed) return false;
-    let progress = 0;
-    switch (a.targetType) {
-      case 'MILK_SOLD': progress = stats.totalMilkSold || 0; break;
-      case 'WOLF_KILLED': progress = stats.totalWolvesKilled || 0; break;
-      case 'COW_COUNT': progress = cows?.length || 0; break;
-      case 'GOLD_EARNED': progress = stats.totalGoldEarned || 0; break;
-      case 'PLAYER_LEVEL': progress = ranchLevel || 1; break;
-    }
+    const progress = calculateProgress(a.targetType, stats, cows, ranchLevel);
     return progress >= a.targetValue;
   });
 

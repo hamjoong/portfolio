@@ -1,5 +1,5 @@
 import { MAX_RANCH_LEVEL } from '../types/game';
-import type { CowType } from '../types/game';
+import type { CowType, Cow, GameStats } from '../types/game';
 
 /**
  * 목장 레벨에 따른 최대 소 보유 가능 수를 계산합니다.
@@ -54,4 +54,25 @@ export const getWeaponDamage = (type: string): number => {
     'SNIPER': 150
   };
   return damageMap[type] || 10;
+};
+
+/**
+ * 퀘스트 또는 업적의 진행도를 계산합니다.
+ */
+export const calculateProgress = (
+  targetType: string,
+  stats: GameStats | null,
+  cows: Cow[],
+  ranchLevel: number
+): number => {
+  if (!stats) return 0;
+  switch (targetType) {
+    case 'MILK_SOLD': return stats.totalMilkSold || 0;
+    case 'WOLF_KILLED': return stats.totalWolvesKilled || 0;
+    case 'COW_COUNT': return cows?.length || 0;
+    case 'GOLD_EARNED': return stats.totalGoldEarned || 0;
+    case 'MILK_ACTION': return stats.totalMilkClicks || 0;
+    case 'PLAYER_LEVEL': return ranchLevel || 1;
+    default: return 0;
+  }
 };

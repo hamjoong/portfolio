@@ -27,17 +27,20 @@ const TutorialOverlay = lazy(() => import('./components/TutorialOverlay'));
  * @returns {JSX.Element}
  */
 function App() {
-  const { 
-    currentScreen,
-    isSettingsOpen, isRankingOpen, isShopOpen, 
-    isQuestOpen, isAchievementOpen, isAttendanceOpen, 
-    isStableOpen,
-    actions: uiActions 
-  } = useUIStore();
+  const currentScreen = useUIStore((state) => state.currentScreen);
+  const isSettingsOpen = useUIStore((state) => state.isSettingsOpen);
+  const isRankingOpen = useUIStore((state) => state.isRankingOpen);
+  const isShopOpen = useUIStore((state) => state.isShopOpen);
+  const isQuestOpen = useUIStore((state) => state.isQuestOpen);
+  const isAchievementOpen = useUIStore((state) => state.isAchievementOpen);
+  const isAttendanceOpen = useUIStore((state) => state.isAttendanceOpen);
+  const isStableOpen = useUIStore((state) => state.isStableOpen);
+  const uiActions = useUIStore((state) => state.actions);
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const { tutorialPhase, actions: userActions } = useUserStore();
+  const tutorialPhase = useUserStore((state) => state.tutorialPhase);
+  const userActions = useUserStore((state) => state.actions);
   
   // 게임의 핵심 로직을 처리하는 커스텀 훅입니다.
   useGameLoop();

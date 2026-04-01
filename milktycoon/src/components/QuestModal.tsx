@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Calendar, Clock } from 'lucide-react';
 import { useUserStore } from '../store/useUserStore';
 import type { Quest } from '../types/user';
 import { useGameStore } from '../store/useGameStore';
 import BaseModal from './common/BaseModal';
+import { calculateProgress } from '../utils/gameHelpers';
 
 interface QuestModalProps {
   isOpen: boolean;
@@ -16,13 +17,14 @@ const QuestModal: React.FC<QuestModalProps> = ({ isOpen, onClose }) => {
   const weeklyQuests = useUserStore((state) => state.weeklyQuests);
   const stats = useGameStore((state) => state.stats);
   const cows = useGameStore((state) => state.cows);
+  const ranchLevel = useGameStore((state) => state.ranchLevel);
   const [activeTab, setActiveTab] = useState<'DAILY' | 'WEEKLY'>('DAILY');
 
   const allQuests = activeTab === 'DAILY' ? dailyQuests : weeklyQuests;
 
-  const getVisibleQuests = (quests: Quest[]) => {
+  const visibleQuests = useMemo(() => {
     const groups: { [key: string]: Quest[] } = {};
-    quests.forEach(q => {
+    allQuests.forEach(q => {
       if (!groups[q.groupId]) groups[q.groupId] = [];
       groups[q.groupId].push(q);
     });
@@ -30,21 +32,7 @@ const QuestModal: React.FC<QuestModalProps> = ({ isOpen, onClose }) => {
     return Object.values(groups)
       .map(group => group.sort((a, b) => a.tier - b.tier).find(q => !q.isClaimed))
       .filter((q): q is Quest => q !== undefined);
-  };
-
-  const visibleQuests = getVisibleQuests(allQuests);
-
-  const getProgress = (quest: Quest) => {
-    if (!stats) return 0;
-    switch (quest.targetType) {
-      case 'MILK_SOLD': return stats.totalMilkSold || 0;
-      case 'WOLF_KILLED': return stats.totalWolvesKilled || 0;
-      case 'COW_COUNT': return cows?.length || 0;
-      case 'GOLD_EARNED': return stats.totalGoldEarned || 0;
-      case 'MILK_ACTION': return stats.totalMilkClicks || 0;
-      default: return 0;
-    }
-  };
+  }, [allQuests]);
 
   return (
     <BaseModal 
@@ -62,7 +50,7 @@ const QuestModal: React.FC<QuestModalProps> = ({ isOpen, onClose }) => {
       </div>
 
       {visibleQuests.map((quest) => {
-        const current = getProgress(quest);
+        const current = calculateProgress(quest.targetType, stats, cows, ranchLevel);
         const isCompleted = current >= quest.targetValue;
         const totalTiers = allQuests.filter(q => q.groupId === quest.groupId).length;
 
