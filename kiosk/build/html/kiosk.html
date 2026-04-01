@@ -13,13 +13,13 @@
     <link rel="stylesheet" href="../css/kiosk.css">
     <title>Kiosk</title>
   </head>
-  <body><!--키오스크 인트로페이지 영역--><img class="intro_page"><!--키오스크 메인 박스 영역-->
-    <section class="main_box"><!--키오스크 메뉴 선택 영역-->
-      <main class="menu_choice"><!--키오스크 메뉴 헤더 영역-->
+  <body><!--kiosk intro_page 키오스크 인트로페이지 영역--><img class="intro_page"><!--kiosk main box 키오스크 메인 박스 영역-->
+    <section class="main_box"><!--kiosk menu choice 키오스크 메뉴 선택 영역-->
+      <main class="menu_choice"><!--kiosk menu header 키오스크 메뉴 헤더 영역-->
         <header class="menu_header">
           <header class="menu_header_log"></header>
-        </header><!--키오스크 메뉴 선택2 영역-->
-        <section class="menu_choice2"><!--키오스크 메뉴 메뉴바 영역-->
+        </header><!--kiosk menu choice2 키오스크 메뉴 선택2 영역-->
+        <section class="menu_choice2"><!--kiosk menu nav 키오스크 메뉴 메뉴바 영역-->
           <nav class="menu_nav">
             <ul>
               <li class="nav_famousmenu">인기메뉴</li>
@@ -27,8 +27,8 @@
               <li class="nav_drink">음료</li>
               <li class="nav_dessert">디저트</li>
             </ul>
-          </nav><!--키오스크 메뉴 리스트 영역-->
-          <main class="menu_list"><!--키오스크 인기메뉴 영역-->
+          </nav><!--kiosk menu list 키오스크 메뉴 리스트 영역-->
+          <main class="menu_list"><!--kiosk famousmenu 키오스크 인기메뉴 영역-->
             <section class="menu_all_box">
               <article id="coffe_0">
                 <div class="menu_img1"> </div>
@@ -60,8 +60,8 @@
                 <p class="menu_name">시그니처 크림라떼</p>
                 <p class="menu_price">5,800원</p>
               </article>
-            </section><!--키오스크 커피메뉴 아이스 영역-->
-            <section class="menu_all_box2"><!--키오스크 커피메뉴 아이스 버튼 영역-->
+            </section><!--kiosk coffe ice 키오스크 커피메뉴 아이스 영역-->
+            <section class="menu_all_box2"><!--kiosk coffe ice button 키오스크 커피메뉴 아이스 버튼 영역-->
               <section class="hot_ice_button_box">
                 <section class="hot_ice_button">
                   <p>ICE </p>
@@ -97,8 +97,8 @@
                 <p class="menu_name">시그니처 크림라떼</p>
                 <p class="menu_price">5,800원</p>
               </article>
-            </section><!--키오스크 커피메뉴 핫 영역-->
-            <section class="menu_all_box3"><!--키오스크 커피메뉴 핫 버튼 영역-->
+            </section><!--kiosk coffe hot 키오스크 커피메뉴 핫 영역-->
+            <section class="menu_all_box3"><!--kiosk coffe hot button 키오스크 커피메뉴 핫 버튼 영역-->
               <section class="hot_ice_button_box2">
                 <section class="hot_ice_button2">
                   <p>HOT</p>
@@ -119,7 +119,7 @@
                 <p class="menu_name">카푸치노</p>
                 <p class="menu_price">5,000원</p>
               </article>
-            </section><!--키오스크 음료메뉴 영역-->
+            </section><!--kiosk drink 키오스크 음료메뉴 영역-->
             <section class="menu_all_box4">
               <article id="coffe_9">
                 <div class="menu_img16"></div>
@@ -151,7 +151,7 @@
                 <p class="menu_name">청포도 스파클링</p>
                 <p class="menu_price">5,000원</p>
               </article>
-            </section><!--키오스크 디저트메뉴 영역-->
+            </section><!--kiosk dessert 키오스크 디저트메뉴 영역-->
             <section class="menu_all_box5">
               <article id="coffe_15">
                 <div class="menu_img22"></div>
@@ -183,34 +183,38 @@
                 <p class="menu_name">더 진한 캐롯</p>
                 <p class="menu_price">6,300원</p>
               </article>
-            </section><!--키오스크 결제 버튼 모달창 영역-->
-          </main><!--키오스크 메뉴 장바구니 박스 영역-->
-          <section class="shopping_cart"><!--키오스크 장바구니 아이콘 영역-->
-            <section class="trash_button"><i class="xi-trash xi-5x"></i></section><!--키오스크 장바구니 주문리스트 박스 영역-->
+            </section><!--kiosk buy button model 키오스크 결제 버튼 모달창 영역-->
+            <section class="model_box">
+              <section class="model_font">메뉴를 선택하세요.</section>
+              <section class="model_close_button">닫기</section>
+            </section>
+          </main><!--kiosk shopping cart box 키오스크 메뉴 장바구니 박스 영역-->
+          <section class="shopping_cart"><!--kiosk shopping cart xeicon 키오스크 장바구니 아이콘 영역-->
+            <section class="trash_button"><i class="xi-trash xi-5x"></i></section><!--kiosk shopping cart order list box 키오스크 장바구니 주문리스트 박스 영역-->
             <section class="order_list">
-              <!--키오스크 장바구니 주문리스트 영역-->
+               <!--kiosk shopping cart order list 키오스크 장바구니 주문리스트 영역-->
               <section class="order_list_data" id="order_list_data"></section>
-            </section><!--키오스크 장바구니 주문합계 영역-->
+            </section><!--kiosk shopping cart sum value 키오스크 장바구니 주문합계 영역-->
             <section class="sum_value"> 
               <section class="sum_price"> </section>
-            </section><!--키오스크 장바구니 구매버튼 영역-->
+            </section><!--kiosk shopping cart buy button 키오스크 장바구니 구매버튼 영역-->
             <section class="buy_button">계산하기</section>
           </section>
         </section>
       </main>
-    </section><!--키오스크 추가메뉴 리스트 박스 영역-->
+    </section><!--kiosk menu extra orders list box 키오스크 추가메뉴 리스트 박스 영역-->
     <section class="extra_order_list_box">
-      <section class="extra_orders_list"><!--키오스크 추가메뉴 선택 영역-->
-        <section class="select_menu_box"><!--키오스크 추가메뉴 리스트 선택 아이콘 백 영역-->
-          <section class="xi-arrow-left-button"><i class="xi-arrow-left xi-5x" id="xi-arrow-left6"></i></section><!--키오스크 추가메뉴 선택 이미지 박스 영역-->
-          <section class="select_menu_img_box"><!--키오스크 추가메뉴 선택 이미지 영역-->
-            <section class="select_menu_img"></section><!--키오스크 추가메뉴 선택 메뉴명 영역-->
+      <section class="extra_orders_list"><!--kiosk menu extra orders choice 키오스크 추가메뉴 선택 영역-->
+        <section class="select_menu_box"><!--kiosk menu extra orders choice xeicon back 키오스크 추가메뉴 리스트 선택 아이콘 백 영역-->
+          <section class="xi-arrow-left-button"><i class="xi-arrow-left xi-5x" id="xi-arrow-left6"></i></section><!--kiosk menu extra orders choice img box 키오스크 추가메뉴 선택 이미지 박스 영역-->
+          <section class="select_menu_img_box"><!--kiosk menu extra orders choice img 키오스크 추가메뉴 선택 이미지 영역-->
+            <section class="select_menu_img"></section><!--kiosk menu extra orders choice name 키오스크 추가메뉴 선택 메뉴명 영역-->
             <p class="select_menu_img_name"> </p>
-          </section><!--키오스크 추가메뉴 정보 박스 영역-->
+          </section><!--kiosk menu extra orders information 키오스크 추가메뉴 정보 박스 영역-->
           <section class="select_menu_info_box">
             <section class="select_menu_info_seolmyeong"> 
               <section class="select_menu_info_seolmyeong_font"></section>
-            </section><!--키오스크 추가메뉴 선택 박스 영역-->
+            </section><!--kiosk menu extra orders select box 키오스크 추가메뉴 선택 박스 영역-->
             <section class="select_menu_info_box2">
               <section class="menu_select_box">
                 <section class="select_box">선택</section>
@@ -227,7 +231,7 @@
                 <section class="shot_box2">2샷</section>
                 <section class="shot_box3">3샷</section>
               </section>
-            </section><!--키오스크 추가메뉴 선택 hot 박스 영역2-->
+            </section><!--kiosk menu extra orders select hot box2 키오스크 추가메뉴 선택 hot 박스 영역2-->
             <section class="select_menu_info_box3">
               <section class="menu_select_box4">
                 <section class="select_box4">선택</section>
@@ -239,7 +243,7 @@
                 <section class="shot_box4">2샷</section>
                 <section class="shot_box5">3샷</section>
               </section>
-            </section><!--키오스크 추가메뉴 선택 drink 박스 영역3-->
+            </section><!--kiosk menu extra orders select drink box3 키오스크 추가메뉴 선택 drink 박스 영역3-->
             <section class="select_menu_info_box4">
               <section class="menu_select_box6">
                 <seciont class="select_box6">선택</seciont>
@@ -251,7 +255,7 @@
                 <section class="hotice_box">HOT</section>
                 <section class="hotice_box2">ICE </section>
               </section>
-            </section><!--키오스크 추가메뉴 선택 dessert 박스 영역4-->
+            </section><!--kiosk menu extra orders select dessert box4 키오스크 추가메뉴 선택 dessert 박스 영역4-->
             <section class="select_menu_info_box5">
               <section class="menu_select_box8">
                 <section class="select_box8">선택</section>
@@ -260,54 +264,54 @@
               </section>
             </section>
           </section>
-        </section><!--키오스크 추가메뉴 다음 박스 영역-->
+        </section><!--kiosk menu extra next box 키오스크 추가메뉴 다음 박스 영역-->
         <section class="extra_order_next_box">다음</section>
       </section>
-    </section><!--키오스크 포인트 간단가입&사용하기&결제하기 박스 영역-->
+    </section><!--kiosk point signup & pay 키오스크 포인트 간단가입&사용하기&결제하기 박스 영역-->
     <section class="point_signup_pay_box">
-      <section class="point_signup_pay"><!--키오스크 포인트 간단가입 박스 영역-->
-        <section class="point_signup_box"><!--키오스크 포인트 간단가입 페이 아이콘 빽 영역-->
-          <section class="xi-arrow-left_button"><i class="xi-arrow-left xi-5x" id="xi-arrow-left"></i></section><!--키오스크 포인트 간단가입 박스2 영역-->
-          <section class="point_signup_box2"><!--키오스크 포인트 박스 영역-->
+      <section class="point_signup_pay"><!--kiosk point signup box 키오스크 포인트 간단가입 박스 영역-->
+        <section class="point_signup_box"><!--kiosk point_signup pay xeicon back 키오스크 포인트 간단가입 페이 아이콘 빽 영역-->
+          <section class="xi-arrow-left_button"><i class="xi-arrow-left xi-5x" id="xi-arrow-left"></i></section><!--kiosk point signup box2 키오스크 포인트 간단가입 박스2 영역-->
+          <section class="point_signup_box2"><!--kiosk point box 키오스크 포인트 박스 영역-->
             <section class="point_signup_box3"> 
               <section class="point_box">
                 <p class="point_font">포인트</p>
-              </section><!--키오스크 간단가입 박스 영역-->
+              </section><!--kiosk signup box 키오스크 간단가입 박스 영역-->
               <section class="signup_box">
                 <p class="signup_font">간단가입</p>
-              </section><!--키오스크 사용하기 박스 영역-->
+              </section><!--kiosk use box 키오스크 사용하기 박스 영역-->
               <section class="use_box">
                 <p class="use_font">사용하기</p>
               </section>
             </section>
           </section>
-        </section><!--키오스크 결제하기 박스 영역-->
-        <section class="pay_box"><!--키오스크 결제하기 박스2 영역-->
-          <section class="pay_box2"><!--키오스크 결제하기 이미지 박스 영역-->
+        </section><!--kiosk pay box 키오스크 결제하기 박스 영역-->
+        <section class="pay_box"><!--kiosk pay box2 키오스크 결제하기 박스2 영역-->
+          <section class="pay_box2"><!--kiosk pay img box 키오스크 결제하기 이미지 박스 영역-->
             <section class="pay_img_box">
               <section class="pay_img"></section>
-            </section><!--키오스크 결제하기 버튼 영역-->
+            </section><!--kiosk pay button 키오스크 결제하기 버튼 영역-->
             <section class="pay">
               <p class="pay_font">결제하기</p>
             </section>
           </section>
         </section>
       </section>
-    </section><!--키오스크 포인트 간단가입 넘버 박스 영역-->
+    </section><!--kiosk point signup number 키오스크 포인트 간단가입 넘버 박스 영역-->
     <section class="point_signup_number_box">
-      <section class="point_signup_number"><!--키오스크 포인트 넘버 폼 영역-->
-        <form class="point_number_form" method="post"><!--키오스크 포인트 간단가입 넘버 인풋 박스 영역-->
-          <section class="point_number_input_box"><!--키오스크 포인트 간단가입 넘버 아이콘 빽 영역-->
-            <section class="xi-arrow-left_button"><i class="xi-arrow-left xi-5x" id="xi-arrow-left2"></i></section><!--키오스크 넘버 박스 영역-->
+      <section class="point_signup_number"><!--kiosk number form 키오스크 포인트 넘버 폼 영역-->
+        <form class="point_number_form" method="post"><!-kiosk point signup number input box 키오스크 포인트 간단가입 넘버 인풋 박스 영역-->
+          <section class="point_number_input_box"><!--kiosk point signum number xeicon back 키오스크 포인트 간단가입 넘버 아이콘 빽 영역-->
+            <section class="xi-arrow-left_button"><i class="xi-arrow-left xi-5x" id="xi-arrow-left2"></i></section><!--kiosk number box 키오스크 넘버 박스 영역-->
             <section class="point_number_input_box2">
               <section class="number_box">
                 <p class="number_font">휴대폰 번호 입력</p>
-              </section><!--키오스크 넘버 인풋 박스 영역-->
+              </section><!--kiosk number input box 키오스크 넘버 인풋 박스 영역-->
               <section class="number_input_box">
                 <input class="number_input" type="text" name="join_num" id="join_num">
               </section>
             </section>
-          </section><!--키오스크 키패드 박스 영역-->
+          </section><!--kiosk point keypad box 키오스크 키패드 박스 영역-->
           <section class="point_keypad_box">
             <article> 
               <input class="num1_box" type="text" value="1" placeholder>
@@ -365,21 +369,21 @@
           <input class="num_box" type="submit" value="" id="join_submit" placeholder>
         </form>
       </section>
-    </section><!--키오스크 포인트 조회하기 넘버 박스 영역-->
+    </section><!--kiosk point inquire number box 키오스크 포인트 조회하기 넘버 박스 영역-->
     <section class="point_inquire_number_box">
-      <seciont class="point_inquire_number"><!--키오스크 넘보 조회하기 폼 영역-->
-        <form class="point_inquire_form" method="post"><!--키오스크 넘버 조회하기 인풋 박스 영역-->
-          <section class="point_inquire_number_input_box"><!--키오스크 포인트 조회하기 넘버 아이콘 빽 영빽-->
-            <section class="xi-arrow-left_button"><i class="xi-arrow-left xi-5x" id="xi-arrow-left3"></i></section><!--키오스크 넘버 조회하기 박스 영역-->
+      <seciont class="point_inquire_number"><!--kiosk number inquire form 키오스크 넘보 조회하기 폼 영역-->
+        <form class="point_inquire_form" method="post"><!--kiosk number inquire input box 키오스크 넘버 조회하기 인풋 박스 영역-->
+          <section class="point_inquire_number_input_box"><!--kiosk point inquire number back xeicon 키오스크 포인트 조회하기 넘버 아이콘 빽 영빽-->
+            <section class="xi-arrow-left_button"><i class="xi-arrow-left xi-5x" id="xi-arrow-left3"></i></section><!--kiosk number inquire box 키오스크 넘버 조회하기 박스 영역-->
             <seciont class="point_inquire_number_input_box2">
               <section class="number_inquire_box">
                 <p class="number_inquire_font">휴대폰 번호 입력</p>
-              </section><!--키오스크 넘버 조회하기 인풋 박스 영역-->
+              </section><!--kiosk number input inquire box 키오스크 넘버 조회하기 인풋 박스 영역-->
               <section class="number_inquire_input_box">
                 <input class="number_input" type="text" name="join_num2" id="join_num2">
               </section>
             </seciont>
-          </section><!--키오스크 키패드 박스 영역-->
+          </section><!--kiosk point keypad box 키오스크 키패드 박스 영역-->
           <section class="point_keypad_box2">
             <article> 
               <input class="num2_box" type="text" value="1" placeholder>
@@ -437,22 +441,22 @@
           <input class="num_box" type="submit" value="" id="join_submit2" placeholder>
         </form>
       </seciont>
-    </section><!--키오스크 잔여포인트 박스 영역-->
+    </section><!--kiosk point remaining box 키오스크 잔여포인트 박스 영역-->
     <section class="point_remaining_box">
-      <section class="point_remaining"><!--키오스크 넘버 잔여포인트 폼 영역-->
-        <form class="point_remaining_form" method="post"><!--키오스크 넘버 잔여포인트 인풋 박스 영역-->
-          <section class="point_remaining_number_input_box"><!--키오스크 포인트 잔여포인트 아이콘 빽 영빽-->
-            <section class="xi-arrow-left_button"><i class="xi-arrow-left xi-5x" id="xi-arrow-left4"></i></section><!--키오스크 잔여포인트 조회하기 박스 영역-->
+      <section class="point_remaining"><!--kiosk number remaining form 키오스크 넘버 잔여포인트 폼 영역-->
+        <form class="point_remaining_form" method="post"><!--kiosk number remaining input box 키오스크 넘버 잔여포인트 인풋 박스 영역-->
+          <section class="point_remaining_number_input_box"><!--kiosk point remaining back xeicon 키오스크 포인트 잔여포인트 아이콘 빽 영빽-->
+            <section class="xi-arrow-left_button"><i class="xi-arrow-left xi-5x" id="xi-arrow-left4"></i></section><!--kiosk point remaining box 키오스크 잔여포인트 조회하기 박스 영역-->
             <section class="point_remaining_number_input_box2">
               <section class="remaining_box">
                 <p class="point_remaining_font">잔여 포인트는</p>
                 <p class="point_remaining_font2">P</p>
-              </section><!--키오스크 잔여폰인트 인풋 박스 영역-->
+              </section><!--kiosk point input remaining box 키오스크 잔여폰인트 인풋 박스 영역-->
               <section class="point_remaining_input_box">
                 <input class="number_input" type="text" name="join_num3" id="join_num3" value="">
               </section>
             </section>
-          </section><!--키오스크 키패드 박스 영역-->
+          </section><!--kiosk point keypad box 키오스크 키패드 박스 영역-->
           <section class="point_keypad_box3">
             <article> 
               <input class="num3_box" type="text" value="1" placeholder>
@@ -510,56 +514,56 @@
           <input class="num_box" type="submit" value="" id="join_submit3" placeholder>
         </form>
       </section>
-    </section><!--키오스크 결제화면 박스 영역-->
+    </section><!--kiosk pay screen box 키오스크 결제화면 박스 영역-->
     <section class="pay_screen_box">
-      <section class="pay_screen"><!--키오스크 결제 박스 영역-->
-        <section class="pay_box3"><!--키오스크 결제하기 아이콘 빽 영역-->
-          <section class="xi-arrow-left_button"><i class="xi-arrow-left xi-5x" id="xi-arrow-left5"></i></section><!--키오스크 카드 박스 영역-->
-          <section class="card_box"><!--키오스크 카드 슬롯 영역-->
-            <section class="card_slot"></section><!--키오스크 카드 영역-->
-            <section class="card"></section><!--키오스크 카드 폰트 영역-->
+      <section class="pay_screen"><!--kiosk pay box 키오스크 결제 박스 영역-->
+        <section class="pay_box3"><!--kiosk pay xeicon back 키오스크 결제하기 아이콘 빽 영역-->
+          <section class="xi-arrow-left_button"><i class="xi-arrow-left xi-5x" id="xi-arrow-left5"></i></section><!--kiosk card box 키오스크 카드 박스 영역-->
+          <section class="card_box"><!--kiosk card slot 키오스크 카드 슬롯 영역-->
+            <section class="card_slot"></section><!--kiosk card 키오스크 카드 영역-->
+            <section class="card"></section><!--kiosk card font 키오스크 카드 폰트 영역-->
             <section class="card_font">카드를 넣어주세요</section>
           </section>
-        </section><!--키오스크 결제 리스트 박스 영역-->
-        <section class="pay_list_box"><!--키오스크 결제 리스트 영역-->
+        </section><!--kiosk pay list box 키오스크 결제 리스트 박스 영역-->
+        <section class="pay_list_box"><!--kiosk pay list 키오스크 결제 리스트 영역-->
           <section class="pay_list">
-            <section class="pay_list_font"> </section><!--키오스크 결제 리스트 합계 영역-->
+            <section class="pay_list_font"> </section><!--kiosk pay list sum 키오스크 결제 리스트 합계 영역-->
             <section class="pay_list_sum"> </section>
-          </section><!--키오스크 결제하기 영역-->
+          </section><!--kiosk pay 키오스크 결제하기 영역-->
           <section class="pay2">결제하기</section>
         </section>
       </section>
-    </section><!--키오스크 영수증 박스 영역-->
+    </section><!--kiosk receipt box 키오스크 영수증 박스 영역-->
     <section class="receipt_box">
-      <section class="receipt"><!--키오스크 영수증 리스트 박스 영역-->
+      <section class="receipt"><!--kiosk receipt list box 키오스크 영수증 리스트 박스 영역-->
         <section class="receipt_list_box">
           <section class="receipt_list_number_box">
             <section class="receipt_list_number">대기번호 :</section>
             <section class="receipt_list_number2"></section>
           </section>
           <section class="receipt_list_price"> </section>
-          <section class="receipt_list_menuname"> </section><!--키오스크 영수증 리스트 버튼 박스 영역-->
+          <section class="receipt_list_menuname"> </section><!--kiosk receipt list button box 키오스크 영수증 리스트 버튼 박스 영역-->
           <section class="receipt_list_button_box">
             <section class="receipt_list_button">출력</section>
             <section class="receipt_list_button2">포인트 적립</section>
           </section>
-        </section><!--키오스크 영수증 리스트 닫기 버튼 박스 영역-->
+        </section><!--kiosk receipt list close button box 키오스크 영수증 리스트 닫기 버튼 박스 영역-->
         <section class="receipt_close_button_box">닫기</section>
       </section>
-    </section><!--키오스크 포인트 적립 박스 영역-->
+    </section><!--kiosk point save box 키오스트 포인트 적립 박스 영역-->
     <section class="point_save_box">
-      <section class="point_save"><!--키오스크 포인트 적립 폼 영역-->
-        <form class="point_save_form" method="post"><!--키오스크 포인트 적립 인풋 박스 영역-->
-          <section class="point_save_number_input_box"><!--키오스크 포인트 적립 박스 영역-->
+      <section class="point_save"><!--kiosk point save form 키오스크 포인트 적립 폼 영역-->
+        <form class="point_save_form" method="post"><!--kiosk point save input box 키오스크 포인트 적립 인풋 박스 영역-->
+          <section class="point_save_number_input_box"><!--kiosk point save box 키오스크 포인트 적립 박스 영역-->
             <section class="point_save_number_input_box2">
               <section class="save_box">
                 <p class="point_save_font">휴대폰 번호 입력</p>
-              </section><!--키오스크 포인트 적립 인풋 박스 영역-->
+              </section><!--kiosk point save input box 키오스크 포인트 적립 인풋 박스 영역-->
               <section class="point_save_input_box">
                 <input class="number_input" type="text" name="join_num4" id="join_num4" value="">
               </section>
             </section>
-          </section><!--키오스크 포인트 적립 키패드 박스 영역-->
+          </section><!--kiosk point keypad box 키오스크 포인트 적립 키패드 박스 영역-->
           <section class="point_keypad_box4">
             <article> 
               <input class="num4_box" type="text" value="1" placeholder>
@@ -617,28 +621,24 @@
           <input class="num_box" type="submit" value="" id="join_submit4" placeholder>
         </form>
       </section>
-    </section><!--키오스크 포인트 적립완료 박스 영역-->
+    </section><!--kiosk point save complete box 키오스크 포인트 적립완료 박스 영역-->
     <section class="point_save_complete_box">
-      <section class="point_save_complete"><!--키오스크 포인트 적립완료 영역-->
-        <section class="save_complete_box"><!--키오스크 포인트 적립 이미지 박스 영역-->
+      <section class="point_save_complete"><!--kiosk point save complete 키오스크 포인트 적립완료 영역-->
+        <section class="save_complete_box"><!--kiosk point save img box 키오스크 포인트 적립 이미지 박스 영역-->
           <section class="save_img_box">
             <section class="save_img"></section>
-          </section><!--키오스크 포인트 적립 폰트 영역-->
+          </section><!--kiosk point save font 키오스크 포인트 적립 폰트 영역-->
           <section class="save_font_box">
             <section class="save_font"> </section>
             <section class="save_font2">적립완료</section>
           </section>
-        </section><!--키오스크 포인트 적립 메인화면 버튼 영역-->
+        </section><!--kiosk point save main button 키오스크 포인트 적립 메인화면 버튼 영역-->
         <sectino class="save_main_button">메인화면</sectino>
       </section>
     </section><!--Footer 푸터 영역-->
     <footer>
       <p class="footer_font">Copyright(C) 2022. Hjuk. All right reserved. 본 사이트는 비상업적인 용도로 제작된 포트폴리오 사이트입니다</p>
     </footer>
-    <section class="model_box">
-      <section class="model_font">메뉴를 선택하세요.</section>
-      <section class="model_close_button">닫기</section>
-    </section>
     <script src="../nodejs/kioskmenu.json" type="text/javascript"></script>
     <script src="../nodejs/kioskpoint.json" type="text/javascript"></script>
     <script src="../script/kiosk.js"></script>

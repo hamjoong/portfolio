@@ -9,29 +9,29 @@ const con = mysql.createConnection( {
 
 con.connect ( function (err) {
   if (err) throw err;
-  console.log('연결됨!');
+  console.log('Connected!');
 
   const sql = 'CREATE TABLE kioskmenu (id INT AUTO_INCREMENT PRIMARY KEY, menu_name CHAR(20), menu_price INT, menu_description VARCHAR(255))';
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log('테이블 생성됨');
+    console.log('Table Created');
   });
 
-  /* 테이블 변경 */
+  //테이블 변경
   /*const sql = 'ALTER TABLE kioskmenu ADD COLUMN menu_description VARCHAR(255)';
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log('테이블 생성됨');
+    console.log('Table created');
   });*/
 
-  /* 레코드 삽입 */
+  //레코드 삽입
   /*const sql = "INSERT INTO kioskmenu (menu_name, menu_price, menu_description) VALUES ('커피', 5600, '커피')";
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log('1개 레코드 삽입됨');
+    console.log('1 record inserted');
   });*/
 
-  // 레코드 다중 삽입
+  //레코드 다중 삽입
   /*const sql = "insert into kioskmenu (menu_name, menu_price, menu_description) values ?";
   const values = [
     ['아메리카노', 5500, '에스프레소와 정수된 물,얼음을 혼합한 아이스 커피'],
