@@ -22,7 +22,8 @@ html(lang='KO')
     link(rel='icon' type='image/png' href='../../public/favicon/favicon.ico')
     
     <!--코어 테마 CSS-->
-    link(rel='stylesheet' href='../css/blog.css')
+    // 코어 테마 CSS 경로 수정: CSS 파일이 올바르게 로드되도록 실제 빌드 출력 디렉토리를 가리키도록 경로를 수정했습니다. 이는 사이트의 스타일링과 레이아웃에 필수적입니다.
+    link(rel='stylesheet' href='../../build/css/blog.css')
 
     <!--폰트 어썸 아이콘-->
     script(src='https://use.fontawesome.com/releases/v6.1.0/js/all.js' crossorigin='anonymous')
@@ -306,6 +307,6 @@ html(lang='KO')
     
     script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js')
     
-    script(src='../script/blog.js')
+    script(src='../../build/script/blog.js')
 
     script(src='https://cdn.startbootstrap.com/sb-forms-latest.js')
