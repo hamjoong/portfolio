@@ -1,4 +1,4 @@
-# 프로젝트 : Milk Tycoon 짜요 타이쿤 리마스터
+# 프로젝트 : Milk Tycoon 짜요 타이쿤 리마스터1
 
 # [ Live Demo ]
 - https://hamjoong.github.io/portfolio/milktycoon/ (https://hamjoong.github.io/portfolio/milktycoon/)
