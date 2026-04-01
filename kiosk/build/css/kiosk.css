@@ -593,7 +593,7 @@ html, body {
   font-weight: 500;
   color: #BC4444;
 }
-.main_box .menu_choice .menu_choice2 .menu_list .model_box {
+.model_box {
   width: 50rem;
   height: 50rem;
   display: flex;
@@ -601,24 +601,26 @@ html, body {
   justify-content: space-between;
   align-items: center;
   align-content: center;
-  position: absolute;
+  position: fixed;
   background-color: rgb(230, 230, 230);
-  top: 25rem;
-  left: 65rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
   display: none;
 }
-.main_box .menu_choice .menu_choice2 .menu_list .model_box .model_font {
+.model_box .model_font {
   width: 100%;
   height: 40rem;
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: bold;
   color: rgb(80, 80, 80);
 }
-.main_box .menu_choice .menu_choice2 .menu_list .model_box .model_close_button {
+.model_box .model_close_button {
   width: 100%;
   height: 10rem;
   display: flex;

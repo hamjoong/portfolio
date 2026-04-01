@@ -1,6 +1,17 @@
-/*kiosk menu,point DB json 파싱*/
+/* UI 및 설정 상수 정의: 유지보수성을 위해 매직 넘버와 색상 코드를 중앙 관리합니다. */
+const UI_CONFIG = {
+  COLORS: {
+    SELECTED: '#AF4444',
+    DEFAULT: '#555'
+  },
+  INTERVALS: {
+    INTRO_SLIDE: 3000
+  }
+};
+
+/* kiosk menu, point DB json 파싱: 초기 데이터 구조 설정을 위한 객체 생성 */
 const json = '{"get_kioskmenu": "" , "get_kioskpoint": "" }'
-const obj = JSON.parse(json);
+const initialObj = JSON.parse(json);
 
 /*ajax intro_page 이미지 변환*/
 /*const introduce_JSON = new XMLHttpRequest();
@@ -47,27 +58,30 @@ introduce_JSON.send();*/
   intro_json.send();
 });*/
 
+/* intro_page 이미지 슬라이드: 사용자에게 첫 인상을 주기 위해 배경 이미지를 주기적으로 변경합니다. */
 $(window).on('load', () => {
-  const intro_json = new XMLHttpRequest();
-  intro_json.onreadystatechange = function () {
-  if (this.readyState == 4 && this.status == 200) {
-    const intro_img = JSON.parse(this.responseText);
-    console.log(intro_img);
-    let counter = 0;
-    const change_img = () => {
-    if (counter == intro_img.length) {
-      counter = 0;
+  const introRequest = new XMLHttpRequest();
+  introRequest.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      const introImages = JSON.parse(this.responseText);
+      console.log(introImages);
+      let slideIndex = 0;
+      
+      const changeIntroImage = () => {
+        if (slideIndex == introImages.length) {
+          slideIndex = 0;
+        }
+        const $introPage = document.querySelector('.intro_page');
+        $introPage.style.backgroundImage = `url(${introImages[slideIndex].url})`;
+        $introPage.style.backgroundSize = '100% 100%';
+        slideIndex++;
+        setTimeout(changeIntroImage, UI_CONFIG.INTERVALS.INTRO_SLIDE);
+      };
+      changeIntroImage();
     }
-      document.querySelector('.intro_page').style.backgroundImage = `url(${intro_img[counter].url})`;
-      document.querySelector('.intro_page').style.backgroundSize = '100% 100%';
-      counter++;
-      setTimeout(change_img, 3000);
-    };
-    change_img();
-  }
-};
-  intro_json.open('GET', '../nodejs/intro2.json?t=' + Math.random(), true);
-  intro_json.send();
+  };
+  introRequest.open('GET', '../nodejs/intro2.json?t=' + Math.random(), true);
+  introRequest.send();
 });
 
 /*iintro page 넘김 영역*/
@@ -76,309 +90,219 @@ $('.intro_page').click( () => {
   $('.main_box').show();
 });
 
-/*nav menu color change 영역*/
-$('.nav_famousmenu').click( () => {
-  $('.nav_famousmenu').css({'background': '#AF4444'});
-  $('.nav_coffee').css({'background': '#555'});
-  $('.nav_drink').css({'background': '#555'});
-  $('.nav_dessert').css({'background': '#555'});
-});
-    
-$('.nav_coffee').click( () => {
-  $('.nav_famousmenu').css({'background': '#555'});
-  $('.nav_coffee').css({'background': '#AF4444'});
-  $('.nav_drink').css({'background': '#555'});
-  $('.nav_dessert').css({'background': '#555'});
-});
+/* 메인 메뉴 내비게이션 색상 변경: 선택된 카테고리를 시각적으로 강조하여 사용자 인지력을 향상시킵니다. */
+const updateNavColor = (selectedClass) => {
+  $('.nav_famousmenu, .nav_coffee, .nav_drink, .nav_dessert').css('background', UI_CONFIG.COLORS.DEFAULT);
+  $(selectedClass).css('background', UI_CONFIG.COLORS.SELECTED);
+};
 
-$('.nav_drink').click( () => {
-  $('.nav_famousmenu').css({'background': '#555'});
-  $('.nav_coffee').css({'background': '#555'});
-  $('.nav_drink').css({'background': '#AF4444'});
-  $('.nav_dessert').css({'background': '#555'});
-});
+$('.nav_famousmenu').click(() => updateNavColor('.nav_famousmenu'));
+$('.nav_coffee').click(() => updateNavColor('.nav_coffee'));
+$('.nav_drink').click(() => updateNavColor('.nav_drink'));
+$('.nav_dessert').click(() => updateNavColor('.nav_dessert'));
 
-$('.nav_dessert').click( () => {
-  $('.nav_famousmenu').css({'background': '#555'});
-  $('.nav_coffee').css({'background': '#555'});
-  $('.nav_drink').css({'background': '#555'});
-  $('.nav_dessert').css({'background': '#AF4444'});
-});
 
-/*nav menu page change 영역*/
-$('.nav_famousmenu').click( () => {
-  $('.menu_all_box2').hide();
-  $('.menu_all_box3').hide();
-  $('.menu_all_box4').hide();
-  $('.menu_all_box5').hide();
-  $('.menu_all_box').show();
-});
+/* 내비게이션 페이지 전환: 선택된 카테고리에 맞는 메뉴 리스트를 화면에 표시합니다. */
+const switchMenuSection = (sectionToShow, showHotIce = false) => {
+  $('.menu_all_box, .menu_all_box2, .menu_all_box3, .menu_all_box4, .menu_all_box5').hide();
+  $('.hot_ice_button, .hot_ice_button2').hide();
+  $(sectionToShow).show();
+  if (showHotIce) {
+    $('.hot_ice_button, .hot_ice_button2').show();
+  }
+};
 
-$('.nav_coffee').click( () => {
-  $('.menu_all_box').hide();
-  $('.menu_all_box3').hide();
-  $('.menu_all_box4').hide();
-  $('.menu_all_box5').hide();
-  $('.hot_ice_button').show();
-  $('.hot_ice_button2').show();
-  $('.menu_all_box2').show();
-});
+$('.nav_famousmenu').click(() => switchMenuSection('.menu_all_box'));
+$('.nav_coffee').click(() => switchMenuSection('.menu_all_box2', true));
+$('.nav_drink').click(() => switchMenuSection('.menu_all_box4'));
+$('.nav_dessert').click(() => switchMenuSection('.menu_all_box5'));
 
-$('.nav_drink').click( () => {
-  $('.menu_all_box').hide();
-  $('.menu_all_box2').hide();
-  $('.menu_all_box3').hide();
-  $('.menu_all_box5').hide();
-  $('.menu_all_box4').show();
-});
-
-$('.nav_dessert').click( () => {
-  $('.menu_all_box').hide();
-  $('.menu_all_box2').hide();
-  $('.menu_all_box3').hide();
-  $('.menu_all_box4').hide();
-  $('.menu_all_box5').show();
-});
-
-$('.hot_ice_button').click( () => {
+/* 커피 메뉴 전용 아이스/핫 전환 버튼 기능 */
+$('.hot_ice_button').click(() => {
   $('.menu_all_box2').hide();
   $('.menu_all_box3').show();
 });
 
-$('.hot_ice_button2').click( () => {
+$('.hot_ice_button2').click(() => {
   $('.menu_all_box3').hide();
   $('.menu_all_box2').show();
 });
 
+
 /*장바구니 합계 영역*/
+/* 
+ * Kioskmenu 클래스: 메뉴 데이터 모델 및 관련 UI 조작 로직을 관리합니다.
+ * SRP(단일 책임 원칙)에 따라 추후 데이터와 UI 렌더링 로직의 분리를 고려합니다.
+ */
 class Kioskmenu {
-  constructor(name, price, button_number, amount) {
+  constructor(name, price, buttonIndex, amount) {
     this.name = name;
     this.price = price;
-    this.button_number = button_number;
+    this.buttonIndex = buttonIndex;
     this.amount = amount;
-};
-
-/*shopping_cart data order_list 장바구니 data 장바구니 출력 영역*/
-/*sc_obj() {
-const order_list_data = document.querySelector('.order_list_data');
-order_list_data.innerHTML += `
-  <div class='${this.name}_box'>
-    <span class='menu_name_1_${this.name}'>${this.name}</span>
-    <span class='menu_price_1_${this.name}'>${this.price}원</span>
-    <button class='plus_menu_button_${this.button_number}'> + </button>
-    <span class='menu_number_${this.name}'>${this.amount}</span>
-    <button class='minus_menu_button_${this.button_number}'> - </button>
-    <button id='delete_menu_button' class='delete_menu_button${this.button_number}'> x </button>
-  </div>
-  `;
-console.log($('.menu_name_1').text());
-console.log($(`.menu_price_1_${this.name}`).text());
-};*/
-
-sc_obj() {
-const order_list_data = document.querySelector('.order_list_data');
-order_list_data.innerHTML += `
-  <div class='${this.name}_box'>
-    <span class='menu_name_1_${this.name}'>${this.name}</span>
-    <span class='menu_price_1_${this.name}'>${this.price}원</span>
-    <button class='plus_menu_button_${this.button_number}'> + </button>
-    <span class='menu_number_${this.name}'>${this.amount}</span>
-    <button class='minus_menu_button_${this.button_number}'> - </button>
-  </div>
-  `;
-console.log($('.menu_name_1').text());
-console.log($(`.menu_price_1_${this.name}`).text());
-};
-
-/*shopping_cart data pay_list 장바구니 data 카드결제 출력 영역*/
-pl_obj() {
-const pay_list_font = document.querySelector('.pay_list_font');
-pay_list_font.innerHTML += `
-  <div class='${this.name}_box'>
-    <span class='menu_name_1_${this.name}'>${this.name}</span>
-    <span> 수량 </span>
-    <span class='menu_number_${this.name}'>${this.amount}</span>
-    <span class='menu_price_1_${this.name}'></span>
-  </div>
-  `;
-};
-
-/*shopping_cart data receipt_list 장바구니 data 영수증 출력 영역*/
-rl_obj() {
-const receipt_list_menuname  = document.querySelector('.receipt_list_menuname');
-receipt_list_menuname.innerHTML += `
-  <div class='${this.name}_box'>
-    <span class='menu_name_1_${this.name}'>${this.name}</span>
-    <span class='menu_number_${this.name}'>${this.amount}</span>
-  </div>
-  `;
-};
-
-/*shopping_cart plus sum 장바구니 더하기버튼 합계 영역*/
-plus_sum() {
-  this.amount++;
-  $(`.menu_number_${this.name}`).html(this.amount);
-  $(`.menu_price_1_${this.name}`).html((this.price * this.amount).toLocaleString() + '원');
-};
-
-/*shopping_cart minus sum 장바구니 빼기버튼 합계 영역*/
-minus_sum() {
-  this.amount--;
-  if (this.amount < 1) {
-    this.amount = 1;
   }
-  $(`.menu_number_${this.name}`).html(this.amount);
-  $(`.menu_price_1_${this.name}`).html((this.price * this.amount).toLocaleString() + '원');
+
+  /* 장바구니 리스트에 메뉴 항목 출력: 사용자가 선택한 메뉴를 하단 목록에 동적으로 추가합니다. */
+  addCartItemUI() {
+    const $cartContainer = document.querySelector('.order_list_data');
+    $cartContainer.innerHTML += `
+      <div class='${this.name}_box'>
+        <span class='menu_name_1_${this.name}'>${this.name}</span>
+        <span class='menu_price_1_${this.name}'>${this.price}원</span>
+        <button class='plus_menu_button_${this.buttonIndex}'> + </button>
+        <span class='menu_number_${this.name}'>${this.amount}</span>
+        <button class='minus_menu_button_${this.buttonIndex}'> - </button>
+      </div>
+    `;
+  }
+
+  /* 결제 요약 화면에 메뉴 항목 출력: 최종 결제 전 주문 내역을 요약하여 보여줍니다. */
+  addPaymentItemUI() {
+    const $paymentContainer = document.querySelector('.pay_list_font');
+    $paymentContainer.innerHTML += `
+      <div class='${this.name}_box'>
+        <span class='menu_name_1_${this.name}'>${this.name}</span>
+        <span> 수량 </span>
+        <span class='menu_number_${this.name}'>${this.amount}</span>
+        <span class='menu_price_1_${this.name}'></span>
+      </div>
+    `;
+  }
+
+  /* 영수증 화면에 메뉴 항목 출력: 주문 완료 후 사용자에게 전달할 영수증 내역을 생성합니다. */
+  addReceiptItemUI() {
+    const $receiptContainer = document.querySelector('.receipt_list_menuname');
+    $receiptContainer.innerHTML += `
+      <div class='${this.name}_box'>
+        <span class='menu_name_1_${this.name}'>${this.name}</span>
+        <span class='menu_number_${this.name}'>${this.amount}</span>
+      </div>
+    `;
+  }
+
+  /* 메뉴 수량 증가 및 관련 UI 업데이트: 실시간 합계 계산의 안정성을 보장합니다. */
+  increaseAmount() {
+    this.amount++;
+    this.updateItemUI();
+  }
+
+  /* 메뉴 수량 감소 및 관련 UI 업데이트: 수량이 0 이하로 내려가지 않도록 관리합니다. */
+  decreaseAmount() {
+    if (this.amount > 0) {
+      this.amount--;
+    }
+    this.updateItemUI();
+  }
+
+  /* 개별 메뉴 항목의 가격 및 수량 텍스트 업데이트 */
+  updateItemUI() {
+    $(`.menu_number_${this.name}`).html(this.amount);
+    $(`.menu_price_1_${this.name}`).html((this.price * this.amount).toLocaleString() + '원');
+  }
+
+  /* 장바구니 및 모든 결제 관련 UI 초기화: 새로운 주문을 시작할 때 상태를 리셋합니다. */
+  clearAllOrderUI() {
+    this.amount = 0;
+    $('.order_list_data, .sum_value, .pay_list_font, .pay_list_sum, .receipt_list_price, .receipt_list_menuname').empty();
+  }
 }
 
-/*shopping_cart keyvalue remove 장바구니 키값 제거 영역*/
-remove_value() {
-  this.amount = 0;
-    $('.order_list_data').empty();
-    $('.sum_value').empty();
-    $('.pay_list_font').empty();
-    $('.pay_list_sum').empty();
-    $('.receipt_list_price').empty();
-    $('.receipt_list_menuname').empty();
-  };
-};
 
-/*shopping_cart menu db 장바구니 메뉴 db 파싱*/
+/* 메뉴 데이터를 JSON 파일에서 읽어와 동적으로 메뉴 리스트를 생성합니다. */
 $(window).on('load', function() {
-  const app = new XMLHttpRequest();
-  app.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    const obj = JSON.parse(this.responseText);
-    let menu_list_arr = [];
-    let price_arr = [];
-    let price_counter = 0;
-    console.log(obj);
-    for (let i = 0; i < obj.length; i++) {
-      const kioskmenu = new Kioskmenu(obj[i].menu_name, obj[i].menu_price, i, 0)
-      menu_list_arr.push(kioskmenu);
-    };
+  const menuXhr = new XMLHttpRequest();
+  menuXhr.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      const menuData = JSON.parse(this.responseText);
+      let kioskMenuItems = [];
+      let priceCounter = 0;
+      
+      // 메뉴 데이터 기반 객체 생성
+      for (let i = 0; i < menuData.length; i++) {
+        const menuItem = new Kioskmenu(menuData[i].menu_name, menuData[i].menu_price, i, 0);
+        kioskMenuItems.push(menuItem);
+      }
 
-    /*shopping_cart menu img click data famousmenu send  장바구니 메뉴 이미지 클릭 데이터 인기메뉴 전송 영역*/
-    for (let i = 0; i < menu_list_arr.length; i++) {
-      $(`#coffe_${i}`).click( () => {
-        if (menu_list_arr[i].amount < 1) {
-          menu_list_arr[i].sc_obj();
-          menu_list_arr[i].pl_obj();
-          menu_list_arr[i].rl_obj();
-          menu_list_arr[i].plus_sum();
-        } else {
-          menu_list_arr[i].plus_sum();
-        };
-        price_arr.push([menu_list_arr[i].name, Number(menu_list_arr[i].price)]);
-        console.log(price_arr);
-        console.log(menu_list_arr);
-      });
+      // 합계 UI 캐싱: 반복적인 DOM 접근을 방지하여 성능을 최적화합니다.
+      const $totalSumElements = $('.sum_value, .pay_list_sum, .receipt_list_price');
 
-      /*shopping_cart menu img click data coffe send 장바구니 메뉴 이미지 클릭 데이터 커피 전송 영역*/
-      $(`#coffe_${i}_${i}`).click( () => {
-        if (menu_list_arr[i].amount < 1) {
-          menu_list_arr[i].sc_obj();
-          menu_list_arr[i].pl_obj();
-          menu_list_arr[i].rl_obj();
-          menu_list_arr[i].plus_sum();
-        } else {
-          menu_list_arr[i].plus_sum();
-        };
-        price_arr.push([menu_list_arr[i].name, Number(menu_list_arr[i].price)]);
-        console.log(price_arr);
-        console.log(menu_list_arr);
-      });
+      /* 하단 장바구니 및 결제 창의 총 합계를 실시간으로 업데이트합니다. */
+      const updateTotalSum = () => {
+        priceCounter = 0;
+        for (let i = 0; i < kioskMenuItems.length; i++) {
+          priceCounter += kioskMenuItems[i].price * kioskMenuItems[i].amount;
+        }
+        $totalSumElements.html(priceCounter.toLocaleString() + '원');
+      };
 
-      /*shopping_cart menu img click data receipt send 장바구니 메뉴 이미지 클릭 데이터 영수증 전송 영역*/
-      $('[id*="coffe_"]').click( () => {
-        for (let i = 0; i < price_arr.length; i++) {
-          price_counter += price_arr[i][1];
-          $('.sum_value').html((price_counter).toLocaleString() + '원');
-          $('.pay_list_sum').html((price_counter).toLocaleString() + '원');
-          $('.receipt_list_price').html((price_counter).toLocaleString() + '원')
-          console.log(price_counter);
-        };
-        price_counter = 0;
-      });
+      /* 메뉴 항목별 클릭 이벤트 바인딩: 각 메뉴 이미지 클릭 시 장바구니에 추가하거나 수량을 늘립니다. */
+      for (let i = 0; i < kioskMenuItems.length; i++) {
+        // 일반 메뉴 및 커피 상세 메뉴 클릭 처리
+        $(`#coffe_${i}, #coffe_${i}_${i}`).click(() => {
+          if (kioskMenuItems[i].amount < 1) {
+            kioskMenuItems[i].addCartItemUI();
+            kioskMenuItems[i].addPaymentItemUI();
+            kioskMenuItems[i].addReceiptItemUI();
+          }
+          kioskMenuItems[i].increaseAmount();
+          updateTotalSum();
+        });
 
-      /*shopping_cart plus_menu_button 장바구니 플러스 버튼 영역*/
-      $(document).on('click', `.plus_menu_button_${i}`, () => {
-      console.log(price_arr);
-      menu_list_arr[i].plus_sum();
-      price_arr.push([menu_list_arr[i].name, Number(menu_list_arr[i].price)]);
-        for (let i = 0; i < price_arr.length; i++) {
-          price_counter += price_arr[i][1];
-          $('.sum_value').html((price_counter).toLocaleString() + '원');
-          $('.pay_list_sum').html((price_counter).toLocaleString() + '원');
-          $('.receipt_list_price').html((price_counter).toLocaleString() + '원');
-          console.log(price_counter);
-        };
-        price_counter = 0;
-      });
+        /* 장바구니 내부의 수량 조절 버튼 (+, -) 이벤트 위임 처리 준비 */
+        $(document).on('click', `.plus_menu_button_${i}`, () => {
+          kioskMenuItems[i].increaseAmount();
+          updateTotalSum();
+        });
 
-      /*shopping_cart minus_menu_button 장바구니 빼기 버튼 영역*/
-      $(document).on('click', `.minus_menu_button_${i}`, () => {
-      console.log(price_arr);
-      menu_list_arr[i].minus_sum();
-      price_arr.pop([menu_list_arr[i].name, Number(menu_list_arr[i].price)]);
-        for (let i = 0; i < price_arr.length; i++) {
-          price_counter += price_arr[i][1];
-          $('.sum_value').html((price_counter).toLocaleString() + '원');
-          $('.pay_list_sum').html((price_counter).toLocaleString() + '원');
-          $('.receipt_list_price').html((price_counter).toLocaleString() + '원');
-          console.log(price_counter);
-        };
-        price_counter = 0;
-      });
+        $(document).on('click', `.minus_menu_button_${i}`, () => {
+          kioskMenuItems[i].decreaseAmount();
+          if (kioskMenuItems[i].amount === 0) {
+            $(`.${kioskMenuItems[i].name}_box`).remove();
+          }
+          updateTotalSum();
+        });
 
-      /*shopping_cart xeicon keyvalue delete 장바구니 아이콘 키값 제거 영역*/
-      $('.xi-trash, .receipt_close_button_box, .save_main_button').click( () => {
-        menu_list_arr[i].remove_value();
-        price_arr.length = 0;
-        price_counter = 0;
-        console.log(price_counter);
-      });
-    };
+        /* 장바구니 전체 삭제 및 주문 완료 후 초기화 로직 */
+        $('.xi-trash, .receipt_close_button_box, .save_main_button').click(() => {
+          kioskMenuItems[i].clearAllOrderUI();
+          priceCounter = 0;
+        });
+      }
+    }
   };
 
-  /*shopping_cart delete menu button keyvalue delete 장바구니 data 제거버튼 영역*/
-  /*$(document).on('click', `.delete_menu_button_${i}`, () => {
-    if (menu_list_arr[i].name == price_arr[i][0]) {
-    console.log(price_arr);
-    }
-  });*/
-
-  /*$(document).on('click', '#delete_menu_button', (e) => {
-    e.target.id
-    //console.log(price_arr); 
-    price_arr[i].splice(i, 1);
-  });*/
-
-};
-
-app.open('GET', '../nodejs/kioskmenu.json?t=' + Math.random(), true);
-app.send();
+  menuXhr.open('GET', '../nodejs/kioskmenu.json?t=' + Math.random(), true);
+  menuXhr.send();
 });
 
-/*kiosk receipt box 키오스크 영수증 박스 영역 대기번호*/
+
+/*kiosk point global variable 포인트 전역 변수*/
+let availablePoints = 0;
+
+/* 주문 대기번호 관리: 로컬 스토리지를 사용하여 페이지 새로고침 시에도 대기번호를 순차적으로 유지합니다. */
 $(document).ready( () => {
-  const randomNumber = Math.random() * 150
-  const randomNumberFloor = Math.floor(randomNumber + 1)
-  console.log(randomNumberFloor) 
-  document.querySelector('.receipt_list_number2').innerHTML = randomNumberFloor + '&nbsp;번&nbsp;';
+  let orderCount = localStorage.getItem('orderCount');
+  if(!orderCount) {
+    orderCount = 1;
+    localStorage.setItem('orderCount', orderCount);
+  }
+  
+  const $receiptNumberElement = document.querySelector('.receipt_list_number2');
+  $receiptNumberElement.innerHTML = orderCount + '&nbsp;번&nbsp;';
+  
   $('.receipt_close_button_box, .save_main_button').click(function() {
-  location.reload();
+    location.reload();
   });
 });
+
 
 /*kiosk point save complete box 키오스크 포인트 적립완료 박스 영역 포인트넘버*/
 $(document).ready( () => {
   const randomNumber = Math.random() * 999
-  const randomNumberFloor = Math.floor(randomNumber + 1)
-  console.log(randomNumberFloor) 
-  document.querySelector('.save_font').innerHTML = randomNumberFloor + '&nbsp;P&nbsp;';
-  document.querySelector('.point_remaining_font2').innerHTML = randomNumberFloor + '&nbsp;P&nbsp;';
+  availablePoints = Math.floor(randomNumber + 1)
+  console.log(availablePoints) 
+  document.querySelector('.save_font').innerHTML = availablePoints + '&nbsp;P&nbsp;';
+  document.querySelector('.point_remaining_font2').innerHTML = availablePoints + '&nbsp;P&nbsp;';
   $('.receipt_close_button_box, .save_main_button').click(function() {
   location.reload();
   })
@@ -562,111 +486,102 @@ $('.menu_all_box5').each(function(index) {
   });
 });
 
-/*extra order list menu select 추가주문 오더 리스트 메뉴 선택 영역*/
-$('.store_box').click( () => {
-  $('.store_box').css({'background':'#AF4444'});
-  $('.packaging_box').css({'background':'#555'});
-});
+/* 메뉴 옵션 선택 처리: 매장/포장, 얼음양, 샷 추가 등 상호 배타적인 옵션 선택 시 시각적 피드백을 제공합니다. */
+const toggleOptionHighlight = (selectedSelector, otherSelectors) => {
+  $(otherSelectors).css('background', UI_CONFIG.COLORS.DEFAULT);
+  $(selectedSelector).css('background', UI_CONFIG.COLORS.SELECTED);
+};
 
-$('.packaging_box').click( () => {
-  $('.packaging_box').css({'background':'#AF4444'});
-  $('.store_box').css({'background':'#555'});
-});
+// 매장/포장 (기본)
+$('.store_box').click(() => toggleOptionHighlight('.store_box', '.packaging_box'));
+$('.packaging_box').click(() => toggleOptionHighlight('.packaging_box', '.store_box'));
 
-$('.generally_box').click( () => {
-  $('.generally_box').css({'background':'#AF4444'});
-  $('.aplenty_box').css({'background':'#555'});
-});
+// 얼음양
+$('.generally_box').click(() => toggleOptionHighlight('.generally_box', '.aplenty_box'));
+$('.aplenty_box').click(() => toggleOptionHighlight('.aplenty_box', '.generally_box'));
 
-$('.aplenty_box').click( () => {
-  $('.aplenty_box').css({'background':'#AF4444'});
-  $('.generally_box').css({'background':'#555'});
-});
+// 샷 추가 (기본)
+$('.shot_box2').click(() => toggleOptionHighlight('.shot_box2', '.shot_box3'));
+$('.shot_box3').click(() => toggleOptionHighlight('.shot_box3', '.shot_box2'));
 
-$('.shot_box2').click( () => {
-  $('.shot_box2').css({'background':'#AF4444'});
-  $('.shot_box3').css({'background':'#555'});
-});
+// 매장/포장 (커피 HOT)
+$('.store_box2').click(() => toggleOptionHighlight('.store_box2', '.packaging_box2'));
+$('.packaging_box2').click(() => toggleOptionHighlight('.packaging_box2', '.store_box2'));
 
-$('.shot_box3').click( () => {
-  $('.shot_box3').css({'background':'#AF4444'});
-  $('.shot_box2').css({'background':'#555'});
-});
+// 샷 추가 (커피 HOT)
+$('.shot_box4').click(() => toggleOptionHighlight('.shot_box4', '.shot_box5'));
+$('.shot_box5').click(() => toggleOptionHighlight('.shot_box5', '.shot_box4'));
 
-$('.store_box2').click( () => {
-  $('.store_box2').css({'background':'#AF4444'});
-  $('.packaging_box2').css({'background':'#555'});
-});
+// 매장/포장 (음료)
+$('.store_box3').click(() => toggleOptionHighlight('.store_box3', '.packaging_box3'));
+$('.packaging_box3').click(() => toggleOptionHighlight('.packaging_box3', '.store_box3'));
 
-$('.packaging_box2').click( () => {
-  $('.packaging_box2').css({'background':'#AF4444'});
-  $('.store_box2').css({'background':'#555'});
-});
+// 음료 온도 (HOT/ICE)
+$('.hotice_box').click(() => toggleOptionHighlight('.hotice_box', '.hotice_box2'));
+$('.hotice_box2').click(() => toggleOptionHighlight('.hotice_box2', '.hotice_box'));
 
-$('.shot_box4').click( () => {
-  $('.shot_box4').css({'background':'#AF4444'});
-  $('.shot_box5').css({'background':'#555'});
-});
+// 매장/포장 (디저트)
+$('.store_box4').click(() => toggleOptionHighlight('.store_box4', '.packaging_box4'));
+$('.packaging_box4').click(() => toggleOptionHighlight('.packaging_box4', '.store_box4'));
 
-$('.shot_box5').click( () => {
-  $('.shot_box5').css({'background':'#AF4444'});
-  $('.shot_box4').css({'background':'#555'});
-});
 
-$('.store_box3').click( () => {
-  $('.store_box3').css({'background':'#AF4444'});
-  $('.packaging_box3').css({'background':'#555'});
-});
+/* 상세 메뉴 옵션 초기화: 뒤로 가기 시 기존 선택된 옵션들을 초기화하여 다음 선택 시 혼란을 방지합니다. */
+const resetAllOptions = () => {
+  $('.store_box, .packaging_box, .generally_box, .aplenty_box, .shot_box2, .shot_box3, .store_box2, .packaging_box2, .shot_box4, .shot_box5, .store_box3, .packaging_box3, .hotice_box, .hotice_box2, .store_box4, .packaging_box4').css('background', UI_CONFIG.COLORS.DEFAULT);
+};
 
-$('.packaging_box3').click( () => {
-  $('.packaging_box3').css({'background':'#AF4444'});
-  $('.store_box3').css({'background':'#555'});
-});
+$('.xi-arrow-left').click(() => resetAllOptions());
 
-$('.hotice_box').click( () => {
-  $('.hotice_box').css({'background':'#AF4444'});
-  $('.hotice_box2').css({'background':'#555'});
-});
-
-$('.hotice_box2').click( () => {
-  $('.hotice_box2').css({'background':'#AF4444'});
-  $('.hotice_box').css({'background':'#555'});
-});
-
-$('.store_box4').click( () => {
-  $('.store_box4').css({'background':'#AF4444'});
-  $('.packaging_box4').css({'background':'#555'});
-});
-
-$('.packaging_box4').click( () => {
-  $('.packaging_box4').css({'background':'#AF4444'});
-  $('.store_box4').css({'background':'#555'});
-});
-
-/*extra order list menu select back 추가주문 오더 리스트 메뉴 선택 원상복귀 영역*/
-$('.extra_order_next_box, .xi-arrow-left').click( () => {
-  $('.store_box').css({'background':'#555'});
-  $('.packaging_box').css({'background':'#555'});
-  $('.generally_box').css({'background':'#555'});
-  $('.aplenty_box').css({'background':'#555'});
-  $('.shot_box2').css({'background':'#555'});
-  $('.shot_box3').css({'background':'#555'});
-  $('.store_box2').css({'background':'#555'});
-  $('.packaging_box2').css({'background':'#555'});
-  $('.shot_box4').css({'background':'#555'});
-  $('.shot_box5').css({'background':'#555'});
-  $('.store_box3').css({'background':'#555'});
-  $('.packaging_box3').css({'background':'#555'});
-  $('.hotice_box').css({'background':'#555'});
-  $('.hotice_box2').css({'background':'#555'});
-  $('.store_box4').css({'background':'#555'});
-  $('.packaging_box4').css({'background':'#555'});  
-});
 
 /*kiosk menu extra orders list 키오스크 추가메뉴 리스트 페이지에서 다음버튼 영역*/
 $('.extra_order_next_box').click(function() {
-  $('.extra_order_list_box').hide();
-  $('.main_box').show();
+  const isGroupSelected = (selectors) => {
+    let result = false;
+    $(selectors).each(function() {
+      const bg = $(this).css('background-color');
+      // More robust check for the selected color #AF4444 (175, 68, 68)
+      if (bg && (bg.indexOf('175') !== -1 || bg.indexOf('af4444') !== -1 || bg.indexOf('AF4444') !== -1)) {
+        result = true;
+      }
+    });
+    return result;
+  };
+
+  let isValid = true;
+
+  if ($('.select_menu_info_box2').is(':visible')) {
+    // Ice Coffee: Store/Takeout is mandatory
+    if (!isGroupSelected('.store_box, .packaging_box')) isValid = false;
+  } else if ($('.select_menu_info_box3').is(':visible')) {
+    // Hot Coffee: Store/Takeout is mandatory
+    if (!isGroupSelected('.store_box2, .packaging_box2')) isValid = false;
+  } else if ($('.select_menu_info_box4').is(':visible')) {
+    // Drink: Store/Takeout AND Hot/Ice are mandatory
+    if (!isGroupSelected('.store_box3, .packaging_box3')) isValid = false;
+    if (!isGroupSelected('.hotice_box, .hotice_box2')) isValid = false;
+  } else if ($('.select_menu_info_box5').is(':visible')) {
+    // Dessert: Store/Takeout is mandatory
+    if (!isGroupSelected('.store_box4, .packaging_box4')) isValid = false;
+  }
+
+  if (isValid) {
+    /* 성공 시 상태 초기화 및 페이지 이동: 선택한 옵션을 초기화하고 메인 화면으로 돌아갑니다. */
+    resetAllOptions();
+    $('.extra_order_list_box').hide();
+    $('.main_box').show();
+  } else {
+    /*범주별 필수 선택 항목 모달 팝업 메시지 설정*/
+    let errorMessage = '필수 항목을 선택해주세요.';
+    if ($('.select_menu_info_box2').is(':visible') || $('.select_menu_info_box3').is(':visible')) {
+      errorMessage = '매장 / 포장 중<br>선택해주세요.';
+    } else if ($('.select_menu_info_box4').is(':visible')) {
+      errorMessage = '매장 / 포장<br>HOT / ICE<br>중 선택해주세요.';
+    } else if ($('.select_menu_info_box5').is(':visible')) {
+      errorMessage = '매장 / 포장 중<br>선택해주세요.';
+    }
+    $('.model_font').html(errorMessage);
+    $('.model_box').show();
+  }
 });
 
 /*kiosk point back button 키오스크 포인트 뒤로가기 영역*/
@@ -725,24 +640,47 @@ $('.pay_img, .pay').click(function() {
 
 /*kiosk point next button 키오스크 포인트 확인 버튼 영역*/
 $('.confirm_button').click(function() {
-  $('.point_signup_number_box').hide();
-  $('.pay_screen_box').show();
+  if ($('.number_input_box > input').val().length === 11) {
+    $('.point_signup_number_box').hide();
+    $('.pay_screen_box').show();
+  } else {
+    $('.model_font').html('휴대폰 번호 11자리를<br>입력해주세요.');
+    $('.model_box').show();
+  }
 });
 
 /*kiosk point inquire next button 키오스크 포인트 조회하기 버튼 영역*/
 $('.inquire_button').click(function() {
-  $('.point_inquire_number_box').hide();
-  $('.point_remaining_box').show();
+  if ($('.number_inquire_input_box > input').val().length === 11) {
+    $('.point_inquire_number_box').hide();
+    $('.point_remaining_box').show();
+  } else {
+    $('.model_font').html('휴대폰 번호 11자리를<br>입력해주세요.');
+    $('.model_box').show();
+  }
 });
 
 /*kiosk point remaining next button 키오스크 잔여포인트 버튼 영역*/
 $('.pointuse_button').click(function() {
-  $('.point_remaining_box').hide();
-  $('.pay_screen_box').show();
+  const usageInput = Number($('.point_remaining_input_box > input').val());
+  if (usageInput > availablePoints) {
+    $('.model_font').html('보유하신 포인트보다<br>많이 입력하실 수 없습니다.');
+    $('.model_box').show();
+  } else if ($('.point_remaining_input_box > input').val().length === 0) {
+    $('.model_font').html('사용할 포인트를<br>입력해주세요.');
+    $('.model_box').show();
+  } else {
+    $('.point_remaining_box').hide();
+    $('.pay_screen_box').show();
+  }
 });
 
 /*kiosk pay 키오스크 결제하기 영역*/
 $('.pay2').click(function() {
+  /* 결제 성공 시 다음 주문을 위해 번호 증가 */
+  let orderCount = Number(localStorage.getItem('orderCount')) || 1;
+  localStorage.setItem('orderCount', orderCount + 1);
+
   $('.pay_screen_box').hide();
   $('.receipt_box').show();
 });
@@ -760,102 +698,67 @@ $('.receipt_list_button2').click( () => {
 
 /*kiosk save point 키오스크 적립 포인트 영역*/
 $('.pointsave_button').click( () => {
-  $('.point_save_box').hide();
-  $('.point_save_complete_box').show();
+  if ($('.point_save_input_box > input').val().length === 11) {
+    $('.point_save_box').hide();
+    $('.point_save_complete_box').show();
+  } else {
+    $('.model_font').html('휴대폰 번호 11자리를<br>입력해주세요.');
+    $('.model_box').show();
+  }
 })
 
-/*kiosk point signup number 키오스크 포인트 간단가입 넘버 박스 영역*/
+/* 
+ * 공통 키패드 입력 처리기: 중복되는 키패드 로직을 하나로 통합하여 유지보수성을 높입니다.
+ * @param {string} inputSelector - 값을 입력할 input 요소의 선택자
+ * @param {number} index - 클릭된 버튼의 인덱스 (0-9: 숫자, 9: 초기화, 11: 삭제, 12: 확인)
+ * @param {number} maxLength - 최대 입력 가능 자릿수
+ * @param {jQuery} $clickedElement - 클릭된 버튼 요소
+ */
+const processKeypadInput = (inputSelector, index, maxLength, $clickedElement) => {
+  const $input = $(inputSelector);
+  if (index === 12) return; /* 확인/조회 버튼은 별도 핸들러에서 처리하므로 제외합니다. */
+
+  switch(index) {
+    case 9:
+      $input.val('');
+      break;
+    case 11:
+      const currentVal = $input.val();
+      $input.val(currentVal.substring(0, currentVal.length - 1));
+      break;
+    default:
+      const char = $clickedElement.find('p').html();
+      if (char !== undefined && $input.val().length < maxLength) {
+        $input.val($input.val() + char);
+      }
+      break;
+  }
+};
+
+/* 간단가입 키패드 */
 $('.point_keypad_box > article').each(function(index) {
-  $(this).click(function(){
-    console.log('point_keypad_box');
-    switch(index){
-      case 9:
-        $('.number_input_box > input')[0].value = '';
-        break;
-
-      case 11:
-        let member_number = $('.number_input_box > input').val();
-        let delete_number = member_number.substring(0, member_number.length-1);
-        $('.number_input_box > input').val(delete_number);
-        break;
-
-      default:
-        if($('.number_input_box > input').val().length < 11){
-          $('.number_input_box > input')[0].value += $(this).find('p').html();
-        }
-        break;
-    };
+  $(this).click(function() {
+    processKeypadInput('.number_input_box > input', index, 11, $(this));
   });
 });
 
-/*kiosk point inquire number box 키오스크 포인트 조회하기 넘버 박스 영역*/
+/* 포인트 조회 키패드 */
 $('.point_keypad_box2 > article').each(function(index) {
-  $(this).click(function(){
-    console.log('point_keypad_box2');
-    switch(index){
-      case 9:
-        $('.number_inquire_input_box > input')[0].value = '';
-      break;
-
-      case 11:
-        let member_number = $('.number_inquire_input_box > input').val();
-        let delete_number = member_number.substring(0, member_number.length-1);
-        $('.number_inquire_input_box > input').val(delete_number);
-      break;
-
-      default:
-        if($('.number_inquire_input_box > input').val().length < 11){
-          $('.number_inquire_input_box > input')[0].value += $(this).find('p').html();
-        }
-      break;
-    };
+  $(this).click(function() {
+    processKeypadInput('.number_inquire_input_box > input', index, 11, $(this));
   });
 });
 
-/*kiosk point remaining box 키오스크 잔여포인트 박스 영역*/
+/* 포인트 사용(잔여 포인트) 키패드 */
 $('.point_keypad_box3 > article').each(function(index) {
-  $(this).click(function(){
-    console.log('point_keypad_box3');
-    switch(index){
-      case 9:
-        $('.point_remaining_input_box > input')[0].value = '';
-      break;
-
-      case 11:
-        let member_number = $('.point_remaining_input_box > input').val();
-        let delete_number = member_number.substring(0, member_number.length-1);
-        $('.point_remaining_input_box > input').val(delete_number);
-      break;
-
-      default:
-        if($('.point_remaining_input_box > input').val().length < 3){
-          $('.point_remaining_input_box > input')[0].value += $(this).find('p').html();
-        }
-      break;
-    };
+  $(this).click(function() {
+    processKeypadInput('.point_remaining_input_box > input', index, 5, $(this));
   });
 });
 
-/*kiosk point save box 키오스트 포인트 적립 박스 영역*/
+/* 포인트 적립 키패드 */
 $('.point_keypad_box4 > article').each(function(index) {
-  $(this).click(function(){
-    console.log('point_keypad_box4');
-    switch(index){
-      case 9:
-        $('.point_save_input_box > input')[0].value = '';
-      break;
-
-      case 11:
-        let member_number = $('.point_save_input_box > input').val();
-        let delete_number = member_number.substring(0, member_number.length-1);
-        $('.point_save_input_box > input').val(delete_number);
-      break;
-
-      default:
-        if($('.point_save_input_box > input').val().length < 11){
-          $('.point_save_input_box > input')[0].value += $(this).find('p').html();
-        }
-      break;
-    };
+  $(this).click(function() {
+    processKeypadInput('.point_save_input_box > input', index, 11, $(this));
   });
-});
+});
