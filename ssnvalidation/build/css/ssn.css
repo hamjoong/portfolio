@@ -1,7 +1,5 @@
 @charset "UTF-8";
-
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap");
-
 * {
   margin: 0px;
   padding: 0px;
@@ -19,7 +17,7 @@ body {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  font-family: 'Nanum Gothic', sans-serif;
+  font-family: "Nanum Gothic", sans-serif;
   background-color: #fff;
   overflow-x: hidden;
 }
@@ -32,7 +30,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255,192,203,0.3);
+  background-color: rgba(255, 192, 203, 0.3);
   margin: 2rem 0;
   border-radius: 2rem;
 }
@@ -45,11 +43,11 @@ body {
   flex-flow: column nowrap;
   align-items: center;
   padding: 5rem 2rem;
-  background-color: rgba(128,128,128,0.5);
-  border: 1.5rem solid rgb(135,206,235);
+  background-color: rgba(128, 128, 128, 0.5);
+  border: 1.5rem solid rgb(135, 206, 235);
   border-radius: 2rem;
-  font-size: 6rem;
-  font-weight: bold;
+  font-size: 6rem; /* Changed from shorthand */
+  font-weight: bold; /* Changed from shorthand */
   color: rgba(138, 43, 226, 0.8);
   animation: text 0.8s ease-out;
   text-align: center;
@@ -66,7 +64,6 @@ body {
     opacity: 1;
   }
 }
-
 /*주민등록번호 안내 영역*/
 .ssn_box .ssn_number_validation .ssn_number {
   width: 100%;
@@ -108,7 +105,7 @@ body {
   border-radius: 1rem;
   border: none;
   font-size: 2.5rem;
-  color: rgb(100,100,100);
+  color: rgb(100, 100, 100);
   margin: 1rem 0;
   padding: 0 1.5rem;
   text-align: center;
@@ -116,7 +113,7 @@ body {
 }
 
 .ssn_box .ssn_number_validation .ssncheck_box .ssnInput:focus {
-  box-shadow: 0 0 0.5rem 0.2rem rgb(135,206,235);
+  box-shadow: 0 0 0.5rem 0.2rem rgb(135, 206, 235);
 }
 
 .ssn_box .ssn_number_validation .ssncheck_box .button_group {
@@ -133,14 +130,14 @@ body {
   border-radius: 1rem;
   border: none;
   font-size: 2rem;
-  color: rgb(80,80,80);
+  color: rgb(80, 80, 80);
   background-color: #eee;
   transition: background-color 0.3s;
 }
 
 .ssn_box .ssn_number_validation .ssncheck_box .ssnValidation:hover {
   cursor: pointer;
-  background-color: rgb(135,206,235);
+  background-color: rgb(135, 206, 235);
   color: white;
 }
 
@@ -158,7 +155,7 @@ footer {
 footer .footer_font {
   font-size: 1.4rem;
   font-weight: bold;
-  color: rgb(80,80,80);
+  color: rgb(80, 80, 80);
   line-height: 1.5;
 }
 
@@ -167,43 +164,34 @@ footer .footer_font {
   html {
     font-size: 50%;
   }
-  
   .ssn_box {
     min-height: 50rem;
   }
-  
   .ssn_box .ssn_number_validation {
     font-size: 4rem;
     border-width: 1rem;
   }
-  
   .ssn_box .ssn_number_validation .ssn_number {
     font-size: 2.5rem;
     height: 8rem;
   }
 }
-
 @media (max-width: 480px) {
   html {
     font-size: 40%;
   }
-  
   .ssn_box {
     width: 95%;
   }
-  
   .ssn_box .ssn_number_validation {
     font-size: 3.5rem;
   }
-  
   .ssn_box .ssn_number_validation .ssn_number {
     font-size: 2rem;
   }
-  
   .ssn_box .ssn_number_validation .ssncheck_box .ssnInput {
     height: 5rem;
   }
-  
   .ssn_box .ssn_number_validation .ssncheck_box .ssnValidation {
     width: 10rem;
     height: 4.5rem;
