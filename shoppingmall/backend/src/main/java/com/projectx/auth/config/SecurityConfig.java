@@ -78,8 +78,10 @@ public class SecurityConfig {
             .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+
     @Bean
-    public CorsConfigurationSource corsConfigurationSource(); {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         // [CORS 보안 및 호환성 강화]
         // 1. 운영 환경의 다양한 Vercel 서브도메인을 포함하여 명시적으로 허용
@@ -108,9 +110,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(); {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    };
-  };
-};
-
+    }
+}
