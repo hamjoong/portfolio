@@ -53,30 +53,30 @@ public class AuthService {
                 .build();
         User savedUser = userRepository.save(user);
 
-        // Declare and initialize profileMap before the try-catch block
-        java.util.Map<String, Object> profileMap = new java.util.HashMap<>();
-        profileMap.put("fullName", request.getFullName());
-        profileMap.put("phoneNumber", request.getPhoneNumber());
-        profileMap.put("address", request.getAddress());
-        profileMap.put("detailAddress", request.getDetailAddress());
-
-        String encryptedProfile;
         try {
-            encryptedProfile = kmsService.encryptMap(profileMap);
+            String encryptedProfile = kmsService.encryptMap(createProfileMap(request));
+            UserProfile profile = UserProfile.builder()
+                    .userId(savedUser.getId())
+                    .encryptedData(encryptedProfile)
+                    .kmsKeyId(kmsKeyId)
+                    .build();
+            userProfileRepository.save(profile);
         } catch (Exception e) {
             log.error("[Auth] Failed to encrypt user profile for user: {}", savedUser.getId(), e);
             throw new BusinessException(ErrorCode.ENCRYPTION_FAILED);
         }
 
-        UserProfile profile = UserProfile.builder()
-                .userId(savedUser.getId())
-                .encryptedData(encryptedProfile)
-                .kmsKeyId(kmsKeyId)
-                .build();
-        userProfileRepository.save(profile);
-
         log.info("[Auth] Success signup for user: {}", savedUser.getId());
         return savedUser.getId();
+    }
+
+    private Map<String, Object> createProfileMap(SignupRequest request) {
+        Map<String, Object> profileMap = new java.util.HashMap<>();
+        profileMap.put("fullName", request.getFullName());
+        profileMap.put("phoneNumber", request.getPhoneNumber());
+        profileMap.put("address", request.getAddress());
+        profileMap.put("detailAddress", request.getDetailAddress());
+        return profileMap;
     }
 
     /**

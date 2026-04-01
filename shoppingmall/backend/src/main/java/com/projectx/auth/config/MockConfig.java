@@ -23,7 +23,9 @@ public class MockConfig {
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
         // Mockito를 사용하여 RedisConnectionFactory 모킹
-        return Mockito.mock(RedisConnectionFactory.class);
+        RedisConnectionFactory factory = Mockito.mock(RedisConnectionFactory.class);
+        Mockito.when(factory.getConnection()).thenReturn(Mockito.mock(org.springframework.data.redis.connection.RedisConnection.class));
+        return factory;
     }
 
     @Bean

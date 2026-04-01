@@ -3,9 +3,10 @@
 import React from 'react';
 import Image from 'next/image';
 import { Star, Truck, ShieldCheck, RotateCcw, Minus, Plus } from 'lucide-react';
+import { ProductResponse } from '@/types/product';
 
 interface ProductInfoProps {
-  product: any;
+  product: ProductResponse;
   quantity: number;
   setQuantity: (q: number) => void;
   onAddToCart: () => void;

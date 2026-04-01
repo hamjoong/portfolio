@@ -14,7 +14,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 /**
  * 복합 시나리오 기반 주문 통합 테스트입니다.
@@ -23,9 +23,9 @@ import static org.mockito.Mockito.*;
 class OrderServiceScenarioTest {
 
     @Autowired private OrderService orderService;
-    @MockBean private ProductRepository productRepository;
-    @MockBean private OutboxRepository outboxRepository;
-    @MockBean private CartService cartService;
+    @MockitoBean private ProductRepository productRepository;
+    @MockitoBean private OutboxRepository outboxRepository;
+    @MockitoBean private CartService cartService;
 
     @Test
     @DisplayName("재고가 부족할 경우 주문이 실패하고 Outbox 이벤트는 저장되지 않아야 한다.")

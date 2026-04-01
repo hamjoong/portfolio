@@ -9,6 +9,33 @@ import { ProductResponse } from '@/types/product';
 import { Menu, ChevronRight, Flame } from 'lucide-react';
 
 /**
+ * 데이터 로드 실패 시 사용할 기본 카테고리 정보입니다.
+ */
+const FALLBACK_CATEGORIES: Category[] = [
+  { 
+    id: 1, name: '디지털/가전', displayOrder: 1, children: [
+      { id: 4, name: '모바일', children: [], displayOrder: 1 },
+      { id: 5, name: '음향기기', children: [], displayOrder: 2 },
+      { id: 6, name: 'PC주변기기', children: [], displayOrder: 3 }
+    ] 
+  },
+  { 
+    id: 2, name: '패션의류', displayOrder: 2, children: [
+      { id: 7, name: '남성유니섹스', children: [], displayOrder: 1 },
+      { id: 8, name: '여성의류', children: [], displayOrder: 2 },
+      { id: 9, name: '신발', children: [], displayOrder: 3 }
+    ] 
+  },
+  { 
+    id: 3, name: '리빙/인테리어', displayOrder: 3, children: [
+      { id: 10, name: '가구', children: [], displayOrder: 1 },
+      { id: 11, name: '침구', children: [], displayOrder: 2 },
+      { id: 12, name: '조명', children: [], displayOrder: 3 }
+    ] 
+  }
+];
+
+/**
  * 전역 카테고리 메뉴 컴포넌트입니다.
  * [이유] 평상시에는 '전체 카테고리' 버튼만 노출하여 UI를 깔끔하게 유지하고,
  * 호버 및 클릭 시에만 대분류와 중분류가 계층적으로 나타나도록 설계했습니다.
@@ -32,43 +59,13 @@ export default function CategoryMenu() {
           setCategories(response.data);
           setActiveRootId(response.data[0].id);
         } else {
-          // 데이터가 없거나 실패한 경우 기본 카테고리 설정 (UI 중단 방지)
-          const fallback: Category[] = [
-            { 
-              id: 1, name: '디지털/가전', displayOrder: 1, children: [
-                { id: 4, name: '모바일', children: [], displayOrder: 1 },
-                { id: 5, name: '음향기기', children: [], displayOrder: 2 },
-                { id: 6, name: 'PC주변기기', children: [], displayOrder: 3 }
-              ] 
-            },
-            { 
-              id: 2, name: '패션의류', displayOrder: 2, children: [
-                { id: 7, name: '남성유니섹스', children: [], displayOrder: 1 },
-                { id: 8, name: '여성의류', children: [], displayOrder: 2 },
-                { id: 9, name: '신발', children: [], displayOrder: 3 }
-              ] 
-            },
-            { 
-              id: 3, name: '리빙/인테리어', displayOrder: 3, children: [
-                { id: 10, name: '가구', children: [], displayOrder: 1 },
-                { id: 11, name: '침구', children: [], displayOrder: 2 },
-                { id: 12, name: '조명', children: [], displayOrder: 3 }
-              ] 
-            }
-          ];
-          setCategories(fallback);
-          setActiveRootId(fallback[0].id);
+          setCategories(FALLBACK_CATEGORIES);
+          setActiveRootId(FALLBACK_CATEGORIES[0].id);
         }
       } catch (err) {
         console.error('Failed to fetch categories:', err);
-        // 에러 발생 시에도 빈 화면보다는 기본 메뉴 노출
-        const fallback: Category[] = [
-          { id: 1, name: '디지털/가전', displayOrder: 1, children: [{ id: 4, name: '모바일', children: [], displayOrder: 1 }] },
-          { id: 2, name: '패션의류', displayOrder: 2, children: [{ id: 7, name: '남성유니섹스', children: [], displayOrder: 1 }] },
-          { id: 3, name: '리빙/인테리어', displayOrder: 3, children: [{ id: 10, name: '가구', children: [], displayOrder: 1 }] }
-        ];
-        setCategories(fallback);
-        setActiveRootId(fallback[0].id);
+        setCategories(FALLBACK_CATEGORIES);
+        setActiveRootId(FALLBACK_CATEGORIES[0].id);
       } finally {
         setIsLoading(false);
       }

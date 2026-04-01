@@ -56,6 +56,16 @@ export default function Header() {
     }
   };
 
+  const handleSearchClick = () => {
+    if (keyword.trim()) {
+      saveSearch(keyword);
+      if (searchResults && searchResults.length > 0) {
+        window.location.href = `/product/${searchResults[0].id}`;
+        setKeyword('');
+      }
+    }
+  };
+
   const cartCount = cartItems ? Object.values(cartItems).reduce((a, b) => a + b, 0) : 0;
 
   return (
@@ -79,7 +89,7 @@ export default function Header() {
             />
             <Search 
               className="absolute left-4 top-3 text-gray-400 w-5 h-5 cursor-pointer hover:text-blue-500 transition-colors" 
-              onClick={() => keyword.trim() && handleKeyDown({ key: 'Enter' } as any)}
+              onClick={handleSearchClick}
             />
           </div>
 

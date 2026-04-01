@@ -6,11 +6,19 @@ import { ShoppingCart, Search } from 'lucide-react-native';
 const { width } = Dimensions.get('window');
 const COLUMN_WIDTH = (width - 40) / 2;
 
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  categoryName?: string;
+  mainImageUrl?: string;
+}
+
 /**
  * 개별 상품 카드 컴포넌트 (메모이제이션 적용)
  * [성능 최적화] React.memo를 사용하여 부모 컴포넌트 리렌더링 시 불필요한 재계산을 방지합니다.
  */
-const ProductItem = memo(({ item, onPress }: { item: any, onPress: (id: string) => void }) => (
+const ProductItem = memo(({ item, onPress }: { item: Product, onPress: (id: string) => void }) => (
   <TouchableOpacity 
     style={styles.card}
     onPress={() => onPress(item.id)}
@@ -34,7 +42,7 @@ const ProductItem = memo(({ item, onPress }: { item: any, onPress: (id: string) 
 ));
 
 export default function HomeScreen({ navigation }: any) {
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -56,7 +64,7 @@ export default function HomeScreen({ navigation }: any) {
     navigation.navigate('ProductDetail', { id });
   }, [navigation]);
 
-  const renderProduct = useCallback(({ item }: { item: any }) => (
+  const renderProduct = useCallback(({ item }: { item: Product }) => (
     <ProductItem item={item} onPress={handlePress} />
   ), [handlePress]);
 

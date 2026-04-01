@@ -1,7 +1,7 @@
 import api from '@/utils/api';
 import { ApiResponse, AdminUserResponse } from '@/types/auth';
 import { ProductResponse } from '@/types/product';
-import { Page } from '@/types/common';
+import { Page, AdminStats } from '@/types/common';
 
 /**
  * 어드민 전용 API 호출을 담당하는 서비스입니다.
@@ -29,8 +29,8 @@ export const adminService = {
   /**
    * 대시보드 통계를 조회합니다.
    */
-  async getDashboardStats(): Promise<any> {
-    const response = await api.get<ApiResponse<any>>('/admin/stats');
+  async getDashboardStats(): Promise<AdminStats> {
+    const response = await api.get<ApiResponse<AdminStats>>('/admin/stats');
     return response.data.data;
   },
 

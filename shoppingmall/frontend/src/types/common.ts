@@ -11,3 +11,13 @@ export interface Page<T> {
   last: boolean;
   empty: boolean;
 }
+
+/**
+ * 관리자 대시보드 요약 통계 인터페이스입니다.
+ */
+export interface AdminStats {
+  totalOrders: number;
+  totalSales: number;
+  totalUsers: number;
+  totalProducts: number;
+}

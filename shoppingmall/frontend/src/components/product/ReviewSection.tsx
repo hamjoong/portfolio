@@ -2,15 +2,16 @@
 
 import React from 'react';
 import { Star, CornerDownRight, Send, PenLine } from 'lucide-react';
+import { Review } from '@/types/review';
 
 interface ReviewSectionProps {
-  reviews?: any[];
+  reviews?: Review[];
   isAdmin: boolean;
   onWrite: () => void;
   onReplySubmit: (id: string, content: string) => void;
   isPending: boolean;
   replyTarget: { id: string } | null;
-  setReplyTarget: (target: any) => void;
+  setReplyTarget: (target: { id: string } | null) => void;
   replyContent: string;
   setReplyContent: (content: string) => void;
 }

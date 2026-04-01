@@ -2,15 +2,16 @@
 
 import React from 'react';
 import { MessageSquare, Send } from 'lucide-react';
+import { ProductQna } from '@/types/review';
 
 interface QnaSectionProps {
-  qnas?: any[];
+  qnas?: ProductQna[];
   isAdmin: boolean;
   onWrite: () => void;
   onReplySubmit: (id: string, content: string) => void;
   isPending: boolean;
   replyTarget: { id: string } | null;
-  setReplyTarget: (target: any) => void;
+  setReplyTarget: (target: { id: string } | null) => void;
   replyContent: string;
   setReplyContent: (content: string) => void;
 }

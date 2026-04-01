@@ -2,9 +2,10 @@
 
 import React from 'react';
 import ProductCard from '@/components/product/ProductCard';
+import { ProductResponse } from '@/types/product';
 
 interface MainProductListProps {
-  products: any[];
+  products: ProductResponse[];
   totalElements: number;
   title: string;
 }
@@ -19,7 +20,7 @@ export const MainProductList: React.FC<MainProductListProps> = ({ products, tota
       
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {products && products.length > 0 ? (
-          products.map((product: any) => (
+          products.map((product: ProductResponse) => (
             <ProductCard key={product.id} product={product} />
           ))
         ) : (

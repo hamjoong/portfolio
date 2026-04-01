@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useUser } from '@/hooks/useUser';
 import { useOrder } from '@/hooks/useOrder';
+import { OrderResponse } from '@/types/order';
 import { ExternalLink, Plus } from 'lucide-react';
 import { Button } from '@/components/common/Button';
 import { MyPageHeader } from '@/components/mypage/MyPageHeader';
@@ -21,7 +22,7 @@ export default function MyPage() {
   const { data: addresses } = useAddresses();
   const { useMyOrders } = useOrder();
   const { data: ordersData } = useMyOrders();
-  const orders = ordersData?.content || [];
+  const orders: OrderResponse[] = (ordersData?.content as any) || [];
   const addAddressMutation = useAddAddress();
   const deleteAddressMutation = useDeleteAddress();
 
@@ -86,7 +87,7 @@ export default function MyPage() {
             <div className="flex flex-col gap-4">
               <h2 className="text-xl font-bold text-gray-900 mb-2">최근 주문 내역</h2>
               {orders && orders.length > 0 ? (
-                orders.map((order: any) => (
+                orders.map((order: OrderResponse) => (
                   <div key={order.id} className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col md:flex-row justify-between gap-4">
                     <div className="flex flex-col gap-1">
                       <span className="text-xs font-bold text-blue-600 uppercase tracking-tighter">ORDER NO. {order.id.slice(0,8)}</span>

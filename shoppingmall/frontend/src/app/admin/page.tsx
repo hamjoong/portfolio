@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { adminService } from '@/services/admin.service';
+import { AdminStats } from '@/types/common';
 import { 
   Users, 
   ShoppingBag, 
@@ -17,7 +18,7 @@ import {
  * [성능] `useEffect`를 통해 실시간 비즈니스 통계 데이터를 동적으로 로드합니다.
  */
 export default function AdminDashboardPage() {
-  const [stats, setStats] = useState<any>(null);
+  const [stats, setStats] = useState<AdminStats | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
