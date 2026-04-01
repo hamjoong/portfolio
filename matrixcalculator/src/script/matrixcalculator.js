@@ -1,280 +1,283 @@
 /**
- * 행렬 계산기 클래스
- * 행렬의 데이터 모델링, 연산 및 렌더링을 담당합니다.
+ * 확장에 유연하고 모듈화된 설계를 유지하기 위해 행렬 클래스를 정의.
+ * 계산기 인스턴스를 격리함으로써 전역 상태 오염을 방지하고 각 행렬 데이터를 독립적으로 관리함.
  */
 class MatrixCalculator {
-	/**
-	 * @param {number} rows - 행의 개수
-	 * @param {number} cols - 열의 개수
-	 */
-	constructor(rows, cols) {
-		this.rows = rows;
-		this.cols = cols;
+	constructor(rowCount, columnCount) {
+		this.rowCount = rowCount;
+		this.columnCount = columnCount;
 		this.matrixData = [];
 		this.htmlContent = '';
 	}
 
 	/**
-	 * 빈 행렬(모든 값이 0)을 생성하고 HTML 문자열을 반환합니다.
-	 * @param {string} idPrefix - 각 input 요소의 ID에 붙을 접두사
-	 * @returns {string} 생성된 HTML input 요소들의 문자열
+	 * 사용자가 직접 입력값을 넣기 편한 빈 공간을 시각적으로 빠르게 제공하기 위함.
 	 */
-	createEmptyMatrix(idPrefix) {
+	createEmptyMatrix(identifierPrefix) {
 		this.matrixData = [];
-		let html = '';
-		for (let i = 0; i < this.rows; i++) {
+		let generatedHtmlString = '';
+		for (let rowIndex = 0; rowIndex < this.rowCount; rowIndex++) {
 			this.matrixData.push([]);
-			for (let j = 0; j < this.cols; j++) {
-				this.matrixData[i][j] = 0;
-				html += `<input id="${idPrefix}${i}_${j}" class="miniBox" type="number" value="0">`;
+			for (let columnIndex = 0; columnIndex < this.columnCount; columnIndex++) {
+				this.matrixData[rowIndex][columnIndex] = 0;
+				generatedHtmlString += `<input id="${identifierPrefix}${rowIndex}_${columnIndex}" class="miniBox" type="number" value="0">`;
 			}
 		}
-		this.htmlContent = html;
-		return html;
+		this.htmlContent = generatedHtmlString;
+		return generatedHtmlString;
 	}
 
 	/**
-	 * 랜덤한 값(0~99)으로 채워진 행렬을 생성하고 HTML 문자열을 반환합니다.
-	 * @param {string} idPrefix - 각 input 요소의 ID에 붙을 접두사
-	 * @returns {string} 생성된 HTML input 요소들의 문자열
+	 * 테스트 목적 또는 사용자의 입력 수고를 덜어주어 사용성을 극대화하기 위함.
 	 */
-	createRandomMatrix(idPrefix) {
+	createRandomMatrix(identifierPrefix) {
 		this.matrixData = [];
-		let html = '';
-		for (let i = 0; i < this.rows; i++) {
+		let generatedHtmlString = '';
+		for (let rowIndex = 0; rowIndex < this.rowCount; rowIndex++) {
 			this.matrixData.push([]);
-			for (let j = 0; j < this.cols; j++) {
-				const randomVal = Math.floor(Math.random() * 100);
-				this.matrixData[i][j] = randomVal;
-				html += `<input id="${idPrefix}${i}_${j}" class="miniBox" type="number" value="${randomVal}">`;
+			for (let columnIndex = 0; columnIndex < this.columnCount; columnIndex++) {
+				const randomIntegerValue = Math.floor(Math.random() * 100);
+				this.matrixData[rowIndex][columnIndex] = randomIntegerValue;
+				generatedHtmlString += `<input id="${identifierPrefix}${rowIndex}_${columnIndex}" class="miniBox" type="number" value="${randomIntegerValue}">`;
 			}
 		}
-		this.htmlContent = html;
-		return html;
+		this.htmlContent = generatedHtmlString;
+		return generatedHtmlString;
 	}
 
 	/**
-	 * 행렬이 표시될 그리드 컨테이너의 스타일을 업데이트합니다.
-	 * @param {string} containerId - 대상 컨테이너 요소의 ID
+	 * 동적으로 생성되는 그리드의 넓이/높이를 유지하여 CSS 구조의 붕괴를 막고 기존 UI/UX를 보존하기 위함.
 	 */
-	updateGridStyle(containerId) {
-		const multiplier = 2.9; // 기존 디자인의 너비 배수 유지
-		$(`#${containerId}`).css({
-			"width": (multiplier * this.cols) + "vw",
+	updateGridStyle(containerIdentifier) {
+		$(`#${containerIdentifier}`).css({
+			"width": "max-content",
 			"height": "auto",
 			"display": "grid",
-			"grid-template-columns": `repeat(${this.cols}, 1fr)`,
-			"gap": "0.4vw",
+			"grid-template-columns": `repeat(${this.columnCount}, max-content)`,
+			"gap": "0.1vw",
 			"justify-items": "center",
 			"margin": "0 auto"
 		});
 	}
 
 	/**
-	 * 화면(DOM)에서 현재 입력된 행렬 값들을 읽어와 배열로 반환합니다. (성능 최적화)
-	 * @param {string} idPrefix - input 요소의 ID 접두사
-	 * @returns {number[][]} 행렬 데이터 배열
+	 * 성능 최적화: 이중 루프 내에서 매번 DOM 접근($)을 수행할 경우 병목이 발생할 수 있음.
+	 * 따라서 관련된 NodeList 전체를 한 번에 조회하여 DOM 레이아웃 스래싱을 최소화함.
 	 */
-	getMatrixValuesFromDOM(idPrefix) {
-		const data = [];
-		for (let i = 0; i < this.rows; i++) {
-			const row = [];
-			for (let j = 0; j < this.cols; j++) {
-				const val = parseInt($(`#${idPrefix}${i}_${j}`).val()) || 0;
-				row.push(val);
+	getMatrixValuesFromDOM(identifierPrefix) {
+		const inputElementsList = $(`[id^='${identifierPrefix}']`);
+		const extractedMatrixData = [];
+		for (let rowIndex = 0; rowIndex < this.rowCount; rowIndex++) {
+			const currentRowData = [];
+			for (let columnIndex = 0; columnIndex < this.columnCount; columnIndex++) {
+				const elementIndex = (rowIndex * this.columnCount) + columnIndex;
+				const parsedValue = parseInt($(inputElementsList[elementIndex]).val(), 10) || 0;
+				currentRowData.push(parsedValue);
 			}
-			data.push(row);
+			extractedMatrixData.push(currentRowData);
 		}
-		return data;
+		return extractedMatrixData;
 	}
 
 	/**
-	 * 두 행렬의 합을 계산하여 결과 HTML을 생성합니다. (정적 메서드)
-	 * @param {number[][]} matrixA - 첫 번째 행렬 데이터
-	 * @param {number[][]} matrixB - 두 번째 행렬 데이터
-	 * @returns {string} 결과 HTML 문자열
+	 * 객체의 상태를 변화시키지 않고 데이터만 다루는 유틸리티 기능이므로 메모리 효율을 위해 정적(Static)으로 정의함.
 	 */
-	static addMatrices(matrixA, matrixB) {
-		let html = '';
-		const rows = matrixA.length;
-		const cols = matrixA[0].length;
-		for (let i = 0; i < rows; i++) {
-			for (let j = 0; j < cols; j++) {
-				const sum = matrixA[i][j] + matrixB[i][j];
-				html += `<input class="miniBox" type="text" value="${sum}" readonly>`;
+	static addMatrices(matrixDataA, matrixDataB) {
+		let resultHtmlString = '';
+		const totalRows = matrixDataA.length;
+		const totalColumns = matrixDataA[0].length;
+		for (let rowIndex = 0; rowIndex < totalRows; rowIndex++) {
+			for (let columnIndex = 0; columnIndex < totalColumns; columnIndex++) {
+				const sumResult = matrixDataA[rowIndex][columnIndex] + matrixDataB[rowIndex][columnIndex];
+				resultHtmlString += `<input class="miniBox" type="text" value="${sumResult}" readonly>`;
 			}
 		}
-		return html;
+		return resultHtmlString;
 	}
 
-	/**
-	 * 두 행렬의 차를 계산하여 결과 HTML을 생성합니다. (정적 메서드)
-	 * @param {number[][]} matrixA - 첫 번째 행렬 데이터
-	 * @param {number[][]} matrixB - 두 번째 행렬 데이터
-	 * @returns {string} 결과 HTML 문자열
-	 */
-	static subtractMatrices(matrixA, matrixB) {
-		let html = '';
-		const rows = matrixA.length;
-		const cols = matrixA[0].length;
-		for (let i = 0; i < rows; i++) {
-			for (let j = 0; j < cols; j++) {
-				const diff = matrixA[i][j] - matrixB[i][j];
-				html += `<input class="miniBox" type="text" value="${diff}" readonly>`;
+	static subtractMatrices(matrixDataA, matrixDataB) {
+		let resultHtmlString = '';
+		const totalRows = matrixDataA.length;
+		const totalColumns = matrixDataA[0].length;
+		for (let rowIndex = 0; rowIndex < totalRows; rowIndex++) {
+			for (let columnIndex = 0; columnIndex < totalColumns; columnIndex++) {
+				const differenceResult = matrixDataA[rowIndex][columnIndex] - matrixDataB[rowIndex][columnIndex];
+				resultHtmlString += `<input class="miniBox" type="text" value="${differenceResult}" readonly>`;
 			}
 		}
-		return html;
+		return resultHtmlString;
 	}
 
-	/**
-	 * 두 행렬의 곱을 계산하여 결과 HTML을 생성합니다. (정적 메서드)
-	 * @param {number[][]} matrixA - 좌측 행렬 데이터
-	 * @param {number[][]} matrixB - 우측 행렬 데이터
-	 * @returns {string} 결과 HTML 문자열
-	 */
-	static multiplyMatrices(matrixA, matrixB) {
-		let html = '';
-		const rowsA = matrixA.length;
-		const colsA = matrixA[0].length;
-		const colsB = matrixB[0].length;
+	static multiplyMatrices(matrixDataA, matrixDataB) {
+		let resultHtmlString = '';
+		const rowsMatrixA = matrixDataA.length;
+		const columnsMatrixA = matrixDataA[0].length;
+		const columnsMatrixB = matrixDataB[0].length;
 
-		for (let i = 0; i < rowsA; i++) {
-			for (let j = 0; j < colsB; j++) {
-				let total = 0;
-				for (let k = 0; k < colsA; k++) {
-					total += matrixA[i][k] * matrixB[k][j];
+		for (let rowIndex = 0; rowIndex < rowsMatrixA; rowIndex++) {
+			for (let columnIndex = 0; columnIndex < columnsMatrixB; columnIndex++) {
+				let totalAccumulatedValue = 0;
+				for (let sharedIndex = 0; sharedIndex < columnsMatrixA; sharedIndex++) {
+					totalAccumulatedValue += matrixDataA[rowIndex][sharedIndex] * matrixDataB[sharedIndex][columnIndex];
 				}
-				html += `<input class="miniBox" type="text" value="${total}" readonly>`;
+				resultHtmlString += `<input class="miniBox" type="text" value="${totalAccumulatedValue}" readonly>`;
 			}
 		}
-		return html;
+		return resultHtmlString;
 	}
 }
 
 /**
- * 알림 메시지 팝업을 표시합니다.
- * @param {HTMLElement|string|null} selectors - 값을 초기화할 대상 요소
- * @param {string} message - 표시할 메시지 내용
+ * 전역적인 피드백 창을 일관된 형태로 보여주어 사용자가 프로그램의 현재 상태나 오류 원인을 인지할 수 있게 하기 위함.
  */
-const showAlert = (selectors, message) => {
-	const $alertEventBox = $(".alert_event_box");
-	$alertEventBox.css("display", "block");
-	$("#alert_box").html(message);
+const showApplicationAlert = (targetSelectorsList, alertMessageText) => {
+	const currentAlertBoxInstance = $(".alert_event_box");
+	currentAlertBoxInstance.css("display", "block");
+	$("#alert_box").html(alertMessageText);
 	
-	if (selectors) {
-		$(selectors).val("");
+	if (targetSelectorsList) {
+		$(targetSelectorsList).val("");
 	}
 	
-	// 알림창 클릭 시 닫기
-	$alertEventBox.off("click").on("click", function () {
+	currentAlertBoxInstance.off("click").on("click", function () {
 		$(this).css("display", "none");        
 	});
 };
 
 /**
- * 행렬 크기 입력 필드에 대한 실시간 유효성 검사
+ * 사용자가 유효하지 않은 값(소수점, 음수 등)을 입력하여 이후 로직이 오작동하는 것을 원천 차단하기 위함.
  */
 $(document).on("keyup", "input[type='number']", function () {
-	const val = $(this).val();
-	const invalidPattern = /^[-0]|[\.]/g; // 0, 음수, 소수점 방지
-	if (invalidPattern.test(val)) {
-		showAlert(this, "1~9까지의 양의 정수만 입력해 주세요.");
+	const currentInputValue = $(this).val();
+	const invalidCharactersPattern = /^[-0]|[\.]/g;
+	if (invalidCharactersPattern.test(currentInputValue)) {
+		showApplicationAlert(this, "1~9까지의 양의 정수만 입력해 주세요.");
 		$("#xprint_Array, #yprint_Array, #print_Array").empty();
 	}
 });
 
 /**
- * 모든 계산기 버튼에 대한 통합 클릭 이벤트 핸들러
+ * 단일 책임 원칙(SRP) 준수를 위해 방대한 클릭 이벤트를 역할별로 분할한 헬퍼 메서드들.
  */
-$(document).on("click", "button, input[type='button']", function (e) {
-	const x1 = Number($("#xinputArray").val());
-	const y1 = Number($("#yinputArray").val());
-	const x2 = Number($("#xinputArray2").val());
-	const y2 = Number($("#yinputArray2").val());
+
+// 그리드 크기를 유효성 검사하여 이상이 생기기 전 차단함.
+const validateMatrixSizeInputs = (rowA, colA, rowB, colB) => {
+	const isValueInvalid = (numberValue) => numberValue < 1 || numberValue > 9 || isNaN(numberValue);
+	return [rowA, colA, rowB, colB].some(isValueInvalid);
+};
+
+// 직접 입력 시 빈 칸 생성
+const handleDirectInputMatrixClick = (calculatorA, calculatorB, hasInvalidInputs) => {
+	if (hasInvalidInputs) {
+		showApplicationAlert("#xinputArray, #xinputArray2, #yinputArray, #yinputArray2", "1~9까지의 숫자를 입력해 주세요.");
+		$("#xprint_Array, #yprint_Array, #print_Array").empty();
+	} else {
+		$("#xprint_Array").html(calculatorA.createEmptyMatrix("inputA"));
+		calculatorA.updateGridStyle("xprint_Array");
+		$("#yprint_Array").html(calculatorB.createEmptyMatrix("inputB"));
+		calculatorB.updateGridStyle("yprint_Array");
+		$("#print_Array").empty();
+	}
+};
+
+// 랜덤 입력 시 랜덤 칸 부여
+const handleRandomInputMatrixClick = (calculatorA, calculatorB, hasInvalidInputs) => {
+	if (hasInvalidInputs) {
+		showApplicationAlert("#xinputArray, #xinputArray2, #yinputArray, #yinputArray2", "1~9까지의 숫자를 입력해 주세요.");
+		$("#xprint_Array, #yprint_Array, #print_Array").empty();
+	} else {
+		$("#xprint_Array").html(calculatorA.createRandomMatrix("inputA"));
+		calculatorA.updateGridStyle("xprint_Array");
+		$("#yprint_Array").html(calculatorB.createRandomMatrix("inputB"));
+		calculatorB.updateGridStyle("yprint_Array");
+		$("#print_Array").empty();
+	}
+};
+
+// 모든 출력 및 데이터를 지움
+const handleResetApplicationClick = () => {
+	$("#xprint_Array, #yprint_Array, #print_Array").empty();
+	$("#xinputArray, #xinputArray2, #yinputArray, #yinputArray2").val("");
+};
+
+// 동일한 크기의 행렬만 연산 가능하므로 안정성을 위해 조건을 부여함.
+const handleAdditionOrSubtractionClick = (operatorType, calculatorA, calculatorB) => {
+	if (calculatorA.rowCount === calculatorB.rowCount && calculatorA.columnCount === calculatorB.columnCount) {
+		const extractedDataA = calculatorA.getMatrixValuesFromDOM("inputA");
+		const extractedDataB = calculatorB.getMatrixValuesFromDOM("inputB");
+		let calculationResultHtml = '';
+		
+		if (operatorType === 'button_box_plus') {
+			calculationResultHtml = MatrixCalculator.addMatrices(extractedDataA, extractedDataB);
+		} else {
+			calculationResultHtml = MatrixCalculator.subtractMatrices(extractedDataA, extractedDataB);
+		}
+		
+		const resultMatrixCalculator = new MatrixCalculator(calculatorA.rowCount, calculatorA.columnCount);
+		resultMatrixCalculator.updateGridStyle("print_Array");
+		$("#print_Array").html(calculationResultHtml);
+	} else {
+		showApplicationAlert(null, "덧셈/뺄셈을 위해서는 좌우 행렬의 크기(행, 열)가 동일해야 합니다.");
+		$("#print_Array").empty();
+	}
+};
+
+// 행렬 곱 연산 규칙에 위배되면 치명적 오류를 초래하므로 예외를 관리함.
+const handleMultiplicationClick = (calculatorA, calculatorB) => {
+	if (calculatorA.columnCount === calculatorB.rowCount) {
+		const extractedDataA = calculatorA.getMatrixValuesFromDOM("inputA");
+		const extractedDataB = calculatorB.getMatrixValuesFromDOM("inputB");
+		const calculationResultHtml = MatrixCalculator.multiplyMatrices(extractedDataA, extractedDataB);
+		
+		const resultMatrixCalculator = new MatrixCalculator(calculatorA.rowCount, calculatorB.columnCount);
+		resultMatrixCalculator.updateGridStyle("print_Array");
+		$("#print_Array").html(calculationResultHtml);
+	} else {
+		showApplicationAlert(null, "행렬 곱셈을 위해 좌측 행렬의 열과 우측 행렬의 행 크기가 일치해야 합니다.");
+		$("#print_Array").empty();
+	}
+};
+
+/**
+ * 하나의 거대한 함수 구조가 사이드 이펙트를 낳을 수 있어 메인 핸들러는 트리거의 역할만 수행하게 함.
+ */
+$(document).on("click", "button, input[type='button']", function (eventObject) {
+	const rowCountMatrixA = Number($("#xinputArray").val());
+	const columnCountMatrixA = Number($("#yinputArray").val());
+	const rowCountMatrixB = Number($("#xinputArray2").val());
+	const columnCountMatrixB = Number($("#yinputArray2").val());
 	
-	// 유효한 행렬 크기인지 확인 (1~9)
-	const isInvalid = (num) => num < 1 || num > 9 || isNaN(num);
-	const anyInvalid = [x1, y1, x2, y2].some(isInvalid);
+	const hasInvalidInputs = validateMatrixSizeInputs(rowCountMatrixA, columnCountMatrixA, rowCountMatrixB, columnCountMatrixB);
 
-	const calc1 = new MatrixCalculator(x1, y1);
-	const calc2 = new MatrixCalculator(x2, y2);
-	const targetId = e.currentTarget.id;
+	const calculatorMatrixA = new MatrixCalculator(rowCountMatrixA, columnCountMatrixA);
+	const calculatorMatrixB = new MatrixCalculator(rowCountMatrixB, columnCountMatrixB);
+	const targetElementIdentifier = eventObject.currentTarget.id;
 
-	switch (targetId) {
-		case 'button_box_print': // '직접입력' 버튼
-			if (anyInvalid) {
-				showAlert("#xinputArray, #xinputArray2, #yinputArray, #yinputArray2", "1~9까지의 숫자를 입력해 주세요.");
-				$("#xprint_Array, #yprint_Array, #print_Array").empty();
-			} else {
-				$("#xprint_Array").html(calc1.createEmptyMatrix("inputA"));
-				calc1.updateGridStyle("xprint_Array");
-				$("#yprint_Array").html(calc2.createEmptyMatrix("inputB"));
-				calc2.updateGridStyle("yprint_Array");
-				$("#print_Array").empty();
-			}
+	switch (targetElementIdentifier) {
+		case 'button_box_print':
+			handleDirectInputMatrixClick(calculatorMatrixA, calculatorMatrixB, hasInvalidInputs);
 			break;
 
-		case 'button_box_random': // '자동완성' 버튼
-			if (anyInvalid) {
-				showAlert("#xinputArray, #xinputArray2, #yinputArray, #yinputArray2", "1~9까지의 숫자를 입력해 주세요.");
-				$("#xprint_Array, #yprint_Array, #print_Array").empty();
-			} else {
-				$("#xprint_Array").html(calc1.createRandomMatrix("inputA"));
-				calc1.updateGridStyle("xprint_Array");
-				$("#yprint_Array").html(calc2.createRandomMatrix("inputB"));
-				calc2.updateGridStyle("yprint_Array");
-				$("#print_Array").empty();
-			}
+		case 'button_box_random':
+			handleRandomInputMatrixClick(calculatorMatrixA, calculatorMatrixB, hasInvalidInputs);
 			break;
 
-		case 'button_box_reset': // '리셋' 버튼
-			$("#xprint_Array, #yprint_Array, #print_Array").empty();
-			$("#xinputArray, #xinputArray2, #yinputArray, #yinputArray2").val("");
+		case 'button_box_reset':
+			handleResetApplicationClick();
 			break;
 
-		case 'button_box_plus': // '+' 버튼
-		case 'button_box_minus': // '-' 버튼
-		case 'button_box_multi': // '×' 버튼
-			// 행렬이 생성되었는지 확인
+		case 'button_box_plus':
+		case 'button_box_minus':
+		case 'button_box_multi':
 			if ($("#xprint_Array").is(':empty') || $("#yprint_Array").is(':empty')) {
-				showAlert(null, "먼저 행렬을 생성(자동완성 또는 직접입력)해 주세요.");
+				showApplicationAlert(null, "먼저 행렬을 생성(자동완성 또는 직접입력)해 주세요.");
 				return;
 			}
 
-			if (targetId === 'button_box_plus' || targetId === 'button_box_minus') {
-				// 덧셈과 뺄셈은 두 행렬의 크기가 같아야 함
-				if (x1 === x2 && y1 === y2) {
-					const dataA = calc1.getMatrixValuesFromDOM("inputA");
-					const dataB = calc2.getMatrixValuesFromDOM("inputB");
-					let resultHtml = '';
-					
-					if (targetId === 'button_box_plus') {
-						resultHtml = MatrixCalculator.addMatrices(dataA, dataB);
-					} else {
-						resultHtml = MatrixCalculator.subtractMatrices(dataA, dataB);
-					}
-					
-					const resCalc = new MatrixCalculator(x1, y1);
-					resCalc.updateGridStyle("print_Array");
-					$("#print_Array").html(resultHtml);
-				} else {
-					showAlert(null, "덧셈/뺄셈을 위해서는 좌우 행렬의 크기(행, 열)가 동일해야 합니다.");
-					$("#print_Array").empty();
-				}
-			} else if (targetId === 'button_box_multi') {
-				// 행렬 곱셈 조건: 좌측 행렬의 열 개수 == 우측 행렬의 행 개수
-				if (y1 === x2) {
-					const dataA = calc1.getMatrixValuesFromDOM("inputA");
-					const dataB = calc2.getMatrixValuesFromDOM("inputB");
-					const resultHtml = MatrixCalculator.multiplyMatrices(dataA, dataB);
-					
-					const resCalc = new MatrixCalculator(x1, y2);
-					resCalc.updateGridStyle("print_Array");
-					$("#print_Array").html(resultHtml);
-				} else {
-					showAlert(null, "행렬 곱셈을 위해 좌측 행렬의 열과 우측 행렬의 행 크기가 일치해야 합니다.");
-					$("#print_Array").empty();
-				}
+			if (targetElementIdentifier === 'button_box_plus' || targetElementIdentifier === 'button_box_minus') {
+				handleAdditionOrSubtractionClick(targetElementIdentifier, calculatorMatrixA, calculatorMatrixB);
+			} else if (targetElementIdentifier === 'button_box_multi') {
+				handleMultiplicationClick(calculatorMatrixA, calculatorMatrixB);
 			}
 			break;
 	}

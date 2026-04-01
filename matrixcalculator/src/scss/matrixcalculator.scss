@@ -61,8 +61,8 @@ html, body {
 
 // 행/열 크기 입력 input 믹스인
 @mixin xyinputArray {
-	width: 5vw;
-	height: 5vh;
+	width: 2.5vw;
+	height: 3vh;
   text-align: center;
 	border: 0.1vw solid #393434;
 	border-radius: 0.5vw;
@@ -72,14 +72,14 @@ html, body {
 
 // 입력 필드 폰트 스타일
 @mixin xyinput_array_font {
-	font-size: 1.5vw;
+	font-size: 1vw;
 	color: rgb(100,100,100);
 }
 
 // 연산 버튼(+,-,*) 믹스인
 @mixin buttonBox {
-	width: 5vw;
-	height: 5vh;
+	width: 2.5vw;
+	height: 3vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,7 +88,7 @@ html, body {
 	background-color: #F0F0DB;
   margin: 0 0.5vw;
   color: rgb(100,100,100);
-  font-size: 2vw;
+  font-size: 1vw;
   font-weight: bold;
   cursor: pointer;
   outline: none;
@@ -99,8 +99,8 @@ html, body {
 
 // 기능 버튼(자동완성, 리셋 등) 믹스인
 @mixin buttonBox2 {
-	width: 8vw;
-	height: 5vh;
+	width: 4.5vw;
+	height: 3vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -109,7 +109,7 @@ html, body {
 	background-color: #F0F0DB;
   margin: 0 0.5vw;
   font: {
-    size: 1.2vw;
+    size: 0.9vw;
     weight: bold;
   }
   color: rgb(100,100,100);
@@ -119,21 +119,23 @@ html, body {
 // 행렬 출력 영역 믹스인
 @mixin mc_print_array_box {
   width: 100vw;
-  min-height: 50vh;
+  min-height: 5vh; /* 스크롤방지를 위해 제약해제 */
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* 자동 줄바꿈 해제 */
+  overflow-x: auto;
   align-self: center;
   align-content: flex-start;
   justify-content: center;
   padding-top: 5vh;
-  gap: 4vw;
+  gap: 1.5vw; /* 3개 배열이 무조건 100vw에 맞도록 갭 축소 */
 }
 
 // 개별 행렬 컨테이너 믹스인
 @mixin printArray {
-  min-width: 28vw;
-  width: auto;
-  margin-bottom: 5vh;
+  width: 32vw;
+  min-width: 32vw;
+  max-width: 32vw; /* 3.3vw * 9 = 29.7vw, 여유 공간 확보 */
+  margin-bottom: 2vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -141,12 +143,12 @@ html, body {
 
 // 행렬 내 개별 셀(input) 믹스인
 @mixin xyprint_Array {
-  width: 3.2vw;
-  height: 4vh;
+  width: 3.3vw;
+  height: 3vh;
   border-radius: 0.5vw;
   background-color: #F0F0DB;
   color: rgb(100,100,100);
-  font-size: 1.1vw;
+  font-size: 0.9vw;
   text-align: center;
   margin: 0;
   border: 0.1vw solid #393434;
@@ -199,64 +201,87 @@ html, body {
     // 입력 필드 박스
     .mc_input_array_box {
       @include mc_input_array_box;
+    }
 
-      .inputArray {
-        @include inputArray;
-        
-        .xinputArray, .yinputArray {
-          @include xyinputArray;
-          @include xyinput_array_font;
-        }
-
-        .xinputArray:hover, .yinputArray:hover {
-          cursor: pointer;
-          background-color: #EEC5D1;
-        }
+    .inputArray {
+      @include inputArray;
+      
+      .xinputArray, .yinputArray {
+        @include xyinputArray;
+        @include xyinput_array_font;
       }
 
-      .inputArray2 {
-        @include inputArray;
-
-        .xinputArray2, .yinputArray2 {
-          @include xyinputArray;
-          @include xyinput_array_font;
-        }
-
-        .xinputArray2:hover, .yinputArray2:hover {
-          cursor: pointer;
-          background-color: #EEC5D1;
-        }
-      }
-
-      // 버튼 그룹
-      .inputArray3 {
-        @include inputArray;
-        width: auto;
-        padding: 0 2vw;
-
-        .button_box_plus, .button_box_minus, .button_box_multi {
-          @include buttonBox;
-        }
-
-        .button_box_plus:hover,.button_box_minus:hover,.button_box_multi:hover {
-          cursor: pointer;
-          background-color: #97b3fb;
-        }
-
-        .button_box_random, .button_box_print, .button_box_reset {
-          @include buttonBox2;
-        }
-
-        .button_box_random:hover,.button_box_print:hover,.button_box_reset:hover {
+      .xinputArray:hover, .yinputArray:hover {
         cursor: pointer;
-        background-color: #A4D2FF;
-        }
+        background-color: #EEC5D1;
+      }
+    }
+
+    .inputArray2 {
+      @include inputArray;
+
+      .xinputArray2, .yinputArray2 {
+        @include xyinputArray;
+        @include xyinput_array_font;
+      }
+
+      .xinputArray2:hover, .yinputArray2:hover {
+        cursor: pointer;
+        background-color: #EEC5D1;
+      }
+    }
+
+    // 버튼 그룹
+    .inputArray3 {
+      @include inputArray;
+      width: auto;
+      padding: 0 2vw;
+
+      .button_box_plus, .button_box_minus, .button_box_multi {
+        @include buttonBox;
+      }
+
+      .button_box_plus:hover,.button_box_minus:hover,.button_box_multi:hover {
+        cursor: pointer;
+        background-color: #97b3fb;
+      }
+
+      .button_box_random, .button_box_print, .button_box_reset {
+        @include buttonBox2;
+      }
+
+      .button_box_random:hover,.button_box_print:hover,.button_box_reset:hover {
+      cursor: pointer;
+      background-color: #A4D2FF;
       }
     }
 
     // 행렬 출력 결과 영역
     .mc_print_array_box {
       @include mc_print_array_box;
+
+      // 상단 컨트롤 바 패널 (한 줄 정렬)
+      &.control_top {
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        min-height: auto;
+        padding-top: 5vh;
+        gap: 1.5vw; /* 하단 mb_print_array_box와 완벽히 갭 일치 */
+
+        .printArray, .printArray2, .printArray3 {
+          /* 공통 넓이 32vw 상속으로 레이아웃 동기화 */
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 1vh;
+        }
+
+        .inputArray3 {
+          flex-wrap: nowrap;
+          justify-content: center; /* 가운데 정렬로 결과값 배열과 수직 위치 맞춤 */
+        }
+      }
 
       .printArray, .printArray2, .printArray3 {
         @include printArray;
@@ -270,23 +295,29 @@ html, body {
 
   // 알림 팝업 창
   .alert_event_box {
-    width: 20vw;
-    height: 12vh;
-    border: 1vw inset skyblue;
-    background-color: rgba(255,192,203,0.7);
+    width: max-content; /* 글자 길이에 맞춰 가로가 유동적으로 늘어남 */
+    min-width: 30vw; /* 최소 너비 보장 */
+    max-width: 80vw; /* 모바일이나 화면 오버 방지 */
+    height: auto; /* 고정 세로폭 12vh 제거 */
+    padding: 3vh 3vw;
+    border: 0.8vw inset skyblue; /* 1vw보다 덜 부담스럽게 약간 샤프하게 유지 */
+    background-color: rgba(255,192,203,0.85); /* 가시성 살짝 증가 */
     color: rgb(100,100,100);
     font: {
       size: 1.5vw;
       weight: bold;
     }
     text-align: center;
-    line-height: 11vh;
-    position: absolute;
-    top: 30vh;
-    left: 40vw;
+    position: fixed; /* absolute 대신 fixed로 바꾸어 스크롤을 내려도 항상 화면 중앙에 뜸 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 왼쪽/위 기준 50% 이동 후 스스로의 넓이 기준 50% 뒤로 빼서 완벽한 정중앙 위치 */
     display: none;
+    z-index: 1000; /* 표출시 레이어 충돌 방지 */
 
     .alert_box {
+      line-height: 1.5; /* 기존의 box 높이만큼 고정된 이상한 line-height: 11vh를 제거하여 두 줄로 넘어가도 깔끔함 */
+      margin: 0;
       font: {
         size: 1.5vw;
         weight: bold;
