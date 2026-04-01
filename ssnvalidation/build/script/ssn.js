@@ -6,8 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const resultDisplay = document.querySelector(".ssn_number");
 
   /* 유효성 검사 상수 */
+  /* 가중치 배열: 각 자릿수에 곱해질 가중치 값 */
   const WEIGHTS = [2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5];
+  /* 모듈러스: 체크섬 계산 시 사용될 나눗셈 값 */
   const MODULUS = 11;
+  /* 체크섬 위치: 주민등록번호 배열에서 체크섬 숫자의 인덱스 */
   const CHECK_INDEX = 12;
 
   /* 숫자 이외의 문자 제거 함수 */
@@ -22,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* 자릿수 체크: 앞 6자리, 뒤 7자리 */
     if (front.length !== 6 || back.length !== 7) {
-      alert("주민등록번호 자릿수가 올바르지 않습니다. (앞 6자리, 뒤 7자리)");
+      resultDisplay.textContent = "주민등록번호 자릿수가 올바르지 않습니다. (앞 6자리, 뒤 7자리)";
       if (front.length !== 6) ssnFrontInput.focus();
       else ssnBackInput.focus();
       return;
