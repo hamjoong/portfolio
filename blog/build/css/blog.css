@@ -24,18 +24,13 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
 /*어바웃미 영역*/
 /*어바웃미 스킬 영역*/
 /*어바웃미 스킬 바 영역*/
-/*포트폴리오 영역*/
+/*Portfolio 포트폴리오 영역*/
 /*Footer 영역*/
 /*메인 영역*/
 .blog_main_box {
   width: 85vw;
   height: 100vh;
   margin-left: 15vw;
-  /*어바웃미 영역*/
-  /*어바웃미 스킬 영역*/
-  /*어바웃미 스킬 바 영역*/
-  /*포트폴리오 영역*/
-  /*Footer 영역*/
 }
 .blog_main_box .blog_mini_box {
   width: 85vw;
@@ -51,9 +46,6 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
   align-items: center;
   align-content: center;
   /*인트로 로고 영역*/
-  /*인트로 헤더 영역*/
-  /*인트로 이미지 영역*/
-  /*인트로 메뉴 영역*/
 }
 .blog_main_box .blog_mini_box .blog_intro_box .blog_intro_logo_img {
   background-image: url("../../public/img/blog.png");
@@ -66,6 +58,9 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
   top: 5vh;
   left: -2.7vw;
   z-index: 2;
+}
+.blog_main_box .blog_mini_box .blog_intro_box {
+  /*인트로 헤더 영역*/
 }
 .blog_main_box .blog_mini_box .blog_intro_box .blog_intro_header_box {
   width: 35vw;
@@ -111,6 +106,9 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
   top: -55vh;
   left: -35vw;
 }
+.blog_main_box .blog_mini_box .blog_intro_box {
+  /*인트로 이미지 영역*/
+}
 .blog_main_box .blog_mini_box .blog_intro_box .blog_intro_img {
   background-image: url("../../public/img/blog2.png");
   background-repeat: no-repeat;
@@ -121,16 +119,7 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
   position: absolute;
   top: -36vh;
   left: 65vw;
-  -webkit-animation: spin 7s linear infinite;
-          animation: spin 7s linear infinite;
-}
-@-webkit-keyframes spin {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  animation: spin 7s linear infinite;
 }
 @keyframes spin {
   0% {
@@ -140,6 +129,9 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
     transform: rotate(360deg);
   }
 }
+.blog_main_box .blog_mini_box .blog_intro_box {
+  /*인트로 메뉴 영역*/
+}
 .blog_main_box .blog_mini_box .blog_intro_box .blog_nav_box {
   width: 15vw;
   height: 100vh;
@@ -148,8 +140,7 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
   align-items: center;
   position: fixed;
   background-color: rgba(255, 192, 203, 0.5);
-  -webkit-animation: slideInLeft 0.1s linear;
-          animation: slideInLeft 0.1s linear;
+  animation: slideInLeft 0.1s linear;
   transition: background-color 0.3s;
   z-index: 1;
   margin-left: -100vw;
@@ -188,14 +179,6 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
   transition: width 0.3s cubic-bezier(0, 0.3, 0, 0.3) 0.1s;
   background: #F44336;
 }
-@-webkit-keyframes slideInLeft {
-  0% {
-    transform: translateX(-15vw);
-  }
-  100% {
-    transform: translateX(0vw);
-  }
-}
 @keyframes slideInLeft {
   0% {
     transform: translateX(-15vw);
@@ -203,6 +186,9 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
   100% {
     transform: translateX(0vw);
   }
+}
+.blog_main_box {
+  /*어바웃미 영역*/
 }
 .blog_main_box .blog_aboutme_box {
   width: 85vw;
@@ -214,12 +200,6 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
   height: 100vh;
   display: flex;
   align-items: center;
-  /*.blog_aboutme_img {
-  	width: 36.2vw;
-  	height: 100vh;
-  	position: relative;
-       left: 63.8vw;
-  }*/
 }
 .blog_main_box .blog_aboutme_box .blog_aboutme_box2 .blog_aboutme_img {
   background-image: url("../../public/img/aboutme3.jpg");
@@ -230,6 +210,14 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
   height: 100vh;
   position: relative;
   left: 46.1vw;
+}
+.blog_main_box .blog_aboutme_box .blog_aboutme_box2 {
+  /*.blog_aboutme_img {
+  	width: 36.2vw;
+  	height: 100vh;
+  	position: relative;
+       left: 63.8vw;
+  }*/
 }
 .blog_main_box .blog_aboutme_box .blog_aboutme_box2 .blog_aboutme_font_box {
   width: 30vw;
@@ -312,6 +300,9 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
   color: rgb(51, 132, 198);
   line-height: 3.5vw;
   color: rgba(93, 92, 176, 0.8);
+}
+.blog_main_box {
+  /*어바웃미 스킬 영역*/
 }
 .blog_main_box .blog_aboutme_skill_box {
   width: 85vw;
@@ -498,6 +489,9 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
   transform: scale(2.1);
   cursor: pointer;
 }
+.blog_main_box {
+  /*어바웃미 스킬 바 영역*/
+}
 .blog_main_box .blog_skill_bar_box {
   width: 85vw;
   display: flex;
@@ -555,6 +549,14 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
   margin-top: 0.5vh;
   margin-left: 0.5vw;
 }
+@keyframes show-bar-html {
+  from {
+    width: 0;
+  }
+  to {
+    width: 90%;
+  }
+}
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_html_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_script_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_css_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_nodejs_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_sass_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_ajax_font.html,
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_pug_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_jquery_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_mysql_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_typescript_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_java_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_json_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_script .blog_skill_bar_html_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_script .blog_skill_bar_script_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_script .blog_skill_bar_css_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_script .blog_skill_bar_nodejs_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_script .blog_skill_bar_sass_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_script .blog_skill_bar_ajax_font.html,
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_script .blog_skill_bar_pug_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_script .blog_skill_bar_jquery_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_script .blog_skill_bar_mysql_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_script .blog_skill_bar_typescript_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_script .blog_skill_bar_java_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_script .blog_skill_bar_json_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_css .blog_skill_bar_html_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_css .blog_skill_bar_script_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_css .blog_skill_bar_css_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_css .blog_skill_bar_nodejs_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_css .blog_skill_bar_sass_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_css .blog_skill_bar_ajax_font.html,
@@ -580,23 +582,14 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_pug_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_jquery_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_mysql_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_typescript_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_java_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_json_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_html_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_script_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_css_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_nodejs_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_sass_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_ajax_font.html,
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_pug_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_jquery_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_mysql_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_typescript_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_java_font.html, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_json_font.html {
   width: 90%;
-  -webkit-animation: show-bar-html 1s ease;
-          animation: show-bar-html 1s ease;
+  animation: show-bar-html 1s ease;
 }
-@-webkit-keyframes show-bar-html {
+@keyframes show-bar-script {
   from {
     width: 0;
   }
   to {
-    width: 90%;
-  }
-}
-@keyframes show-bar-html {
-  from {
-    width: 0;
-  }
-  to {
-    width: 90%;
+    width: 60%;
   }
 }
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_html_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_script_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_css_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_nodejs_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_sass_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_ajax_font.script,
@@ -624,23 +617,14 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_pug_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_jquery_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_mysql_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_typescript_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_java_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_json_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_html_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_script_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_css_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_nodejs_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_sass_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_ajax_font.script,
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_pug_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_jquery_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_mysql_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_typescript_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_java_font.script, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_json_font.script {
   width: 60%;
-  -webkit-animation: show-bar-script 1s ease;
-          animation: show-bar-script 1s ease;
+  animation: show-bar-script 1s ease;
 }
-@-webkit-keyframes show-bar-script {
+@keyframes show-bar-css {
   from {
     width: 0;
   }
   to {
-    width: 60%;
-  }
-}
-@keyframes show-bar-script {
-  from {
-    width: 0;
-  }
-  to {
-    width: 60%;
+    width: 90%;
   }
 }
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_html_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_script_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_css_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_nodejs_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_sass_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_ajax_font.css,
@@ -668,23 +652,14 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_pug_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_jquery_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_mysql_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_typescript_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_java_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_json_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_html_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_script_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_css_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_nodejs_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_sass_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_ajax_font.css,
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_pug_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_jquery_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_mysql_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_typescript_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_java_font.css, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_json_font.css {
   width: 90%;
-  -webkit-animation: show-bar-css 1s ease;
-          animation: show-bar-css 1s ease;
+  animation: show-bar-css 1s ease;
 }
-@-webkit-keyframes show-bar-css {
+@keyframes show-bar-nodejs {
   from {
     width: 0;
   }
   to {
-    width: 90%;
-  }
-}
-@keyframes show-bar-css {
-  from {
-    width: 0;
-  }
-  to {
-    width: 90%;
+    width: 60%;
   }
 }
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_html_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_script_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_css_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_nodejs_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_sass_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_ajax_font.nodejs,
@@ -712,23 +687,14 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_pug_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_jquery_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_mysql_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_typescript_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_java_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_json_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_html_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_script_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_css_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_nodejs_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_sass_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_ajax_font.nodejs,
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_pug_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_jquery_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_mysql_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_typescript_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_java_font.nodejs, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_json_font.nodejs {
   width: 60%;
-  -webkit-animation: show-bar-nodejs 1s ease;
-          animation: show-bar-nodejs 1s ease;
+  animation: show-bar-nodejs 1s ease;
 }
-@-webkit-keyframes show-bar-nodejs {
+@keyframes show-bar-sass {
   from {
     width: 0;
   }
   to {
-    width: 60%;
-  }
-}
-@keyframes show-bar-nodejs {
-  from {
-    width: 0;
-  }
-  to {
-    width: 60%;
+    width: 90%;
   }
 }
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_html_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_script_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_css_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_nodejs_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_sass_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_ajax_font.sass,
@@ -756,23 +722,14 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_pug_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_jquery_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_mysql_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_typescript_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_java_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_json_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_html_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_script_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_css_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_nodejs_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_sass_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_ajax_font.sass,
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_pug_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_jquery_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_mysql_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_typescript_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_java_font.sass, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_json_font.sass {
   width: 90%;
-  -webkit-animation: show-bar-sass 1s ease;
-          animation: show-bar-sass 1s ease;
+  animation: show-bar-sass 1s ease;
 }
-@-webkit-keyframes show-bar-sass {
+@keyframes show-bar-ajax {
   from {
     width: 0;
   }
   to {
-    width: 90%;
-  }
-}
-@keyframes show-bar-sass {
-  from {
-    width: 0;
-  }
-  to {
-    width: 90%;
+    width: 60%;
   }
 }
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_html_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_script_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_css_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_nodejs_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_sass_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_ajax_font.ajax,
@@ -800,23 +757,14 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_pug_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_jquery_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_mysql_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_typescript_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_java_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_json_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_html_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_script_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_css_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_nodejs_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_sass_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_ajax_font.ajax,
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_pug_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_jquery_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_mysql_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_typescript_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_java_font.ajax, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_json_font.ajax {
   width: 60%;
-  -webkit-animation: show-bar-ajax 1s ease;
-          animation: show-bar-ajax 1s ease;
+  animation: show-bar-ajax 1s ease;
 }
-@-webkit-keyframes show-bar-ajax {
+@keyframes show-bar-pug {
   from {
     width: 0;
   }
   to {
-    width: 60%;
-  }
-}
-@keyframes show-bar-ajax {
-  from {
-    width: 0;
-  }
-  to {
-    width: 60%;
+    width: 90%;
   }
 }
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_html_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_script_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_css_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_nodejs_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_sass_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_ajax_font.pug,
@@ -844,23 +792,14 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_pug_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_jquery_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_mysql_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_typescript_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_java_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_json_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_html_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_script_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_css_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_nodejs_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_sass_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_ajax_font.pug,
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_pug_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_jquery_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_mysql_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_typescript_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_java_font.pug, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_json_font.pug {
   width: 90%;
-  -webkit-animation: show-bar-pug 1s ease;
-          animation: show-bar-pug 1s ease;
+  animation: show-bar-pug 1s ease;
 }
-@-webkit-keyframes show-bar-pug {
+@keyframes show-bar-jquery {
   from {
     width: 0;
   }
   to {
-    width: 90%;
-  }
-}
-@keyframes show-bar-pug {
-  from {
-    width: 0;
-  }
-  to {
-    width: 90%;
+    width: 50%;
   }
 }
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_html_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_script_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_css_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_nodejs_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_sass_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_ajax_font.jquery,
@@ -888,23 +827,14 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_pug_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_jquery_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_mysql_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_typescript_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_java_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_json_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_html_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_script_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_css_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_nodejs_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_sass_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_ajax_font.jquery,
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_pug_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_jquery_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_mysql_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_typescript_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_java_font.jquery, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_json_font.jquery {
   width: 50%;
-  -webkit-animation: show-bar-jquery 1s ease;
-          animation: show-bar-jquery 1s ease;
+  animation: show-bar-jquery 1s ease;
 }
-@-webkit-keyframes show-bar-jquery {
+@keyframes show-bar-mysql {
   from {
     width: 0;
   }
   to {
-    width: 50%;
-  }
-}
-@keyframes show-bar-jquery {
-  from {
-    width: 0;
-  }
-  to {
-    width: 50%;
+    width: 60%;
   }
 }
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_html_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_script_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_css_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_nodejs_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_sass_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_ajax_font.mysql,
@@ -932,23 +862,14 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_pug_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_jquery_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_mysql_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_typescript_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_java_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_json_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_html_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_script_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_css_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_nodejs_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_sass_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_ajax_font.mysql,
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_pug_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_jquery_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_mysql_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_typescript_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_java_font.mysql, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_json_font.mysql {
   width: 60%;
-  -webkit-animation: show-bar-mysql 1s ease;
-          animation: show-bar-mysql 1s ease;
+  animation: show-bar-mysql 1s ease;
 }
-@-webkit-keyframes show-bar-mysql {
+@keyframes show-bar-typescript {
   from {
     width: 0;
   }
   to {
-    width: 60%;
-  }
-}
-@keyframes show-bar-mysql {
-  from {
-    width: 0;
-  }
-  to {
-    width: 60%;
+    width: 40%;
   }
 }
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_html_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_script_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_css_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_nodejs_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_sass_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_ajax_font.typescript,
@@ -976,18 +897,9 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_pug_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_jquery_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_mysql_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_typescript_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_java_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_json_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_html_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_script_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_css_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_nodejs_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_sass_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_ajax_font.typescript,
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_pug_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_jquery_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_mysql_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_typescript_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_java_font.typescript, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_json_font.typescript {
   width: 40%;
-  -webkit-animation: show-bar-typescript 1s ease;
-          animation: show-bar-typescript 1s ease;
+  animation: show-bar-typescript 1s ease;
 }
-@-webkit-keyframes show-bar-typescript {
-  from {
-    width: 0;
-  }
-  to {
-    width: 40%;
-  }
-}
-@keyframes show-bar-typescript {
+@keyframes show-bar-java {
   from {
     width: 0;
   }
@@ -1020,23 +932,14 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_pug_font.java, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_jquery_font.java, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_mysql_font.java, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_typescript_font.java, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_java_font.java, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_json_font.java, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_html_font.java, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_script_font.java, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_css_font.java, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_nodejs_font.java, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_sass_font.java, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_ajax_font.java,
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_pug_font.java, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_jquery_font.java, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_mysql_font.java, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_typescript_font.java, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_java_font.java, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_json_font.java {
   width: 40%;
-  -webkit-animation: show-bar-java 1s ease;
-          animation: show-bar-java 1s ease;
+  animation: show-bar-java 1s ease;
 }
-@-webkit-keyframes show-bar-java {
+@keyframes show-bar-json {
   from {
     width: 0;
   }
   to {
-    width: 40%;
-  }
-}
-@keyframes show-bar-java {
-  from {
-    width: 0;
-  }
-  to {
-    width: 40%;
+    width: 60%;
   }
 }
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_html_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_script_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_css_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_nodejs_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_sass_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_html .blog_skill_bar_ajax_font.json,
@@ -1064,32 +967,7 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_pug_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_jquery_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_mysql_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_typescript_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_java_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_java .blog_skill_bar_json_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_html_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_script_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_css_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_nodejs_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_sass_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_ajax_font.json,
 .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_pug_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_jquery_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_mysql_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_typescript_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_java_font.json, .blog_main_box .blog_skill_bar_box .blog_skill_bar_box2 .blog_skill_bar_json .blog_skill_bar_json_font.json {
   width: 60%;
-  -webkit-animation: show-bar-json 1s ease;
-          animation: show-bar-json 1s ease;
-}
-@-webkit-keyframes show-bar-json {
-  from {
-    width: 0;
-  }
-  to {
-    width: 60%;
-  }
-}
-@keyframes show-bar-json {
-  from {
-    width: 0;
-  }
-  to {
-    width: 60%;
-  }
-}
-@-webkit-keyframes show-bar {
-  0% {
-    width: 0;
-  }
-  100% {
-    width: 100%;
-  }
+  animation: show-bar-json 1s ease;
 }
 @keyframes show-bar {
   0% {
@@ -1110,6 +988,9 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
   position: relative;
   display: none;
   top: 13vh;
+}
+.blog_main_box {
+  /*포트폴리오 영역*/
 }
 .blog_main_box .blog_portfolio_box {
   width: 85vw;
@@ -1336,6 +1217,9 @@ html ::-webkit-scrollbar, body ::-webkit-scrollbar {
   color: rgb(100, 100, 100);
   display: none;
   cursor: pointer;
+}
+.blog_main_box {
+  /*Footer 영역*/
 }
 .blog_main_box .blog_footer_box {
   width: 85vw;

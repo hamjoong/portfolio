@@ -16,9 +16,11 @@
     "simplehttpserver": "^0.3.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/jquery": "^3.5.14",
-    "eslint": "^8.21.0",
+    "eslint": "^8.57.1",
     "eslint-config-prettier": "^8.5.0",
+    "globals": "^17.4.0",
     "prettier": "^2.7.1"
   },
   "scripts": {
