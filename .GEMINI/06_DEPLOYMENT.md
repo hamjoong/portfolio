@@ -23,6 +23,10 @@ CI/CD, Canary Release, Rollback 시나리오
 - CI/CD 자동화
 - 개발 / 스테이징 / 운영 분리
 - GitHub / GitHub Actions / Jenkins CI/CD / AWS CI/CD / Amazon EC2 / Amazon ECS
+- Canary Release : 신규 버전 배포 시 전체 트래픽의 5%부터 점진적으로 확대하며 에러율을 모니터링한다
+- Graceful Shutdown : 배포 시 현재 처리 중인 요청을 안전하게 마친 후 프로세스를 종료하도록 설정한다
+- Distributed Tracing : 서비스 간 호출 흐름을 파악하기 위해 `Trace ID`를 전파한다 (OpenTelemetry 적용)
+- Error Tracking : `Sentry` 등을 연동하여 클라이언트 및 서버 에러를 실시간 수집하고 담당자에게 알림을 발송한다
 
 ---
 

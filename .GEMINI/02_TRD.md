@@ -49,11 +49,13 @@ Database
 - React / Vue / Next.js
 
 # Backend
-- Node.js
-- Spring Boot
-- Java
-- NestJS
-- FastAPI
+- Node.js : 실시간 통신 및 고성능 I/O 처리
+- Spring Boot : 트랜잭션 중심의 핵심 비즈니스 로직
+- Java : 트랜잭션 중심의 핵심 비즈니스 로직
+- NestJS : 실시간 통신 및 고성능 I/O 처리
+- FastAPI : AI 모델 서빙 및 데이터 분석 도구
+- Python : AI 모델 서빙 및 데이터 분석 도구
+
 
 # Database
 - MySQL
@@ -83,6 +85,8 @@ Database
 - 에러 응답 구조 통일
 - 사용자 메시지와 내부 로그 분리
 - API Key 노출 금지(.env 사용)
+- Rate Limiting : IP당/계정당 호출 제한을 API Gateway 레벨에서 강제한다
+- Payload Validation : 모든 외부 입력값에 대해 엄격한 Schema Validation(Zod, Joi 등)을 적용한다.
 
 # 예시
 
@@ -129,6 +133,18 @@ DELETE /users/{id}
 - 이미지 최적화
 - 불필요한 API 호출 방지
 - 불필요한 DB 조회 방지
+- LCP (Largest Contentful Paint) : 2.5초 이내
+- CLS (Cumulative Layout Shift) : 0.1초 이하
+- TTFB (Time to First Byte) : 100ms 이내 목표
+- SLO 적용
+- p95 latency < 200ms
+- error rate < 1%
+- DB Connection Pool 관리
+- N+1 Query 제거
+- Lock Contention 최소화
+- Cache Aside Pattern
+- TTL 정책 정의
+- Redis 활용
 
 ---
 
@@ -191,6 +207,8 @@ src/
 - 리팩토링 정책 준수
 - 한 파일에 너무 많은 기능 넣지 않기
 - 중복 로직 제거
+- Git Hooks : `Husky`를 사용하여 Commit 전 Lint, Push 전 Unit Test를 강제한다
+- Feature Flag : MVP 기능 배포 시 `LaunchDarkly` 또는 내부 Redis 플래그를 사용하여 런타임 제어를 수행한다
 
 ---
 

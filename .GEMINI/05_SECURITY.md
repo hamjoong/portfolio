@@ -14,10 +14,17 @@
 - CSRF 방어
 - Rate Limiting
 - RBAC 접근 제어
+- ABAC 접근 제어
 - Zero Trust Architecture
 - Secret Manager 사용
 - API Key 노출 금지(.env 사용)
 - 인증/인가 분리
+- RLS 접근 제어
+- DAC 접근 제어
+- MAC 접근 제어
+- BYOD 분리
+- SCA (Software Composition Analysis) : CI 파이프라인에서 오픈소스 라이브러리의 취약점을 자동 스캔한다. (Snyk, GitHub Dependency Graph)
+- Container Scan : Docker 이미지 빌드 시 베이스 이미지의 취약점을 점검한다. (Trivy)
 
 ---
 
