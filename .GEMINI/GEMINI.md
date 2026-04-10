@@ -271,8 +271,10 @@ DB 인덱스 최적화, CDN 활용, 비동기 메시지 큐를 통한 부하 분
 - DAC 접근 제어
 - MAC 접근 제어
 - BYOD 분리
+- PII 방어
 - SCA (Software Composition Analysis) : CI 파이프라인에서 오픈소스 라이브러리의 취약점을 자동 스캔한다. (Snyk, GitHub Dependency Graph)
 - Container Scan : Docker 이미지 빌드 시 베이스 이미지의 취약점을 점검한다. (Trivy)
+- Incident Response : 장애 발생 시 누가 승인하고 어떻게 전파하는지에 대한 '비상 연락망 및 대응 프로세스'
 
 # 운영 도구 모니터링
 - Prometheus
@@ -282,6 +284,10 @@ DB 인덱스 최적화, CDN 활용, 비동기 메시지 큐를 통한 부하 분
 - CPU, Memory, API Latency, Error Rate, DB Query Time 모니터링
 - DML Audit Log
 - N+1 Query Detection
+- Migration 관리 : Flyway, Liquibase
+- Connection Pool : 대규모 트래픽 대비
+- Connection Limit : 설정
+- Deadlock : 모니터링 수치
 
 ---
 
