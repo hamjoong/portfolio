@@ -271,8 +271,10 @@ DB 인덱스 최적화, CDN 활용, 비동기 메시지 큐를 통한 부하 분
 - DAC 접근 제어
 - MAC 접근 제어
 - BYOD 분리
+- PII 방어
 - SCA (Software Composition Analysis) : CI 파이프라인에서 오픈소스 라이브러리의 취약점을 자동 스캔한다. (Snyk, GitHub Dependency Graph)
 - Container Scan : Docker 이미지 빌드 시 베이스 이미지의 취약점을 점검한다. (Trivy)
+- Incident Response : 장애 발생 시 누가 승인하고 어떻게 전파하는지에 대한 '비상 연락망 및 대응 프로세스'
 
 # 운영 도구 모니터링
 - Prometheus
@@ -282,6 +284,10 @@ DB 인덱스 최적화, CDN 활용, 비동기 메시지 큐를 통한 부하 분
 - CPU, Memory, API Latency, Error Rate, DB Query Time 모니터링
 - DML Audit Log
 - N+1 Query Detection
+- Migration 관리 : Flyway, Liquibase
+- Connection Pool : 대규모 트래픽 대비
+- Connection Limit : 설정
+- Deadlock : 모니터링 수치
 
 ---
 
@@ -312,16 +318,26 @@ README는 누구나 보고 빠르게 이해할 수 있어야 한다.
 
 ---
 
+# ADR.md
+
+---
+
 # Architecture Decision Records
+
+---
 
 # 도입 배경
 10명의 시니어가 협업함에 있어, 특정 기술 선택의 이유와 포기한 대안을 기록하여 향후 기술 부채 파악 및 리팩토링의 근거로 삼는다.
+
+---
 
 # ADR 작성 양식
 - Status : Proposed / Accepted / Deprecated / Superseded
 - Context : 해당 결정이 필요한 배경과 비즈니스 요구사항
 - Decision : 선택한 기술/패턴 및 구현 방식
 - Consequences : 이 선택으로 얻는 이득과 감수해야 할 트레이드오프(Trade-off)
+
+---
 
 # 핵심 패턴
 - Hexagonal Architecture : 도메인 로직을 외부 인프라(DB, API)로부터 격리하여 테스트 가능성을 극대화한다.
@@ -872,8 +888,10 @@ Final Lint Validation
 - DAC 접근 제어
 - MAC 접근 제어
 - BYOD 분리
+- PII 방어
 - SCA (Software Composition Analysis) : CI 파이프라인에서 오픈소스 라이브러리의 취약점을 자동 스캔한다. (Snyk, GitHub Dependency Graph)
 - Container Scan : Docker 이미지 빌드 시 베이스 이미지의 취약점을 점검한다. (Trivy)
+- Incident Response : 장애 발생 시 누가 승인하고 어떻게 전파하는지에 대한 '비상 연락망 및 대응 프로세스'
 
 ---
 
