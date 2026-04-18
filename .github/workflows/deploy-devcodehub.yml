@@ -3,9 +3,32 @@ name: Deploy DevCodeHub
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'devcodehub/**'
+      - '.github/workflows/deploy-devcodehub.yml'
 
 jobs:
+  # 1. 변경된 경로를 감지하는 작업
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+      frontend: ${{ steps.filter.outputs.frontend }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            backend:
+              - 'devcodehub/backend/**'
+            frontend:
+              - 'devcodehub/frontend/**'
+
+  # 2. 백엔드 배포 (backend 폴더 수정 시에만 실행)
   backend-deploy:
+    needs: changes
+    if: ${{ needs.changes.outputs.backend == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -37,7 +60,10 @@ jobs:
       - name: Deploy to Amazon ECS
         run: aws ecs update-service --cluster devcodehub-cluster --service devcodehub-backend-service --force-new-deployment
 
+  # 3. 프론트엔드 배포 (frontend 폴더 수정 시에만 실행)
   frontend-deploy:
+    needs: changes
+    if: ${{ needs.changes.outputs.frontend == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
