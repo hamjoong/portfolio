@@ -32,18 +32,15 @@ const ChatPage: React.FC = () => {
     }
   }, [setRooms]);
 
-  // WebSocket 및 데이터 페칭 제어
+  // [Why] 전역 연결은 App.tsx에서 관리하므로 ChatPage에서는 연결 상태 확인 및 데이터 페칭에만 집중함.
   useEffect(() => {
     if (!isLoggedIn || !accessToken || role === 'GUEST') {
       return;
     }
     
+    // 이미 App.tsx에서 connect 되었으므로 여기서는 구독 준비를 위해 idempotent하게 호출 가능
     stompClient.connect(accessToken);
     fetchRooms();
-
-    return () => {
-      stompClient.disconnect();
-    };
   }, [isLoggedIn, accessToken, role, fetchRooms]);
 
   // 구독 제어 (메시지 + 카운트)
@@ -64,6 +61,7 @@ const ChatPage: React.FC = () => {
     });
 
     return () => {
+      // [Why] DEPLOYMENT.md 준수: 페이지 이동 시 구독을 명시적으로 해제하여 리소스 유출 및 에러 로그 방지
       if (activeRoomId) stompClient.unsubscribe(`/sub/chat/room/${activeRoomId}`);
       stompClient.unsubscribe(`/sub/chat/unread/${loginId}`);
     };

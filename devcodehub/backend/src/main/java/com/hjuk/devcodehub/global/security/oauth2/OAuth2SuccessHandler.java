@@ -19,6 +19,9 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
   private final JwtProvider jwtProvider;
 
+  @org.springframework.beans.factory.annotation.Value("${app.frontend-url}")
+  private String frontendUrl;
+
   @Override
   public void onAuthenticationSuccess(
       HttpServletRequest request, HttpServletResponse response, Authentication authentication)
@@ -45,7 +48,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     }
 
     String targetUrl =
-        UriComponentsBuilder.fromUriString("http://localhost:5173/login/callback")
+        UriComponentsBuilder.fromUriString(frontendUrl + "/login/callback")
             .queryParam("token", token)
             .queryParam("loginId", loginId)
             .queryParam("nickname", nickname)

@@ -204,14 +204,23 @@ public class SeniorReviewService {
     requestRepository.save(request);
   }
 
+  /**
+   * [Why] 리뷰 완료 시 시니어에게 수수료(10%)를 제외한 크레딧을 정산합니다.
+   *
+   * @param request 시니어 리뷰 요청 객체
+   */
   private void settleCredits(SeniorReviewRequest request) {
     User senior = request.getSenior();
     int totalCredits = request.getCredits();
-    int commission = (int) (totalCredits * COMMISSION_RATE);
+    // [Why] 수수료 계산 시 반올림을 적용하여 정산 금액의 공정성을 확보함.
+    int commission = (int) Math.round(totalCredits * COMMISSION_RATE);
     int netAmount = totalCredits - commission;
 
+    // 시니어 수익 지급
     creditService.earnCredits(
         senior.getLoginId(), netAmount, CreditTransactionType.EARN_REVIEW, request.getId());
+
+    // 플랫폼 수수료 기록 (별도 차감 트랜잭션으로 남겨 통계에 활용)
     creditService.recordTransaction(
         senior.getLoginId(), -commission, CreditTransactionType.COMMISSION, request.getId());
   }

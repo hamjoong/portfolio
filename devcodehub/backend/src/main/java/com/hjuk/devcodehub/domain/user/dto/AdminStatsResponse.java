@@ -25,6 +25,7 @@ public class AdminStatsResponse {
     private long totalPosts;
     private long totalReviews;
     private long totalRevenue;
+    private long totalCommission;
   }
 
   @Getter
