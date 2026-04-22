@@ -71,7 +71,7 @@ jobs:
         run: |
           cd devcodehub/frontend
           npm install
-          VITE_API_SERVER_URL=https://d1axmhxlvpfryf.cloudfront.net npm run build
+          VITE_API_SERVER_URL=https://d25npckf4082vn.cloudfront.net npm run build
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
