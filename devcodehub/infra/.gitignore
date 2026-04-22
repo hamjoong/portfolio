@@ -5,4 +5,3 @@
 .terraform.lock.hcl
 
 setup-ssm.sh
-task-definition.json

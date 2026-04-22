@@ -1,0 +1,55 @@
+{
+  "family": "devcodehub-backend-task",
+  "networkMode": "awsvpc",
+  "containerDefinitions": [
+    {
+      "name": "devcodehub-backend",
+      "image": "842091916432.dkr.ecr.ap-northeast-2.amazonaws.com/devcodehub-backend:latest",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "secrets": [
+        { "name": "DB_URL", "valueFrom": "/prod/devcodehub/db/url" },
+        { "name": "DB_USERNAME", "valueFrom": "/prod/devcodehub/db/username" },
+        { "name": "DB_PASSWORD", "valueFrom": "/prod/devcodehub/db/password" },
+        { "name": "JWT_SECRET", "valueFrom": "/prod/devcodehub/auth/jwt_secret" },
+        { "name": "GOOGLE_CLIENT_ID", "valueFrom": "/prod/devcodehub/oauth/google_client_id" },
+        { "name": "GOOGLE_CLIENT_SECRET", "valueFrom": "/prod/devcodehub/oauth/google_client_secret" },
+        { "name": "GITHUB_CLIENT_ID", "valueFrom": "/prod/devcodehub/oauth/github_client_id" },
+        { "name": "GITHUB_CLIENT_SECRET", "valueFrom": "/prod/devcodehub/oauth/github_client_secret" },
+        { "name": "KAKAO_CLIENT_ID", "valueFrom": "/prod/devcodehub/oauth/kakao_client_id" },
+        { "name": "KAKAO_CLIENT_SECRET", "valueFrom": "/prod/devcodehub/oauth/kakao_client_secret" },
+        { "name": "NAVER_CLIENT_ID", "valueFrom": "/prod/devcodehub/oauth/naver_client_id" },
+        { "name": "NAVER_CLIENT_SECRET", "valueFrom": "/prod/devcodehub/oauth/naver_client_secret" },
+        { "name": "OPENAI_API_KEY", "valueFrom": "/prod/devcodehub/ai/openai_api_key" },
+        { "name": "CLAUDE_API_KEY", "valueFrom": "/prod/devcodehub/ai/claude_api_key" },
+        { "name": "GEMINI_API_KEY", "valueFrom": "/prod/devcodehub/ai/gemini_api_key" },
+        { "name": "PORTONE_V1_API_KEY", "valueFrom": "/prod/devcodehub/portone/v1_api_key" },
+        { "name": "PORTONE_V1_API_SECRET", "valueFrom": "/prod/devcodehub/portone/v1_api_secret" },
+        { "name": "PORTONE_V2_STORE_ID", "valueFrom": "/prod/devcodehub/portone/v2_store_id" },
+        { "name": "PORTONE_V2_API_SECRET", "valueFrom": "/prod/devcodehub/portone/v2_api_secret" },
+        { "name": "PORTONE_V2_CHANNEL_KEY", "valueFrom": "/prod/devcodehub/portone/v2_channel_key" },
+        { "name": "SUPABASE_ACCESS_KEY", "valueFrom": "/prod/devcodehub/storage/supabase_access_key" },
+        { "name": "SUPABASE_SECRET_KEY", "valueFrom": "/prod/devcodehub/storage/supabase_secret_key" },
+        { "name": "ADMIN_ID", "valueFrom": "/prod/devcodehub/admin/id" },
+        { "name": "ADMIN_PASSWORD", "valueFrom": "/prod/devcodehub/admin/password" }
+      ],
+      "environment": [
+        { "name": "SPRING_PROFILES_ACTIVE", "value": "prod" },
+        { "name": "APP_SERVER_URL", "value":  "http://devcodehub-alb-442295340.ap-northeast-2.elb.amazonaws.com"  },
+        { "name": "FRONTEND_URL", "value": "http://d3adoiteeff33v.cloudfront.net" },
+        { "name": "APP_UPLOAD_BASE_URL", "value": "http://devcodehub-alb-442295340.ap-northeast-2.elb.amazonaws.com" },
+        { "name": "GEMINI_MODEL", "value": "gemini-1.5-flash" },
+        { "name": "AWS_REGION", "value": "ap-northeast-2" },
+        { "name": "AWS_S3_BUCKET", "value": "devcodehub-uploads-bucket" }
+      ]
+    }
+  ],
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::842091916432:role/ecsTaskExecutionRole"
+}
