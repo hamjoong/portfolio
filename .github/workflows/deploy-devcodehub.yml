@@ -66,7 +66,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ./devcodehub/infra/task-definition.json
+          task-definition: ${{ github.workspace }}/devcodehub/infra/task-definition.json
           container-name: devcodehub-backend
           image: ${{ steps.login-ecr.outputs.registry }}/devcodehub-backend:latest
 
