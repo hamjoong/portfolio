@@ -151,7 +151,7 @@ CORS_ALLOWED_ORIGIN: ${FRONTEND_URL:http://localhost:5173}
 cloud:
   aws:
     s3:
-      bucket: devcodehub-uploads-bucket
+      bucket: devcodehub-assets-842091916432
     region:
       static: ap-northeast-2
     stack:
