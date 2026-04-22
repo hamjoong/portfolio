@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -18,6 +19,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
   private final JwtProvider jwtProvider;
+
+  @Value("${app.frontend.url:http://localhost:5173}")
+  private String frontendUrl;
 
   @Override
   public void onAuthenticationSuccess(
@@ -45,7 +49,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     }
 
     String targetUrl =
-        UriComponentsBuilder.fromUriString("http://localhost:5173/login/callback")
+        UriComponentsBuilder.fromUriString(frontendUrl + "/login/callback")
             .queryParam("token", token)
             .queryParam("loginId", loginId)
             .queryParam("nickname", nickname)

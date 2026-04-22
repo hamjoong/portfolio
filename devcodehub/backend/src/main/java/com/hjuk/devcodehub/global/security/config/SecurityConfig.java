@@ -101,7 +101,7 @@ public class SecurityConfig {
     return http.build();
   }
 
-  @Value("${CORS_ALLOWED_ORIGIN:http://localhost:5173}")
+  @Value("${CORS_ALLOWED_ORIGINS:http://localhost:5173,https://devcodehub.com}")
   private String allowedOrigin;
 
   @Bean

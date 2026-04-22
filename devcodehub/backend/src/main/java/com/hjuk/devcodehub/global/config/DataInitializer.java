@@ -27,10 +27,10 @@ public class DataInitializer {
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
 
-  @Value("${ADMIN_ID:admin}")
+  @Value("${ADMIN_ID}")
   private String adminId;
 
-  @Value("${ADMIN_PASSWORD:admin123!}")
+  @Value("${ADMIN_PASSWORD}")
   private String adminPassword;
 
   @EventListener(ContextRefreshedEvent.class)

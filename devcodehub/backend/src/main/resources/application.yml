@@ -21,14 +21,14 @@ spring:
             client-id: ${KAKAO_CLIENT_ID}
             client-secret: ${KAKAO_CLIENT_SECRET}
             authorization-grant-type: authorization_code
-            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"
+            redirect-uri: "${OAUTH_REDIRECT_URI_KAKAO:http://localhost:8080/login/oauth2/code/kakao}"
             client-authentication-method: client_secret_post
             client-name: Kakao
           naver:
             client-id: ${NAVER_CLIENT_ID}
             client-secret: ${NAVER_CLIENT_SECRET}
             authorization-grant-type: authorization_code
-            redirect-uri: "http://localhost:8080/login/oauth2/code/naver"
+            redirect-uri: "${OAUTH_REDIRECT_URI_NAVER:http://localhost:8080/login/oauth2/code/naver}"
             client-name: Naver
         provider:
           kakao:
@@ -87,6 +87,10 @@ server:
 
 # 애플리케이션 설정
 app:
+  server:
+    url: ${APP_SERVER_URL:http://localhost:8080}
+  frontend:
+    url: ${FRONTEND_URL:http://localhost:5173}
   # AI API 설정
   ai:
     openai:

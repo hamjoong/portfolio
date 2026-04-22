@@ -12,7 +12,7 @@ class StompClient {
     if (this.client?.connected) return;
 
     this.client = new Client({
-      webSocketFactory: () => new SockJS(`${API_SERVER_URL}/ws-stomp`),
+      webSocketFactory: () => new SockJS(`${import.meta.env.VITE_API_SERVER_URL || 'http://localhost:8080/api/v1'}/ws-stomp`),
       connectHeaders: {
         Authorization: `Bearer ${accessToken}`,
       },
