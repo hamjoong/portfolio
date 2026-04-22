@@ -37,8 +37,6 @@ public class AdminStatsService {
     long totalReviews = reviewRepository.count();
     Long revenue = creditTransactionRepository.sumTotalRevenue();
     long totalRevenue = revenue != null ? revenue : 0L;
-    Long commission = creditTransactionRepository.sumTotalCommission();
-    long totalCommission = commission != null ? commission : 0L;
 
     // Daily Stats
     List<AdminStatsResponse.DailyStat> dailySignups =
@@ -102,7 +100,6 @@ public class AdminStatsService {
                 .totalPosts(totalPosts)
                 .totalReviews(totalReviews)
                 .totalRevenue(totalRevenue)
-                .totalCommission(totalCommission)
                 .build())
         .dailySignups(dailySignups)
         .dailyPosts(dailyPosts)

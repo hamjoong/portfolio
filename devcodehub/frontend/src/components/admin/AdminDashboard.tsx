@@ -35,7 +35,6 @@ interface StatsData {
     totalPosts: number;
     totalReviews: number;
     totalRevenue: number;
-    totalCommission: number;
   };
   dailySignups: { date: string; count: number }[];
   dailyPosts: { date: string; count: number }[];
@@ -106,18 +105,17 @@ const AdminDashboard: React.FC = () => {
   return (
     <div className="space-y-10 animate-in fade-in duration-500">
       {/* 요약 카드 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
           { label: '전체 회원', value: stats.summary.totalUsers.toLocaleString(), sub: `오늘 +${stats.summary.todaySignups}`, color: 'blue' },
           { label: '누적 매출', value: `${stats.summary.totalRevenue.toLocaleString()} C`, sub: '전체 충전액', color: 'green' },
-          { label: '플랫폼 수익', value: `${stats.summary.totalCommission.toLocaleString()} C`, sub: '수수료 (10%)', color: 'indigo' },
           { label: '전체 게시글', value: stats.summary.totalPosts.toLocaleString(), sub: 'SKILL + AI', color: 'purple' },
           { label: 'AI 리뷰 수', value: stats.summary.totalReviews.toLocaleString(), sub: '누적 요청건', color: 'orange' },
         ].map((card, i) => (
-          <div key={i} className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">{card.label}</p>
-            <h4 className={`text-xl font-black mb-1 text-slate-900 truncate`}>{card.value}</h4>
-            <p className="text-[10px] text-slate-500 font-bold">{card.sub}</p>
+          <div key={i} className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm">
+            <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">{card.label}</p>
+            <h4 className={`text-3xl font-black mb-1 text-slate-900`}>{card.value}</h4>
+            <p className="text-xs text-slate-500 font-bold">{card.sub}</p>
           </div>
         ))}
       </div>

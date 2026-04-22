@@ -53,12 +53,6 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
-    hikari:
-      maximum-pool-size: 20
-      minimum-idle: 10
-      idle-timeout: 30000
-      connection-timeout: 20000
-      pool-name: DevCodeHub-LocalPool
   jpa:
     hibernate:
       ddl-auto: update
@@ -88,32 +82,11 @@ spring:
         format_sql: true
 
 ---
-# 공통 설정
 server:
   port: 8080
-  forward-headers-strategy: framework
 
-# 모니터링 설정 (부하 테스트용)
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health, info, metrics
-  endpoint:
-    health:
-      show-details: always
-  health:
-    redis:
-      enabled: false
-  metrics:
-    tags:
-      application: ${spring.application.name}
-
-# 애플리케이션 커스텀 설정
+# 애플리케이션 설정
 app:
-  # 프론트엔드 주소 (OAuth2 리다이렉션 등에 사용)
-  frontend-url: ${FRONTEND_URL:http://localhost:5173}
-  
   # AI API 설정
   ai:
     openai:
@@ -144,14 +117,11 @@ app:
       store-id: ${PORTONE_V2_STORE_ID:}
       api-secret: ${PORTONE_V2_API_SECRET:}
 
-# 보안 및 기타 시스템 설정
-CORS_ALLOWED_ORIGIN: ${FRONTEND_URL:http://localhost:5173}
-
 # AWS S3 설정
 cloud:
   aws:
     s3:
-      bucket: devcodehub-assets-842091916432
+      bucket: devcodehub-uploads-bucket
     region:
       static: ap-northeast-2
     stack:

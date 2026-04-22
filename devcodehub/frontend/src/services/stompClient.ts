@@ -6,10 +6,10 @@ import { API_SERVER_URL } from './constants';
 class StompClient {
   private client: Client | null = null;
   private subscriptions: Record<string, StompSubscription> = {};
-  private pendingSubscriptions: Record<string, (message: Record<string, unknown> | string) => void> = {};
+  private pendingSubscriptions: (() => void)[] = [];
 
   connect(accessToken: string) {
-    if (this.client?.active) return;
+    if (this.client?.connected) return;
 
     this.client = new Client({
       webSocketFactory: () => new SockJS(`${API_SERVER_URL}/ws-stomp`),
@@ -19,17 +19,13 @@ class StompClient {
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
-      debug: (str) => {
-        if (import.meta.env.DEV) console.log(str);
-      },
     });
 
     this.client.onConnect = () => {
       useChatStore.getState().setConnected(true);
-      Object.entries(this.pendingSubscriptions).forEach(([dest, callback]) => {
-        this.subscribe(dest, callback);
-      });
-      this.pendingSubscriptions = {};
+      // 연결 후 대기 중이던 구독을 실행
+      this.pendingSubscriptions.forEach(sub => sub());
+      this.pendingSubscriptions = [];
     };
 
     this.client.onStompError = (frame) => {
@@ -43,25 +39,22 @@ class StompClient {
     this.client.activate();
   }
 
-  async disconnect() {
+  disconnect() {
     if (this.client) {
-      const tempClient = this.client;
+      try {
+        this.client.deactivate();
+      } catch (e) {
+        console.error('STOMP disconnection error:', e);
+      }
       this.client = null;
       this.subscriptions = {};
-      this.pendingSubscriptions = {};
-      
-      try {
-        await tempClient.deactivate();
-        useChatStore.getState().setConnected(false);
-      } catch (e) {
-        // 종료 시 에러 무시
-      }
+      this.pendingSubscriptions = [];
     }
   }
 
   subscribe(destination: string, callback: (message: Record<string, unknown> | string) => void) {
     if (!this.client?.connected) {
-      this.pendingSubscriptions[destination] = callback;
+      this.pendingSubscriptions.push(() => this.subscribe(destination, callback));
       return;
     }
 
@@ -72,7 +65,7 @@ class StompClient {
         const body = JSON.parse(message.body);
         callback(body);
       } catch {
-        callback(message.body);
+        callback(message.body); // JSON이 아닌 일반 텍스트일 경우
       }
     });
 
@@ -84,13 +77,11 @@ class StompClient {
       this.subscriptions[destination].unsubscribe();
       delete this.subscriptions[destination];
     }
-    if (this.pendingSubscriptions[destination]) {
-      delete this.pendingSubscriptions[destination];
-    }
   }
 
   publish(destination: string, body: Record<string, unknown>) {
     if (!this.client?.connected) {
+      console.error('STOMP client not connected. Cannot publish.');
       return;
     }
 

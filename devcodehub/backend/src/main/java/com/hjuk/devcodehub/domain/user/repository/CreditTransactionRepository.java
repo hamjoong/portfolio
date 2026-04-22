@@ -21,8 +21,4 @@ public interface CreditTransactionRepository extends JpaRepository<CreditTransac
   @org.springframework.data.jpa.repository.Query(
       "SELECT SUM(ct.amount) FROM CreditTransaction ct WHERE ct.type = 'RECHARGE'")
   Long sumTotalRevenue();
-
-  @org.springframework.data.jpa.repository.Query(
-      "SELECT ABS(SUM(ct.amount)) FROM CreditTransaction ct WHERE ct.type = 'COMMISSION'")
-  Long sumTotalCommission();
 }

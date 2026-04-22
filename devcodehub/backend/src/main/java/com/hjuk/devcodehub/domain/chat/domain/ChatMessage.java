@@ -25,7 +25,7 @@ import jakarta.persistence.Index;
 @Table(
     name = "chat_messages",
     indexes = {
-      @Index(name = "idx_chat_room_created_at", columnList = "chat_room_id, created_at"),
+      @Index(name = "idx_chat_room_created_at", columnList = "chat_room_id, createdAt"),
       @Index(name = "idx_chat_room_id", columnList = "chat_room_id, id")
     })
 @Getter
