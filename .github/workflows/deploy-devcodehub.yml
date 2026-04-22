@@ -57,8 +57,21 @@ jobs:
           docker tag devcodehub-backend:latest ${{ steps.login-ecr.outputs.registry }}/devcodehub-backend:latest
           docker push ${{ steps.login-ecr.outputs.registry }}/devcodehub-backend:latest
 
+      - name: Render Task Definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: devcodehub/infra/task-definition.json
+          container-name: devcodehub-backend
+          image: ${{ steps.login-ecr.outputs.registry }}/devcodehub-backend:latest
+
       - name: Deploy to Amazon ECS
-        run: aws ecs update-service --cluster devcodehub-cluster --service devcodehub-backend-service --force-new-deployment
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: devcodehub-backend-service
+          cluster: devcodehub-cluster
+          wait-for-service-stability: true
 
   # 3. 프론트엔드 배포 (frontend 폴더 수정 시에만 실행)
   frontend-deploy:
