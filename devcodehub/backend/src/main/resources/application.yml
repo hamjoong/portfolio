@@ -17,7 +17,7 @@ spring:
           github:
             client-id: ${GITHUB_CLIENT_ID}
             client-secret: ${GITHUB_CLIENT_SECRET}
-            scope: user:email, read:user, repo
+            scope: read:user, user:email
             redirect-uri: "${OAUTH_REDIRECT_URI_GITHUB:http://localhost:8080/login/oauth2/code/github}"
           kakao:
             client-id: ${KAKAO_CLIENT_ID}
