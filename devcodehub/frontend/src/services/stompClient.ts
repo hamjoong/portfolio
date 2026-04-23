@@ -1,6 +1,7 @@
 import { Client, type StompSubscription } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { useChatStore } from '../store/chatStore';
+import { API_SERVER_URL } from './constants';
 
 class StompClient {
   private client: Client | null = null;

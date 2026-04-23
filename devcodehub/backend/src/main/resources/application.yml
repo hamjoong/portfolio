@@ -13,12 +13,10 @@ spring:
             client-id: ${GOOGLE_CLIENT_ID}
             client-secret: ${GOOGLE_CLIENT_SECRET}
             scope: profile, email
-            redirect-uri: "${OAUTH_REDIRECT_URI_GOOGLE:http://localhost:8080/login/oauth2/code/google}"
           github:
             client-id: ${GITHUB_CLIENT_ID}
             client-secret: ${GITHUB_CLIENT_SECRET}
-            scope: read:user, user:email
-            redirect-uri: "${OAUTH_REDIRECT_URI_GITHUB:http://localhost:8080/login/oauth2/code/github}"
+            scope: user:email, read:user, repo
           kakao:
             client-id: ${KAKAO_CLIENT_ID}
             client-secret: ${KAKAO_CLIENT_SECRET}
@@ -65,8 +63,7 @@ spring:
     open-in-view: true
 
 ---
-
-# Production Profile (Supabase PostgreSQL + AWS Infra)
+# Production Profile (Supabase PostgreSQL)
 spring:
   config:
     activate:
@@ -79,56 +76,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-    show-sql: false
+    show-sql: true
     properties:
       hibernate:
-        format_sql: false
-
-server:
-  forward-headers-strategy: native
-
-app:
-  server:
-    url: ${APP_SERVER_URL}
-  frontend:
-    url: ${FRONTEND_URL}
-  ai:
-    openai:
-      api-key: ${OPENAI_API_KEY}
-      model: ${OPENAI_MODEL:gpt-4o-mini}
-    claude:
-      api-key: ${CLAUDE_API_KEY}
-      model: ${CLAUDE_MODEL:claude-3-5-sonnet-20240620}
-    gemini:
-      api-key: ${GEMINI_API_KEY}
-      model: ${GEMINI_MODEL:gemini-flash-latest}
-  portone:
-    v1:
-      api-key: ${PORTONE_V1_API_KEY}
-      api-secret: ${PORTONE_V1_API_SECRET}
-    v2:
-      store-id: ${PORTONE_V2_STORE_ID}
-      api-secret: ${PORTONE_V2_API_SECRET}
-      channel-key: ${PORTONE_V2_CHANNEL_KEY}
-  upload:
-    base-url: ${APP_UPLOAD_BASE_URL}
-    profile-dir: ${UPLOAD_PROFILE_DIR:/uploads/profiles/}
-
-cloud:
-  aws:
-    s3:
-      bucket: ${AWS_S3_BUCKET:devcodehub-uploads-bucket}
-    region:
-      static: ${AWS_REGION:ap-northeast-2}
-    stack:
-      auto: false
-
-jwt:
-  secret: ${JWT_SECRET}
-  expiration: 3600000
+        format_sql: true
 
 ---
-
 server:
   port: 8080
 

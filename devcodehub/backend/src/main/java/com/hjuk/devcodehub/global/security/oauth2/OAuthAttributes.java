@@ -53,14 +53,9 @@ public class OAuthAttributes {
 
   private static OAuthAttributes ofGoogle(
       String userNameAttributeName, Map<String, Object> attributes, String socialAccessToken) {
-    String nickname = String.valueOf(attributes.get("name"));
-    Object emailObj = attributes.get("email");
-    String email = (emailObj != null && !String.valueOf(emailObj).equals("null"))
-        ? String.valueOf(emailObj) : (nickname.replaceAll("\\s+", "") + "@google.com");
-
     return OAuthAttributes.builder()
-        .nickname(nickname)
-        .email(email)
+        .nickname((String) attributes.get("name"))
+        .email((String) attributes.get("email"))
         .provider("google")
         .providerId(String.valueOf(attributes.get(userNameAttributeName)))
         .attributes(attributes)
@@ -72,17 +67,15 @@ public class OAuthAttributes {
   private static OAuthAttributes ofKakao(
       String userNameAttributeName, Map<String, Object> attributes, String socialAccessToken) {
     Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
-    String nickname = "KakaoUser";
+    String nickname = null;
     String email = null;
 
     if (kakaoAccount != null) {
       Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
       if (profile != null) {
-        nickname = String.valueOf(profile.get("nickname"));
+        nickname = (String) profile.get("nickname");
       }
-      Object emailObj = kakaoAccount.get("email");
-      email = (emailObj != null && !String.valueOf(emailObj).equals("null"))
-          ? String.valueOf(emailObj) : (nickname.replaceAll("\\s+", "") + "@kakao.com");
+      email = (String) kakaoAccount.get("email");
     }
 
     return OAuthAttributes.builder()
@@ -99,16 +92,12 @@ public class OAuthAttributes {
   private static OAuthAttributes ofNaver(
       String userNameAttributeName, Map<String, Object> attributes, String socialAccessToken) {
     Map<String, Object> response = (Map<String, Object>) attributes.get("response");
-    String nickname = String.valueOf(response.get("nickname"));
-    Object emailObj = response.get("email");
-    String email = (emailObj != null && !String.valueOf(emailObj).equals("null"))
-        ? String.valueOf(emailObj) : (nickname.replaceAll("\\s+", "") + "@naver.com");
 
     return OAuthAttributes.builder()
-        .nickname(nickname)
-        .email(email)
+        .nickname((String) response.get("nickname"))
+        .email((String) response.get("email"))
         .provider("naver")
-        .providerId(String.valueOf(response.get("id")))
+        .providerId((String) response.get("id"))
         .attributes(response)
         .nameAttributeKey("id")
         .socialAccessToken(socialAccessToken)
@@ -117,14 +106,9 @@ public class OAuthAttributes {
 
   private static OAuthAttributes ofGithub(
       String userNameAttributeName, Map<String, Object> attributes, String socialAccessToken) {
-    String nickname = String.valueOf(attributes.get("login"));
-    Object emailObj = attributes.get("email");
-    String email = (emailObj != null && !String.valueOf(emailObj).equals("null"))
-        ? String.valueOf(emailObj) : (nickname + "@github.com");
-
     return OAuthAttributes.builder()
-        .nickname(nickname)
-        .email(email)
+        .nickname((String) attributes.get("login"))
+        .email((String) attributes.get("email"))
         .provider("github")
         .providerId(String.valueOf(attributes.get("id")))
         .attributes(attributes)

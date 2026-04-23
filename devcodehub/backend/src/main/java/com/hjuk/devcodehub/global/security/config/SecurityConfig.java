@@ -93,13 +93,8 @@ public class SecurityConfig {
             oauth2 ->
                 oauth2
                     .authorizationEndpoint(auth -> auth.baseUri("/api/v1/oauth2/authorization"))
-                    .redirectionEndpoint(redirection -> redirection.baseUri("/api/v1/login/oauth2/code/*"))
                     .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
-                    .successHandler(oAuth2SuccessHandler)
-                    .failureHandler((request, response, exception) -> {
-                      String redirectUrl = allowedOrigin.split(",")[0] + "/login?error=true";
-                      response.sendRedirect(redirectUrl);
-                    }));
+                    .successHandler(oAuth2SuccessHandler));
 
     http.headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()));
 
