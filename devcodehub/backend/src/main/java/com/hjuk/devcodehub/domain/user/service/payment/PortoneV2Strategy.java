@@ -20,6 +20,9 @@ public class PortoneV2Strategy implements PaymentStrategy {
   @Value("${app.portone.v2.api-secret:}")
   private String v2ApiSecret;
 
+  @Value("${app.portone.v2.api-url}")
+  private String apiUrl;
+
   @Override
   public boolean supports(String paymentId) {
     return !paymentId.startsWith("imp_");
@@ -40,7 +43,7 @@ public class PortoneV2Strategy implements PaymentStrategy {
           restClientBuilder
               .build()
               .get()
-              .uri("https://api.portone.io/payments/" + paymentId) // Sandbox가 아닌 공식 API URL 사용
+              .uri(apiUrl + "/payments/" + paymentId) // Sandbox가 아닌 공식 API URL 사용
               .headers(
                   h -> {
                     String authHeader = "PortOne " + v2ApiSecret.trim();

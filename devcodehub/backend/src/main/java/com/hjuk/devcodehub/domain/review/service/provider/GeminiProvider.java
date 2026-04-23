@@ -25,6 +25,9 @@ public class GeminiProvider implements AiProvider {
   @Value("${app.ai.gemini.api-key}")
   private String apiKey;
 
+  @Value("${app.ai.gemini.api-url}")
+  private String apiUrl;
+
   @Value("${app.ai.gemini.model:gemini-1.5-flash}")
   private String model;
 
@@ -40,7 +43,7 @@ public class GeminiProvider implements AiProvider {
       return Map.of("error", "AI 서비스 설정(API Key)이 누락되었습니다. 관리자에게 문의해 주세요.");
     }
 
-    String url = "https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent?key=" + apiKey;
+    String url = apiUrl + "/" + model + ":generateContent?key=" + apiKey;
     String systemPrompt = promptService.getSystemPrompt();
     String userPrompt = promptService.buildUserPrompt(code, language);
 

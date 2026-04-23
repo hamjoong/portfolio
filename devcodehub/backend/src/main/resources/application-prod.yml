@@ -1,0 +1,6 @@
+# Production 환경에서 사용할 설정 파일입니다.
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false

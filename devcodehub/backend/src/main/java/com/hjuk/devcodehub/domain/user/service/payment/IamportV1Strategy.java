@@ -29,6 +29,9 @@ public class IamportV1Strategy implements PaymentStrategy {
   @Value("${app.portone.v1.api-secret:}")
   private String v1ApiSecret;
 
+  @Value("${app.portone.v1.api-url}")
+  private String apiUrl;
+
   @Override
   public boolean supports(String paymentId) {
     return paymentId.startsWith("imp_");
@@ -57,7 +60,7 @@ public class IamportV1Strategy implements PaymentStrategy {
       HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(body, headers);
 
       Map<String, Object> authResponse =
-          restTemplate.postForObject("https://api.iamport.kr/users/getToken", entity, Map.class);
+          restTemplate.postForObject(apiUrl + "/users/getToken", entity, Map.class);
 
       if (authResponse == null || authResponse.get("response") == null) {
         throw new BusinessException("포트원 V1 토큰 발급 실패", ErrorCode.INTERNAL_SERVER_ERROR);
@@ -69,7 +72,7 @@ public class IamportV1Strategy implements PaymentStrategy {
       log.info("PortOne V1 토큰 발급 완료. 토큰(앞{}자리): {}",
           TOKEN_LOG_LENGTH,
           token.substring(0, Math.min(token.length(), TOKEN_LOG_LENGTH)));
-      log.info("PortOne V1 결제 정보 조회 요청 URL: https://api.iamport.kr/payments/{}", impUid);
+      log.info("PortOne V1 결제 정보 조회 요청 URL: {}/payments/{}", apiUrl, impUid);
 
       HttpHeaders authHeaders = new HttpHeaders();
       authHeaders.set("Authorization", token);
@@ -77,7 +80,7 @@ public class IamportV1Strategy implements PaymentStrategy {
 
       ResponseEntity<Map> responseEntity =
           restTemplate.exchange(
-              "https://api.iamport.kr/payments/" + impUid, HttpMethod.GET, authEntity, Map.class);
+              apiUrl + "/payments/" + impUid, HttpMethod.GET, authEntity, Map.class);
 
       return (Map<String, Object>) responseEntity.getBody().get("response");
     } catch (org.springframework.web.client.HttpClientErrorException e) {

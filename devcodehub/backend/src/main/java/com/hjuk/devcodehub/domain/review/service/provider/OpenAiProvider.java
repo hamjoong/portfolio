@@ -22,6 +22,9 @@ public class OpenAiProvider implements AiProvider {
   @Value("${app.ai.openai.api-key}")
   private String apiKey;
 
+  @Value("${app.ai.openai.api-url}")
+  private String apiUrl;
+
   @Value("${app.ai.openai.model:gpt-4o-mini}")
   private String model;
 
@@ -32,8 +35,6 @@ public class OpenAiProvider implements AiProvider {
 
   @Override
   public Map<String, Object> review(String code, String language) {
-    String url = "https://api.openai.com/v1/chat/completions";
-
     Map<String, Object> requestBody =
         Map.of(
             "model", model,
@@ -49,7 +50,7 @@ public class OpenAiProvider implements AiProvider {
           restClientBuilder
               .build()
               .post()
-              .uri(url)
+              .uri(apiUrl)
               .header("Authorization", "Bearer " + apiKey)
               .body(requestBody)
               .retrieve()

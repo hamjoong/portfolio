@@ -24,6 +24,9 @@ public class ClaudeProvider implements AiProvider {
   private final PromptEngineeringService promptService;
   private final ObjectMapper objectMapper;
 
+  @Value("${app.ai.claude.api-url}")
+  private String apiUrl;
+
   @Value("${app.ai.claude.api-key}")
   private String apiKey;
 
@@ -44,8 +47,6 @@ public class ClaudeProvider implements AiProvider {
    */
   @Override
   public Map<String, Object> review(String code, String language) {
-    String url = "https://api.anthropic.com/v1/messages";
-
     Map<String, Object> requestBody =
         Map.of(
             "model",
@@ -63,7 +64,7 @@ public class ClaudeProvider implements AiProvider {
           restClientBuilder
               .build()
               .post()
-              .uri(url)
+              .uri(apiUrl)
               .header("x-api-key", apiKey)
               .header("anthropic-version", "2023-06-01")
               .header("content-type", "application/json")

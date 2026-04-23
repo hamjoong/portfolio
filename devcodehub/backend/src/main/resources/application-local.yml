@@ -1,0 +1,10 @@
+# Local 환경에서 사용할 설정 파일입니다.
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: true
