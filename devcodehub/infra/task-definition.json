@@ -34,14 +34,19 @@
         { "name": "PORTONE_V2_CHANNEL_KEY", "valueFrom": "/prod/devcodehub/portone/v2_channel_key" },
         { "name": "SUPABASE_ACCESS_KEY", "valueFrom": "/prod/devcodehub/storage/supabase_access_key" },
         { "name": "SUPABASE_SECRET_KEY", "valueFrom": "/prod/devcodehub/storage/supabase_secret_key" },
+        { "name": "SUPABASE_S3_ENDPOINT_HOST", "valueFrom": "/prod/devcodehub/storage/supabase_s3_endpoint_host" },
         { "name": "ADMIN_ID", "valueFrom": "/prod/devcodehub/admin/id" },
         { "name": "ADMIN_PASSWORD", "valueFrom": "/prod/devcodehub/admin/password" }
       ],
       "environment": [
         { "name": "SPRING_PROFILES_ACTIVE", "value": "prod" },
         { "name": "APP_SERVER_URL", "value":  "http://devcodehub-alb-442295340.ap-northeast-2.elb.amazonaws.com"  },
-        { "name": "FRONTEND_URL", "value": "http://d3adoiteeff33v.cloudfront.net" },
+        { "name": "FRONTEND_URL", "value": "https://d3adoiteeff33v.cloudfront.net" },
         { "name": "APP_UPLOAD_BASE_URL", "value": "http://devcodehub-alb-442295340.ap-northeast-2.elb.amazonaws.com" },
+        { "name": "CORS_ALLOWED_ORIGINS", "value": "https://d3adoiteeff33v.cloudfront.net,http://devcodehub-alb-442295340.ap-northeast-2.elb.amazonaws.com" },
+        { "name": "CORS_ALLOWED_ORIGIN", "value": "https://d3adoiteeff33v.cloudfront.net" },
+        { "name": "OAUTH_REDIRECT_URI_KAKAO", "value": "http://devcodehub-alb-442295340.ap-northeast-2.elb.amazonaws.com/login/oauth2/code/kakao" },
+        { "name": "OAUTH_REDIRECT_URI_NAVER", "value": "http://devcodehub-alb-442295340.ap-northeast-2.elb.amazonaws.com/login/oauth2/code/naver" },
         { "name": "GEMINI_MODEL", "value": "gemini-1.5-flash" },
         { "name": "AWS_REGION", "value": "ap-northeast-2" },
         { "name": "AWS_S3_BUCKET", "value": "devcodehub-uploads-bucket" }
