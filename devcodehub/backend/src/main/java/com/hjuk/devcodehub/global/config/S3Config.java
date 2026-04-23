@@ -37,11 +37,14 @@ public class S3Config {
 
     var builder = AmazonS3ClientBuilder.standard()
         .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(accessKey, secretKey)))
-        .withClientConfiguration(clientConfig)
-        .withRegion(region);
+        .withClientConfiguration(clientConfig);
 
     if (endpoint != null && !endpoint.isEmpty()) {
+      log.info("S3Config: Using EndpointConfiguration with endpoint: {} and region: {}", endpoint, region);
       builder.withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endpoint, region));
+    } else {
+      log.info("S3Config: Using standard Region: {}", region);
+      builder.withRegion(region);
     }
 
     return builder.build();

@@ -57,8 +57,7 @@
         "options": {
           "awslogs-group": "/ecs/devcodehub-backend",
           "awslogs-region": "ap-northeast-2",
-          "awslogs-stream-prefix": "ecs",
-          "awslogs-create-group": "true"
+          "awslogs-stream-prefix": "ecs"
         }
       }
     }
