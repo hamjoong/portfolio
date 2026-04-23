@@ -48,6 +48,8 @@
         { "name": "CORS_ALLOWED_ORIGIN", "value": "https://d3adoiteeff33v.cloudfront.net" },
         { "name": "OAUTH_REDIRECT_URI_KAKAO", "value": "https://d3adoiteeff33v.cloudfront.net/login/oauth2/code/kakao" },
         { "name": "OAUTH_REDIRECT_URI_NAVER", "value": "https://d3adoiteeff33v.cloudfront.net/login/oauth2/code/naver" },
+        { "name": "OAUTH_REDIRECT_URI_GOOGLE", "value": "https://d3adoiteeff33v.cloudfront.net/login/oauth2/code/google" },
+        { "name": "OAUTH_REDIRECT_URI_GITHUB", "value": "https://d3adoiteeff33v.cloudfront.net/login/oauth2/code/github" },
         { "name": "GEMINI_MODEL", "value": "gemini-1.5-flash" },
         { "name": "AWS_REGION", "value": "ap-northeast-2" },
         { "name": "AWS_S3_BUCKET", "value": "devcodehub-uploads-bucket" }
