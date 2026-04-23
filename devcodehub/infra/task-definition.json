@@ -40,6 +40,7 @@
       ],
       "environment": [
         { "name": "SPRING_PROFILES_ACTIVE", "value": "prod" },
+        { "name": "APP_REDIS_AUTO_STARTUP", "value": "false" },
         { "name": "APP_SERVER_URL", "value":  "http://devcodehub-alb-442295340.ap-northeast-2.elb.amazonaws.com"  },
         { "name": "FRONTEND_URL", "value": "https://d3adoiteeff33v.cloudfront.net" },
         { "name": "APP_UPLOAD_BASE_URL", "value": "http://devcodehub-alb-442295340.ap-northeast-2.elb.amazonaws.com" },
@@ -50,7 +51,16 @@
         { "name": "GEMINI_MODEL", "value": "gemini-1.5-flash" },
         { "name": "AWS_REGION", "value": "ap-northeast-2" },
         { "name": "AWS_S3_BUCKET", "value": "devcodehub-uploads-bucket" }
-      ]
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/devcodehub-backend",
+          "awslogs-region": "ap-northeast-2",
+          "awslogs-stream-prefix": "ecs",
+          "awslogs-create-group": "true"
+        }
+      }
     }
   ],
   "requiresCompatibilities": ["FARGATE"],
