@@ -55,7 +55,7 @@ public class OAuthAttributes {
       String userNameAttributeName, Map<String, Object> attributes, String socialAccessToken) {
     String nickname = String.valueOf(attributes.get("name"));
     Object emailObj = attributes.get("email");
-    String email = (emailObj != null && !String.valueOf(emailObj).equals("null")) 
+    String email = (emailObj != null && !String.valueOf(emailObj).equals("null"))
         ? String.valueOf(emailObj) : (nickname.replaceAll("\\s+", "") + "@google.com");
 
     return OAuthAttributes.builder()
@@ -81,7 +81,7 @@ public class OAuthAttributes {
         nickname = String.valueOf(profile.get("nickname"));
       }
       Object emailObj = kakaoAccount.get("email");
-      email = (emailObj != null && !String.valueOf(emailObj).equals("null")) 
+      email = (emailObj != null && !String.valueOf(emailObj).equals("null"))
           ? String.valueOf(emailObj) : (nickname.replaceAll("\\s+", "") + "@kakao.com");
     }
 
@@ -101,7 +101,7 @@ public class OAuthAttributes {
     Map<String, Object> response = (Map<String, Object>) attributes.get("response");
     String nickname = String.valueOf(response.get("nickname"));
     Object emailObj = response.get("email");
-    String email = (emailObj != null && !String.valueOf(emailObj).equals("null")) 
+    String email = (emailObj != null && !String.valueOf(emailObj).equals("null"))
         ? String.valueOf(emailObj) : (nickname.replaceAll("\\s+", "") + "@naver.com");
 
     return OAuthAttributes.builder()
@@ -119,7 +119,7 @@ public class OAuthAttributes {
       String userNameAttributeName, Map<String, Object> attributes, String socialAccessToken) {
     String nickname = String.valueOf(attributes.get("login"));
     Object emailObj = attributes.get("email");
-    String email = (emailObj != null && !String.valueOf(emailObj).equals("null")) 
+    String email = (emailObj != null && !String.valueOf(emailObj).equals("null"))
         ? String.valueOf(emailObj) : (nickname + "@github.com");
 
     return OAuthAttributes.builder()
