@@ -4,3 +4,15 @@ spring:
     hibernate:
       ddl-auto: none
     show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+    open-in-view: false
+
+# 운영 환경에서 보안상 민감한 설정을 명시적으로 재정의
+logging:
+  level:
+    root: INFO
+    com.hjuk.devcodehub: INFO
+    org.hibernate.SQL: ERROR
+    org.hibernate.type.descriptor.sql.BasicBinder: ERROR

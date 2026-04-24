@@ -8,3 +8,6 @@ spring:
       hibernate:
         format_sql: true
     open-in-view: true
+
+# 로컬 개발 시에는 환경 변수가 없을 경우를 대비한 추가 설정 가능
+# 현재는 application.yml의 기본값으로 충분함
