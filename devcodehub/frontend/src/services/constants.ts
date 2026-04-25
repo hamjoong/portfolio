@@ -4,14 +4,16 @@
  * GEMINI.md 규칙: API Key 노출 금지, 환경 변수(.env) 사용
  */
 
-/** 백엔드 서버의 기본 URL (프록시를 타는 경우 빈 문자열 또는 경로, 직접 접근이 필요한 경우 전체 URL) */
-const isLocal = !import.meta.env.VITE_API_SERVER_URL;
+/** 백엔드 서버의 기본 URL (환경 변수에서 가져오거나 빈 값) */
 const BASE_URL = import.meta.env.VITE_API_SERVER_URL || '';
-
 export const API_SERVER_URL = BASE_URL;
 
-/** 소셜 로그인 리다이렉트 기본 경로 (직접 접근을 위해 로컬에선 8080 고정) */
-const SOCIAL_BASE = isLocal ? 'http://localhost:8080/api/v1' : `${API_SERVER_URL}`;
+/** 개발 모드 여부 확인 (Vite 표준 방식) */
+const isDev = import.meta.env.MODE === 'development';
+
+/** 소셜 로그인 리다이렉트 기본 경로 설정 */
+// 개발 환경에서는 로컬 백엔드 주소를 기본으로 사용하고, 운영 환경에서는 설정된 API URL을 사용합니다.
+const SOCIAL_BASE = isDev ? 'http://localhost:8080/api/v1' : BASE_URL;
 export const OAUTH_REDIRECT_BASE = `${SOCIAL_BASE}/oauth2/authorization`;
 
 /** 지원하는 소셜 로그인 프로바이더 목록 */

@@ -279,9 +279,9 @@ const CreditPage: React.FC = () => {
           ) : (
             <div className="flex flex-col gap-3">
               {[
-                { label: '주간 (Weekly)', value: 'WEEKLY', price: '3,000 C', desc: 'AI 리뷰 주 10회, 리포트 월 1회' },
-                { label: '월간 (Monthly)', value: 'MONTHLY', price: '9,900 C', desc: 'AI 리뷰 주 30회, 리포트 무제한' },
-                { label: '년간 (Yearly)', value: 'YEARLY', price: '99,000 C', desc: 'AI 리뷰 주 100회, 리포트 무제한' }
+                { label: '주간 (Weekly)', value: 'WEEKLY', price: '3,000 C', desc: 'AI 리뷰 주 10회' },
+                { label: '월간 (Monthly)', value: 'MONTHLY', price: '9,900 C', desc: 'AI 리뷰 주 30회' },
+                { label: '년간 (Yearly)', value: 'YEARLY', price: '99,000 C', desc: 'AI 리뷰 주 100회' }
               ].map(plan => (
                 <button 
                   key={plan.value}

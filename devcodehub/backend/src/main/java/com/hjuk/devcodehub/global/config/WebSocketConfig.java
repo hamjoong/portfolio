@@ -11,7 +11,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-  @Value("${CORS_ALLOWED_ORIGIN:http://localhost:5173}")
+  @Value("${FRONTEND_URL:http://localhost:5173}")
   private String allowedOrigin;
 
   @Override
@@ -25,7 +25,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {
     // stomp 엔드포인트 설정
-    registry.addEndpoint("/ws-stomp")
+    registry.addEndpoint("/api/v1/ws-stomp")
             .setAllowedOrigins(allowedOrigin)
             .withSockJS();
   }
