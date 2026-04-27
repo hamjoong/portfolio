@@ -22,20 +22,19 @@ public class S3Config {
   private final Environment env;
 
   @Bean
-  @ConditionalOnProperty(
-      name = {"SUPABASE_ACCESS_KEY", "SUPABASE_SECRET_KEY"})
+  @ConditionalOnProperty(name = {"SUPABASE_ACCESS_KEY", "SUPABASE_SECRET_KEY"})
   public AmazonS3 amazonS3() {
     String region = env.getProperty("cloud.aws.region.static", "ap-northeast-2");
     String accessKey = env.getProperty("SUPABASE_ACCESS_KEY");
     String secretKey = env.getProperty("SUPABASE_SECRET_KEY");
     String endpoint = env.getProperty("SUPABASE_S3_ENDPOINT_HOST");
 
-    log.info("S3Config: Initializing AmazonS3 Client with endpoint: {}", endpoint);
+    log.info("S3Config: Initializing AmazonS3 Client with endpoint: {}, region: {}", endpoint, region);
 
     ClientConfiguration clientConfig = new ClientConfiguration();
     clientConfig.setProtocol(Protocol.HTTPS);
 
-    var builder = AmazonS3ClientBuilder.standard()
+    AmazonS3ClientBuilder builder = AmazonS3ClientBuilder.standard()
         .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(accessKey, secretKey)))
         .withClientConfiguration(clientConfig)
         .withRegion(region);
@@ -44,6 +43,8 @@ public class S3Config {
       builder.withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endpoint, region));
     }
 
-    return builder.build();
+    AmazonS3 s3 = builder.build();
+    log.info("S3Config: AmazonS3 Client successfully initialized.");
+    return s3;
   }
 }
