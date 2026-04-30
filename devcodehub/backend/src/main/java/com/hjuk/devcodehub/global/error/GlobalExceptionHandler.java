@@ -68,8 +68,13 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(Exception.class)
   protected ResponseEntity<ApiResponse<Void>> handleAllExceptions(Exception e) {
     log.error("예상치 못한 예외 발생! 상세 정보: ", e);
+    // [DEBUG] 추측 방지 및 팩트 체크를 위해 실제 에러 원인을 클라이언트에 노출 (해결 후 삭제 예정)
+    String detailedMessage = e.getMessage() != null ? e.getMessage() : e.toString();
+    if (e.getCause() != null) {
+      detailedMessage += " | Caused by: " + e.getCause().getMessage();
+    }
     ApiResponse<Void> response =
-        ApiResponse.error(ErrorCode.INTERNAL_SERVER_ERROR.getCode(), e.getMessage());
+        ApiResponse.error(ErrorCode.INTERNAL_SERVER_ERROR.getCode(), detailedMessage);
     return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }

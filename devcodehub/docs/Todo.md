@@ -48,6 +48,12 @@
 - [x] 관리자 통계 대시보드 구축
 - [x] 통합 운영 도구 및 감사 로그 시스템 구현
 
-## Phase 9: 배포 및 안정화 (예정)
-- [ ] AWS CI/CD 구축 (현재 Phase 외)
-- [ ] 부하 테스트 (예정)
+## Phase 9: 배포 및 자동화 - [완료]
+- [x] GitHub Actions 기반 CI/CD 파이프라인 구축
+- [x] 경로 기반 스마트 빌드 및 선별 배포 적용
+- [x] 운영 환경 AWS ECS/Fargate 안정화
+- [x] Supabase Native API 스토리지 연동 이슈 해결
+
+## Phase 10: 안정화 및 고도화 (진행 예정)
+- [x] 부하 테스트 및 성능 튜닝
+- [] AI 모델 추가 (Claude, OpenAI API 키 활성화)

@@ -11,9 +11,10 @@
 - **로깅 마스킹**: `LogMaskingConverter`를 통한 이메일/전화번호 상시 마스킹. 로그에 개인정보(PII) 출력 금지.
 
 ## 3. 인프라 보안
-- **Storage Security**: 모든 파일 업로드는 S3를 사용하며, 버킷은 `Private`으로 전환. 외부 접근은 **CloudFront OAC**를 통해서만 허용.
-- **Access Control**: 관리자 페이지 및 중요 API는 RBAC로 엄격히 통제.
-- **Rate Limiting**: IP당 호출 제한(`RateLimitFilter`)으로 DoS 공격 방어.
+- **Storage Security**: 파일 업로드는 **Supabase Native API**를 사용하며, 서버 측에서 `service_role` JWT를 통해 권한을 제어함. 클라이언트는 직접적인 스토리지 쓰기 권한을 가지지 않음.
+- **Access Control**: 관리자 페이지 및 중요 API는 RBAC(Role-Based Access Control)로 엄격히 통제 (Spring Security).
+- **Rate Limiting**: IP당 호출 빈도 제한(`RateLimitFilter`)을 적용하여 무차별 대입 및 DoS 공격 방어.
+- **CORS Policy**: 운영 환경 도메인(`*.cloudfront.net`)에 대해서만 명시적으로 허용.
 
 ## 4. 보안 점검 파이프라인
 - SCA (Software Composition Analysis) 상시 실행.

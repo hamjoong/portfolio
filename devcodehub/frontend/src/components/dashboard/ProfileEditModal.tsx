@@ -155,8 +155,13 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ userInfo, onClose, 
       setUploadedImageUrl(resolvedUploadUrl);
 
       alert('이미지가 업로드되었습니다. [변경사항 저장]을 눌러 완료해 주세요.');
-    } catch {
-      alert('이미지 업로드에 실패했습니다.');
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const errorData = error.response?.data as { error?: { message: string } };
+        alert(errorData?.error?.message || '이미지 업로드에 실패했습니다.');
+      } else {
+        alert('이미지 업로드 중 알 수 없는 오류가 발생했습니다.');
+      }
       setProfilePreview(null);
       if (previewUrl) URL.revokeObjectURL(previewUrl);
     } finally {

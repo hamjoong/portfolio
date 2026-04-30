@@ -1,7 +1,7 @@
 import { Client, type StompSubscription } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { useChatStore } from '../store/chatStore';
-import { API_SERVER_URL } from './constants';
+import { WS_BASE_URL } from './constants';
 
 class StompClient {
   private client: Client | null = null;
@@ -12,7 +12,8 @@ class StompClient {
     if (this.client?.connected) return;
 
     this.client = new Client({
-      webSocketFactory: () => new SockJS(`${API_SERVER_URL}/ws-stomp`),
+      // [Fix] 로컬/운영 환경에 따라 최적화된 베이스 경로 사용 (중복 슬래시 방지)
+      webSocketFactory: () => new SockJS(`${WS_BASE_URL.replace(/\/$/, '')}/ws-stomp`),
       connectHeaders: {
         Authorization: `Bearer ${accessToken}`,
       },

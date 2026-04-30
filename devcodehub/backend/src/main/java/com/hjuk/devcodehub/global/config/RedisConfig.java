@@ -48,6 +48,12 @@ public class RedisConfig {
     RedisMessageListenerContainer container = new RedisMessageListenerContainer();
     container.setConnectionFactory(connectionFactory);
     container.addMessageListener(listenerAdapter, channelTopic);
+
+    // [Why] Redis 연결 실패 시 앱 기동 중단을 방지하기 위해 에러 핸들러 설정
+    container.setErrorHandler(e -> {
+      System.err.println("Redis Listener Error: " + e.getMessage());
+    });
+
     return container;
   }
 

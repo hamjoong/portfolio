@@ -72,7 +72,7 @@ public class BoardResponse {
       this.authorLoginId = "Unknown Author";
     }
 
-    this.tags = board.getTags() != null ? board.getTags() : Collections.emptyList();
+    this.tags = board.getTags() != null ? new java.util.ArrayList<>(board.getTags()) : Collections.emptyList();
     this.viewCount = board.getViewCount();
     this.likeCount = inputLikeCount;
     this.isLiked = inputIsLiked;

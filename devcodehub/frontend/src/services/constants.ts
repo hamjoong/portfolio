@@ -5,15 +5,24 @@
  */
 
 /** 백엔드 서버의 기본 URL (환경 변수에서 가져오거나 빈 값) */
-const BASE_URL = import.meta.env.VITE_API_SERVER_URL || '';
+const BASE_URL = (import.meta.env.VITE_API_SERVER_URL || '').replace(/\/$/, '');
 export const API_SERVER_URL = BASE_URL;
+
+/** 
+ * 웹소켓 연결을 위한 베이스 URL 
+ * 로컬: BASE_URL이 없으면 '/api/v1' 사용
+ * 운영: BASE_URL이 있으면 중복 체크 후 '/api/v1' 결합
+ */
+export const WS_BASE_URL = BASE_URL 
+  ? (BASE_URL.includes('/api/v1') ? BASE_URL : `${BASE_URL}/api/v1`)
+  : '/api/v1';
 
 /** 개발 모드 여부 확인 (Vite 표준 방식) */
 const isDev = import.meta.env.MODE === 'development';
 
 /** 소셜 로그인 리다이렉트 기본 경로 설정 */
-// 개발 환경에서는 로컬 백엔드 주소를 기본으로 사용하고, 운영 환경에서는 설정된 API URL을 사용합니다.
-const SOCIAL_BASE = isDev ? 'http://localhost:8080/api/v1' : BASE_URL;
+// [Fix] 운영 환경(CloudFront)에서도 /api/v1 경로를 거치도록 수정
+const SOCIAL_BASE = isDev ? 'http://localhost:8080/api/v1' : `${BASE_URL}/api/v1`;
 export const OAUTH_REDIRECT_BASE = `${SOCIAL_BASE}/oauth2/authorization`;
 
 /** 지원하는 소셜 로그인 프로바이더 목록 */

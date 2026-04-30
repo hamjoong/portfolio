@@ -7,9 +7,35 @@ spring:
     properties:
       hibernate:
         format_sql: false
-    open-in-view: false
+    open-in-view: true
 
-# 운영 환경에서 보안상 민감한 설정을 명시적으로 재정의
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            redirect-uri: "https://d21xqtdxaa8phl.cloudfront.net/api/v1/login/oauth2/code/google"
+          github:
+            redirect-uri: "https://d21xqtdxaa8phl.cloudfront.net/api/v1/login/oauth2/code/github"
+          kakao:
+            redirect-uri: "https://d21xqtdxaa8phl.cloudfront.net/api/v1/login/oauth2/code/kakao"
+          naver:
+            redirect-uri: "https://d21xqtdxaa8phl.cloudfront.net/api/v1/login/oauth2/code/naver"
+
+# AWS S3 설정 (운영 환경 강제 지정)
+cloud:
+  aws:
+    s3:
+      bucket: ${AWS_S3_BUCKET:devcodehub-uploads-bucket}
+    region:
+      static: ${AWS_REGION:ap-northeast-2}
+    stack:
+      auto: false
+
+app:
+  upload:
+    base-url: ${APP_UPLOAD_BASE_URL:https://d21xqtdxaa8phl.cloudfront.net}
+
 logging:
   level:
     root: INFO

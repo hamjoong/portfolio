@@ -41,7 +41,11 @@ public class CacheConfig {
                 RedisSerializationContext.SerializationPair.fromSerializer(
                     new GenericJackson2JsonRedisSerializer()));
 
-    return RedisCacheManager.builder(connectionFactory).cacheDefaults(config).build();
+    return RedisCacheManager.builder(connectionFactory)
+        .cacheDefaults(config)
+        .withInitialCacheConfigurations(java.util.Collections.emptyMap())
+        .transactionAware()
+        .build();
   }
 
   @Bean

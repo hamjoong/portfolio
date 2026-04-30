@@ -9,17 +9,17 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      // Proxy API requests to the backend server
-      '/api': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-        secure: false,
-      },
-      // Proxy WebSocket/Stomp requests to the backend server
-      '/ws-stomp': {
+      // Proxy WebSocket/Stomp requests
+      '/api/v1/ws-stomp': {
         target: 'http://localhost:8080',
         changeOrigin: true,
         ws: true,
+        secure: false,
+      },
+      // Proxy API requests
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
         secure: false,
       },
     }

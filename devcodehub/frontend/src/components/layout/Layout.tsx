@@ -28,11 +28,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       try {
         const res = await api.get('/notifications');
-        const latestNotifications = res.data.map((n: { id: number, content: string, createdAt: string }) => ({
-          id: n.id,
-          text: n.content,
-          time: new Date(n.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        })).slice(0, 5);
+        const latestNotifications = res.data.map((n: { id: number, content: string, createdAt: string }) => {
+          // [Why] 백엔드 날짜 문자열에 타임존 정보가 없을 경우 브라우저의 현지 시간으로 변환
+          const date = new Date(n.createdAt);
+          return {
+            id: n.id,
+            text: n.content,
+            time: date.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })
+          };
+        }).slice(0, 5);
         useNotificationStore.getState().setNotifications(latestNotifications);
       } catch (err) {
         console.error("알림 동기화 실패:", err);

@@ -19,36 +19,41 @@ graph TD
         AppServer --> Storage[(Supabase Storage)]
     end
     
-    subgraph "External APIs"
-        AI --> OpenAI[OpenAI API]
-        AI --> Claude[Claude API]
-        AI --> Gemini[Gemini API]
+    subgraph "Data Storage"
+        AppServer --> DB[(PostgreSQL - Supabase)]
+        AppServer --> Cache[(Redis Cache & Pub/Sub)]
+        AppServer --> Storage[(Supabase Storage - Native API)]
     end
-```
+    ```
 
-## 2. 레이어드 아키텍처 (Layered Architecture)
+    ## 2. 레이어드 아키텍처 (Layered Architecture)
 
-우리 시스템은 **계층형 구조(Layered Architecture)**를 따르며, 각 레이어는 자신의 책임에만 집중합니다.
+    우리 시스템은 **계층형 구조(Layered Architecture)**를 따르며, 각 레이어는 자신의 책임에만 집중합니다.
 
-- **Presentation Layer (Web/Controller)**: HTTP 요청 처리, JSON 변환, API 명세(Swagger)
-- **Service Layer (Business)**: 핵심 비즈니스 로직, 트랜잭션 관리, AI 서비스 호출
-- **Infrastructure Layer (Data/External)**: DB 접근(JPA), 외부 API 통신(OpenAI 등), Redis 캐싱
-- **Common/Shared Layer**: 전역 예외 처리, 공통 유틸리티, 상수 정의
+    - **Presentation Layer (Web/Controller)**: HTTP 요청 처리, JSON 변환, API 표준 응답(ApiResponse) 적용
+    - **Service Layer (Business)**: 핵심 비즈니스 로직, 트랜잭션 관리, AI 병렬 호출(CompletableFuture)
+    - **Infrastructure Layer (Data/External)**: DB 접근(JPA), 외부 API 통신(RestClient), Redis 캐싱 및 메시징
+    - **Common/Shared Layer**: 전역 예외 처리(GlobalExceptionHandler), 보안 유틸리티(MaskingUtil)
 
-## 3. 데이터 흐름 (Data Flow)
+    ## 3. 데이터 흐름 (Data Flow)
 
-### 3.1 AI 코드 리뷰 흐름
-1. 사용자가 Monaco Editor에서 코드를 작성하고 리뷰 요청 (OpenAI, Claude, Gemini 중 다중 선택 가능)
-2. API 서버가 요청을 받고, CompletableFuture를 통해 선택된 각 AI 모델로부터 병렬로 리뷰 수신
-3. 각 AI 모델에 맞는 프롬프트(20년차 시니어 개발자 페르소나) 구성 및 JSON 구조화 응답 강제
-4. 수신된 구조화된 결과를 JSONB 포맷으로 DB에 개별 저장하고 사용자에게 통합 응답
-5. 사용자의 성장 그래프(Activity Graph) 포인트 업데이트 및 리뷰 히스토리 관리
+    ### 3.1 AI 코드 리뷰 흐름
+    1. 사용자가 Monaco Editor에서 코드를 작성하고 리뷰 요청 (Gemini 기본, OpenAI/Claude 확장 가능)
+    2. API 서버가 요청을 받고, `aiTaskExecutor` 스레드 풀을 통해 각 AI 모델로부터 병렬로 리뷰 수신
+    3. 프롬프트 엔지니어링을 통해 구조화된 JSON 응답(summary, rating, pros, cons) 강제
+    4. 분석 결과를 JSONB 포맷으로 DB에 저장하고 사용자에게 응답
+    5. 비회원(Guest)의 경우 IP 기반으로 일일/누적 사용량 제한 로직 수행
 
-### 3.2 실시간 채팅 흐름
-1. 사용자가 WebSocket 연결 시 STOMP 엔드포인트에 구독
-2. 메시지 발송 시 Redis Pub/Sub을 통해 모든 서버 인스턴스에 전파
-3. 해당 방을 구독 중인 사용자에게 실시간 메시지 전달
-4. 백그라운드 스케줄러가 Redis의 채팅 로그를 5분 간격으로 DB에 일괄 저장 (Write-behind 전략)
+    ### 3.2 실시간 채팅 흐름
+    1. 사용자가 WebSocket 연결 시 `/ws-stomp` 엔드포인트에 구독
+    2. 메시지 발송 시 Redis Pub/Sub을 통해 다중 인스턴스 환경에서 실시간 브로드캐스팅
+    3. **Write-behind 전략**: 채팅 메시지는 Redis 큐에 즉시 적재되며, `ChatWriteBehindScheduler`가 5분 주기로 DB에 벌크 Insert 수행
+    4. 사용자별 '안 읽은 메시지' 카운트는 별도의 소켓 채널을 통해 실시간 동기화
+
+    ### 3.3 파일 업로드 흐름
+    1. AWS SDK의 서명 이슈를 해결하기 위해 **Supabase Native Storage API**를 직접 호출
+    2. `service_role` JWT 권한을 사용하여 서버 측에서 업로드 대행
+    3. 업로드 성공 시 Public URL을 반환하여 클라이언트에서 즉시 렌더링 가능하도록 함
 
 ## 4. 인프라 확장 및 배포 전략
 
