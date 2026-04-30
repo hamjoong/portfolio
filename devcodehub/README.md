@@ -94,9 +94,9 @@ devcodehub/
 
 - 문제: 인증 및 리다이렉트 이슈 <br>
 원인: 소셜 로그인 후 리다이렉트 시 발생하는 인증 에러는 리다이렉트 URI 설정 불일치 와 CloudFront-ALB 간 Authorization 헤더 유실 이 주요 원인이었습니다. <br>
-해결: 각 소셜 콘솔(Google 등)에 CloudFront 도메인을 포함한 URI를 명시적으로 등록하여 해결했습니다. <br>
+해결: 각 소셜 콘솔(Google 등)에 CloudFront 도메인을 포함한 URI를 명시적으로 등록하여 해결했습니다. <br> <br>
 원인: 정적 리소스 및 SPA 라우팅 새로고침 시 발생하는 404 에러 <br>
-해결: S3 정적 호스팅 설정에서 `Index` 및 `Error document`를 모두 `index.html`로 설정하여 해결하였습니다. <br>
+해결: S3 정적 호스팅 설정에서 `Index` 및 `Error document`를 모두 `index.html`로 설정하여 해결하였습니다. <br> <br>
 원인: AI 모델 호출 오류 운영 환경의 네트워크 환경 차이로 인한 타임아웃 문제 <br>
 해결: 타임아웃 문제를 해결하기 위해 `aiTaskExecutor`의 스레드 풀 설정을 튜닝하고 60초 타임아웃을 적용하였습니다. <br>
 
