@@ -2,6 +2,15 @@ import { Project } from '../types/Project';
 
 export const PROJECTS: Project[] = [
   {
+    title: 'devcodehub',
+    period: '2026.03 - 2026.04',
+    description: '개발자 커뮤니티 플랫폼으로, 사용자 친화적 인터페이스와 강력한 기능을 제공합니다.',
+    stack: ['React 19', 'TypeScript', 'Tailwind CSS', 'Spring Boot', 'PostgreSQL(Supabase)', 'Docker'],
+    problem: 'AI 기반 추천 시스템의 성능 저하 및 대규모 트래픽 보안 이슈 및 실시간 채팅 환경 구현.',
+    solution: 'Spring Security/JWT 무상태 인증 및 AWS SDK 지연 초기화 전략.',
+    links: { demo: 'https://d21xqtdxaa8phl.cloudfront.net/' },
+  },
+  {
     title: 'shopping mall',
     period: '2026.03 - 2026.03',
     description: '복잡한 이커머스 시스템을 현대적 아키텍처로 재해석한 풀스택 프로젝트입니다.',
