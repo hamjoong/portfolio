@@ -1,243 +1,117 @@
-# TRD.md
+# 02_TRD.md
 
 ---
 
-# Technical Requirements Document
+# [가이드] 범용 기술 상세 설계서 (Universal TRD Guide)
 
 ---
 
-# 1. 문서 목적
-이 문서는 어떻게 기술적으로 구현할 것인지를 정의한다.
+## 1. 개요 및 목적
+본 문서는 **어떠한 프로그래밍 언어나 프레임워크를 사용하는 프로젝트에도 공통 적용되는 기술 상세 설계서(TRD) 작성 표준이자 실행 템플릿**입니다.
 
-# 2. 시스템 아키텍쳐 System Architecture
-시스템은 계층형 구조를 기본으로 하며, UI, API, 비즈니스 로직, 데이터 접근 계층을 분리한다.
-마이크로서비스 / 모놀리식 / 하이브리드 선택 근거
-계층형 구조 : UI - API Gateway - Business Logic - Data Access
-관심사 분리 : 각 기능은 모듈화되어 서로의 영역을 침범하지 않습니다.
+OpenAI 하네스 엔지니어링의 핵심은 프롬프트 상의 권고가 아닌, **시스템과 도구가 기계적으로 코드 품질을 강제하는 '예측 가능한 가이드라인(Deterministic Rails)'**의 구축에 있습니다. 본 문서는 시스템 구조, 인터페이스 계약, 그리고 에이전트의 자가 치유(Self-Repair)를 위한 에러 규격을 정의합니다.
+
+---
+
+## 2. 불변의 코드 품질 기준 (Engineering Invariants)
+어떤 기술 스택(Node.js, Spring, Python, Go, Rust 등)을 사용하든 아래 기준은 로컬 Git 훅과 CI 파이프라인에서 **기계적으로 검사되어 위반 시 즉시 빌드가 차단(Hard Block)**되어야 합니다.
+
+| 점검 항목 | 상한 기준 | 기계적 강제 도구 예시 |
+| :--- | :--- | :--- |
+| **함수/메서드 길이** | 50줄 이하 | ESLint `max-lines-per-function`, Checkstyle, flake8 |
+| **클래스/파일 길이** | 300줄 이하 | ESLint `max-lines`, SonarQube |
+| **중첩 깊이 (Depth)** | 3단계 이하 | ESLint `max-depth`, Checkstyle |
+| **순환 복잡도 (Complexity)** | Cyclomatic 10 이하 | ESLint `complexity`, Radon, CodeMetrics |
+| **빌드 경고 허용치** | **Warning 0, Error 0** | CI 플래그 (`--max-warnings=0`, `-Werror` 등) |
+| **테스트 커버리지** | 도메인 로직 80% 이상 | Jest, Pytest-cov, JaCoCo, Go cover |
+| **도메인 계층 격리** | 순수 도메인의 외부 의존성 차단 | ArchUnit, dependency-cruiser, ts-morph |
+
+---
+
+# [템플릿] 프로젝트 TRD 실행 양식 (Universal TRD Template)
+*신규 프로젝트 설계 시 Architecture Squad가 프로젝트 스택에 맞춰 작성하는 표준 양식입니다.*
+
+```markdown
+---
+project_name: "{{프로젝트명}}"
+version: "1.0.0"
+author_squad: "Architecture Squad"
+status: "DRAFT | IN_REVIEW | APPROVED"
+referenced_prd: "01_PRD.md (v1.0.0)"
+created_at: "{{YYYY-MM-DD}}"
+updated_at: "{{YYYY-MM-DD}}"
+---
+
+# 1. 시스템 아키텍처 및 계층 분리 (Architecture & Layering)
+- **적용 패턴**: 헥사고날 아키텍처 (Hexagonal Architecture / Ports and Adapters)
+- **계층 분리 원칙**:
+  - **도메인(Core Domain)**: 순수 비즈니스 로직만 포함하며, 프레임워크나 데이터베이스, 외부 API 라이브러리를 직접 import하지 않는다.
+  - **포트(Ports)**: 도메인이 외부와 소통하기 위한 순수 인터페이스(Inbound/Outbound).
+  - **어댑터(Adapters)**: 컨트롤러, 웹 라우터, ORM, 외부 클라이언트 등 기술적 구현체.
 
 ```text
-Client
-↓
-CDN
-↓
-Load Balancer
-↓
-API Gateway
-↓
-Service Layer
-↓
-Database
+[클라이언트 요청]
+       │
+       ▼
+[인바운드 어댑터 (Controller / Router)]
+       │
+       ▼ (Port Interface)
+[코어 도메인 (Entities & Domain Services)]  ← 순수 비즈니스 로직
+       │
+       ▼ (Port Interface)
+[아웃바운드 어댑터 (DB Repository / External Client Sandbox)]
 ```
 
----
+# 2. 기술 스택 및 검증 도구 어댑터 매핑 (Tooling Adapter Matrix)
+*프로젝트에 선택된 기술 스택과 각 계층별 하네스 검증 도구를 명확히 매핑합니다.*
 
-# 3. 아키텍처 원칙
-- 관심사 분리
-- 모듈화
-- 확장성 우선
-- 안정성 우선
-- 보안 우선
-- 테스트 가능성 확보
+| 계층 (Layer) | 채택 기술 | 정적 분석 / 린트 도구 | 테스트 실행 도구 |
+| :--- | :--- | :--- | :--- |
+| **UI / 프론트엔드** | {{예: Next.js / TypeScript}} | {{ESLint / Prettier}} | {{Vitest / Playwright}} |
+| **코어 / 백엔드** | {{예: NestJS / Spring Boot / FastAPI}} | {{SonarQube / Checkstyle}} | {{Jest / JUnit / Pytest}} |
+| **데이터베이스** | {{예: PostgreSQL / Redis}} | {{Flyway / Prisma / Liquibase}} | {{Testcontainers}} |
+| **인프라 / 배포** | {{예: Docker / AWS ECS / K8s}} | {{Trivy / Hadolint}} | {{k6 (부하 테스트)}} |
 
----
-
-# 4. 기술 스택
-
-# Frontend
-- HTML / CSS / SCSS / Tailwind CSS
-- JavaScript / TypeScript
-- React / Vue / Next.js
-
-# Backend
-- Node.js : 실시간 통신 및 고성능 I/O 처리
-- Spring Boot : 트랜잭션 중심의 핵심 비즈니스 로직
-- Java : 트랜잭션 중심의 핵심 비즈니스 로직
-- NestJS : 실시간 통신 및 고성능 I/O 처리
-- FastAPI : AI 모델 서빙 및 데이터 분석 도구
-- Python : AI 모델 서빙 및 데이터 분석 도구
-
-
-# Database
-- MySQL
-- PostgreSQL
-- Redis
-- MongoDB
-
-# Infra
-- AWS
-- Docker
-- Kubernetes
-- Terraform
-
-# CI/CD
-- GitHub Actions
-- Jenkins
-- AWS CI/CD
-
----
-
-# 5. API 표준
-- RESTful API Level 3
-- Swagger(OpenAPI 3.0)
-- JSON 표준
-- 리소스 중심 URL
-- 표준 HTTP 상태 코드 사용
-- 에러 응답 구조 통일
-- 사용자 메시지와 내부 로그 분리
-- API Key 노출 금지(.env 사용)
-- Rate Limiting : IP당/계정당 호출 제한을 API Gateway 레벨에서 강제한다
-- Payload Validation : 모든 외부 입력값에 대해 엄격한 Schema Validation(Zod, Joi 등)을 적용한다.
-
-# 예시
-
-```http
-GET /users
-POST /users
-PUT /users/{id}
-DELETE /users/{id}
-```
-
-# 응답 예시
+# 3. 인터페이스 명세 및 데이터 검증 (API & Data Validation)
+- 모든 외부 입력값은 런타임 스키마 검증기({{Zod / class-validator / Pydantic}})를 통해 엄격히 검증한다.
+- **표준 에러 응답 규격**: 시스템 내부 예외 스택을 노출하지 않고 일관된 응답 구조를 유지한다.
 
 ```json
 {
-  "success": true,
-  "data": {}
+  "success": false,
+  "error": {
+    "code": "INVALID_INPUT | UNAUTHORIZED | NOT_FOUND | INTERNAL_ERROR",
+    "message": "사용자에게 노출 가능한 안전한 안내 문구",
+    "traceId": "trace-uuid-1234"
+  },
+  "timestamp": "2026-09-10T15:00:00Z"
 }
 ```
 
----
+# 4. 자가 치유 에러 피드백 규격 (Self-Repair Error Envelope)
+파이프라인 검증 실패 시, 에이전트가 최소한의 토큰으로 결함을 식별할 수 있도록 아래 JSON 구조로 요약 피드백을 전달한다.
 
-# 6. 예외 처리
-- 전역 예외 처리기 사용
-- 표준 에러 코드 응답
-- 변경 사항은 RFC 형식으로 문서화
-
-# 표준 에러 코드
-- 400 BAD REQUEST
-- 401 UNAUTHORIZED
-- 403 FORBIDDEN
-- 404 NOT FOUND
-- 500 SERVER ERROR
-
----
-
-# 7. 성능 기준
-- API 응답 200ms 이하
-- DB Index 최적화
-- Redis Cache 적용
-- CDN 사용
-- Lazy Loading
-- Pagination
-- Query Plan 분석
-- 이미지 최적화
-- 불필요한 API 호출 방지
-- 불필요한 DB 조회 방지
-- LCP (Largest Contentful Paint) : 2.5초 이내
-- CLS (Cumulative Layout Shift) : 0.1초 이하
-- TTFB (Time to First Byte) : 100ms 이내 목표
-- SLO 적용
-- p95 latency < 200ms
-- error rate < 1%
-- DB Connection Pool 관리
-- N+1 Query 제거
-- Lock Contention 최소화
-- Cache Aside Pattern
-- TTL 정책 정의
-- Redis 활용
-
----
-
-# 8. 코드 구조
-# Frontend
-
-```text
-src/
-├ components
-├ pages
-├ hooks
-├ services
-├ utils
+```json
+{
+  "status": "VALIDATION_FAILED",
+  "stage": "LINT | UNIT_TEST | BUILD",
+  "violations": [
+    {
+      "file": "src/domain/{{대상파일명}}",
+      "line": 42,
+      "rule": "COMPLEXITY_LIMIT | FUNCTION_LENGTH | TEST_FAILURE",
+      "actual": "실제 발생한 위반 내용 (예: 복잡도 14 초과, 테스트 실패)",
+      "expected": "하네스가 요구하는 정상 기준치"
+    }
+  ],
+  "retryBudget": { "attempt": 1, "maxAttempts": 3 },
+  "instruction": "기존 비즈니스 로직 동작을 변경하지 않고, 위반된 규칙을 만족하도록 리팩토링하라."
+}
 ```
 
-# Backend
-
-```text
-src/
-├ controller
-├ service
-├ repository
-├ domain
-```
-
----
-
-# 9. 코딩 규칙
-- Clean Code
-- SOLID Principles
-- DRY (중복 제거)
-- Cyclomatic Complexity (복잡도) 10 이하
-- ESLint
-- Prettier
-- SonarQube
-- Naming Convention 명확한 네이밍
-- 가독성: 변수명은 줄여 쓰지 않습니다. data 대신 userProfileData 와 같이 의미가 명확한 변수명을 사용합니다.
-- SRP (단일 책임 원칙) 하나의 함수 / 클래스는 반드시 하나의 일만 수행 준수
-- 불변성 유지 원본 데이터를 직접 수정하지 않고 새로운 객체를 변환 준수
-- 명확한 에러 처리  Error Handling 준수
-- 환경 변수 사용 Security: API Key (.env 활용) 노출 금지, 환경 변수 (.env) 준수
-- SQL Injection 방지
-- KISS 단순성 준수
-- 매직 넘버 금지
-- 테스트 가능한 코드
-- 함수 길이 50줄 이하
-- 클래스 300줄 이하
-- 중첩 depth 3 이하
-- 주석은 왜(Why) 중심으로 한국어 작성
-- 개발 단계의 DB / 배포 관련은 테스트 환경으로 한다.
-
----
-
-# 10. 유지보수 기준
-- 모듈화 구조 유지
-- 코드 리뷰 정책 준수
-- 테스트 커버리지 80% 이상
-- SemVer 버전관리
-- 의존성 최소화
-- 리팩토링 정책 준수
-- 한 파일에 너무 많은 기능 넣지 않기
-- 중복 로직 제거
-- Git Hooks : `Husky`를 사용하여 Commit 전 Lint, Push 전 Unit Test를 강제한다
-- Feature Flag : MVP 기능 배포 시 `LaunchDarkly` 또는 내부 Redis 플래그를 사용하여 런타임 제어를 수행한다
-
----
-
-# 11. 품질 파이프라인
-```text
-Lint
-↓
-Static Analysis
-↓
-Debug
-↓
-Unit Test
-↓
-Performance Optimization
-↓
-Refactoring
-↓
-Regression Test
-↓
-Final Lint Validation
-```
-
----
-
-# 12. 최종 검증
-- Lint 재실행
-- Static Analysis 재실행
-- Unit Test 재실행
-- Memory Leak 검사
-- Dead Code 제거
+# 5. 아키텍처 제약 및 의존성 규칙 (Dependency Rules)
+1. `domain` 모듈은 `infrastructure` 또는 `database` 패키지를 참조할 수 없다.
+2. 모든 의존성은 외부에서 내부(도메인) 방향으로만 향해야 한다.
+3. 빌드 단계에서 아키텍처 검증 도구를 구동하여 의존성 규칙 위반 시 즉시 컴파일을 중단한다.
 
 ---
