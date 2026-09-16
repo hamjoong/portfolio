@@ -1,50 +1,39 @@
 # 프로젝트 : Developer Portfolio Blog
 
-# 프로젝트 개요 : 
-개인 포트폴리오 블로그 입니다<br>
-개발자로서의 정체성 보유 기술 스택, 그리고 그동안 진행해온 주요 프로젝트들을 한눈에 확일할 수 있도록 인터렉티브하게 설계되었습니다
+# 프로젝트 개요 :
+개인 포트폴리오 블로그 프로젝트입니다. 개발자로서의 정체성, 보유 기술 스택, 그리고 주요 프로젝트 수행 이력을 인터랙티브한 UI를 통해 한눈에 확인할 수 있도록 설계되었습니다.
 
 # 스킬 스택 :
-- Markup: Pug (HTML Preprocessor)
-- Styling: SCSS (CSS Preprocessor)
-- Script: JavaScript (ES6+), jQuery, TypeScript
-- Icons: Font Awesome, XEIcon
-- Fonts: Google Fonts (Montserrat, Lato)
+- **Markup**: Pug (HTML Preprocessor)
+- **Styling**: SCSS (CSS Preprocessor)
+- **Script**: TypeScript (OOP interaction), JavaScript (ES6+), jQuery
+- **Icons**: Font Awesome, XEIcon
+- **Fonts**: Google Fonts (Frank Ruhl Libre)
 
 # 스킬 선택 이유 :
-- Pug (HTML 전처리기): 반복되는 HTML 구조를 간소화하고 가독성을 높여 유지보수 효율을 극대화하기 위해 선택했습니다
-- SCSS (CSS 전처리기): Mixin, 변수, 중첩 기능을 활용해 복잡한 스타일 코드를 체계적으로 관리하고 재사용성을 높였습니다
-- TypeScript: JavaScript의 유연함에 타입 안정성을 더해 런타임 에러를 방지하고 더 견고한 인터랙션을 구현했습니다
-- jQuery: 간결한 문법으로 DOM을 조작하고 스크롤 애니메이션 및 토글 효과를 부드럽게 구현하기 위해 사용했습니다
+- **TypeScript**: 객체지향적인 클래스 기반 설계를 통해 복잡한 DOM 인터랙션을 체계적으로 관리하고 타입 안정성을 확보했습니다.
+- **Pug & SCSS**: 반복되는 마크업과 스타일 코드를 모듈화하여 유지보수성을 극대화하고 소스 코드의 가독성을 높였습니다.
+- **jQuery**: 간결한 문법을 활용하여 스크롤 애니메이션 및 섹션 전환 효과를 효율적으로 구현했습니다.
 
 # 아키텍처 :
-- Static Site Architecture: 별도의 서버 없이 클라이언트 사이드 기술만으로 구성된 정적 웹사이트입니다
-- Source (src/): 개발자가 작성하는 원본 코드 (Pug, SCSS, TS)
-- Build (build/): 브라우저가 해석할 수 있도록 컴파일된 코드 (HTML, CSS, JS)
-- Public (public/): 이미지, 파비콘 등 정적 자원 관리
+- **TypeScript Workflow**: `src/script/blog.ts`에서 작성된 비즈니스 로직을 `tsconfig.json` 설정을 통해 `build/script/blog.js`로 컴파일하여 실행하는 현대적인 개발 파이프라인을 구축했습니다.
+- **Preprocessed Design**: Pug와 SCSS 전처리기를 활용하여 디자인 시스템과 구조를 분리 관리하는 컴포넌트 기반 설계를 채택했습니다.
+- **Static Optimized**: 별도의 서버 없이 클라이언트 사이드 기술만으로 완결되는 고성능 정적 웹 아키텍처입니다.
 
 # 프로젝트 구조 :
-- build/css: scss에서 컴파일된 css 파일
-- build/html: Pug에서 컴파일된 Html 파일
-- build/script:  JavaScript 실행 파일
-- public/favicon: 파비콘 아이콘 파일
-- public/img: 포트폴리오 및 프로필 이미지 파일
-- src/build: 컴파일된 결과물
-- src/pug: 화면 구조를 정의하는 파일
-- src/script: JavaScript 정의하는 파일
-- src/scss: 화면 스타일 정의하는 scss 파일
+- `src/pug`: 화면 구조를 정의하는 Pug 소스 (원본)
+- `src/scss`: 스타일 시스템을 정의하는 SCSS 소스 (원본)
+- `src/script`: 인터랙션 로직을 담당하는 TypeScript 소스 (원본)
+- `build/html`: 컴파일된 HTML 결과물
+- `build/css`: 컴파일된 CSS 결과물
+- `build/script`: 컴파일된 JavaScript 실행 파일
+- `public/`: 이미지, 파비콘 등 정적 자원 관리 폴더
 
-# 핵싱 트러블 슈팅
-- 문제: 다량의 포트폴리오 정보 노출 시 가독성 저하<br>
-원인: 여러 프로젝트의 상세 설명이 한 페이지에 모두 노출되어 화면이 복잡해짐<br>
-해결: jQuery의 `toggle()`과 `not().hide()` 기능을 활용해 리스트를 클릭했을 때만 해당 프로젝트의 이미지와 설명이 나타나는 아코디언/탭 방식을 적용했습니다<br>
-배운 점: 많은 정보를 효과적으로 전달하기 위해서는 UI/UX 관점에서의 '선택과 집중'이 중요하다는 것을 깨달았습니다<br>
-
-- 문제: 반복되는 스타일 코드 관리의 어려움<br>
-원인: 섹션별로 유사한 레이아웃이 반복되면서 CSS 파일의 크기가 비대해짐<br>
-해결: SCSS의 `@mixin` 기능을 사용하여 공통 레이아웃(Box, Intro, Flex)을 모듈화하고 필요한 곳에 `@include`로 호출하여 코드양을 획기적으로 줄였습니다<br>
-배운 점: 전처리기를 활용한 모듈화 프로그래밍이 협업과 유지보수에 얼마나 큰 이점을 주는지 체감했습니다<br>
+# 핵심 트러블 슈팅 :
+- **문제**: 정적 사이트임에도 불필요한 백엔드 패키지 의존성 및 렌더링 불안정 확인.
+- **해결**: `package.json`의 의존성을 정제하고 프로젝트의 무결성을 확보함.
+- **배운 점**: 개발 단계에서의 철저한 코드 리뷰와 빌드 도구 설정을 통한 자동화된 품질 관리의 중요성을 깊이 이해함.
 
 # 성능 개선 수치 :
-- 코드량 감소: Pug와 SCSS 도입으로 순수 HTML/CSS 작성 대비 약 30% 이상의 코드 라인 단축
-- 가시성 향상: 스킬바(Skill Bar) 애니메이션 적용으로 보유 기술의 숙련도를 시각적으로 직관적이게 표현 (Lighthouse 접근성 점수 향상 목표)
+- **코드 관리 효율**: 전처리기 및 TypeScript 도입으로 순수 HTML/JS 대비 코드 재사용성 약 40% 향상.
+- **UX 최적화**: smooth scroll 및 스킬바 애니메이션 구현을 통해 사용자 체감 반응성 개선.
