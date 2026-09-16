@@ -146,8 +146,9 @@ const showApplicationAlert = (targetSelectorsList, alertMessageText) => {
 
 /**
  * 사용자가 유효하지 않은 값(소수점, 음수 등)을 입력하여 이후 로직이 오작동하는 것을 원천 차단하기 위함.
+ * (주의: 동적으로 생성되는 행렬 원소 셀 .miniBox 역시 type='number'이나, 여기에는 음수나 0이 들어갈 수 있어야 하므로 크기 입력 필드만 정확히 타겟팅함)
  */
-$(document).on("keyup", "input[type='number']", function () {
+$(document).on("keyup", ".xinputArray, .yinputArray, .xinputArray2, .yinputArray2", function () {
 	const currentInputValue = $(this).val();
 	const invalidCharactersPattern = /^[-0]|[\.]/g;
 	if (invalidCharactersPattern.test(currentInputValue)) {
