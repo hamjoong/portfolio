@@ -43,7 +43,7 @@ app.use(express.static('build'));
 /*json kiosk menu,point 파싱 pug*/
 app.get('/', (req, res) => {
   client.query('SELECT * FROM kioskpoint', (error, result) => {
-    fs.writeFileSync('./build/nodejs/kioskpoint.json', 'get_kioskpoint=' + JSON.stringify(result));
+    fs.writeFileSync('./build/nodejs/kioskpoint.json', JSON.stringify(result));
     res.render('kiosk');
   });
 });
