@@ -142,6 +142,23 @@ export const useUserStore = create<UserState>()(
     { 
       name: 'milk-tycoon-user-v2', 
       storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({
+        userName: state.userName,
+        avatar: state.avatar,
+        gold: state.gold,
+        dia: state.dia,
+        level: state.level,
+        exp: state.exp,
+        attendanceDays: state.attendanceDays,
+        lastAttendanceDate: state.lastAttendanceDate,
+        dailyQuests: state.dailyQuests,
+        weeklyQuests: state.weeklyQuests,
+        achievements: state.achievements,
+        settings: state.settings,
+        tutorialPhase: state.tutorialPhase,
+        tutorialStep: state.tutorialStep,
+        isTutorialSkipped: state.isTutorialSkipped
+      }),
       onRehydrateStorage: () => (state) => {
         if (state) state.actions.setHasHydrated(true);
       },

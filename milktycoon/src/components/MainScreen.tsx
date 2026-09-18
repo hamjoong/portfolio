@@ -115,7 +115,7 @@ const MainScreen: React.FC<MainScreenProps> = React.memo(({ onStart }) => {
         <div className="flex-1 min-h-[40px]" />
 
         {/* 바닥글 - 겹침을 방지하기 위해 절대 위치가 아닌 하단에 상대적으로 위치 */}
-        <div className="text-h-brown-soft/50 text-[1.5vmin] font-black tracking-[0.4em] uppercase pb-4 select-none">
+        <div className="text-h-text/80 text-[1.5vmin] font-black tracking-[0.4em] uppercase pb-4 select-none">
           Copyright(C) 2026. Hjuk. All right reserved. 본 사이트는 비상업적인 용도로 제작된 포트폴리오 사이트입니다
         </div>
       </div>

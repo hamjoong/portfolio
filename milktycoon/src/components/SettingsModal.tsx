@@ -70,7 +70,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                   <motion.div 
                     initial={{ width: 0 }}
                     animate={{ width: `${settings.bgmVolume}%` }}
-                    className="absolute h-full bg-h-green-base"
+                    className="absolute h-full bg-h-green-base pointer-events-none"
                   />
                   <input 
                     type="range" 
@@ -91,7 +91,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                   <motion.div 
                     initial={{ width: 0 }}
                     animate={{ width: `${settings.sfxVolume}%` }}
-                    className="absolute h-full bg-h-sky-base"
+                    className="absolute h-full bg-h-sky-base pointer-events-none"
                   />
                   <input 
                     type="range" 

@@ -56,6 +56,14 @@ const AchievementModal: React.FC<AchievementModalProps> = ({ isOpen, onClose }) 
                 </div>
                 <p className="text-sm text-gray-500 font-bold leading-tight">{achievement.description}</p>
               </div>
+              {isCompleted && !achievement.isClaimed && (
+                <button 
+                  onClick={() => useUserStore.getState().actions.claimAchievementReward(achievement.id)}
+                  className="bg-purple-600 text-white px-4 py-2 rounded-xl font-black text-sm hover:bg-purple-700 transition-colors"
+                >
+                  보상 받기
+                </button>
+              )}
             </div>
             <div className="w-full h-4 bg-gray-100 rounded-full mb-4 overflow-hidden shadow-inner">
               <motion.div initial={{ width: 0 }} animate={{ width: `${progressPercent}%` }} className={`h-full ${isCompleted ? 'bg-purple-500' : 'bg-purple-300'}`} />

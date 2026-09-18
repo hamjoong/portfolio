@@ -5,6 +5,7 @@ import LobbyScreen from './components/LobbyScreen';
 import RanchScreen from './components/RanchScreen';
 import SplashScreen from './components/SplashScreen';
 import { useGameLoop } from './hooks/useGameLoop';
+import { useBGM } from './hooks/useBGM';
 import { useUIStore } from './store/useUIStore';
 import { useUserStore } from './store/useUserStore';
 
@@ -27,6 +28,7 @@ const TutorialOverlay = lazy(() => import('./components/TutorialOverlay'));
  * @returns {JSX.Element}
  */
 function App() {
+  useBGM('/audio/bgm.mp3');
   const currentScreen = useUIStore((state) => state.currentScreen);
   const isSettingsOpen = useUIStore((state) => state.isSettingsOpen);
   const isRankingOpen = useUIStore((state) => state.isRankingOpen);
@@ -40,7 +42,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   const tutorialPhase = useUserStore((state) => state.tutorialPhase);
-  const userActions = useUserStore((state) => state.actions);
+  const startTutorial = useUserStore((state) => state.actions.startTutorial);
   
   // 게임의 핵심 로직을 처리하는 커스텀 훅입니다.
   useGameLoop();
@@ -53,7 +55,7 @@ function App() {
   const handleStart = () => {
     uiActions.setScreen('LOBBY');
     if (tutorialPhase === 0) {
-      userActions.startTutorial();
+      startTutorial();
     }
   };
 

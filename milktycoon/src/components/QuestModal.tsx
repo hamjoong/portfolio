@@ -64,6 +64,14 @@ const QuestModal: React.FC<QuestModalProps> = ({ isOpen, onClose }) => {
                 </div>
                 <p className="text-sm text-gray-500 font-bold leading-tight">{quest.description}</p>
               </div>
+              {isCompleted && !quest.isClaimed && (
+                <button 
+                  onClick={() => useUserStore.getState().actions.claimQuestReward(quest.id, quest.type)}
+                  className="bg-blue-600 text-white px-4 py-2 rounded-xl font-black text-sm hover:bg-blue-700 transition-colors"
+                >
+                  보상 받기
+                </button>
+              )}
             </div>
             <div className="w-full h-4 bg-gray-100 rounded-full mb-4 overflow-hidden shadow-inner">
               <motion.div initial={{ width: 0 }} animate={{ width: `${Math.min((current/quest.targetValue)*100, 100)}%` }} className={`h-full ${isCompleted ? 'bg-blue-500' : 'bg-blue-300'}`} />
