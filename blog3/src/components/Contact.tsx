@@ -30,13 +30,13 @@ const Contact: React.FC = () => {
               </div>
             </a>
             
-            <a href="https://github.com/hamjoong" target="_blank" rel="noreferrer" className="contact-link-item">
+            <a href="https://github.com/hamjoong/portfolio" target="_blank" rel="noreferrer" className="contact-link-item">
               <div className="icon-box">
                 <Github size={24} />
               </div>
               <div className="link-info">
                 <span>GitHub</span>
-                <strong>github.com/hamjoong</strong>
+                <strong>github.com/hamjoong/portfolio</strong>
               </div>
             </a>
           </div>

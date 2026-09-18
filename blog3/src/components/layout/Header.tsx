@@ -20,7 +20,7 @@ const Header: React.FC = () => {
     >
       <nav className="header-nav">
         <div className="nav-container">
-          <div className="header-logo">Ham Joong Uk</div>
+          <div className="header-logo">Hjuk</div>
           <ul className="header-links">
             <li><a href="#intro">Introduce</a></li>
             <li><a href="#tech-stack">Tech Stack</a></li>
@@ -32,7 +32,6 @@ const Header: React.FC = () => {
       {/* 개발자의 핵심 기술 셋을 메인 제목과 함께 노출하여 첫 화면에서 정체성을 명확히 함 */}
       <div className="header-intro">
         <h1>Developer</h1>
-        <p>FrontEnd | BackEnd | DataBase | DevOps | AI Agent</p>
       </div>
     </motion.header>
   );

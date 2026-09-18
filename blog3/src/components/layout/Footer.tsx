@@ -10,7 +10,6 @@ const Footer: React.FC = () => {
     <footer className="footer">
       <div className="footer-content">
         <p>&copy; {new Date().getFullYear()} Copyright(C) 2026. Hjuk. All right reserved. 본 사이트는 비상업적인 용도로 제작된 포트폴리오 사이트입니다</p>
-        <p>Built with React, TypeScript, and SASS.</p>
       </div>
     </footer>
   );
