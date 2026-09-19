@@ -49,27 +49,27 @@ Modular Monolith 아키텍처를 기반으로 프론트엔드 BFF와 백엔드 �
 - **Frontend Tier (BFF)**: Next.js 15를 통한 SSR 및 서버 사이드 데이터 통합
 - **Backend Tier (Modular Monolith)**: 도메인별 패키지 격리 (Auth, Product, Order)
 - **Data & Infra Tier**: PostgreSQL, Redis, S3를 활용한 데이터 저장, 캐싱 및 미디어 처리
-
+### 다이어그램
 ```mermaid
 graph TD
-    User[사용자 (Web/Mobile)] -->|HTTPS| Frontend[Next.js 15 (BFF)]
-    Frontend -->|REST API / JWT| Backend[Spring Boot 3.4 (Modular Monolith)]
-    
-    subgraph "Backend Modules"
-        Auth[Auth Module]
-        Product[Product & Search Module]
-        Order[Order & Payment Module]
+    User["사용자 (Web/Mobile)"] -->|HTTPS| Frontend["Next.js 15 (BFF)"]
+    Frontend -->|REST API| Backend["Spring Boot 3.4 (Modular Monolith)"]
+
+    subgraph Backend_Modules [Backend Modules]
+        Auth["Auth Module"]
+        Product["Product & Search Module"]
+        Order["Order & Payment Module"]
     end
-    
+
     Backend --> Auth
     Backend --> Product
     Backend --> Order
-    
+
     Product --> Redis[(Redis)]
     Order --> DB[(Supabase/PostgreSQL)]
-    
-    Backend --> S3[AWS S3 (Storage)]
-    Backend --> KMS[AWS KMS (Security)]
+
+    Backend --> S3["AWS S3"]
+    Backend --> KMS["AWS KMS"]
 ```
 
 ---
