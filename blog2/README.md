@@ -44,7 +44,7 @@
 
 ```mermaid
 graph LR
-    A[Source (src/)] -->|Compile/Build| B(Build (build/))
+    A[Source src/] -->|Compile/Build| B(Build build/)
     B -->|Deploy| C[Web Browser]
 ```
 
