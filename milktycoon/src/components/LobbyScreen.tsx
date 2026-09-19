@@ -76,9 +76,9 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({ onEnterRanch, onBack }) => {
         <div className="mb-10 drop-shadow-xl"><StatusBar /></div>
         <button onClick={onBack}>뒤로가기</button>
         
-        <div className="flex-1 flex flex-col gap-4 justify-center py-4 overflow-y-auto custom-scrollbar pr-2">
+        <div className="flex flex-col gap-2 py-4 pr-2">
           <MenuListItem 
-            icon={<ClipboardList size={28} strokeWidth={3} />} 
+            icon={<ClipboardList size={24} strokeWidth={3} />} 
             label="퀘스트" 
             color="bg-h-sky-base" 
             shadow="shadow-2.5d-blue" 
@@ -86,7 +86,7 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({ onEnterRanch, onBack }) => {
             showBadge={hasClaimableQuest}
           />
           <MenuListItem 
-            icon={<Award size={28} strokeWidth={3} />} 
+            icon={<Award size={24} strokeWidth={3} />} 
             label="업적" 
             color="bg-purple-400" 
             shadow="shadow-[0_6px_0_0_#9333ea]" 
@@ -94,19 +94,19 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({ onEnterRanch, onBack }) => {
             showBadge={hasClaimableAchievement}
           />
           <MenuListItem 
-            icon={<Home size={28} strokeWidth={3} />} 
+            icon={<Home size={24} strokeWidth={3} />} 
             label="보관소" 
             color="bg-h-green-base" 
             shadow="shadow-2.5d-green" 
             onClick={uiActions.openStable} 
           />
-          <MenuListItem icon={<Hammer size={28} strokeWidth={3} />} label="시설 관리" color="bg-orange-400" shadow="shadow-[0_6px_0_0_#ea580c]" onClick={uiActions.openUpgrade} />
-          <MenuListItem icon={<CalendarCheck size={28} strokeWidth={3} />} label="출석" color="bg-pink-400" shadow="shadow-[0_6px_0_0_#db2777]" onClick={uiActions.openAttendance} />
-          <MenuListItem icon={<ShoppingBag size={28} strokeWidth={3} />} label="상점" color="bg-yellow-500" shadow="shadow-[0_6px_0_0_#ca8a04]" onClick={uiActions.openShop} />
+          <MenuListItem icon={<Hammer size={24} strokeWidth={3} />} label="시설 관리" color="bg-orange-400" shadow="shadow-[0_6px_0_0_#ea580c]" onClick={uiActions.openUpgrade} />
+          <MenuListItem icon={<CalendarCheck size={24} strokeWidth={3} />} label="출석" color="bg-pink-400" shadow="shadow-[0_6px_0_0_#db2777]" onClick={uiActions.openAttendance} />
+          <MenuListItem icon={<ShoppingBag size={24} strokeWidth={3} />} label="상점" color="bg-yellow-500" shadow="shadow-[0_6px_0_0_#ca8a04]" onClick={uiActions.openShop} />
           
           {(isTutorialSkipped || tutorialPhase !== -1) && (
             <MenuListItem 
-              icon={<HelpCircle size={28} strokeWidth={3} />} 
+              icon={<HelpCircle size={24} strokeWidth={3} />} 
               label="튜토리얼" 
               color="bg-h-orange-warm" 
               shadow="shadow-2.5d-orange"

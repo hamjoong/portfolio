@@ -53,45 +53,45 @@ export const RankingBoard: React.FC<RankingBoardProps> = React.memo(({ dailyRank
         </div>
       </div>
 
-      {/* Ranking List */}
-      <div className="flex-1 overflow-y-auto p-8 pt-6 space-y-4 custom-scrollbar">
+      {/* Ranking List - Changed to flex-1 and added flex-col to distribute space */}
+      <div className="flex-1 flex flex-col p-4 pt-2">
         <AnimatePresence mode="wait">
           <motion.div 
             key={rankTab} 
             initial={{ opacity: 0, x: 40 }} 
             animate={{ opacity: 1, x: 0 }} 
             exit={{ opacity: 0, x: -40 }} 
-            className="space-y-4"
+            className="flex-1 flex flex-col gap-2"
           >
             {sortedRanking.length > 0 ? sortedRanking.map((user, index) => (
               <motion.div 
-                initial={{ y: 30, opacity: 0 }} 
+                initial={{ y: 15, opacity: 0 }} 
                 animate={{ y: 0, opacity: 1 }} 
-                transition={{ delay: index * 0.08, type: "spring", stiffness: 100 }} 
+                transition={{ delay: index * 0.05, type: "spring", stiffness: 100 }} 
                 key={user.name} 
-                className={`flex items-center gap-8 p-8 rounded-[3rem] border-4 transition-all ${user.name.includes('나') ? 'bg-h-yellow-soft/50 border-h-yellow-base shadow-2.5d-yellow' : 'bg-h-milk border-h-green-light/30 shadow-2.5d-white'}`}
+                className={`flex-grow flex items-center gap-4 p-4 rounded-[2rem] border-2 transition-all ${user.name.includes('나') ? 'bg-h-yellow-soft/50 border-h-yellow-base shadow-2.5d-yellow' : 'bg-h-milk border-h-green-light/30 shadow-2.5d-white'}`}
               >
-                <div className="w-16 h-16 flex items-center justify-center relative scale-100">
+                <div className="w-10 h-10 flex items-center justify-center relative scale-100">
                   {index <= 2 ? (
-                    <Medal className={`${index === 0 ? 'text-h-yellow-base' : index === 1 ? 'text-gray-300' : 'text-h-orange-warm'} w-12 h-12 drop-shadow-md`} strokeWidth={3} />
+                    <Medal className={`${index === 0 ? 'text-h-yellow-base' : index === 1 ? 'text-gray-300' : 'text-h-orange-warm'} w-8 h-8 drop-shadow-md`} strokeWidth={3} />
                   ) : (
-                    <span className="font-black text-3xl text-h-brown-soft/30 italic">{index + 1}</span>
+                    <span className="font-black text-xl text-h-brown-soft/30 italic">{index + 1}</span>
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-black text-2xl text-h-text truncate tracking-tight">{user.name}</p>
-                  <p className="text-xs font-black text-h-brown-soft opacity-60 uppercase tracking-widest mt-1">{rankTab} BEST SCORE</p>
+                  <p className="font-black text-lg text-h-text truncate tracking-tight">{user.name}</p>
+                  <p className="text-[9px] font-black text-h-brown-soft opacity-60 uppercase tracking-widest">{rankTab} BEST SCORE</p>
                 </div>
                 <div className="text-right">
-                  <p className="font-black text-4xl text-h-green-base tracking-tighter drop-shadow-sm">
-                    <span className="text-2xl mr-1">🪙</span> {user.score.toLocaleString()}
+                  <p className="font-black text-2xl text-h-green-base tracking-tighter drop-shadow-sm">
+                    <span className="text-lg mr-1">🪙</span> {user.score.toLocaleString()}
                   </p>
                 </div>
               </motion.div>
             )) : (
-              <div className="h-full flex flex-col items-center justify-center text-h-brown-soft py-20 opacity-30">
-                <Trophy size={80} className="mb-4" />
-                <p className="text-2xl font-black">데이터 로딩 중...</p>
+              <div className="flex-1 flex flex-col items-center justify-center text-h-brown-soft opacity-30">
+                <Trophy size={60} className="mb-2" />
+                <p className="text-xl font-black">데이터 로딩 중...</p>
               </div>
             )}
           </motion.div>

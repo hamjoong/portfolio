@@ -272,29 +272,60 @@ export const useGameStore = create<GameState>()(
           if (dist > 1) { nextPos = { x: playerPos.x + (dx / dist) * 5, y: playerPos.y + (dy / dist) * 5 }; }
 
           // 생산 작업 시간 감소
-          const newProductions = state.activeProductions.map(p => ({ ...p, remainingTime: p.remainingTime - 1 }));
+          let productionsChanged = false;
+          const newProductions = state.activeProductions.map(p => {
+            const newRemaining = p.remainingTime - 1;
+            if (newRemaining !== p.remainingTime) {
+              productionsChanged = true;
+              return { ...p, remainingTime: newRemaining };
+            }
+            return p;
+          });
+          
           const completed = newProductions.filter(p => p.remainingTime <= 0);
           const remaining = newProductions.filter(p => p.remainingTime > 0);
           
           // 완료된 생산품 인벤토리에 추가
           const newInventory = { ...state.inventory };
+          let inventoryChanged = false;
           const productMapping: Record<ProductType, keyof GameState['inventory']> = { 'YOGURT': 'yogurt', 'BUTTER': 'butter', 'CHEESE': 'cheese', 'CREAM': 'cream', 'ICE_CREAM': 'iceCream', 'GOLDEN_CHEESE': 'goldenCheese' };
           completed.forEach(task => { 
             const key = productMapping[task.type];
-            if (key) { (newInventory[key] as number) += task.quantity; }
+            if (key) { 
+              (newInventory[key] as number) += task.quantity; 
+              inventoryChanged = true;
+            }
           });
 
           // 상인 타이머 및 등장 처리
           let { isMerchantPresent, merchantTimer } = state;
-          if (!isMerchantPresent) { merchantTimer -= 1; if (merchantTimer <= 0) { isMerchantPresent = true; merchantTimer = 0; get().actions.updateMerchantRates(); } }
+          let merchantChanged = false;
+          if (!isMerchantPresent) { 
+            const nextTimer = merchantTimer - 1;
+            if (nextTimer <= 0) { 
+              isMerchantPresent = true; 
+              merchantTimer = 0; 
+              merchantChanged = true;
+              get().actions.updateMerchantRates(); 
+            } else {
+              merchantTimer = nextTimer;
+              merchantChanged = true;
+            }
+          }
           
           // 늑대 랜덤 등장
-          if (!state.isWolfEventActive && Math.random() < 0.005) { get().actions.spawnWolf(); }
+          let wolfChanged = false;
+          if (!state.isWolfEventActive && Math.random() < 0.005) { 
+            get().actions.spawnWolf(); 
+            wolfChanged = true;
+          }
           
-          // 모든 소의 상태 업데이트
+          // 모든 소의 상태 업데이트 (변경이 필요할 때만 객체 생성)
+          let cowsChanged = false;
           const newOwnedCows = state.ownedCows.map(c => {
             const isPlaced = state.cows.some(pc => pc.id === c.id);
-            const newPos = { ...c.position };
+            let cUpdated = false;
+            let newPos = { ...c.position };
             let newCooldown = c.cooldownRemaining > 0 ? c.cooldownRemaining - 1 : 0;
             let newStatus = c.status;
             let newGauge = c.milkGauge;
@@ -302,28 +333,52 @@ export const useGameStore = create<GameState>()(
             if (newCooldown === 0 && (c.status === 'FULL' || c.status === 'EXHAUSTED')) { 
               newStatus = 'NORMAL'; 
               newGauge = 0; 
+              cUpdated = true;
             }
 
             if (newStatus === 'NORMAL') {
-              newGauge = Math.min(newGauge + (c.productionRate || 1.5), 100);
-              if (newGauge >= 100) { newStatus = 'FULL'; newCooldown = 20; }
+              const gaugeDelta = (c.productionRate || 1.5);
+              const newGaugeVal = Math.min(newGauge + gaugeDelta, 100);
+              if (newGaugeVal !== newGauge) {
+                newGauge = newGaugeVal;
+                cUpdated = true;
+              }
               
-              if (isPlaced && Math.random() > 0.9) {
+              if (newGauge >= 100) { 
+                newStatus = 'FULL'; 
+                newCooldown = 20; 
+                cUpdated = true;
+              } else if (isPlaced && Math.random() > 0.9) {
                 const nX = Math.min(Math.max(newPos.x + (Math.random() * 10 - 5), 10), 90);
                 const nY = Math.min(Math.max(newPos.y + (Math.random() * 10 - 5), 20), 80);
                 // 특정 영역(시설물 위치)은 피해서 이동
                 if (!(nX > 30 && nX < 70 && nY < 45) && !(nX < 35 && nY > 60) && !(nX > 65 && nY > 60)) { 
                   newPos.x = nX; 
                   newPos.y = nY; 
+                  cUpdated = true;
                 }
               }
+            } else if (newCooldown !== c.cooldownRemaining) {
+              cUpdated = true;
             }
-            return { ...c, position: newPos, status: newStatus, milkGauge: newGauge, cooldownRemaining: newCooldown };
+            
+            if (cUpdated) {
+              cowsChanged = true;
+              return { ...c, position: newPos, status: newStatus, milkGauge: newGauge, cooldownRemaining: newCooldown };
+            }
+            return c;
           });
 
-          const newPlacedCows = state.cows.map(pc => newOwnedCows.find(oc => oc.id === pc.id) || pc);
+          // placedCows 배열 참조 유지 (cows 배열의 소 객체가 변경되었을 때만 cows 배열 갱신)
+          const newPlacedCows = cowsChanged 
+            ? state.cows.map(pc => newOwnedCows.find(oc => oc.id === pc.id) || pc)
+            : state.cows;
 
-          return { playerPos: nextPos, inventory: newInventory, activeProductions: remaining, isMerchantPresent: isMerchantPresent, merchantTimer: merchantTimer, ownedCows: newOwnedCows, cows: newPlacedCows };
+          if (!productionsChanged && !inventoryChanged && !merchantChanged && !wolfChanged && !cowsChanged && nextPos === playerPos) {
+            return state; // 상태 변경이 없으면 기존 상태 반환
+          }
+
+          return { playerPos: nextPos, inventory: inventoryChanged ? newInventory : state.inventory, activeProductions: productionsChanged ? remaining : state.activeProductions, isMerchantPresent, merchantTimer, ownedCows: cowsChanged ? newOwnedCows : state.ownedCows, cows: newPlacedCows };
         }),
 
         /** 시설을 업그레이드합니다. */

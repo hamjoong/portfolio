@@ -4,17 +4,27 @@ import { motion } from 'framer-motion';
 /** 
  * @function MansionIsometric
  * @description 목장의 본채(Mansion)를 아이소매트릭 SVG로 구현한 컴포넌트입니다.
+ * 레벨에 따라 디자인이 고급스러워집니다.
  */
-export const MansionIsometric = React.memo(() => (
+export const MansionIsometric = React.memo(({ level = 1 }: { level?: number }) => {
+  // 레벨에 따른 색상/디자인 설정
+  const isAdvanced = level >= 5;
+  const isImproved = level >= 3;
+  
+  const wallColor = isAdvanced ? '#f1f5f9' : isImproved ? '#e2e8f0' : '#f8fafc';
+  const roofColor = isAdvanced ? '#475569' : isImproved ? '#64748b' : '#94a3b8';
+  const windowColor = isAdvanced ? '#38bdf8' : isImproved ? '#7dd3fc' : '#bae6fd';
+
+  return (
   <svg viewBox="0 0 400 400" className="w-full h-full">
     <defs>
       <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#bae6fd" />
-        <stop offset="100%" stopColor="#7dd3fc" />
+        <stop offset="0%" stopColor={windowColor} />
+        <stop offset="100%" stopColor={windowColor} />
       </linearGradient>
       <linearGradient id="wallMain" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stopColor="#f8fafc" />
-        <stop offset="100%" stopColor="#f1f5f9" />
+        <stop offset="0%" stopColor={wallColor} />
+        <stop offset="100%" stopColor={wallColor} />
       </linearGradient>
       <filter id="shadowBlur">
         <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
@@ -23,7 +33,7 @@ export const MansionIsometric = React.memo(() => (
     <g transform="translate(200, 250)">
       <ellipse cx="0" cy="20" rx="180" ry="60" fill="black" opacity="0.1" filter="url(#shadowBlur)" />
       <path d="M-140 5 L0 75 L140 5 L0 -65 Z" fill="black" opacity="0.2" />
-      <path d="M-160 -5 L0 75 L160 -5 L0 -85 Z" fill="#94a3b8" stroke="#475569" strokeWidth="1" />
+      <path d="M-160 -5 L0 75 L160 -5 L0 -85 Z" fill={roofColor} stroke={roofColor} strokeWidth="1" />
     </g>
     <g transform="translate(200, 230)">
       <path d="M-135 0 L0 68 L135 0 L0 -68 Z" fill="#cbd5e1" stroke="#1e293b" strokeWidth="2" />
@@ -39,20 +49,32 @@ export const MansionIsometric = React.memo(() => (
         <rect x="15" y="-60" width="35" height="28" fill="url(#glassGrad)" stroke="#1e293b" strokeWidth="1.5" transform="skewY(-26)" />
         <path d="M-55 -87 L0 -60 L75 -95 L20 -122 Z" fill="#475569" stroke="#1e293b" strokeWidth="2" />
       </g>
-      <g transform="translate(-55, 30)">
-        <path d="M-35 0 L0 18 L0 -50 L-35 -68 Z" fill="#78350f" stroke="#451a03" strokeWidth="2" />
-        <rect x="-25" y="-50" width="14" height="40" fill="#1e293b" transform="skewY(26)" />
-      </g>
+      {/* 고급 레벨일 경우 장식 추가 */}
+      {isImproved && (
+        <g transform="translate(-55, 30)">
+          <path d="M-35 0 L0 18 L0 -50 L-35 -68 Z" fill={isAdvanced ? '#92400e' : '#78350f'} stroke={isAdvanced ? '#532308' : '#451a03'} strokeWidth="2" />
+          <rect x="-25" y="-50" width="14" height="40" fill="#1e293b" transform="skewY(26)" />
+        </g>
+      )}
     </g>
   </svg>
-));
+)});
 
 /** 
  * @function SiloIsometric
  * @description 우유 저장고(Silo)를 아이소매트릭 SVG로 구현하며, 우유 양에 따라 내부 수위가 변동되는 애니메이션을 포함합니다.
- * @param {object} props - fillLevel (0~100)
+ * 레벨에 따라 디자인이 고급스러워집니다.
+ * @param {object} props - fillLevel (0~100), level (1~N)
  */
-export const SiloIsometric = React.memo(({ fillLevel = 0 }: { fillLevel?: number }) => (
+export const SiloIsometric = React.memo(({ fillLevel = 0, level = 1 }: { fillLevel?: number, level?: number }) => {
+  const isAdvanced = level >= 5;
+  const isImproved = level >= 3;
+
+  const bodyColor = isAdvanced ? '#f8fafc' : isImproved ? '#e2e8f0' : '#cbd5e1';
+  const baseColor = isAdvanced ? '#475569' : isImproved ? '#64748b' : '#64748b';
+  const scale = isAdvanced ? 1.2 : isImproved ? 1.1 : 1;
+
+  return (
   <svg viewBox="0 0 400 400" className="w-full h-full">
     <defs>
       <filter id="shadowBlurSilo">
@@ -60,21 +82,21 @@ export const SiloIsometric = React.memo(({ fillLevel = 0 }: { fillLevel?: number
       </filter>
       <linearGradient id="siloBodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
         <stop offset="0%" stopColor="#cbd5e1" />
-        <stop offset="50%" stopColor="#f8fafc" />
+        <stop offset="50%" stopColor={bodyColor} />
         <stop offset="100%" stopColor="#94a3b8" />
       </linearGradient>
       <clipPath id="siloInnerClip">
-        <path d="M-60 -150 A60 25 0 0 0 60 -150 L60 15 A60 25 0 0 1 -60 15 Z" />
+        <path d={`M${-60 * scale} ${-150 * scale} A${60 * scale} ${25 * scale} 0 0 0 ${60 * scale} ${-150 * scale} L${60 * scale} ${15 * scale} A${60 * scale} ${25 * scale} 0 0 1 ${-60 * scale} ${15 * scale} Z`} />
       </clipPath>
     </defs>
-    <g transform="translate(200, 330)">
+    <g transform={`translate(200, 330) scale(${scale})`}>
       <ellipse cx="0" cy="10" rx="90" ry="35" fill="black" opacity="0.12" filter="url(#shadowBlurSilo)" />
       <ellipse cx="0" cy="0" rx="65" ry="25" fill="black" opacity="0.2" />
-      <path d="M-80 0 L0 40 L80 0 L0 -40 Z" fill="#64748b" stroke="#1e293b" strokeWidth="1" />
+      <path d="M-80 0 L0 40 L80 0 L0 -40 Z" fill={baseColor} stroke="#1e293b" strokeWidth="1" />
       <path d="M-80 0 L0 40 L0 48 L-80 8 Z" fill="#475569" />
       <path d="M80 0 L0 40 L0 48 L80 8 Z" fill="#334155" />
     </g>
-    <g transform="translate(200, 310)">
+    <g transform={`translate(200, 310) scale(${scale})`}>
       <ellipse cx="0" cy="15" rx="60" ry="25" fill="#475569" />
       <path d="M-60 -150 A60 25 0 0 0 60 -150 L60 15 A60 25 0 0 1 -60 15 Z" fill="url(#siloBodyGrad)" stroke="#1e293b" strokeWidth="2" />
       <g clipPath="url(#siloInnerClip)">
@@ -94,16 +116,26 @@ export const SiloIsometric = React.memo(({ fillLevel = 0 }: { fillLevel?: number
       </g>
       <ellipse cx="0" cy="-150" rx="60" ry="25" fill="#f1f5f9" stroke="#1e293b" strokeWidth="2" />
       <path d="M-60 -155 A60 65 0 0 1 60 -155 Z" fill="#3b82f6" stroke="#1e3a8a" strokeWidth="2" />
-      <rect x="-10" y="-120" width="20" height="120" fill="white" opacity="0.2" stroke="#1e293b" strokeWidth="1" />
+      {/* 장식 */}
+      {isImproved && <rect x="-5" y="-140" width="10" height="130" fill="#1e293b" opacity="0.3" />}
+      {isAdvanced && <path d="M40 -120 L40 -30" stroke="#1e293b" strokeWidth="4" />}
     </g>
   </svg>
-));
+)});
 
 /** 
  * @function FactoryIsometric
  * @description 가공 공장 건물을 아이소매트릭 SVG로 구현한 컴포넌트입니다.
+ * 레벨에 따라 설비가 추가되고 디자인이 고급스러워집니다.
  */
-export const FactoryIsometric = React.memo(() => (
+export const FactoryIsometric = React.memo(({ level = 1 }: { level?: number }) => {
+  const isAdvanced = level >= 5;
+  const isImproved = level >= 3;
+
+  const wallColor = isAdvanced ? '#f1f5f9' : isImproved ? '#e2e8f0' : '#cbd5e1';
+  const accentColor = isAdvanced ? '#f59e0b' : isImproved ? '#d97706' : '#fde68a';
+
+  return (
   <svg viewBox="0 0 400 400" className="w-full h-full">
     <defs>
       <filter id="shadowBlurFactory">
@@ -113,51 +145,60 @@ export const FactoryIsometric = React.memo(() => (
     <g transform="translate(200, 310)">
       <ellipse cx="0" cy="15" rx="140" ry="45" fill="black" opacity="0.12" filter="url(#shadowBlurFactory)" />
       <path d="M-130 -5 L0 60 L130 -5 L0 -70 Z" fill="black" opacity="0.22" />
-      <path d="M-140 -10 L0 60 L140 -10 L0 -80 Z" fill="#475569" stroke="#1e293b" strokeWidth="1" />
+      <path d="M-140 -10 L0 60 L140 -10 L0 -80 Z" fill={isImproved ? '#64748b' : '#475569'} stroke="#1e293b" strokeWidth="1" />
       <path d="M-140 -10 L0 60 L0 75 L-140 5 Z" fill="#334155" />
       <path d="M140 -10 L0 60 L0 75 L140 5 Z" fill="#1e293b" />
     </g>
     <g transform="translate(200, 295)">
-      <path d="M-115 0 L0 58 L0 -55 L-115 -113 Z" fill="#cbd5e1" stroke="#1e293b" strokeWidth="2.5" />
+      <path d="M-115 0 L0 58 L0 -55 L-115 -113 Z" fill={wallColor} stroke="#1e293b" strokeWidth="2.5" />
       <path d="M0 58 L115 0 L115 -113 L0 -55 Z" fill="#94a3b8" stroke="#1e293b" strokeWidth="2.5" />
       <path d="M-115 -113 L0 -171 L115 -113 L0 -55 Z" fill="#475569" stroke="#1e293b" strokeWidth="2" />
+      
+      {/* 기본 창문/설비 */}
       {[ -80, -30, 20 ].map((x, i) => (
         <g key={i} transform={`translate(${x}, ${-113 + (Math.abs(x)/2)})`}>
           <path d="M0 0 L30 -15 L30 15 L0 30 Z" fill="#1e293b" stroke="#1e293b" strokeWidth="1" />
           <path d="M30 -15 L80 10 L80 40 L30 15 Z" fill="#334155" stroke="#1e293b" strokeWidth="1" />
         </g>
       ))}
+      
+      {/* 레벨에 따른 설비 추가 */}
       <g transform="translate(50, -25)">
-        <circle cx="0" cy="0" r="32" fill="#fde68a" stroke="#1e293b" strokeWidth="3" />
-        <circle cx="0" cy="0" r="8" fill="#1e293b" />
-        {[0, 45, 90, 135, 180, 225, 270, 315].map(deg => (
-          <rect key={deg} x="-4" y="-38" width="8" height="8" fill="#1e293b" transform={`rotate(${deg}, 0, 0)`} />
+        <circle cx="0" cy="0" r={isImproved ? 38 : 32} fill={accentColor} stroke="#1e293b" strokeWidth="3" />
+        <circle cx="0" cy="0" r={isImproved ? 12 : 8} fill="#1e293b" />
+        {isImproved && [0, 45, 90, 135, 180, 225, 270, 315].map(deg => (
+          <rect key={deg} x="-5" y="-45" width="10" height="10" fill="#1e293b" transform={`rotate(${deg}, 0, 0)`} />
         ))}
       </g>
-      <path d="M-70 -115 L-70 -155 L-50 -145 L-50 -105 Z" fill="#334155" stroke="#1e293b" strokeWidth="2" />
+      
+      {/* 굴뚝 (Improved 이상) */}
+      {isImproved && (
+        <path d="M-70 -115 L-70 -165 L-50 -155 L-50 -105 Z" fill="#334155" stroke="#1e293b" strokeWidth="2" />
+      )}
+      
+      {/* 더 많은 굴뚝/설비 (Advanced 이상) */}
+      {isAdvanced && (
+        <path d="M-90 -100 L-90 -140 L-75 -132 L-75 -92 Z" fill="#475569" stroke="#1e293b" strokeWidth="2" />
+      )}
     </g>
   </svg>
-));
+)});
 
 export const FencePerimeter = React.memo(() => (
-  <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none opacity-60 z-0">
-    <g fill="none" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M10 80 L990 80 L990 920 L10 920 Z" stroke="#92400e" />
-      <path d="M10 100 L990 100 L990 940 L10 940 Z" stroke="#78350f" />
-    </g>
-    <g fill="#78350f" stroke="#451a03" strokeWidth="2">
+  <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none z-10">
+    <g fill="#854d0e" stroke="#451a03" strokeWidth="4">
+      {/* Wooden Fence Posts */}
       {[0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0].map(t => (
-        <rect key={`top-${t}`} x={10 + (980*t) - 5} y={65} width="10" height="45" rx="2" />
+        <rect key={`top-${t}`} x={10 + (980*t) - 8} y={50} width="16" height="60" rx="4" />
       ))}
       {[0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0].map(t => (
-        <rect key={`bot-${t}`} x={10 + (980*t) - 5} y={905} width="10" height="45" rx="2" />
+        <rect key={`bot-${t}`} x={10 + (980*t) - 8} y={890} width="16" height="60" rx="4" />
       ))}
-      {[0.2, 0.4, 0.6, 0.8].map(t => (
-        <rect key={`left-${t}`} x={5} y={80 + (840*t) - 15} width="10" height="45" rx="2" />
-      ))}
-      {[0.2, 0.4, 0.6, 0.8].map(t => (
-        <rect key={`right-${t}`} x={985} y={80 + (840*t) - 15} width="10" height="45" rx="2" />
-      ))}
+      {/* Rails */}
+      <rect x="10" y="65" width="980" height="10" rx="2" />
+      <rect x="10" y="95" width="980" height="10" rx="2" />
+      <rect x="10" y="905" width="980" height="10" rx="2" />
+      <rect x="10" y="935" width="980" height="10" rx="2" />
     </g>
   </svg>
 ));
@@ -165,11 +206,9 @@ export const FencePerimeter = React.memo(() => (
 export const GrassBackground = React.memo(() => {
   const tufts = useMemo(() => {
     const items = [];
-    const rows = 12;
-    const cols = 10;
+    const rows = 15;
+    const cols = 15;
     
-    // Seeded random helper for stability if needed, 
-    // but useMemo is enough to keep it pure during a single component's lifecycle
     const seededRandom = (seed: number) => {
       const x = Math.sin(seed) * 10000;
       return x - Math.floor(x);
@@ -180,12 +219,11 @@ export const GrassBackground = React.memo(() => {
         const seed = r * cols + c;
         items.push({
           id: `${r}-${c}`,
-          x: (c * (100 / cols)) + (seededRandom(seed) * 5),
-          y: (r * (80 / rows)) + 10 + (seededRandom(seed + 1) * 5),
-          delay: seededRandom(seed + 2) * 4,
-          scale: 0.5 + seededRandom(seed + 3) * 0.5,
-          duration: 3 + seededRandom(seed + 4) * 2,
-          opacity: 0.3 + seededRandom(seed + 5) * 0.3
+          x: (c * (100 / cols)) + (seededRandom(seed) * 6),
+          y: (r * (100 / rows)) + (seededRandom(seed + 1) * 6),
+          color: seededRandom(seed + 2) > 0.5 ? '#65a30d' : '#4d7c0f',
+          scale: 0.8 + seededRandom(seed + 3) * 0.8,
+          rotation: seededRandom(seed + 4) * 20 - 10
         });
       }
     }
@@ -193,31 +231,24 @@ export const GrassBackground = React.memo(() => {
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      <div className="absolute inset-0 bg-[#84cc16] opacity-30" />
       {tufts.map(t => (
-        <motion.div
+        <div
           key={t.id}
-          style={{ left: `${t.x}%`, top: `${t.y}%`, scale: t.scale, opacity: t.opacity }}
-          animate={{ 
-            rotate: [ -3, 3, -3 ],
-            skewX: [ -5, 5, -5 ],
+          style={{ 
+            left: `${t.x}%`, 
+            top: `${t.y}%`, 
+            transform: `scale(${t.scale}) rotate(${t.rotation}deg)` 
           }}
-          transition={{ 
-            duration: t.duration, 
-            repeat: Infinity, 
-            ease: "easeInOut",
-            delay: t.delay
-          }}
-          className="absolute origin-bottom z-0"
+          className="absolute origin-bottom"
         >
-          <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
-            <path d="M20 38C20 38 18 28 8 22" stroke="#2d3a1e" strokeWidth="2" strokeLinecap="round" opacity="0.8" />
-            <path d="M20 38C20 38 20 20 15 10" stroke="#435334" strokeWidth="2.5" strokeLinecap="round" />
-            <path d="M20 38C20 38 22 25 32 18" stroke="#2d3a1e" strokeWidth="2" strokeLinecap="round" opacity="0.8" />
-            <path d="M20 38C20 38 23 15 28 8" stroke="#435334" strokeWidth="2" strokeLinecap="round" />
-            <path d="M20 38C20 38 17 18 10 12" stroke="#2d3a1e" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <path d="M20 38C20 38 18 28 8 22" stroke={t.color} strokeWidth="3" strokeLinecap="round" />
+            <path d="M20 38C20 38 20 20 15 10" stroke={t.color} strokeWidth="4" strokeLinecap="round" />
+            <path d="M20 38C20 38 22 25 32 18" stroke={t.color} strokeWidth="3" strokeLinecap="round" />
           </svg>
-        </motion.div>
+        </div>
       ))}
     </div>
   );
