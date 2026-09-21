@@ -9,6 +9,7 @@ import { useReview } from '@/hooks/useReview';
 import { useOrder } from '@/hooks/useOrder';
 import { useAuthStore } from '@/store/useAuthStore';
 import { ProductInfo } from '@/components/product/ProductInfo';
+import { ProductOptionResponse } from '@/types/product';
 import { ReviewSection } from '@/components/product/ReviewSection';
 import { QnaSection } from '@/components/product/QnaSection';
 
@@ -47,6 +48,7 @@ export default function ProductDetailPage() {
   };
 
   const handleBuyNow = (selectedOption?: ProductOptionResponse) => {
+    if (!product) return;
     router.push(`/order?productId=${product.id}&quantity=${quantity}${selectedOption ? `&optionId=${selectedOption.id}` : ''}`);
   };
 

@@ -26,7 +26,7 @@ export const useCart = () => {
 
   // 2. 수량 변경 및 추가 통합
   const useUpdateCartItem = () => useMutation({
-    mutationFn: ({ productId, quantity }: { productId: string; quantity: number }) =>
+    mutationFn: ({ productId, quantity, optionId }: { productId: string; quantity: number; optionId?: string }) =>
       cartService.addItem(productId, quantity),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey });
