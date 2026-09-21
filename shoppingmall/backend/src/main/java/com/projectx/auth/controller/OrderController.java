@@ -73,4 +73,11 @@ public class OrderController {
         boolean isVerified = paymentService.verifyPayment(request);
         return ResponseEntity.ok(ApiResponse.success("결제 검증 결과", isVerified));
     }
+
+    @PostMapping("/{id}/cancel")
+    public ResponseEntity<ApiResponse<Void>> cancelOrder(@PathVariable UUID id) {
+        log.info("[Order] Cancel request for order: {}", id);
+        orderService.cancelOrder(id);
+        return ResponseEntity.ok(ApiResponse.success("주문이 취소되었습니다.", null));
+    }
 }

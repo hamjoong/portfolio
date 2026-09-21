@@ -1,6 +1,7 @@
 package com.projectx.auth.service;
 
 import com.projectx.auth.dto.PaymentRequest;
+import java.util.UUID;
 
 /**
  * 결제 검증을 위한 모의 서비스 인터페이스입니다.
@@ -8,4 +9,5 @@ import com.projectx.auth.dto.PaymentRequest;
  */
 public interface MockPaymentService {
     boolean verifyPayment(PaymentRequest request);
+    boolean refundPayment(UUID orderId);
 }

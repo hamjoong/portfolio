@@ -67,6 +67,32 @@ public class OrderService {
         return order.getId();
     }
 
+    @Transactional
+    public void cancelOrder(UUID orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.ORDER_NOT_FOUND));
+
+        if (order.getStatus() != OrderStatus.PAID) {
+            throw new BusinessException(ErrorCode.INVALID_ORDER_STATUS);
+        }
+
+        // 가상 환불 처리
+        boolean isRefunded = paymentService.refundPayment(orderId);
+        if (!isRefunded) {
+            throw new BusinessException(ErrorCode.INTERNAL_SERVER_ERROR);
+        }
+
+        for (OrderItem item : order.getOrderItems()) {
+            Product product = productRepository.findById(item.getProductId())
+                    .orElseThrow(() -> new BusinessException(ErrorCode.PRODUCT_NOT_FOUND));
+            product.addStock(item.getQuantity());
+            productRepository.save(product);
+        }
+
+        order.cancel();
+        log.info("[Order] Cancelled order {} (No: {})", order.getId(), order.getOrderNo());
+    }
+
     private Map<String, Integer> resolveItemsToOrder(UUID userId, UUID productId, Integer quantity) {
         Map<String, Integer> items = new HashMap<>();
         if (productId != null && quantity != null) {

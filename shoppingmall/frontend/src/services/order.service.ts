@@ -50,5 +50,12 @@ export const orderService = {
   async getOrder(orderId: string): Promise<any> {
     const response = await api.get<ApiResponse<any>>(`/orders/${orderId}`);
     return response.data.data;
+  },
+
+  /**
+   * 특정 주문을 취소합니다.
+   */
+  async cancelOrder(orderId: string): Promise<void> {
+    await api.post(`/orders/${orderId}/cancel`);
   }
 };

@@ -24,6 +24,7 @@ public enum ErrorCode {
     // 상품/주문
     PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "P001", "해당 상품을 찾을 수 없습니다. 상품 번호를 다시 확인해 주세요."),
     ORDER_NOT_FOUND(HttpStatus.NOT_FOUND, "O001", "주문 내역을 찾을 수 없습니다. 주문 상세 정보를 다시 확인해 주세요."),
+    INVALID_ORDER_STATUS(HttpStatus.BAD_REQUEST, "O002", "현재 주문 상태에서는 취소가 불가능합니다."),
 
     ENCRYPTION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "S001", "데이터 처리 중 오류가 발생했습니다. 고객센터로 문의해 주세요.");
 

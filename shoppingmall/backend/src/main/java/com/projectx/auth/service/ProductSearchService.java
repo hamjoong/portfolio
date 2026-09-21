@@ -30,16 +30,19 @@ public class ProductSearchService {
      * [이유] 역인덱스(Inverted Index) 기반 검색을 통해 대용량 데이터에서도 초고속 검색을 수행합니다.
      */
     public List<ProductResponse> searchWithRediSearch(String keyword) {
-        // 실제 운영 환경에서는 RediSearch 모듈이 설치된 Redis에서 FT.SEARCH 명령을 수행합니다.
-        // 여기서는 Redis를 활용한 고성능 검색의 인터페이스와 흐름을 구현합니다.
         log.info("[Search] High-speed search with RediSearch for keyword: {}", keyword);
-        
-        // 검색 빈도 트래킹 (인기 검색어용)
         incrementSearchCount(keyword);
+
+        if (redisTemplate == null) return new ArrayList<>();
+
+        // FT.SEARCH idx:product "@name:keyword | @description:keyword" LIMIT 0 10
+        String query = "@name:" + keyword + " | @description:" + keyword;
         
-        // [참고] FT.SEARCH idx:product "@name:keyword | @description:keyword"
-        // RedisTemplate.execute를 통해 직접 모듈 명령을 호출할 수 있습니다.
-        return new ArrayList<>(); 
+        return redisTemplate.execute((org.springframework.data.redis.connection.RedisConnection connection) -> {
+            // Jedis 또는 Lettuce 클라이언트에 따라 FT.SEARCH 명령 구조가 다를 수 있음
+            // 여기서는 Lettuce의 명령형 API를 가정하여 구현 (실제 환경에 맞게 조정 필요)
+            return new ArrayList<ProductResponse>(); // Placeholder: Redis 명령어 실행 로직 구현 영역
+        });
     }
 
     /**

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useUser } from '@/hooks/useUser';
 import { useOrder } from '@/hooks/useOrder';
+import { orderService } from '@/services/order.service';
 import { OrderResponse } from '@/types/order';
 import { ExternalLink, Plus } from 'lucide-react';
 import { Button } from '@/components/common/Button';
@@ -21,10 +22,22 @@ export default function MyPage() {
   const { data: profile, isLoading: isProfileLoading } = useProfile();
   const { data: addresses } = useAddresses();
   const { useMyOrders } = useOrder();
-  const { data: ordersData } = useMyOrders();
+  const { data: ordersData, refetch } = useMyOrders();
   const orders: OrderResponse[] = (ordersData?.content as any) || [];
   const addAddressMutation = useAddAddress();
   const deleteAddressMutation = useDeleteAddress();
+
+  const handleCancelOrder = async (orderId: string) => {
+    if (!confirm('정말 이 주문을 취소하시겠습니까?')) return;
+    try {
+      await orderService.cancelOrder(orderId);
+      alert('주문이 성공적으로 취소되었습니다.');
+      refetch();
+    } catch (err) {
+      console.error('[MyPage] Cancel failed:', err);
+      alert('주문 취소에 실패했습니다.');
+    }
+  };
 
   const [activeTab, setActiveTab] = useState<'orders' | 'addresses' | 'profile'>('orders');
   const [isAddingAddress, setIsAddingAddress] = useState(false);
@@ -95,6 +108,14 @@ export default function MyPage() {
                       <p className="text-sm text-gray-500">{new Date(order.createdAt).toLocaleDateString()} · {order.totalAmount?.toLocaleString()}원</p>
                     </div>
                     <div className="flex items-center gap-4">
+                      {order.status === 'PAID' && (
+                        <button 
+                          className="px-4 py-1.5 border border-red-200 bg-red-100 text-red-600 text-[10px] font-black rounded-lg uppercase hover:bg-red-200 transition-colors"
+                          onClick={() => handleCancelOrder(order.id)}
+                        >
+                          주문 취소
+                        </button>
+                      )}
                       <span className="px-4 py-1.5 bg-gray-900 text-white text-[10px] font-black rounded-lg uppercase">{order.status}</span>
                       <Link href={`/orders/${order.id}`} className="p-2 text-gray-400 hover:text-blue-600 transition-colors">
                         <ExternalLink className="w-5 h-5" />

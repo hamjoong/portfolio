@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { orderService } from '@/services/order.service';
 import { Button } from '@/components/common/Button';
 import { useRouter } from 'next/navigation';
-import { MessageSquare, ChevronRight, Package } from 'lucide-react';
+import { Package, ChevronRight } from 'lucide-react';
 
 /**
  * 마이페이지 주문 내역 화면입니다.
@@ -20,7 +20,6 @@ export default function MyOrdersPage() {
     const fetchOrders = async () => {
       try {
         const response = await orderService.getMyOrders();
-        console.log('[MyOrders] API Response:', response); // 디버깅용 로그
         if (response && Array.isArray(response)) {
           setOrders(response);
         }
