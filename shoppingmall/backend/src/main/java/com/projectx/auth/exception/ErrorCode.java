@@ -19,7 +19,7 @@ public enum ErrorCode {
     EMAIL_DUPLICATION(HttpStatus.BAD_REQUEST, "U001", "이미 가입된 이메일입니다. 다른 이메일을 입력하거나 비밀번호 찾기를 진행해 주세요."),
     LOGIN_INPUT_INVALID(HttpStatus.BAD_REQUEST, "U002", "이메일 또는 비밀번호가 일치하지 않습니다. 정보를 다시 확인해 주세요."),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "U003", "사용자 정보를 찾을 수 없습니다. 다시 로그인해 주세요."),
-    USER_INACTIVE(HttpStatus.FORBIDDEN, "U004", "비활성화된 계정입니다. 서비스 이용을 위해 고객센터로 문의해 주세요."),
+    USER_INACTIVE(HttpStatus.FORBIDDEN, "U004", "탈퇴된 계정입니다. 서비스 이용을 위해 고객센터로 문의해 주세요."),
     
     // 상품/주문
     PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "P001", "해당 상품을 찾을 수 없습니다. 상품 번호를 다시 확인해 주세요."),
