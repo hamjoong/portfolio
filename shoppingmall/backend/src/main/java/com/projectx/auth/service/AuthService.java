@@ -73,10 +73,15 @@ public class AuthService {
                 .filter(profile -> {
                     try {
                         Map<String, Object> map = encryptionService.decryptToMap(profile.getEncryptedData());
-                        return map != null
+                        boolean match = map != null
                                 && fullName.equals(map.get("fullName"))
                                 && phoneNumber.equals(map.get("phoneNumber"));
+                        if (!match) {
+                            log.debug("[Auth] Profile mismatch for user: {}", profile.getUserId());
+                        }
+                        return match;
                     } catch (Exception e) {
+                        log.error("[Auth] Decryption failed for user: {}", profile.getUserId(), e);
                         return false;
                     }
                 })
@@ -84,7 +89,10 @@ public class AuthService {
                 .filter(user -> user != null)
                 .map(User::getEmail)
                 .findFirst()
-                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+                .orElseGet(() -> {
+                    log.warn("[Auth] No user found for name: {}, phone: {}", fullName, phoneNumber);
+                    throw new BusinessException(ErrorCode.USER_NOT_FOUND);
+                });
     }
 
     /**
@@ -93,20 +101,29 @@ public class AuthService {
     @Transactional
     public String findPassword(String email, String fullName, String phoneNumber) {
         User user = userRepository.findByEmail(email.trim().toLowerCase())
-                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+                .orElseThrow(() -> {
+                    log.warn("[Auth] User not found with email: {}", email);
+                    return new BusinessException(ErrorCode.USER_NOT_FOUND);
+                });
 
         // 프로필 정보 검증
         UserProfile profile = userProfileRepository.findById(user.getId())
-                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+                .orElseThrow(() -> {
+                    log.warn("[Auth] Profile not found for user: {}", user.getId());
+                    return new BusinessException(ErrorCode.USER_NOT_FOUND);
+                });
 
         try {
             Map<String, Object> map = encryptionService.decryptToMap(profile.getEncryptedData());
             if (!fullName.equals(map.get("fullName")) || !phoneNumber.equals(map.get("phoneNumber"))) {
+                log.warn("[Auth] Profile mismatch for user: {}. Expected: {}/{}, Actual: {}/{}", 
+                        user.getId(), fullName, phoneNumber, map.get("fullName"), map.get("phoneNumber"));
                 throw new BusinessException(ErrorCode.USER_NOT_FOUND);
             }
         } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
+            log.error("[Auth] Decryption failed for user: {}", user.getId(), e);
             throw new BusinessException(ErrorCode.ENCRYPTION_FAILED);
         }
 
