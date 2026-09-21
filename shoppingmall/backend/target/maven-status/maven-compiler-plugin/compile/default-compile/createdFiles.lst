@@ -5,6 +5,7 @@ com/projectx/auth/dto/ProductQnaRequest.class
 com/projectx/auth/service/CustomOAuth2UserService.class
 com/projectx/auth/dto/CategoryResponse.class
 com/projectx/auth/service/OutboxProcessor.class
+com/projectx/auth/dto/FindEmailRequest.class
 com/projectx/auth/dto/AddressResponse$AddressResponseBuilder.class
 com/projectx/auth/service/GuestAuthService.class
 com/projectx/auth/dto/AuthResponse$Data.class
@@ -67,6 +68,7 @@ com/projectx/auth/dto/PaymentRequest.class
 com/projectx/auth/controller/ProductController.class
 com/projectx/auth/dto/ErrorResponse$ErrorResponseBuilder.class
 com/projectx/auth/controller/ProductQnaController.class
+com/projectx/auth/dto/FindPasswordRequest.class
 com/projectx/auth/domain/entity/User$UserBuilder.class
 com/projectx/auth/domain/entity/Review$ReviewBuilder.class
 com/projectx/auth/domain/entity/Order$OrderBuilder.class
@@ -85,6 +87,7 @@ com/projectx/auth/domain/entity/ProductStatus.class
 com/projectx/auth/dto/SignupRequest.class
 com/projectx/auth/service/MockPaymentService.class
 com/projectx/auth/config/RedisConfig$1.class
+com/projectx/auth/config/MockConfig$1.class
 com/projectx/auth/domain/entity/UserRoles.class
 com/projectx/auth/controller/AddressController.class
 com/projectx/auth/service/ProductQnaService.class

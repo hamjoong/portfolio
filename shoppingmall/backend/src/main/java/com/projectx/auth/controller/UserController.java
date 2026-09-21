@@ -49,4 +49,14 @@ public class UserController {
         userService.updateUserProfile(UUID.fromString(userId), request);
         return ResponseEntity.ok(ApiResponse.success("프로필 정보가 성공적으로 업데이트되었습니다."));
     }
+
+    /**
+     * 회원탈퇴를 처리합니다.
+     */
+    @DeleteMapping("/me")
+    public ResponseEntity<ApiResponse<String>> withdraw(@AuthenticationPrincipal String userId) {
+        log.info("[User] Withdrawing user: {}", userId);
+        userService.withdraw(UUID.fromString(userId));
+        return ResponseEntity.ok(ApiResponse.success("회원탈퇴가 성공적으로 처리되었습니다."));
+    }
 }

@@ -4,6 +4,8 @@ import com.projectx.auth.dto.SignupRequest;
 import com.projectx.auth.dto.LoginRequest;
 import com.projectx.auth.dto.AuthResponse;
 import com.projectx.auth.dto.ApiResponse;
+import com.projectx.auth.dto.FindEmailRequest;
+import com.projectx.auth.dto.FindPasswordRequest;
 import com.projectx.auth.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -37,15 +39,30 @@ public class AuthController {
         return ResponseEntity.ok(ApiResponse.success("회원가입이 성공적으로 완료되었습니다.", userId));
     }
 
-
-
     /**
      * 일반 로그인을 처리합니다.
-     * [수정] 토큰만 반환하던 방식에서 유저 ID와 Role 정보를 포함한 AuthResponse 반환 방식으로 변경했습니다.
      */
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<AuthResponse.Data>> login(@Valid @RequestBody LoginRequest request) {
         AuthResponse.Data loginData = authService.login(request.getEmail(), request.getPassword());
         return ResponseEntity.ok(ApiResponse.success("로그인에 성공하였습니다.", loginData));
+    }
+
+    /**
+     * 아이디 찾기 API
+     */
+    @PostMapping("/find-email")
+    public ResponseEntity<ApiResponse<String>> findEmail(@Valid @RequestBody FindEmailRequest request) {
+        String email = authService.findEmail(request.getFullName(), request.getPhoneNumber());
+        return ResponseEntity.ok(ApiResponse.success("아이디 찾기에 성공하였습니다.", email));
+    }
+
+    /**
+     * 비밀번호 찾기 API
+     */
+    @PostMapping("/find-password")
+    public ResponseEntity<ApiResponse<String>> findPassword(@Valid @RequestBody FindPasswordRequest request) {
+        String tempPassword = authService.findPassword(request.getEmail(), request.getFullName(), request.getPhoneNumber());
+        return ResponseEntity.ok(ApiResponse.success("임시 비밀번호가 발급되었습니다.", tempPassword));
     }
 }

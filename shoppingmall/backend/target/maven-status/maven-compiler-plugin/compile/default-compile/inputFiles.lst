@@ -56,6 +56,8 @@
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/dto/AuthResponse.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/dto/CategoryResponse.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/dto/ErrorResponse.java
+/mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/dto/FindEmailRequest.java
+/mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/dto/FindPasswordRequest.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/dto/GoogleUserInfo.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/dto/KakaoUserInfo.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/dto/LoginRequest.java

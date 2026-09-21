@@ -50,10 +50,7 @@ export default function LoginPage() {
   };
 
   const handleSocialLogin = (provider: 'google' | 'kakao') => {
-    // 하드코딩된 localhost 대신 api.ts의 baseURL 베이스로 변경
-    const apiBase = process.env.NEXT_PUBLIC_API_URL || 'https://shoppingmall-agke.onrender.com/api/v1';
-    const authBase = apiBase.replace('/api/v1', '');
-    window.location.href = `${authBase}/oauth2/authorization/${provider}`;
+    alert(`${provider} 소셜 로그인 기능입니다. (현재 연동 준비 중)`);
   };
 
   return (
@@ -91,6 +88,11 @@ export default function LoginPage() {
           <Button type="submit" className="w-full" isLoading={isLoading}>
             로그인
           </Button>
+          <div className="flex justify-center gap-4 text-sm text-gray-600">
+            <button type="button" onClick={() => router.push('/find-email')} className="hover:text-blue-600">아이디 찾기</button>
+            <span className="text-gray-300">|</span>
+            <button type="button" onClick={() => router.push('/find-password')} className="hover:text-blue-600">비밀번호 찾기</button>
+          </div>
         </form>
 
         <div className="mt-6">

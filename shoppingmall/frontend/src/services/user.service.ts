@@ -54,4 +54,10 @@ export const userService = {
   async deleteAddress(addressId: string): Promise<void> {
     await api.delete<ApiResponse<void>>(`/users/me/addresses/${addressId}`);
   },
+  /**
+   * 회원탈퇴를 처리합니다.
+   */
+  async withdraw(): Promise<void> {
+    await api.delete<ApiResponse<void>>('/users/me');
+  },
 };

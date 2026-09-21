@@ -2,6 +2,7 @@ package com.projectx.auth.service;
 
 import com.projectx.auth.domain.entity.User;
 import com.projectx.auth.domain.entity.UserProfile;
+import com.projectx.auth.domain.entity.UserStatus;
 import com.projectx.auth.domain.repository.UserProfileRepository;
 import com.projectx.auth.domain.repository.UserRepository;
 import com.projectx.auth.dto.UpdateProfileRequest;
@@ -73,6 +74,17 @@ public class UserService {
 
         profile.updateProfile(encryptedData, kmsKeyId);
         log.info("[User] Updated profile for user: {}", userId);
+    }
+
+    /**
+     * 회원탈퇴를 처리합니다.
+     * 계정 상태를 WITHDRAWN으로 변경하여 논리적 탈퇴를 수행합니다.
+     */
+    @Transactional
+    public void withdraw(UUID userId) {
+        User user = findUserById(userId);
+        user.setStatus(UserStatus.WITHDRAWN);
+        log.info("[User] User withdrawn: {}", userId);
     }
 
     private User findUserById(UUID userId) {

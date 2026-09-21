@@ -31,6 +31,22 @@ export const authService = {
   },
 
   /**
+   * 아이디 찾기를 요청합니다.
+   */
+  async findEmail(data: { fullName: string; phoneNumber: string }): Promise<string> {
+    const response = await api.post<ApiResponse<string>>('/auth/find-email', data);
+    return response.data.data;
+  },
+
+  /**
+   * 비밀번호 찾기를 요청합니다. (임시 비밀번호를 반환)
+   */
+  async findPassword(data: { email: string; fullName: string; phoneNumber: string }): Promise<string> {
+    const response = await api.post<ApiResponse<string>>('/auth/find-password', data);
+    return response.data.data;
+  },
+
+  /**
    * 로그아웃 처리를 수행합니다.
    * [이유] 로컬에 저장된 인증 정보를 삭제하여 보안성을 확보하기 위함입니다.
    */

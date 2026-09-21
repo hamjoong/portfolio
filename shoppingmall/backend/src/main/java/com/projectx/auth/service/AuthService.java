@@ -70,6 +70,62 @@ public class AuthService {
         return savedUser.getId();
     }
 
+    /**
+     * 이름과 전화번호로 이메일(아이디)을 찾습니다.
+     * [수정] UserProfile의 PK가 userId이므로, profile.getUserId()로 직접 User를 조회합니다.
+     * (암호화된 맵에는 userId 키가 없어 map.get("userId")는 항상 null을 반환하는 버그 수정)
+     */
+    @Transactional(readOnly = true)
+    public String findEmail(String fullName, String phoneNumber) {
+        return userProfileRepository.findAll().stream()
+                .filter(profile -> {
+                    try {
+                        Map<String, Object> map = kmsService.decryptToMap(profile.getEncryptedData());
+                        return map != null
+                                && fullName.equals(map.get("fullName"))
+                                && phoneNumber.equals(map.get("phoneNumber"));
+                    } catch (Exception e) {
+                        return false;
+                    }
+                })
+                .map(profile -> userRepository.findById(profile.getUserId()).orElse(null))
+                .filter(user -> user != null)
+                .map(User::getEmail)
+                .findFirst()
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+    }
+
+    /**
+     * 비밀번호 찾기 - 이름/전화번호 검증 후 임시 비밀번호를 생성하여 반환합니다.
+     * [수정] 임시 비밀번호를 String으로 반환하여 프론트엔드에서 사용자에게 직접 표시합니다.
+     */
+    @Transactional
+    public String findPassword(String email, String fullName, String phoneNumber) {
+        User user = userRepository.findByEmail(email.trim().toLowerCase())
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+
+        // 프로필 정보 검증
+        UserProfile profile = userProfileRepository.findById(user.getId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+
+        try {
+            Map<String, Object> map = kmsService.decryptToMap(profile.getEncryptedData());
+            if (!fullName.equals(map.get("fullName")) || !phoneNumber.equals(map.get("phoneNumber"))) {
+                throw new BusinessException(ErrorCode.USER_NOT_FOUND);
+            }
+        } catch (BusinessException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException(ErrorCode.ENCRYPTION_FAILED);
+        }
+
+        // 임시 비밀번호 생성 후 저장하고 반환 (프론트엔드에서 사용자에게 표시)
+        String tempPassword = UUID.randomUUID().toString().substring(0, 8);
+        user.setPassword(passwordEncoder.encode(tempPassword));
+        log.info("[Auth] Temporary password generated for user: {}", user.getId());
+        return tempPassword;
+    }
+
     private Map<String, Object> createProfileMap(SignupRequest request) {
         Map<String, Object> profileMap = new java.util.HashMap<>();
         profileMap.put("fullName", request.getFullName());

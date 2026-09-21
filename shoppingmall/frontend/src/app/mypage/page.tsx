@@ -39,6 +39,20 @@ export default function MyPage() {
     }
   };
 
+  const handleWithdraw = async () => {
+    if (!confirm('정말 회원탈퇴 하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) return;
+    try {
+      const { userService } = await import('@/services/user.service');
+      await userService.withdraw();
+      alert('회원탈퇴가 성공적으로 처리되었습니다.');
+      logout();
+      router.push('/');
+    } catch (err) {
+      console.error('[MyPage] Withdraw failed:', err);
+      alert('회원탈퇴 처리에 실패했습니다. 다시 시도해주세요.');
+    }
+  };
+
   const [activeTab, setActiveTab] = useState<'orders' | 'addresses' | 'profile'>('orders');
   const [isAddingAddress, setIsAddingAddress] = useState(false);
   const [newAddr, setNewAddr] = useState({
@@ -163,9 +177,12 @@ export default function MyPage() {
                   <input type="text" value={profile?.phoneNumber || ''} readOnly className="w-full h-12 px-4 bg-gray-50 border-none rounded-xl text-gray-400 font-bold outline-none" />
                 </div>
               </div>
-              <div className="mt-8 pt-8 border-t border-gray-50">
-                <p className="text-xs text-gray-400 font-medium mb-6">성함과 이메일은 본인 확인을 위해 수정이 제한됩니다. 주소지 및 상세 정보 수정이 필요하시면 아래 버튼을 눌러주세요.</p>
-                <Button onClick={() => router.push('/mypage/settings')} className="w-full md:w-auto px-12 h-14 bg-gray-900 text-white font-black rounded-xl hover:bg-black transition-all shadow-xl shadow-gray-200">주소 및 연락처 수정하기</Button>
+              <div className="mt-8 pt-8 border-t border-gray-50 flex flex-col md:flex-row gap-4 justify-between items-center">
+                <p className="text-xs text-gray-400 font-medium">성함과 이메일은 본인 확인을 위해 수정이 제한됩니다. 주소지 및 상세 정보 수정이 필요하시면 아래 버튼을 눌러주세요.</p>
+                <div className="flex gap-4">
+                  <Button variant="outline" onClick={handleWithdraw} className="text-red-600 border-red-200 hover:bg-red-50">회원탈퇴</Button>
+                  <Button onClick={() => router.push('/mypage/settings')} className="px-12 h-14 bg-gray-900 text-white font-black rounded-xl hover:bg-black transition-all shadow-xl shadow-gray-200">주소 및 연락처 수정하기</Button>
+                </div>
               </div>
             </div>
           )}
