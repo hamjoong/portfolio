@@ -38,6 +38,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
         ]);
 
         if (productRes) {
+          console.log('[DEBUG] Product Response received:', productRes);
           setProduct(productRes);
           if (productRes.options && productRes.options.length > 0) {
             setSelectedOptionId(productRes.options[0].id);
