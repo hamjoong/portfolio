@@ -23,7 +23,7 @@ export default function ProductDetailPage() {
   const [replyTarget, setReplyTarget] = useState<{ id: string } | null>(null);
   const [replyContent, setReplyContent] = useState('');
 
-  const { data: product, isLoading } = useQuery({
+  const { data: product, isLoading, error } = useQuery({
     queryKey: ['product', id],
     queryFn: () => productService.getProduct(id as string),
     enabled: !!id,
@@ -82,6 +82,7 @@ export default function ProductDetailPage() {
     }
   };
 
+  if (error) return <div className="h-screen flex items-center justify-center text-red-500">상품 정보를 불러오는 중 오류가 발생했습니다.</div>;
   if (isLoading || !product) return <div className="h-screen flex items-center justify-center">상품 정보를 불러오는 중...</div>;
 
   return (

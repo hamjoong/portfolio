@@ -20,7 +20,7 @@ export function ProductInfo({ product, quantity, setQuantity, onAddToCart, onBuy
   const isLowStock = product.stockQuantity > 0 && product.stockQuantity < 10;
 
   const handleAddToCart = () => {
-    if (product.options.length > 0 && !selectedOption) {
+    if (product.options && product.options.length > 0 && !selectedOption) {
       alert('옵션을 선택해주세요.');
       return;
     }
@@ -28,7 +28,7 @@ export function ProductInfo({ product, quantity, setQuantity, onAddToCart, onBuy
   };
 
   const handleBuyNow = () => {
-    if (product.options.length > 0 && !selectedOption) {
+    if (product.options && product.options.length > 0 && !selectedOption) {
       alert('옵션을 선택해주세요.');
       return;
     }
@@ -83,7 +83,7 @@ export function ProductInfo({ product, quantity, setQuantity, onAddToCart, onBuy
           
           <div className="space-y-3">
              {/* 옵션 선택 */}
-             {product.options.length > 0 && (
+             {product.options && product.options.length > 0 && (
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-gray-700">옵션 선택</label>
                   <select 
