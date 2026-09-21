@@ -2,8 +2,11 @@ package com.projectx.auth.controller;
 
 import com.projectx.auth.dto.ApiResponse;
 import com.projectx.auth.dto.OrderResponse;
+import com.projectx.auth.dto.PaymentRequest;
 import com.projectx.auth.dto.ShippingInfoResponse;
+import com.projectx.auth.service.MockPaymentService;
 import com.projectx.auth.service.OrderService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -21,6 +24,7 @@ import java.util.UUID;
 public class OrderController {
 
     private final OrderService orderService;
+    private final MockPaymentService paymentService;
 
     @GetMapping("/me")
     public ResponseEntity<ApiResponse<Page<OrderResponse>>> getMyOrders(
@@ -61,5 +65,12 @@ public class OrderController {
         log.info("[Order] Order request for user: {}, productId: {}, quantity: {}", userId, productId, quantity);
         UUID orderId = orderService.createOrder(UUID.fromString(userId), productId, quantity, receiverName, phone, address, detailAddress);
         return ResponseEntity.ok(ApiResponse.success("주문이 완료되었습니다.", orderId));
+    }
+
+    @PostMapping("/verify")
+    public ResponseEntity<ApiResponse<Boolean>> verifyPayment(@Valid @RequestBody PaymentRequest request) {
+        log.info("[Order] Payment verification request for order: {}", request.getOrderId());
+        boolean isVerified = paymentService.verifyPayment(request);
+        return ResponseEntity.ok(ApiResponse.success("결제 검증 결과", isVerified));
     }
 }

@@ -83,6 +83,7 @@ com/projectx/auth/config/JwtProvider.class
 com/projectx/auth/exception/ErrorCode.class
 com/projectx/auth/domain/entity/ProductStatus.class
 com/projectx/auth/dto/SignupRequest.class
+com/projectx/auth/service/MockPaymentService.class
 com/projectx/auth/config/RedisConfig$1.class
 com/projectx/auth/domain/entity/UserRoles.class
 com/projectx/auth/controller/AddressController.class
@@ -115,6 +116,7 @@ com/projectx/auth/dto/ShippingInfoResponse$ShippingInfoResponseBuilder.class
 com/projectx/auth/domain/repository/SocialAccountRepository.class
 com/projectx/auth/exception/BusinessException.class
 com/projectx/auth/config/OpenApiConfig.class
+com/projectx/auth/service/MockPaymentServiceImpl.class
 com/projectx/auth/config/InternalApiKeyFilter.class
 com/projectx/auth/domain/entity/SocialAccount$SocialAccountBuilder.class
 com/projectx/auth/domain/repository/UserRepository.class

@@ -6,6 +6,9 @@ server:
     min-response-size: 1024 # 1KB 이상의 응답만 압축
 
 spring:
+  threads:
+    virtual:
+      enabled: true
   application:
     name: auth-service
   

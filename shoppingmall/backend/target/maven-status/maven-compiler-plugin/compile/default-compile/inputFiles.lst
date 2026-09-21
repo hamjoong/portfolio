@@ -84,6 +84,8 @@
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/service/CustomOAuth2UserService.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/service/GuestAuthService.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/service/KmsService.java
+/mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/service/MockPaymentService.java
+/mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/service/MockPaymentServiceImpl.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/service/OrderService.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/service/OutboxProcessor.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/service/ProductQnaService.java

@@ -55,6 +55,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/products/**").permitAll() 
                 .requestMatchers("/api/v1/categories/**").permitAll() 
                 .requestMatchers("/api/v1/qnas/product/**").permitAll() 
+                .requestMatchers("/api/v1/orders/verify").permitAll()
                 // 주문은 회원(USER) 또는 비회원(GUEST) 모두 접근 가능하도록 설정
                 .requestMatchers("/api/v1/orders/**").hasAnyRole("USER", "GUEST") 
                 // 어드민 전용 API

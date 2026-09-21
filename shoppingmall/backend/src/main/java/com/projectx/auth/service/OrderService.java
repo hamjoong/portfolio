@@ -6,6 +6,7 @@ import com.projectx.auth.domain.repository.OutboxRepository;
 import com.projectx.auth.domain.repository.ProductRepository;
 import com.projectx.auth.dto.OrderItemResponse;
 import com.projectx.auth.dto.OrderResponse;
+import com.projectx.auth.dto.PaymentRequest;
 import com.projectx.auth.dto.ShippingInfoResponse;
 import com.projectx.auth.exception.BusinessException;
 import com.projectx.auth.exception.ErrorCode;
@@ -37,6 +38,7 @@ public class OrderService {
     private final OutboxRepository outboxRepository;
     private final CartService cartService;
     private final ObjectMapper objectMapper;
+    private final MockPaymentService paymentService;
 
     @Transactional
     public UUID createOrder(UUID userId, UUID productId, Integer quantity, 
@@ -45,6 +47,17 @@ public class OrderService {
         
         Order order = initializeOrder(userId, receiverName, phone, address, detailAddress);
         processOrderItems(order, itemsToOrder);
+        
+        // 결제 검증 자동화
+        boolean isVerified = paymentService.verifyPayment(PaymentRequest.builder()
+                .orderId(order.getId())
+                .amount(order.getTotalAmount())
+                .idempotencyKey(order.getOrderNo()) // 주문 번호를 멱등성 키로 사용
+                .build());
+        
+        if (!isVerified) {
+            throw new BusinessException(ErrorCode.ENCRYPTION_FAILED); // 적절한 에러 코드로 변경 필요
+        }
         
         finalizeOrder(order, userId, productId == null);
 
