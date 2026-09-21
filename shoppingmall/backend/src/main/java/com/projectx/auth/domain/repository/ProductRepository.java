@@ -55,6 +55,9 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     java.util.Optional<Product> findByName(String name);
 
+    @EntityGraph(attributePaths = {"category", "options"})
+    java.util.Optional<Product> findById(UUID id);
+
     @EntityGraph(attributePaths = {"category"})
     java.util.List<Product> findTop10ByOrderBySalesCountDesc();
 }
