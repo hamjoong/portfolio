@@ -47,7 +47,11 @@ public class EncryptionService {
     public String decrypt(String cipherText) {
         if (cipherText == null) return null;
         try {
-            return aesDecrypt(cipherText);
+            // [수정] 접두사 제거 로직 추가
+            if (cipherText.startsWith("LOCAL:")) {
+                return aesDecrypt(cipherText.substring(6));
+            }
+            return aesDecrypt(cipherText); // 접두사가 없는 경우도 고려
         } catch (Exception e) {
             log.error("[Encryption] Local decryption failed", e);
             throw new BusinessException(ErrorCode.ENCRYPTION_FAILED);
