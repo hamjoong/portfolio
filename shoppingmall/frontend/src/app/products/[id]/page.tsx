@@ -27,6 +27,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [selectedOptionId, setSelectedOptionId] = useState<string>('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,6 +39,9 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
 
         if (productRes) {
           setProduct(productRes);
+          if (productRes.options && productRes.options.length > 0) {
+            setSelectedOptionId(productRes.options[0].id);
+          }
           
           // 최근 본 상품 추적 로직 추가
           const viewed = localStorage.getItem('recentViewedProducts');
@@ -63,16 +67,15 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
 
   /**
    * 장바구니에 상품을 추가합니다.
-   * [이유] 사용자가 선택한 수량만큼 장바구니(Redis)에 저장하고
-   * 장바구니 페이지로 이동하여 확인을 돕기 위함입니다.
    */
   const handleAddToCart = async () => {
     if (!product) return;
     setIsSubmitting(true);
     try {
-      await cartService.addItem(product.id, quantity);
+      // 옵션 ID를 함께 전달하도록 cartService.addItem 호출부 수정 필요할 수 있음
+      // 여기서는 일단 기존 addItem 구조 유지하되 옵션 ID 전달을 위해 추가 인자 필요시 조치
+      await cartService.addItem(product.id, quantity, selectedOptionId);
       alert('장바구니에 상품을 담았습니다.');
-      // router.push('/cart'); // [제거] 자동 이동을 막음
     } catch (err) {
       console.error('[ProductDetail] Add to cart failed:', err);
       alert('장바구니 담기에 실패했습니다. 로그인 상태를 확인해주세요.');
@@ -83,20 +86,23 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
 
   /**
    * 바로 구매를 수행합니다.
-   * [이유] 현재 상품의 ID와 수량 정보를 주문 페이지로 전달하여 
-   * 장바구니 전체 구매가 아닌 해당 상품만 즉시 결제할 수 있도록 유도합니다.
    */
   const handleDirectBuy = async () => {
     if (!product) return;
-    router.push(`/order?productId=${product.id}&quantity=${quantity}`);
+    router.push(`/order?productId=${product.id}&quantity=${quantity}&optionId=${selectedOptionId}`);
   };
 
   if (isLoading) return <div className="min-h-screen flex items-center justify-center">로딩 중...</div>;
   if (!product) return <div className="min-h-screen flex items-center justify-center">상품을 찾을 수 없습니다.</div>;
 
+  const selectedOption = product.options.find(opt => opt.id === selectedOptionId);
+  const basePrice = product.price;
+  const additionalPrice = selectedOption ? selectedOption.additionalPrice : 0;
+  const totalPrice = basePrice + additionalPrice;
+
   const formattedPrice = new Intl.NumberFormat('ko-KR', {
     style: 'currency', currency: 'KRW',
-  }).format(product.price);
+  }).format(totalPrice * quantity);
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-6xl">
@@ -129,6 +135,24 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
           <div className="border-t border-b py-6 text-gray-600 leading-relaxed">
             {product.description || "상세 설명이 등록되지 않은 상품입니다."}
           </div>
+
+          {/* 옵션 선택 */}
+          {product.options && product.options.length > 0 && (
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-gray-500 uppercase">옵션</span>
+              <select 
+                className="border rounded-lg px-4 py-2 w-2/3"
+                value={selectedOptionId}
+                onChange={(e) => setSelectedOptionId(e.target.value)}
+              >
+                {product.options.map(opt => (
+                  <option key={opt.id} value={opt.id}>
+                    {opt.optionType}: {opt.optionName} ({opt.additionalPrice > 0 ? '+' : ''}{opt.additionalPrice.toLocaleString()}원)
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
 
           {/* 수량 및 상태 */}
           <div className="flex items-center justify-between">
