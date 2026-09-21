@@ -8,8 +8,11 @@ export const cartService = {
   /**
    * 장바구니에 상품을 추가합니다.
    */
-  async addItem(productId: string, quantity: number): Promise<void> {
-    await api.post<ApiResponse<void>>(`/cart?productId=${productId}&quantity=${quantity}`);
+  async addItem(productId: string, quantity: number, optionId?: string): Promise<void> {
+    const url = optionId 
+      ? `/cart?productId=${productId}&quantity=${quantity}&optionId=${optionId}`
+      : `/cart?productId=${productId}&quantity=${quantity}`;
+    await api.post<ApiResponse<void>>(url);
   },
 
   /**
