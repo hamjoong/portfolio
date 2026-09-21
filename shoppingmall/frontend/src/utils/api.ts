@@ -7,7 +7,7 @@ import { ApiResponse } from '@/types/auth';
  * UI 레이어에서 일관된 에러 처리가 가능하도록 개선했습니다.
  */
 const api: AxiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://shoppingmall-agke.onrender.com/api/v1',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://shoppingmall-backend-gtg5.onrender.com/api/v1',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
