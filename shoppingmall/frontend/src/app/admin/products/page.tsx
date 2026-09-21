@@ -5,7 +5,9 @@ import { adminService } from '@/services/admin.service';
 import { ProductResponse } from '@/types/product';
 import { Page } from '@/types/common';
 import Image from 'next/image';
-import { ShoppingBag, Box, Tag, Store, BarChart3 } from 'lucide-react';
+import { ShoppingBag, Box, Tag, Store, BarChart3, Plus } from 'lucide-react';
+import Link from 'next/link';
+import { Button } from '@/components/common/Button';
 
 /**
  * 어드민 전용 상품 리스트 관리 페이지입니다.
@@ -42,9 +44,16 @@ export default function AdminProductsPage() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
-      <div>
+      <div className="flex justify-between items-end">
+        <div>
           <h1 className="text-4xl font-black text-gray-900 tracking-tighter mb-2 uppercase">Product Inventory</h1>
           <p className="text-gray-500 font-medium font-medium">서비스에 등록된 상품의 재고 및 정보를 관리합니다.</p>
+        </div>
+        <Link href="/admin/products/new">
+            <Button className="flex items-center gap-2">
+                <Plus className="w-4 h-4" /> 상품 추가
+            </Button>
+        </Link>
       </div>
 
       <div className="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden">
@@ -117,3 +126,4 @@ export default function AdminProductsPage() {
     </div>
   );
 }
+

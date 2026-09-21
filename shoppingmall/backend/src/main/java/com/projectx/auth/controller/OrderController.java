@@ -56,14 +56,15 @@ public class OrderController {
     public ResponseEntity<ApiResponse<UUID>> createOrder(
             @AuthenticationPrincipal String userId,
             @RequestParam(required = false) UUID productId,
+            @RequestParam(required = false) UUID optionId,
             @RequestParam(required = false) Integer quantity,
             @RequestParam String receiverName,
             @RequestParam String phone,
             @RequestParam String address,
             @RequestParam String detailAddress) {
         
-        log.info("[Order] Order request for user: {}, productId: {}, quantity: {}", userId, productId, quantity);
-        UUID orderId = orderService.createOrder(UUID.fromString(userId), productId, quantity, receiverName, phone, address, detailAddress);
+        log.info("[Order] Order request for user: {}, productId: {}, optionId: {}, quantity: {}", userId, productId, optionId, quantity);
+        UUID orderId = orderService.createOrder(UUID.fromString(userId), productId, optionId, quantity, receiverName, phone, address, detailAddress);
         return ResponseEntity.ok(ApiResponse.success("주문이 완료되었습니다.", orderId));
     }
 

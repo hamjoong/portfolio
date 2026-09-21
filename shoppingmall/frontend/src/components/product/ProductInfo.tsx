@@ -1,22 +1,39 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Star, Truck, ShieldCheck, RotateCcw, Minus, Plus } from 'lucide-react';
-import { ProductResponse } from '@/types/product';
+import { ProductResponse, ProductOptionResponse } from '@/types/product';
 
 interface ProductInfoProps {
   product: ProductResponse;
   quantity: number;
   setQuantity: (q: number) => void;
-  onAddToCart: () => void;
-  onBuyNow: () => void;
+  onAddToCart: (selectedOption?: ProductOptionResponse) => void;
+  onBuyNow: (selectedOption?: ProductOptionResponse) => void;
   reviewCount: number;
 }
 
 export function ProductInfo({ product, quantity, setQuantity, onAddToCart, onBuyNow, reviewCount }: ProductInfoProps) {
+  const [selectedOption, setSelectedOption] = useState<ProductOptionResponse | null>(null);
   const isOutOfStock = product.stockQuantity === 0;
   const isLowStock = product.stockQuantity > 0 && product.stockQuantity < 10;
+
+  const handleAddToCart = () => {
+    if (product.options.length > 0 && !selectedOption) {
+      alert('옵션을 선택해주세요.');
+      return;
+    }
+    onAddToCart(selectedOption || undefined);
+  };
+
+  const handleBuyNow = () => {
+    if (product.options.length > 0 && !selectedOption) {
+      alert('옵션을 선택해주세요.');
+      return;
+    }
+    onBuyNow(selectedOption || undefined);
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -59,15 +76,34 @@ export function ProductInfo({ product, quantity, setQuantity, onAddToCart, onBuy
         <div className="border-y border-gray-100 py-6">
           <div className="flex items-baseline gap-3 mb-4">
             <span className={`text-3xl font-black ${isOutOfStock ? 'text-gray-400 line-through' : 'text-gray-900'}`}>
-              {(product.price || 0).toLocaleString()}원
+              {(((product.price || 0) + (selectedOption?.additionalPrice || 0)) * quantity).toLocaleString()}원
             </span>
             {!isOutOfStock && <span className="text-sm text-green-600 font-bold mb-1">무료배송</span>}
-            {isLowStock && (
-              <span className="text-xs font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded ml-auto">남은수량: {product.stockQuantity}개</span>
-            )}
           </div>
           
           <div className="space-y-3">
+             {/* 옵션 선택 */}
+             {product.options.length > 0 && (
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-gray-700">옵션 선택</label>
+                  <select 
+                    className="w-full p-2 border rounded-md"
+                    value={selectedOption?.id || ''}
+                    onChange={(e) => {
+                      const option = product.options.find(o => o.id === e.target.value);
+                      setSelectedOption(option || null);
+                    }}
+                  >
+                    <option value="">옵션을 선택하세요</option>
+                    {product.options.map(option => (
+                      <option key={option.id} value={option.id}>
+                        {option.optionType}: {option.optionName} (+{option.additionalPrice.toLocaleString()}원)
+                      </option>
+                    ))}
+                  </select>
+                </div>
+            )}
+            
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <Truck className="w-4 h-4" />
               <span>{!isOutOfStock ? '내일(수) 도착 보장' : '재입고 알림 신청 가능'}</span>
@@ -103,15 +139,12 @@ export function ProductInfo({ product, quantity, setQuantity, onAddToCart, onBuy
               <Plus className="w-4 h-4" />
             </button>
           </div>
-          {isLowStock && (
-            <p className="text-[10px] text-red-500 font-bold">* 현재 재고가 {product.stockQuantity}개 남았습니다. 서두르세요!</p>
-          )}
         </div>
 
         {/* 구매 버튼 */}
         <div className="flex gap-3 mt-4">
           <button
-            onClick={onAddToCart}
+            onClick={handleAddToCart}
             disabled={isOutOfStock}
             className={`flex-1 h-14 border-2 font-bold rounded-xl transition-colors ${
               isOutOfStock 
@@ -122,7 +155,7 @@ export function ProductInfo({ product, quantity, setQuantity, onAddToCart, onBuy
             {isOutOfStock ? '품절' : '장바구니'}
           </button>
           <button
-            onClick={onBuyNow}
+            onClick={handleBuyNow}
             disabled={isOutOfStock}
             className={`flex-[2] h-14 font-bold rounded-xl transition-colors shadow-lg ${
               isOutOfStock 
@@ -137,3 +170,4 @@ export function ProductInfo({ product, quantity, setQuantity, onAddToCart, onBuy
     </div>
   );
 }
+

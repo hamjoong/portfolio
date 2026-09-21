@@ -19,14 +19,33 @@ export default function NewProductPage() {
     description: '',
     price: 0,
     stockQuantity: 0,
+    options: [] as { optionType: string; optionName: string; additionalPrice: number; stockQuantity: number }[],
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const addOption = () => {
+    setFormData({
+      ...formData,
+      options: [...formData.options, { optionType: '', optionName: '', additionalPrice: 0, stockQuantity: 0 }],
+    });
+  };
+
+  const removeOption = (index: number) => {
+    setFormData({
+      ...formData,
+      options: formData.options.filter((_, i) => i !== index),
+    });
+  };
+
+  const updateOption = (index: number, field: string, value: string | number) => {
+    const newOptions = [...formData.options];
+    newOptions[index] = { ...newOptions[index], [field]: value };
+    setFormData({ ...formData, options: newOptions });
+  };
+
   /**
    * 상품 등록 및 이미지 업로드 통합 로직입니다.
-   * [이유] 1. 백엔드에서 Presigned URL 획득 2. S3로 직접 이미지 전송 3. 최종 상품 DB 저장의
-   * 복합적인 과정을 순차적으로 수행하여 데이터 무결성을 보장하기 위함입니다.
    */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,12 +58,9 @@ export default function NewProductPage() {
       if (imageFile) {
         try {
           const presignedUrl = await productService.getUploadUrl(imageFile.name);
-
-          // [참고] 테스트 환경에서는 실제 S3 연결이 실패할 수 있으므로 try-catch로 감싸서 진행
           await axios.put(presignedUrl, imageFile, {
             headers: { 'Content-Type': imageFile.type },
           });
-
           imageUrl = presignedUrl.split('?')[0].replace('raw/', 'optimized/').replace(/\.[^.]+$/, ".webp");
         } catch (uploadErr) {
           console.warn('[Admin] S3 upload failed in test mode, using placeholder.');
@@ -55,7 +71,8 @@ export default function NewProductPage() {
       // 2. 최종 상품 정보 DB 저장
       await productService.createProduct({
         ...formData,
-        imageUrl
+        imageUrl,
+        categoryId: 1 // [임시] 카테고리 ID 처리 (필요시 UI 추가)
       });
 
       alert('상품이 성공적으로 등록되었습니다.');
@@ -107,6 +124,23 @@ export default function NewProductPage() {
               onChange={(e) => setFormData({ ...formData, stockQuantity: Number(e.target.value) })}
               required
             />
+          </div>
+
+          {/* 상품 옵션 섹션 */}
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <label className="text-sm font-bold text-gray-700">상품 옵션</label>
+              <Button type="button" onClick={addOption} size="sm">옵션 추가</Button>
+            </div>
+            {formData.options.map((option, index) => (
+              <div key={index} className="grid grid-cols-4 gap-2 items-end border p-4 rounded-md">
+                <Input label="분류(사이즈 등)" value={option.optionType} onChange={(e) => updateOption(index, 'optionType', e.target.value)} />
+                <Input label="이름(XL 등)" value={option.optionName} onChange={(e) => updateOption(index, 'optionName', e.target.value)} />
+                <Input label="추가금" type="number" value={option.additionalPrice} onChange={(e) => updateOption(index, 'additionalPrice', Number(e.target.value))} />
+                <Input label="재고" type="number" value={option.stockQuantity} onChange={(e) => updateOption(index, 'stockQuantity', Number(e.target.value))} />
+                <Button type="button" onClick={() => removeOption(index)} className="bg-red-500 hover:bg-red-600">삭제</Button>
+              </div>
+            ))}
           </div>
 
           <div className="space-y-1.5">

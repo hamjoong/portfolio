@@ -42,9 +42,9 @@ class OrderServiceScenarioTest {
         doThrow(new RuntimeException("재고 부족")).when(product).removeStock(10);
 
         // when & then
-        // [수정] 변경된 시그니처 (userId, productId, quantity, receiverName, phone, address, detailAddress)에 맞춰 인자 전달
-        // 장바구니 전체 주문 테스트의 경우 productId와 quantity에 null 전달
-        assertThatThrownBy(() -> orderService.createOrder(userId, null, null, "홍길동", "01012345678", "서울시 강남구", "101호"))
+        // [수정] 변경된 시그니처 (userId, productId, optionId, quantity, receiverName, phone, address, detailAddress)에 맞춰 인자 전달
+        // 장바구니 전체 주문 테스트의 경우 productId, optionId, quantity에 null 전달
+        assertThatThrownBy(() -> orderService.createOrder(userId, null, null, null, "홍길동", "01012345678", "서울시 강남구", "101호"))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("재고 부족");
 

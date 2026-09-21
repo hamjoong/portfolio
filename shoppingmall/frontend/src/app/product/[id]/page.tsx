@@ -40,10 +40,14 @@ export default function ProductDetailPage() {
   const addReviewReplyMutation = useAddReviewReply();
   const addQnaAnswerMutation = useAddQnaAnswer();
 
-  const handleAddToCart = () => {
-    addToCartMutation.mutate({ productId: id as string, quantity }, {
+  const handleAddToCart = (selectedOption?: ProductOptionResponse) => {
+    addToCartMutation.mutate({ productId: id as string, quantity, optionId: selectedOption?.id }, {
       onSuccess: () => confirm('장바구니에 담겼습니다. 장바구니로 이동할까요?') && router.push('/cart')
     });
+  };
+
+  const handleBuyNow = (selectedOption?: ProductOptionResponse) => {
+    router.push(`/order?productId=${product.id}&quantity=${quantity}${selectedOption ? `&optionId=${selectedOption.id}` : ''}`);
   };
 
   const handleReviewWrite = () => {
@@ -83,7 +87,7 @@ export default function ProductDetailPage() {
       <ProductInfo 
         product={product} quantity={quantity} setQuantity={setQuantity} 
         onAddToCart={handleAddToCart} 
-        onBuyNow={() => router.push(`/order?productId=${product.id}&quantity=${quantity}`)}
+        onBuyNow={handleBuyNow}
         reviewCount={reviews?.totalElements || 0}
       />
 

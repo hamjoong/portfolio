@@ -9,6 +9,15 @@ export interface ProductResponse {
   stockQuantity: number;
   categoryName: string;
   mainImageUrl: string; // 상품 대표 이미지 URL
+  options: ProductOptionResponse[]; // [추가] 옵션 정보
+}
+
+export interface ProductOptionResponse {
+  id: string;
+  optionType: string;
+  optionName: string;
+  additionalPrice: number;
+  stockQuantity: number;
 }
 
 /**
@@ -24,4 +33,3 @@ export interface PageResponse<T> {
   totalElements: number;
   totalPages: number;
 }
-

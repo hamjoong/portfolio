@@ -30,6 +30,7 @@
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/domain/entity/OutboxEvent.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/domain/entity/OutboxStatus.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/domain/entity/Product.java
+/mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/domain/entity/ProductOption.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/domain/entity/ProductQna.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/domain/entity/ProductStatus.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/domain/entity/Review.java
@@ -42,6 +43,7 @@
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/domain/repository/CategoryRepository.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/domain/repository/OrderRepository.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/domain/repository/OutboxRepository.java
+/mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/domain/repository/ProductOptionRepository.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/domain/repository/ProductQnaRepository.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/domain/repository/ProductRepository.java
 /mnt/d/Program Files/Developer/portfolioproject/portfolio/shoppingmall/backend/src/main/java/com/projectx/auth/domain/repository/ReviewRepository.java

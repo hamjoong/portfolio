@@ -51,7 +51,7 @@ public class OrderConcurrencyTest {
             executorService.submit(() -> {
                 try {
                     // 가상의 사용자 ID로 주문 생성
-                    orderService.createOrder(UUID.randomUUID(), productId, 1, 
+                    orderService.createOrder(UUID.randomUUID(), productId, null, 1, 
                             "테스터", "01012345678", "서울", "상세주소");
                     successCount.incrementAndGet();
                 } catch (ObjectOptimisticLockingFailureException e) {

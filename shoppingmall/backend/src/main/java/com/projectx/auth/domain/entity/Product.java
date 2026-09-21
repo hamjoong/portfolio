@@ -55,6 +55,10 @@ public class Product extends BaseTimeEntity {
     @Builder.Default
     private ProductStatus status = ProductStatus.FOR_SALE;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private java.util.List<ProductOption> options = new java.util.ArrayList<>();
+
     public void removeStock(int quantity) {
         int restStock = this.stockQuantity - quantity;
         if (restStock < 0) {
