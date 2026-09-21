@@ -76,7 +76,7 @@ public class OrderController {
 
     @PostMapping(value = "/{id}/cancel", consumes = "application/json", produces = "application/json")
     public ResponseEntity<ApiResponse<Void>> cancelOrder(@PathVariable UUID id) {
-        log.info("[Order] >>>>> [DEBUG] Cancel request received for order: {}", id);
+        log.info("[Order] Cancel request for order: {}", id);
         orderService.cancelOrder(id);
         return ResponseEntity.ok(ApiResponse.success("주문이 취소되었습니다.", null));
     }
