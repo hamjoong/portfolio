@@ -34,8 +34,6 @@ spring:
 
 # [Phase 5] AWS 기능 명시적 비활성화 (기동 장애 원천 차단)
 aws:
-  kms:
-    enabled: false
   s3:
     enabled: false
 

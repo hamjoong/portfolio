@@ -5,7 +5,6 @@ import com.projectx.auth.dto.ProductCreateRequest;
 import com.projectx.auth.dto.ProductResponse;
 import com.projectx.auth.service.ProductSearchService;
 import com.projectx.auth.service.ProductService;
-import com.projectx.auth.service.S3Service;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,17 +30,6 @@ public class ProductController {
 
     private final ProductService productService;
     private final ProductSearchService productSearchService;
-    private final S3Service s3Service;
-
-    /**
-     * 상품 업로드를 위한 S3 Presigned URL을 발급합니다.
-     */
-    @GetMapping("/upload-url")
-    public ResponseEntity<ApiResponse<String>> getUploadUrl(@RequestParam String fileName) {
-        log.info("[Product] Generating upload URL for file: {}", fileName);
-        String url = s3Service.getPresignedUrl(fileName);
-        return ResponseEntity.ok(ApiResponse.success(url));
-    }
 
     /**
      * 신규 상품을 등록합니다.

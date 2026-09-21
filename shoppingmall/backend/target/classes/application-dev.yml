@@ -20,6 +20,11 @@ spring:
       host: localhost
       port: 6379
 
+# AWS 기능 명시적 비활성화
+aws:
+  s3:
+    enabled: false
+
 logging:
   level:
     com.projectx: INFO

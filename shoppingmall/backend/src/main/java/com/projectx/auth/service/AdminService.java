@@ -26,7 +26,6 @@ import java.util.UUID;
 
 /**
  * 관리자 전용 비즈니스 로직을 담당하는 핵심 서비스입니다.
- * [보안] 민감한 개인정보를 안전하게 복호화하여 관리자 대시보드에 제공합니다.
  */
 @Slf4j
 @Service
@@ -37,7 +36,7 @@ public class AdminService {
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
     private final UserProfileRepository userProfileRepository;
-    private final KmsService kmsService;
+    private final EncryptionService encryptionService;
 
     /**
      * 전체 사용자의 상세 정보(개인정보 포함)를 조회합니다.
@@ -58,7 +57,7 @@ public class AdminService {
 
             profileOpt.ifPresent(profile -> {
                 try {
-                    Map<String, Object> data = kmsService.decryptToMap(profile.getEncryptedData());
+                    Map<String, Object> data = encryptionService.decryptToMap(profile.getEncryptedData());
                     builder.fullName((String) data.getOrDefault("fullName", ""))
                            .phoneNumber((String) data.getOrDefault("phoneNumber", ""))
                            .address((String) data.getOrDefault("address", ""))

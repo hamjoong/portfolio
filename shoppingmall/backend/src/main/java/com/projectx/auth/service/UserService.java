@@ -11,7 +11,6 @@ import com.projectx.auth.exception.BusinessException;
 import com.projectx.auth.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,8 +19,7 @@ import java.util.UUID;
 
 /**
  * 사용자 정보 조회 및 관리 비즈니스 로직입니다.
- * [리팩토링] 복잡한 암호화 데이터 처리를 KmsService로 캡슐화하고, 
- * 비즈니스 레이어는 데이터 매핑과 흐름 제어에 집중합니다.
+ * [리팩토링] KMS 의존성을 제거하고 로컬 EncryptionService로 통합하였습니다.
  */
 @Slf4j
 @Service
@@ -30,10 +28,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserProfileRepository userProfileRepository;
-    private final KmsService kmsService;
-
-    @Value("${aws.kms.key-id:dummy}")
-    private String kmsKeyId;
+    private final EncryptionService encryptionService;
 
     /**
      * 특정 사용자의 프로필을 복호화하여 조회합니다.
@@ -43,7 +38,7 @@ public class UserService {
         User user = findUserById(userId);
         UserProfile profile = findUserProfileById(userId);
 
-        Map<String, Object> profileData = kmsService.decryptToMap(profile.getEncryptedData());
+        Map<String, Object> profileData = encryptionService.decryptToMap(profile.getEncryptedData());
 
         return UserProfileResponse.builder()
                 .email(user.getEmail())
@@ -62,17 +57,17 @@ public class UserService {
         UserProfile profile = findUserProfileById(userId);
         
         // [이유] 이름과 이메일은 변경 불가능한 정책이므로, 기존 프로필에서 이름을 추출하여 유지함
-        Map<String, Object> oldProfileData = kmsService.decryptToMap(profile.getEncryptedData());
+        Map<String, Object> oldProfileData = encryptionService.decryptToMap(profile.getEncryptedData());
         String existingFullName = (String) oldProfileData.get("fullName");
 
-        String encryptedData = kmsService.encryptMap(Map.of(
+        String encryptedData = encryptionService.encryptMap(Map.of(
                 "fullName", existingFullName != null ? existingFullName : request.getFullName(),
                 "phoneNumber", request.getPhoneNumber(),
                 "address", request.getAddress() != null ? request.getAddress() : "",
                 "detailAddress", request.getDetailAddress() != null ? request.getDetailAddress() : ""
         ));
 
-        profile.updateProfile(encryptedData, kmsKeyId);
+        profile.updateProfile(encryptedData);
         log.info("[User] Updated profile for user: {}", userId);
     }
 
