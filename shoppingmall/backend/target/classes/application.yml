@@ -58,10 +58,14 @@ spring:
 
 # Internal API Configuration
 internal:
-  api-key: ${INTERNAL_API_KEY}
+  api-key: ${INTERNAL_API_KEY:internal-secret-key-12345}
+
+# Encryption Configuration
+encryption:
+  key: ${ENCRYPTION_KEY:aes-secret-key-1234567890123456}
 
 # JWT Configuration
 jwt:
-  secret-key: ${JWT_SECRET_KEY}
+  secret-key: ${JWT_SECRET_KEY:v-this-is-a-sample-secret-key-for-shopping-mall-2026-must-be-long}
   access-token-expiration: 3600000 # 1 hour in ms
   refresh-token-expiration: 1209600000 # 14 days in ms
