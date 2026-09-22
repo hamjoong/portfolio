@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.projectx.auth.service.OrderCancellationTest
--------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.97 s -- in com.projectx.auth.service.OrderCancellationTest
