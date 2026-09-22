@@ -15,9 +15,14 @@ function HomeContent() {
 
   const { data: productPage, isLoading, refetch } = useQuery({
     queryKey: ['products', searchKeyword],
-    queryFn: () => searchKeyword 
-      ? productService.searchProducts(searchKeyword).then(data => ({ content: data, totalElements: data.length }))
-      : productService.getProducts(0, 20),
+    queryFn: async () => {
+      const data = searchKeyword 
+        ? await productService.searchProducts(searchKeyword).then(data => ({ content: data, totalElements: data.length }))
+        : await productService.getProducts(0, 20);
+      
+      console.log("[DEBUG] ProductPage data structure:", data);
+      return data;
+    },
   });
 
   useEffect(() => {

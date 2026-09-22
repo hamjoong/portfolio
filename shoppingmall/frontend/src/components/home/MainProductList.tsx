@@ -11,6 +11,7 @@ interface MainProductListProps {
 }
 
 export const MainProductList: React.FC<MainProductListProps> = ({ products, totalElements, title }) => {
+  console.log("[DEBUG] MainProductList received products:", products);
   return (
     <section id="recommended-products">
       <div className="flex items-center justify-between mb-8">
@@ -25,7 +26,7 @@ export const MainProductList: React.FC<MainProductListProps> = ({ products, tota
           ))
         ) : (
           <div className="col-span-full py-20 text-center text-gray-400 font-bold">
-            해당하는 상품이 없습니다.
+            해당하는 상품이 없습니다. (products length: {products?.length})
           </div>
         )}
       </div>
