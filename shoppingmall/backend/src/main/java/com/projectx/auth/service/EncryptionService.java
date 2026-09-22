@@ -31,9 +31,9 @@ public class EncryptionService {
 
     @PostConstruct
     public void validateKey() {
-        if (localKey == null || localKey.getBytes(StandardCharsets.UTF_8).length != 32) {
-            throw new IllegalStateException("ENCRYPTION_KEY must be exactly 32 bytes for AES-256. Current length: " + 
-                (localKey != null ? localKey.getBytes(StandardCharsets.UTF_8).length : "null"));
+        int length = localKey != null ? localKey.getBytes(StandardCharsets.UTF_8).length : 0;
+        if (length != 16 && length != 24 && length != 32) {
+            throw new IllegalStateException("ENCRYPTION_KEY must be 16, 24, or 32 bytes for AES. Current length: " + length);
         }
     }
 

@@ -62,7 +62,7 @@ internal:
 
 # Encryption Configuration
 encryption:
-  key: ${ENCRYPTION_KEY:aes-secret-key-1234567890123456}
+  key: ${ENCRYPTION_KEY:aes-secret-key-12345678901234567}
 
 # JWT Configuration
 jwt:

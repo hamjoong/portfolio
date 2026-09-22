@@ -24,6 +24,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const router = useRouter();
   const [product, setProduct] = useState<ProductResponse | null>(null);
   const [qnas, setQnas] = useState<QnaResponse[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -32,30 +33,33 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [productRes, qnaRes] = await Promise.all([
+        const [productRes, qnaRes, reviewRes] = await Promise.all([
           productService.getProduct(id),
-          qnaService.getProductQnas(id)
+          qnaService.getProductQnas(id),
+          reviewService.getProductReviews(id)
         ]);
 
         if (productRes) {
-          console.log('[DEBUG] Product Response received:', productRes);
           setProduct(productRes);
           if (productRes.options && productRes.options.length > 0) {
             setSelectedOptionId(productRes.options[0].id);
           }
           
-          // 최근 본 상품 추적 로직 추가
           const viewed = localStorage.getItem('recentViewedProducts');
           const viewedList = viewed ? JSON.parse(viewed) : [];
           const updatedList = [
             productRes, 
             ...viewedList.filter((p: any) => p.id !== productRes.id)
-          ].slice(0, 10); // 최대 10개 유지
+          ].slice(0, 10);
           localStorage.setItem('recentViewedProducts', JSON.stringify(updatedList));
         }
 
         if (qnaRes.success) {
           setQnas(qnaRes.data);
+        }
+        
+        if (reviewRes.content) {
+          setReviews(reviewRes.content);
         }
       } catch (err) {
         console.error('[ProductDetail] Failed to fetch data:', err);
@@ -199,6 +203,31 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
             남은 재고: <span className="font-bold text-gray-600">{product.stockQuantity}</span>개
           </p>
         </div>
+      </div>
+
+      {/* 상품 리뷰 섹션 */}
+      <div className="mt-24 border-t pt-16">
+        <h2 className="text-2xl font-black text-gray-900 mb-10">상품 리뷰</h2>
+        {reviews.length > 0 ? (
+          <div className="divide-y border-y">
+            {reviews.map((review) => (
+              <div key={review.id} className="py-6">
+                <div className="flex items-center gap-2 mb-2">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={16} className={i < review.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"} />
+                  ))}
+                </div>
+                <p className="text-sm text-gray-700">{review.content}</p>
+                <div className="text-xs text-gray-400 mt-2">{new Date(review.createdAt).toLocaleDateString()}</div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="bg-gray-50 rounded-3xl py-20 text-center border border-dashed border-gray-200">
+            <Star size={48} className="mx-auto text-gray-200 mb-4" />
+            <p className="text-gray-400 font-bold">아직 등록된 리뷰가 없습니다.</p>
+          </div>
+        )}
       </div>
 
       {/* 상품 문의 섹션 */}
