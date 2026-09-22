@@ -20,10 +20,10 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     /**
      * 판매 상태인 상품 목록을 조회합니다.
-     * [이유] @EntityGraph를 통해 Category 정보를 한 번의 쿼리로 가져와서(Fetch Join)
-     * 목록 조회 시 발생하는 N+1 성능 이슈를 방지하기 위함입니다.
+     * [이유] @EntityGraph를 통해 Category 및 Options 정보를 한 번의 쿼리로 가져와서(Fetch Join)
+     * 목록 조회 시 발생하는 N+1 성능 이슈와 LazyInitializationException을 방지하기 위함입니다.
      */
-    @EntityGraph(attributePaths = {"category"})
+    @EntityGraph(attributePaths = {"category", "options"})
     Page<Product> findByStatus(ProductStatus status, Pageable pageable);
 
     /**
