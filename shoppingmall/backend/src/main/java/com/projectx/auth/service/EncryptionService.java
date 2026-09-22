@@ -37,7 +37,7 @@ public class EncryptionService {
             return aesEncrypt(plainText);
         } catch (Exception e) {
             log.error("[Encryption] Local encryption failed", e);
-            throw new BusinessException(ErrorCode.ENCRYPTION_FAILED);
+            throw new BusinessException(ErrorCode.ENCRYPTION_FAILED, e);
         }
     }
 
@@ -54,7 +54,7 @@ public class EncryptionService {
             return aesDecrypt(cipherText); // 접두사가 없는 경우도 고려
         } catch (Exception e) {
             log.error("[Encryption] Local decryption failed", e);
-            throw new BusinessException(ErrorCode.ENCRYPTION_FAILED);
+            throw new BusinessException(ErrorCode.ENCRYPTION_FAILED, e);
         }
     }
 
@@ -83,7 +83,7 @@ public class EncryptionService {
             return encrypt(json);
         } catch (Exception e) {
             log.error("[Encryption] Serialization failed", e);
-            throw new BusinessException(ErrorCode.ENCRYPTION_FAILED);
+            throw new BusinessException(ErrorCode.ENCRYPTION_FAILED, e);
         }
     }
 
@@ -96,7 +96,7 @@ public class EncryptionService {
             return objectMapper.readValue(json, Map.class);
         } catch (Exception e) {
             log.error("[Encryption] Deserialization failed", e);
-            throw new BusinessException(ErrorCode.ENCRYPTION_FAILED);
+            throw new BusinessException(ErrorCode.ENCRYPTION_FAILED, e);
         }
     }
 }
