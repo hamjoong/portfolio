@@ -75,9 +75,10 @@ export default function CategoryMenu() {
       setIsHotLoading(true);
       try {
         const data = await productService.getTrendingProducts();
-        setHotProducts(data.slice(0, 4)); // 상위 4개 노출
+        setHotProducts(Array.isArray(data) ? data.slice(0, 4) : []); // 데이터가 배열인지 확인 후 slice 호출
       } catch (err) {
         console.error('Failed to fetch hot products:', err);
+        setHotProducts([]); // 에러 발생 시 빈 배열로 설정
       } finally {
         setIsHotLoading(false);
       }
