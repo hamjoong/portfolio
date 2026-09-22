@@ -1,5 +1,6 @@
 package com.projectx.auth.service;
 
+import jakarta.annotation.PostConstruct;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projectx.auth.exception.BusinessException;
 import com.projectx.auth.exception.ErrorCode;
@@ -27,6 +28,14 @@ public class EncryptionService {
 
     @Value("${encryption.key}")
     private String localKey;
+
+    @PostConstruct
+    public void validateKey() {
+        if (localKey == null || localKey.getBytes(StandardCharsets.UTF_8).length != 32) {
+            throw new IllegalStateException("ENCRYPTION_KEY must be exactly 32 bytes for AES-256. Current length: " + 
+                (localKey != null ? localKey.getBytes(StandardCharsets.UTF_8).length : "null"));
+        }
+    }
 
     /**
      * 데이터를 로컬 AES 방식으로 암호화합니다.
