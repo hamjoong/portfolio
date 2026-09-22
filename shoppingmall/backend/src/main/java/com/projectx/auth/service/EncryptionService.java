@@ -24,9 +24,8 @@ public class EncryptionService {
 
     private final ObjectMapper objectMapper;
 
-    // 로컬 암호화용 고정 키 (AES-256을 위한 32바이트 키)
-    // TODO: 실제 운영 환경에서는 환경변수로 관리해야 합니다.
-    private static final String LOCAL_KEY = "project-x-mall-security-key-2026"; 
+    @Value("${encryption.key}")
+    private String localKey;
 
     /**
      * 데이터를 로컬 AES 방식으로 암호화합니다.
@@ -59,7 +58,7 @@ public class EncryptionService {
     }
 
     private String aesEncrypt(String data) throws Exception {
-        SecretKeySpec secretKey = new SecretKeySpec(LOCAL_KEY.getBytes(StandardCharsets.UTF_8), "AES");
+        SecretKeySpec secretKey = new SecretKeySpec(localKey.getBytes(StandardCharsets.UTF_8), "AES");
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         cipher.init(Cipher.ENCRYPT_MODE, secretKey);
         byte[] encrypted = cipher.doFinal(data.getBytes(StandardCharsets.UTF_8));
@@ -67,7 +66,7 @@ public class EncryptionService {
     }
 
     private String aesDecrypt(String encryptedData) throws Exception {
-        SecretKeySpec secretKey = new SecretKeySpec(LOCAL_KEY.getBytes(StandardCharsets.UTF_8), "AES");
+        SecretKeySpec secretKey = new SecretKeySpec(localKey.getBytes(StandardCharsets.UTF_8), "AES");
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         cipher.init(Cipher.DECRYPT_MODE, secretKey);
         byte[] decrypted = cipher.doFinal(Base64.getDecoder().decode(encryptedData));

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.test.context.ActiveProfiles;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -20,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@Slf4j
 public class OrderConcurrencyTest {
 
     @Autowired
@@ -70,9 +72,9 @@ public class OrderConcurrencyTest {
         // 3. 결과 검증
         Product updatedProduct = productRepository.findById(productId).orElseThrow();
         
-        System.out.println("성공 횟수: " + successCount.get());
-        System.out.println("실패 횟수: " + failCount.get());
-        System.out.println("남은 재고: " + updatedProduct.getStockQuantity());
+        log.info("성공 횟수: {}", successCount.get());
+        log.info("실패 횟수: {}", failCount.get());
+        log.info("남은 재고: {}", updatedProduct.getStockQuantity());
 
         // 재고는 0 이상이어야 하며, (초기재고 - 성공횟수)와 일치해야 함
         assertThat(updatedProduct.getStockQuantity()).isGreaterThanOrEqualTo(0);
