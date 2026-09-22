@@ -165,4 +165,3 @@ npm test
 
 ## 11. 프로젝트 링크 Project Links
 - **Frontend (Vercel)**: [https://shoppingmallfrontend.vercel.app/](https://shoppingmallfrontend.vercel.app/)
-- **Backend (Render)**: [https://shoppingmall-backend-gtg5.onrender.com](https://shoppingmall-backend-gtg5.onrender.com)
