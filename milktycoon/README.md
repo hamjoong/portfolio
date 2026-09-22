@@ -146,3 +146,8 @@ npm run lint
 # 모바일 환경 동기화 (Capacitor 설치 후)
 npx cap copy
 ```
+
+---
+
+## 11. 프로젝트 링크 Project Links
+- **Frontend (GitHub)**: https://hamjoong.github.io/portfolio/milktycoon/ (https://hamjoong.github.io/portfolio/milktycoon/)
