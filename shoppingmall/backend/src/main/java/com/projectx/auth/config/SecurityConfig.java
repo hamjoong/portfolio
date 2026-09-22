@@ -52,7 +52,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers("/api/v1/guest/auth").permitAll() // 비회원 인증은 공개
-                .requestMatchers("/api/v1/products/**").permitAll() 
+                .requestMatchers("/api/v1/products/**", "/api/v1/products").permitAll() 
                 .requestMatchers("/api/v1/categories/**").permitAll() 
                 .requestMatchers("/api/v1/qnas/product/**").permitAll() 
                 .requestMatchers("/api/v1/orders/verify").permitAll()
