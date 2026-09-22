@@ -8,12 +8,14 @@ const nextConfig = {
   },
   */
   // [이유] 개발 환경에서 백엔드 API와의 CORS 이슈를 방지하기 위해 
-  // API 요청을 백엔드 서버로 프록시 처리하도록 설정할 수 있습니다.
+  // API 요청을 백엔드 서버로 프록시 처리하도록 설정합니다.
+  // 프로덕션 환경에서는 Vercel 환경변수 NEXT_PUBLIC_API_URL을 사용합니다.
   async rewrites() {
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
     return [
       {
         source: '/api/v1/:path*',
-        destination: 'http://localhost:8080/api/v1/:path*',
+        destination: `${backendUrl}/api/v1/:path*`,
       },
     ];
   },
