@@ -31,14 +31,15 @@ public class CartController {
     public ResponseEntity<ApiResponse<Void>> addItem(
             @AuthenticationPrincipal String userId,
             @RequestParam UUID productId,
+            @RequestParam(required = false) String optionId,
             @RequestParam int quantity) {
-        log.info("[Cart] AddItem Request - UserId: {}, ProductId: {}, Quantity: {}", userId, productId, quantity);
+        log.info("[Cart] AddItem Request - UserId: {}, ProductId: {}, OptionId: {}, Quantity: {}", userId, productId, optionId, quantity);
         
         if (userId == null) {
             throw new RuntimeException("인증 정보가 유효하지 않습니다. 다시 로그인해주세요.");
         }
         
-        cartService.addItem(UUID.fromString(userId), productId, quantity);
+        cartService.addItem(UUID.fromString(userId), productId, optionId, quantity);
         return ResponseEntity.ok(ApiResponse.success("장바구니에 담겼습니다.", null));
     }
 
@@ -54,11 +55,11 @@ public class CartController {
     /**
      * 특정 상품을 장바구니에서 삭제합니다.
      */
-    @DeleteMapping("/{productId}")
+    @DeleteMapping("/{cartItemId}")
     public ResponseEntity<ApiResponse<Void>> removeItem(
             @AuthenticationPrincipal String userId,
-            @PathVariable UUID productId) {
-        cartService.removeItem(UUID.fromString(userId), productId);
+            @PathVariable String cartItemId) {
+        cartService.removeItem(UUID.fromString(userId), cartItemId);
         return ResponseEntity.ok(ApiResponse.success("삭제되었습니다.", null));
     }
 

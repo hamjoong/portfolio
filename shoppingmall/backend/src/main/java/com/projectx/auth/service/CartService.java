@@ -32,28 +32,29 @@ public class CartService {
     @Value("${spring.data.redis.host:}")
     private String redisHost;
 
-    public void addItem(UUID userId, UUID productId, int quantity) {
+    public void addItem(UUID userId, UUID productId, String optionId, int quantity) {
+        String key = CART_PREFIX + userId.toString();
+        String field = optionId != null ? productId.toString() + ":" + optionId : productId.toString();
+
         if (isTestMode()) {
             Map<String, Integer> userCart = testCartStorage.computeIfAbsent(userId.toString(), k -> new ConcurrentHashMap<>());
-            userCart.put(productId.toString(), userCart.getOrDefault(productId.toString(), 0) + quantity);
+            userCart.put(field, userCart.getOrDefault(field, 0) + quantity);
             return;
         }
 
-        String key = CART_PREFIX + userId.toString();
-        // [수정] 수량을 누적 합산하도록 변경 (기존에는 덮어쓰기 위험이 있었음)
-        redisTemplate.opsForHash().increment(key, productId.toString(), quantity);
+        redisTemplate.opsForHash().increment(key, field, quantity);
         redisTemplate.expire(key, 7, TimeUnit.DAYS);
     }
 
     /**
      * 장바구니 아이템 목록을 안전하게 조회합니다.
+     * key 형식은 "productId" 또는 "productId:optionId" 입니다.
      */
     public Map<String, Integer> getCartItems(UUID userId) {
         if (isTestMode()) {
             return testCartStorage.getOrDefault(userId.toString(), Collections.emptyMap());
         }
 
-        // [디버깅] Redis Hash의 모든 엔트리를 가져와서 명확하게 String, Integer 맵으로 변환합니다.
         Map<Object, Object> rawEntries = redisTemplate.opsForHash().entries(CART_PREFIX + userId.toString());
         
         return rawEntries.entrySet().stream()
@@ -63,14 +64,14 @@ public class CartService {
                 ));
     }
 
-    public void removeItem(UUID userId, UUID productId) {
+    public void removeItem(UUID userId, String cartItemId) {
         if (isTestMode()) {
             if (testCartStorage.containsKey(userId.toString())) {
-                testCartStorage.get(userId.toString()).remove(productId.toString());
+                testCartStorage.get(userId.toString()).remove(cartItemId);
             }
             return;
         }
-        redisTemplate.opsForHash().delete(CART_PREFIX + userId.toString(), productId.toString());
+        redisTemplate.opsForHash().delete(CART_PREFIX + userId.toString(), cartItemId);
     }
 
     public void clearCart(UUID userId) {
@@ -86,7 +87,12 @@ public class CartService {
         if (guestCart.isEmpty()) return;
 
         for (Map.Entry<String, Integer> entry : guestCart.entrySet()) {
-            addItem(userId, UUID.fromString(entry.getKey()), entry.getValue());
+            String cartItemId = entry.getKey();
+            String[] parts = cartItemId.split(":");
+            UUID productId = UUID.fromString(parts[0]);
+            String optionId = parts.length > 1 ? parts[1] : null;
+            
+            addItem(userId, productId, optionId, entry.getValue());
         }
         clearCart(guestId);
     }

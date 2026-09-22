@@ -9,9 +9,10 @@ export const cartService = {
    * 장바구니에 상품을 추가합니다.
    */
   async addItem(productId: string, quantity: number, optionId?: string): Promise<void> {
-    const url = optionId 
-      ? `/cart?productId=${productId}&quantity=${quantity}&optionId=${optionId}`
-      : `/cart?productId=${productId}&quantity=${quantity}`;
+    let url = `/cart?productId=${productId}&quantity=${quantity}`;
+    if (optionId) {
+      url += `&optionId=${optionId}`;
+    }
     await api.post<ApiResponse<void>>(url);
   },
 
@@ -24,10 +25,11 @@ export const cartService = {
   },
 
   /**
-   * 특정 상품을 장바구니에서 제거합니다.
+   * 특정 아이템을 장바구니에서 제거합니다.
+   * cartItemId는 "productId" 또는 "productId:optionId" 형식입니다.
    */
-  async removeItem(productId: string): Promise<void> {
-    await api.delete<ApiResponse<void>>(`/cart/${productId}`);
+  async removeItem(cartItemId: string): Promise<void> {
+    await api.delete<ApiResponse<void>>(`/cart/${cartItemId}`);
   },
 
   /**
