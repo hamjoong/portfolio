@@ -56,7 +56,7 @@ public class AuthService {
                     .build();
             userProfileRepository.save(profile);
         } catch (Exception e) {
-            log.error("[Auth] Failed to encrypt user profile for user: {}", savedUser.getId(), e);
+            log.error("[Auth] Failed to encrypt user profile for user: {}. Error: {}, Message: {}", savedUser.getId(), e.getClass().getSimpleName(), e.getMessage(), e);
             throw new BusinessException(ErrorCode.ENCRYPTION_FAILED);
         }
 
