@@ -70,4 +70,12 @@ public class Product extends BaseTimeEntity {
     public void addStock(int quantity) {
         this.stockQuantity += quantity;
     }
+
+    public void update(String name, String description, BigDecimal price, int stockQuantity, String mainImageUrl) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.mainImageUrl = mainImageUrl;
+    }
 }

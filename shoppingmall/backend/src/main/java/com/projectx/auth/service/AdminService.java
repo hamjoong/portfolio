@@ -34,6 +34,7 @@ public class AdminService {
 
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
+    private final ProductService productService;
     private final UserRepository userRepository;
     private final UserProfileRepository userProfileRepository;
     private final EncryptionService encryptionService;
@@ -76,7 +77,22 @@ public class AdminService {
      */
     @Transactional(readOnly = true)
     public Page<ProductResponse> getAllProducts(Pageable pageable) {
-        return productRepository.findAll(pageable).map(ProductResponse::from);
+        return productService.getProducts(pageable);
+    }
+    
+    @Transactional
+    public UUID createProduct(com.projectx.auth.dto.ProductCreateRequest request) {
+        return productService.createProduct(request);
+    }
+    
+    @Transactional
+    public UUID updateProduct(UUID id, com.projectx.auth.dto.ProductCreateRequest request) {
+        return productService.updateProduct(id, request);
+    }
+    
+    @Transactional
+    public void deleteProduct(UUID id) {
+        productService.deleteProduct(id);
     }
 
     /**

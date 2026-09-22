@@ -27,6 +27,29 @@ export const adminService = {
   },
 
   /**
+   * 상품을 등록합니다.
+   */
+  async createProduct(data: any): Promise<string> {
+    const response = await api.post<ApiResponse<string>>('/admin/products', data);
+    return response.data.data;
+  },
+
+  /**
+   * 상품 정보를 수정합니다.
+   */
+  async updateProduct(productId: string, data: any): Promise<string> {
+    const response = await api.put<ApiResponse<string>>(`/admin/products/${productId}`, data);
+    return response.data.data;
+  },
+
+  /**
+   * 상품을 삭제합니다.
+   */
+  async deleteProduct(productId: string): Promise<void> {
+    await api.delete(`/admin/products/${productId}`);
+  },
+
+  /**
    * 대시보드 통계를 조회합니다.
    */
   async getDashboardStats(): Promise<AdminStats> {

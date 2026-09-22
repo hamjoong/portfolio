@@ -77,6 +77,10 @@ public class ProductSearchService {
      * 상품 정보를 RediSearch 인덱스에 반영합니다. (HSET 활용)
      * [이유] 상품의 변경 사항이 즉시 검색 엔진에 반영되도록 하기 위함입니다.
      */
+    /**
+     * 상품 정보를 RediSearch 인덱스에 반영합니다. (HSET 활용)
+     * [이유] 상품의 변경 사항이 즉시 검색 엔진에 반영되도록 하기 위함입니다.
+     */
     public void indexProduct(ProductResponse product) {
         try {
             if (redisTemplate == null) return;
@@ -91,6 +95,20 @@ public class ProductSearchService {
             log.info("[Search] Product indexed to Redis: {}", product.getId());
         } catch (Exception e) {
             log.warn("[Search] Failed to index product to Redis: {}", e.getMessage());
+        }
+    }
+
+    /**
+     * 상품 정보를 RediSearch 인덱스에서 삭제합니다.
+     */
+    public void deleteIndex(UUID productId) {
+        try {
+            if (redisTemplate == null) return;
+            String key = "product:" + productId;
+            redisTemplate.delete(key);
+            log.info("[Search] Product index deleted from Redis: {}", productId);
+        } catch (Exception e) {
+            log.warn("[Search] Failed to delete product index from Redis: {}", e.getMessage());
         }
     }
 }

@@ -127,6 +127,41 @@ public class ProductService {
         return savedProduct.getId();
     }
 
+    @CacheEvict(value = "products", allEntries = true)
+    @Transactional
+    public UUID updateProduct(UUID id, ProductCreateRequest request) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorCode.PRODUCT_NOT_FOUND));
+        
+        product.update(request.getName(), request.getDescription(), request.getPrice(), request.getStockQuantity(), request.getImageUrl());
+        
+        // [옵션 업데이트] 기존 옵션 삭제 후 새로 생성
+        if (request.getOptions() != null) {
+            product.getOptions().clear();
+            product.getOptions().addAll(request.getOptions().stream()
+                    .map(optionRequest -> ProductOption.builder()
+                            .product(product)
+                            .optionType(optionRequest.getOptionType())
+                            .optionName(optionRequest.getOptionName())
+                            .additionalPrice(optionRequest.getAdditionalPrice())
+                            .stockQuantity(optionRequest.getStockQuantity())
+                            .build())
+                    .collect(Collectors.toList()));
+        }
+        
+        productRepository.save(product);
+        return product.getId();
+    }
+
+    @CacheEvict(value = "products", allEntries = true)
+    @Transactional
+    public void deleteProduct(UUID id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorCode.PRODUCT_NOT_FOUND));
+        productRepository.delete(product);
+        productSearchService.deleteIndex(id);
+    }
+
     @Cacheable(value = "products", key = "'trending'")
     @Transactional(readOnly = true)
     public List<ProductResponse> getTrendingProducts() {

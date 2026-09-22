@@ -33,6 +33,21 @@ export default function AdminProductsPage() {
     fetchProducts();
   }, []);
 
+  const handleDelete = async (productId: string) => {
+    if (!confirm('정말로 이 상품을 삭제하시겠습니까?')) return;
+    try {
+        await adminService.deleteProduct(productId);
+        setProductsPage(prev => prev ? {
+            ...prev,
+            content: prev.content.filter(p => p.id !== productId)
+        } : null);
+        alert('상품이 삭제되었습니다.');
+    } catch (err) {
+        console.error(err);
+        alert('상품 삭제에 실패했습니다.');
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center p-20 space-y-4">
@@ -66,6 +81,7 @@ export default function AdminProductsPage() {
                 <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest">판매처</th>
                 <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-right">가격</th>
                 <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-right">재고 현황</th>
+                <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">관리</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
@@ -109,6 +125,14 @@ export default function AdminProductsPage() {
                                 style={{ width: `${Math.min(product.stockQuantity * 5, 100)}%` }}
                             ></div>
                         </div>
+                    </div>
+                  </td>
+                  <td className="px-8 py-6 text-center">
+                    <div className="flex justify-center gap-2">
+                        <Link href={`/admin/products/edit/${product.id}`}>
+                            <Button variant="outline" size="sm">수정</Button>
+                        </Link>
+                        <Button variant="outline" size="sm" className="text-red-500 hover:bg-red-50" onClick={() => handleDelete(product.id)}>삭제</Button>
                     </div>
                   </td>
                 </tr>

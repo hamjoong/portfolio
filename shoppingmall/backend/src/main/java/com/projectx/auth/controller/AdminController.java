@@ -55,6 +55,36 @@ public class AdminController {
     }
 
     /**
+     * 상품을 등록합니다.
+     */
+    @PostMapping("/products")
+    public ResponseEntity<ApiResponse<UUID>> createProduct(@RequestBody com.projectx.auth.dto.ProductCreateRequest request) {
+        log.info("[Admin] Product creation requested");
+        return ResponseEntity.ok(ApiResponse.success(adminService.createProduct(request)));
+    }
+
+    /**
+     * 상품 정보를 수정합니다.
+     */
+    @PutMapping("/products/{productId}")
+    public ResponseEntity<ApiResponse<UUID>> updateProduct(
+            @PathVariable UUID productId,
+            @RequestBody com.projectx.auth.dto.ProductCreateRequest request) {
+        log.info("[Admin] Product update requested for: {}", productId);
+        return ResponseEntity.ok(ApiResponse.success(adminService.updateProduct(productId, request)));
+    }
+
+    /**
+     * 상품을 삭제합니다.
+     */
+    @DeleteMapping("/products/{productId}")
+    public ResponseEntity<ApiResponse<Void>> deleteProduct(@PathVariable UUID productId) {
+        log.info("[Admin] Product deletion requested for: {}", productId);
+        adminService.deleteProduct(productId);
+        return ResponseEntity.ok(ApiResponse.success("상품이 삭제되었습니다.", null));
+    }
+
+    /**
      * 주문 상태를 강제로 변경합니다.
      */
     @PatchMapping("/orders/{orderId}/status")
