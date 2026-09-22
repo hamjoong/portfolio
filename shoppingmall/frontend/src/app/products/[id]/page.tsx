@@ -8,7 +8,9 @@ import { productService } from '@/services/product.service';
 import { cartService } from '@/services/cart.service';
 import { qnaService, QnaResponse } from '@/services/qna.service';
 import { ProductResponse } from '@/types/product';
-import { ShoppingCart, CreditCard, MessageSquare, Lock } from 'lucide-react';
+import { Review } from '@/types/review';
+import { reviewService } from '@/services/review.service';
+import { ShoppingCart, CreditCard, MessageSquare, Lock, Star } from 'lucide-react';
 
 interface ProductDetailPageProps {
   params: Promise<{ id: string }>;
