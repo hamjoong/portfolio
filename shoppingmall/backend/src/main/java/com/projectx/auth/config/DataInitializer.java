@@ -48,8 +48,8 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) {
         log.info("[Init] Starting data initialization and admin sync...");
         
-        String adminEmail = "admin@projectx.com";
-        String adminPassword = "admin123!@#";
+        String adminEmail = "admin@google.com";
+        String adminPassword = "!ujhzxz1a2q3h%^&";
 
         Optional<User> adminOpt = userRepository.findByEmail(adminEmail.toLowerCase());
         User adminUser;

@@ -1,26 +1,28 @@
-# 쇼핑몰 이커머스 Modern Full-stack E-Commerce
+# 쇼핑몰 이커머스 Shoppingmall
 
 ---
 
 ## 1. 프로젝트 소개
-- "Modular Monolith" 아키텍처를 기반으로 설계된 고성능 이커머스 플랫폼입니다
-Next.js 15와 Spring Boot 3.4를 활용하여 안정적인 무상태(Stateless) 인증과 초고속 검색을 제공합니다.
+- Next.js 15와 Spring Boot 3.4를 활용한 확장 가능한 Modular Monolith 아키텍처 기반의 고성능 이커머스 플랫폼입니다.
 
 ---
 
 ## 2. 프로젝트 개요
-- **제작 배경**: 초기 스타트업 단계의 모놀리식 구조가 가지는 생산성과 추후 트래픽 증가에 따른 마이크로서비스로의 전환 가능성을 동시에 확보해야 하는 엔지니어링적 도전 과제에서 시작되었습니다.
-- **기획 의도**: 대규모 트래픽 환경에서 발생할 수 있는 데이터 정합성 문제와 서버 리소스 제약을 실무적인 인프라 해결책으로 극복하고 확장 가능한 "Modular Monolith" 아키텍처를 검증하고자 합니다.
-- **프로젝트 목표**: 성능 200ms 이내의 초고속 검색 응답 시간 달성 / 안정성 무상태(Stateless) 인증 및 동시성 제어를 통한 서비스 가용성 확보 / 보안 AWS KMS 및 S3 Presigned URL을 활용한 데이터 보안 체계 구축
+- **제작 배경**: 초기 스타트업 단계에서 생산성과 향후 마이크로서비스로의 확장성을 동시에 고려한 "Modular Monolith" 아키텍처의 검증을 위해 시작되었습니다.
+- **기획 의도**: 대규모 트래픽 환경에서의 데이터 정합성 보장, 동시성 제어, 안정적인 무상태 인증 시스템을 구현하여 실무적인 아키텍처를 구축하고자 합니다.
+- **프로젝트 목표**:
+  - 검색 응답 시간 200ms 이내 달성
+  - 동시성 제어를 통한 안정적인 주문/결제 시스템 확보
+  - AWS 인프라(KMS, S3)를 활용한 데이터 보안 체계 구축
 
 ---
 
 ## 3. 주요 기능
-- **사용자 인증/인가**: JWT 및 OAuth2 기반 무상태 인증 시스템
-- **상품 검색**: RediSearch를 활용한 200ms 이내 초고속 검색
-- **주문/결제**: 낙관적 락(Optimistic Lock)을 활용한 재고 정합성 보장
-- **데이터 보안**: AWS KMS를 이용한 데이터 암호화
-- **미디어 처리**: S3 Presigned URL 및 AWS Lambda 기반 이미지 최적화
+- **사용자 인증/인가**: JWT 및 OAuth2 기반 무상태(Stateless) 인증
+- **상품 검색**: RediSearch를 활용한 고성능 검색
+- **주문/결제**: 낙관적 락(Optimistic Lock)을 통한 재고 정합성 보장
+- **데이터 보안**: AWS KMS 활용 데이터 암호화
+- **미디어 처리**: AWS S3 Presigned URL 및 Lambda 기반 이미지 최적화
 
 ---
 
@@ -34,22 +36,27 @@ Next.js 15와 Spring Boot 3.4를 활용하여 안정적인 무상태(Stateless) 
 ---
 
 ## 5. 기술 선택 이유
-- **Next.js 15**: PPR(Partial Prerendering)과 Server Actions로 사용자 경험 최적화
-- **Spring Boot 3.4 & Java 21**: 가상 스레드 지원으로 높은 동시성 처리 및 유형 안전성 확보
-- **Modular Monolith**: 초기 개발 속도와 추후 MSA로의 확장성을 고려한 구조
-- **AWS KMS & S3**: 민감 데이터의 물리적 보안 및 서버 자원 효율적 관리
+- **Next.js 15**: PPR(Partial Prerendering)과 Server Actions를 통해 사용자 경험 및 렌더링 성능 최적화
+- **Spring Boot 3.4 & Java 21**: 가상 스레드(Virtual Threads) 지원으로 높은 동시성 처리 성능과 유형 안전성 확보
+- **Modular Monolith**: 초기 개발 속도 유지와 향후 MSA로의 단계적 전환을 위한 도메인 중심의 모듈 격리
+- **AWS KMS & S3**: 보안 규정을 준수하는 민감 데이터 처리 및 효율적인 미디어 리소스 관리
 
 ---
 
 ## 6. 시스템 아키텍처
-Modular Monolith 아키텍처를 기반으로 프론트엔드 BFF와 백엔드 서비스 간의 계층적 구조를 통해 관심사를 분리하고 확장성을 확보하였습니다.
+Modular Monolith 구조를 통해 도메인별 관심사를 분리하고 확장성을 도모합니다.
 
-### 계층 구조 및 모듈 관계
-- **Client Tier**: Web(React) 및 Mobile(React Native) 클라이언트
-- **Frontend Tier (BFF)**: Next.js 15를 통한 SSR 및 서버 사이드 데이터 통합
-- **Backend Tier (Modular Monolith)**: 도메인별 패키지 격리 (Auth, Product, Order)
-- **Data & Infra Tier**: PostgreSQL, Redis, S3를 활용한 데이터 저장, 캐싱 및 미디어 처리
-### 다이어그램
+- **Client Tier**: Web(React) 및 Mobile(React Native) 환경에서 사용자 요청을 수신합니다.
+- **Frontend Tier (BFF - Backend For Frontend)**: Next.js 15 App Router를 사용하여 SSR을 수행하고 백엔드 API를 통합하여 클라이언트에 최적화된 데이터를 제공합니다.
+- **Backend Tier (Modular Monolith)**:
+    - **도메인 격리**: `Auth`, `Product`, `Order` 모듈이 패키지 단위로 격리되어 있으며 모듈 간 결합도를 낮추기 위해 이벤트 기반 또는 명확한 인터페이스를 통해 통신합니다.
+    - **동시성 처리**: 주문 로직 등 동시성 이슈가 있는 모듈은 낙관적 락을 통해 데이터 정합성을 유지합니다.
+- **Data & Infra Tier**: 
+    - **Persistence**: 메인 데이터 저장소로 PostgreSQL(Supabase)을 사용합니다.
+    - **Caching**: 검색 성능 향상을 위해 Redis를 통한 캐싱 전략을 운용합니다.
+    - **Security & Storage**: 민감 데이터는 AWS KMS로 암호화하고 이미지 파일은 AWS S3에 저장하여 서버의 부하를 최소화합니다.
+
+### 아키텍처 다이어그램
 ```mermaid
 graph TD
     User["사용자 (Web/Mobile)"] -->|HTTPS| Frontend["Next.js 15 (BFF)"]
@@ -75,19 +82,24 @@ graph TD
 ---
 
 ## 7. 프로젝트 폴더 구조
-
 ```text
 shoppingmall/
-├── backend/            # Spring Boot 기반 Modular Monolith
+├── backend/            # Spring Boot Modular Monolith
 │   ├── src/main/java/  # 도메인별 패키지 격리 (Auth, Order, Product)
-│   ├── Dockerfile      # JVM 최적화가 적용된 Docker 설정
-│   └── start_backend.sh# 실행 스크립트
-├── frontend/           # Next.js 15 App Router 기반 UI
-│   ├── src/            # 컴포넌트, 훅, 서버 액션 등
-│   └── package.json    # 프로젝트 의존성
-├── mobile/             # React Native (Expo) 기반 앱
-├── infra/              # Terraform, K8s, AWS Lambda 설정
-└── docs/               # 설계 문서 (PRD, TRD, API 명세 등)
+│   └── Dockerfile      # JVM 최적화 Docker 설정
+├── frontend/           # Next.js 15 기반 UI (BFF)
+│   ├── src/
+│   │   ├── app/        # App Router 페이지 및 레이아웃
+│   │   ├── components/ # 공통 UI 컴포넌트
+│   │   ├── hooks/      # 커스텀 훅
+│   │   ├── services/   # API 서비스 레이어
+│   │   └── utils/      # 유틸리티 함수
+│   └── next.config.js  # Next.js 설정
+├── mobile/             # React Native (Expo) 앱
+│   └── src/            # 모바일 화면 및 로직
+├── infra/              # 인프라 설정
+│   └── lambda/         # 이미지 최적화 AWS Lambda 함수
+└── docs/               # 설계 및 기술 문서
 ```
 
 ---
@@ -95,21 +107,18 @@ shoppingmall/
 ## 8. 트러블슈팅
 
 ### 1. 대규모 동시 주문 시 재고 정합성 이슈
-- **문제**: 여러 사용자가 동시에 동일 상품을 주문할 때 실제 재고보다 더 많은 주문이 들어오는 '초과 판매' 현상 발생
-- **원인**: 여러 트랜잭션이 동일한 상품 레코드에 대해 동시에 읽기/쓰기를 수행하면서 DB 업데이트가 순차적으로 처리되지 않음 (Race Condition)
-- **해결(Why/How)**:
-  - **Why**: 비관적 락(Pessimistic Lock)은 데드락 위험 및 성능 저하 우려가 있어 동시성이 상대적으로 낮은 경우 효율적인 낙관적 락(Optimistic Lock)을 선택함.
-  - **How**: JPA의 `@Version` 어노테이션을 엔티티에 추가하여 데이터 충돌을 감지함 충돌 발생 시 발생하는 `ObjectOptimisticLockingFailureException`을 전역 예외 처리기(@ControllerAdvice)에서 잡아 사용자에게 알림을 보내고 재시도를 유도하도록 구현.
+- **문제**: 여러 사용자가 동일 상품 주문 시 실제 재고 이상의 주문이 발생하는 '초과 판매' 현상 (Race Condition)
+- **원인**: 여러 트랜잭션이 동일한 상품 레코드에 대해 동시에 읽기/쓰기를 수행하며 DB 업데이트가 순차적으로 처리되지 않음.
+- **해결 (Why/How)**:
+  - **Why**: 비관적 락(Pessimistic Lock)은 데드락 위험 및 성능 저하 우려가 있어 동시성이 보통 수준인 환경에서 효율적인 낙관적 락(Optimistic Lock)을 채택.
+  - **How**: JPA의 `@Version` 어노테이션을 사용하여 데이터 충돌을 감지. 충돌 발생 시 발생하는 `ObjectOptimisticLockingFailureException`을 전역 예외 처리기에서 잡아 사용자 알림 및 재시도 유도.
 
-### 2. 클라우드 무료 티어(Render) 배포 시 메모리 부족
-- **문제**: 512MB의 제한된 메모리 환경에서 서비스 기동 시 잦은 OOM(Out of Memory) 발생으로 인한 기동 실패
-- **원인**: Spring Boot 프레임워크와 다수의 인프라 클라이언트(AWS SDK, Redis) 초기화 과정에서 대규모 Heap Memory 점유
-- **해결(Why/How)**:
-  - **Why**: 제한된 리소스 환경에 맞춘 JVM 튜닝 및 초기화 부하 분산이 필요함.
-  - **How**: 
-    1. Dockerfile에서 `-XX:MaxRAMPercentage=70.0` 설정을 통해 컨테이너 메모리에 맞춰 Heap 영역을 자동으로 제한.
-    2. AWS/Redis 클라이언트에 지연 초기화(Lazy Initialization) 전략을 적용하여 기동 시 즉시 필요한 자원만 확보.
-    3. 환경별 프로필(`production` vs `dev`)을 분리하여 운영 환경에서는 불필요한 테스트 빈 등을 로드하지 않도록 설정하여 기동 메모리 40% 절감.
+### 2. 클라우드 무료 티어(Render) 메모리 부족(OOM)
+- **문제**: 제한된 512MB 메모리 환경에서 서비스 기동 시 잦은 OOM으로 인한 기동 실패.
+- **원인**: Spring Boot 프레임워크와 인프라 클라이언트(AWS SDK, Redis) 초기화 과정에서 대규모 Heap 점유.
+- **해결 (Why/How)**:
+  - **Why**: 제한된 리소스 환경에 맞춘 JVM 튜닝 및 초기화 부하 분산 필요.
+  - **How**: Dockerfile에 `-XX:MaxRAMPercentage=70.0` 설정을 통해 컨테이너 메모리에 맞춰 Heap 영역을 제한하고, AWS/Redis 클라이언트에 지연 초기화(Lazy Initialization) 전략을 적용하여 기동 부하 40% 절감.
 
 ---
 
@@ -117,51 +126,37 @@ shoppingmall/
 
 | 성능 개선 포인트 | 개선 전 | 개선 후 | 측정 방법 |
 | :--- | :--- | :--- | :--- |
-| **API 조회 성능** | 800ms | 180ms | JMeter 부하 테스트 |
+| **API 조회 성능 (검색)** | 800ms | 180ms | JMeter 부하 테스트 (Avg) |
 | **이미지 로딩 (LCP)** | 2.5s | 0.9s | Lighthouse 성능 점수 |
-| **시스템 런타임 에러** | 15% | 3% | Sentry 에러 리포트 |
-| **이미지 파일 용량** | 2MB | 0.8MB | 파일 크기 확인 (WebP 변환) |
 
 ### 상세 설명
-- **API 조회 성능 (쿼리 튜닝)**: Redis 캐싱 계층 도입 및 PostgreSQL 인덱싱 최적화(`optimization.sql` 적용)를 통해 조회 속도 4배 이상 개선.
-- **이미지 로딩 및 용량 (최적화)**: AWS Lambda를 활용한 WebP 포맷 자동 변환 및 S3 Presigned URL 적용으로 이미지 로드 효율 최적화.
-- **시스템 안정성**: 환경별 프로필(`prod`, `dev`) 분리 및 모듈별 예외 처리 강화로 런타임 에러 빈도 80% 감소.
+- **API 조회 성능 (쿼리 튜닝)**: Redis 캐싱 계층 도입 및 PostgreSQL 인덱싱 최적화를 통해 복잡한 검색 쿼리 수행 시간을 약 4.4배 개선.
+- **이미지 로딩 및 용량 (최적화)**: AWS Lambda를 활용한 WebP 포맷 자동 변환 및 S3 Presigned URL 적용을 통해 이미지 데이터 전송량을 대폭 절감.
 
 ---
 
 ## 10. 실행 및 테스트 방법
-
 ### 요구사항
-- **Node.js**: 20.x 이상
-- **Java**: 21
-- **DB**: PostgreSQL (Supabase 환경 권장)
+- Node.js 20.x 이상, Java 21, PostgreSQL (Supabase 추천)
 
-### Backend
+### 설치 및 실행
 ```bash
+# Backend (Local)
 cd shoppingmall/backend
-# 로컬 테스트 (H2 DB 사용)
 ./start_backend.sh
 
-# 유닛 테스트 실행
+# Frontend (Local)
+cd shoppingmall/frontend
+npm install
+npm run dev
+```
+
+### 테스트 실행
+```bash
+# Backend 유닛/동시성 테스트
 ./mvnw test
 
-# 동시성 테스트 실행
-./mvnw test -Dtest=OrderConcurrencyTest
-```
-
-### Frontend
-```bash
+# Frontend 테스트
 cd shoppingmall/frontend
-# 패키지 설치
-npm install
-
-# 개발 서버 실행
-npm run dev
-
-# 테스트 실행
 npm test
 ```
-
-## 프로젝트 링크
-- **Frontend (Vercel)**: https://shoppingmallfrontend.vercel.app/
-- **Backend (Render)**: https://shoppingmall-backend-gtg5.onrender.com
