@@ -7,9 +7,9 @@ const nextConfig = {
     ppr: 'incremental',
   },
   */
-  // [이유] 개발 환경에서 백엔드 API와의 CORS 이슈를 방지하기 위해 
-  // API 요청을 백엔드 서버로 프록시 처리하도록 설정합니다.
-  // 프로덕션 환경에서는 Vercel 환경변수 NEXT_PUBLIC_API_URL을 사용합니다.
+  // [이유] Vercel 프록시를 통한 API 호출 대신 백엔드로 직접 통신하도록 
+  // rewrite 설정을 일시적으로 비활성화합니다.
+  /*
   async rewrites() {
     const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
     return [
@@ -19,6 +19,7 @@ const nextConfig = {
       },
     ];
   },
+  */
   // [이유] 정적 이미지 최적화를 위해 외부 도메인 허용이 필요한 경우 이곳에 정의합니다.
   images: {
     remotePatterns: [
