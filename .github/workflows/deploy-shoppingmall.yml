@@ -58,4 +58,4 @@
         steps:
           - name: Deploy Backend to Render
             run: |
-              # Render 배포 훅 호출
+              curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
