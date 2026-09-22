@@ -87,9 +87,15 @@ function OrderContent() {
       return;
     }
 
+    // [경고] 현재 createOrderMutation은 단일 상품 주문만 지원합니다.
+    // 다중 장바구니 주문을 위해서는 백엔드 API 수정이 필요합니다.
+    // 임시로 첫 번째 선택 상품만 주문하도록 합니다.
+    const firstItem = orderedItems[0];
+
     createOrderMutation.mutate({
       ...orderInfo,
-      cartItemIds: selectedCartItems,
+      productId: firstItem?.product.id,
+      quantity: firstItem?.quantity,
     }, {
       onSuccess: () => {
         alert('주문이 성공적으로 완료되었습니다!');

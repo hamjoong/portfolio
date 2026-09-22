@@ -21,6 +21,7 @@ export default function CartPage() {
     product: ProductResponse;
     option: ProductOptionResponse | null;
     quantity: number;
+    price: number;
   };
 
   const [cartProducts, setCartProducts] = useState<CartItem[]>([]);
@@ -76,6 +77,24 @@ export default function CartPage() {
       const itemPrice = basePrice + optionPrice;
       return acc + (itemPrice * curr.quantity);
     }, 0);
+
+  const toggleItemSelection = (cartItemId: string) => {
+    const newSelected = new Set(selectedItems);
+    if (newSelected.has(cartItemId)) {
+      newSelected.delete(cartItemId);
+    } else {
+      newSelected.add(cartItemId);
+    }
+    setSelectedItems(newSelected);
+  };
+
+  const toggleAllSelection = () => {
+    if (selectedItems.size === cartProducts.length) {
+      setSelectedItems(new Set());
+    } else {
+      setSelectedItems(new Set(cartProducts.map(p => p.cartItemId)));
+    }
+  };
 
   const handleCheckout = () => {
     if (selectedItems.size === 0) {
