@@ -10,8 +10,20 @@ export const productService = {
    * 전체 상품 목록을 페이징 처리하여 조회합니다.
    */
   async getProducts(page = 0, size = 10): Promise<PageResponse<ProductResponse>> {
-    const response = await api.get<ApiResponse<PageResponse<ProductResponse>>>(`/products?page=${page}&size=${size}`);
-    return response.data.data;
+    try {
+      const response = await api.get<ApiResponse<PageResponse<ProductResponse>>>(`/products?page=${page}&size=${size}`);
+      
+      // 팩트 체크: API 응답이 성공이고 데이터가 존재하는지 확인
+      if (!response.data || !response.data.data) {
+        console.error("[CRITICAL] Product API response is malformed:", response.data);
+        throw new Error("API response structure is invalid");
+      }
+      
+      return response.data.data;
+    } catch (error) {
+      console.error("[CRITICAL] ProductService.getProducts failed:", error);
+      throw error;
+    }
   },
 
   /**

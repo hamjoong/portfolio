@@ -16,12 +16,14 @@ function HomeContent() {
   const { data: productPage, isLoading, refetch } = useQuery({
     queryKey: ['products', searchKeyword],
     queryFn: async () => {
-      const data = searchKeyword 
-        ? await productService.searchProducts(searchKeyword).then(data => ({ content: data, totalElements: data.length }))
-        : await productService.getProducts(0, 20);
-      
-      console.log("[DEBUG] ProductPage data structure:", data);
-      return data;
+      if (searchKeyword) {
+        const searchData = await productService.searchProducts(searchKeyword);
+        return { content: searchData, totalElements: searchData.length };
+      } else {
+        // productService.getProducts는 이제 데이터가 없으면 에러를 던짐
+        const data = await productService.getProducts(0, 20);
+        return data;
+      }
     },
   });
 
