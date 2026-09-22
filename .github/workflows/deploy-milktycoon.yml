@@ -27,6 +27,7 @@ jobs:
         run: npm run build
         working-directory: milktycoon
 
+      # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
