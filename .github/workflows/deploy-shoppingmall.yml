@@ -51,6 +51,7 @@
               vercel-args: '--prod --debug'
               github-comment: false
 
+      # 4. Render 배포
       deploy-backend:
         needs: changes
         if: ${{ needs.changes.outputs.backend == 'true' }}
