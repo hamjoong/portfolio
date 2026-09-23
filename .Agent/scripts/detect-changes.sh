@@ -20,24 +20,45 @@ cd "$WORKSPACE_ROOT"
 
 echo "🔍 [검증 시작] 대상 프로젝트: [$TARGET_PROJECT] 외 변경 사항 스캔 중..."
 
-# git status 결과를 파싱하여 수정/추가된 파일 목록 추출
-CHANGED_FILES=$(git status --porcelain | awk '{print $2}')
-
 VIOLATIONS=0
+VIOLATION_FILES=()
 
-for file in $CHANGED_FILES; do
-  # .Agent 폴더 및 대상 프로젝트 경로는 허용
-  if [[ "$file" =~ ^$TARGET_PROJECT/ ]] || [[ "$file" =~ ^\.Agent/ ]]; then
+# git status -z 옵션으로 NUL 구분자(\0) 처리하여 공백 포함 파일명 완벽 지원
+while IFS= read -r -d '' entry; do
+  [[ -z "$entry" ]] && continue
+  
+  # 앞의 상태 코드 2자리와 공백 제거 (예: '?? ', ' M ', 'M  ')
+  file="${entry:3}"
+  
+  # 파일명 변경(rename: R  old -> new) 처리
+  if [[ "$entry" =~ ^R ]]; then
+    IFS= read -r -d '' newfile || true
+    file="$newfile"
+  fi
+
+  # 화이트리스트 검사:
+  # 1) 대상 프로젝트 경로 (경로 구분자 일치 검증)
+  # 2) .Agent 하네스 시스템 폴더
+  # 3) 루트 하네스 라우터 (GEMINI.md, AGENTS.md, .gitignore)
+  if [[ "$file" == "$TARGET_PROJECT"/* ]] || [[ "$file" == "$TARGET_PROJECT" ]] || \
+     [[ "$file" == ".Agent"/* ]] || [[ "$file" == ".Agent" ]] || \
+     [[ "$file" == "GEMINI.md" ]] || [[ "$file" == "Gemini_Original.md" ]] || \
+     [[ "$file" == "AGENTS.md" ]] || [[ "$file" == ".gitignore" ]]; then
     continue
   fi
 
-  echo "⚠️ [경계 위반 감지] 대상 외 프로젝트 파일이 수정되었습니다: $file"
+  echo "⚠️ [경계 위반 감지] 대상 외 프로젝트/경로의 파일이 변경되었습니다: $file"
   VIOLATIONS=$((VIOLATIONS + 1))
-done
+  VIOLATION_FILES+=("$file")
+done < <(git status -z)
 
 if [[ $VIOLATIONS -gt 0 ]]; then
   echo "❌ [검증 실패] 총 ${VIOLATIONS}건의 비대상 프로젝트 파일 변경이 감지되었습니다."
-  echo "작업 대상 프로젝트 격리 원칙에 따라 해당 파일들을 롤백하거나 확인하십시오."
+  echo "   [위반 파일 목록]"
+  for vf in "${VIOLATION_FILES[@]}"; do
+    echo "    - $vf"
+  done
+  echo "작업 대상 프로젝트 격리 원칙에 따라 해당 파일의 의도와 소유자를 확인하십시오."
   exit 1
 else
   echo "✅ [검증 성공] 대상 프로젝트 [$TARGET_PROJECT] 외부의 파일 오염이 없습니다. (무결성 통과)"
