@@ -1,25 +1,27 @@
 # Context Engineering & Workspace Rule Router
 
 이 문서는 Antigravity CLI(`agy`) 및 Gemini AI 에이전트를 위한 **최상위 컨텍스트 엔지니어링 가이드라인이자 라우터(Router)**입니다.
-상세한 하네스 엔지니어링 실행 규칙 / 권한 통제 / 전문 직무 R&R 및 검증 스크립트는 [`.Agent/AGENTS.md`](.Agent/AGENTS.md) 및 하위 정책에 정의되어 있으며 에이전트는 이를 필수로 준수합니다.
+상세한 하네스 엔지니어링 실행 규칙 / 권한 통제 / 전문 직무 R&R 및 검증 스크립트는 .Agent/AGENTS.md 및 하위 정책에 정의되어 있으며 에이전트는 이를 필수로 준수합니다.
+
+@.Agent/AGENTS.md
 
 ---
 
 ## 1. 운영 기준 및 핵심 원칙
 
-- **10명의 시니어 전문가 협업 기준**: 사용자 요청의 성격에 따라 프론트엔드 / 백엔드 / 풀스택 / UI/UX / DBA / 보안 / QA / 기획 / 마케팅 / 인프라 중 필요한 전문가를 선별 호출하여 협업합니다.
+- **직무별 관점 점검 (Specialist Perspectives)**: 작업의 성격(프론트엔드/백엔드/UI/DBA/보안/QA/인프라 등)에 맞추어 전문 엔지니어 관점의 체크리스트를 적용하여 검토합니다.
 - **5대 대원칙**: 안정성 우선 / 보안 우선 / 유지보수성 우선 / 확장성 우선 / 자동화 우선
-- **실무 중심 & 오버엔지니어링 절대 금지**: 특정 기술 스택 강요를 금지하며 / 최신 트렌드보다 검증된 안정성을 우선하며 불확실한 정보는 추측하지 않고 명확히 표시합니다.
-- **체급별 비례 적용 (3-Tier Proportional Model)**: 경량 스크립트 / 알고리즘(Tier 1) / 클라이언트 앱(Tier 2) / 풀스택 서비스(Tier 3)에 맞게 품질 및 인프라 기준을 차등 적용합니다.
+- **실무 중심 & 오버엔지니어링 절대 금지**: 특정 기술 스택 강요를 금지하며, 불필요한 고비용 인프라(K8s/Blue-Green 등)를 토이/경량 프로젝트에 강요하지 않습니다. 불확실한 정보는 추측하지 않고 사용자에게 확인합니다.
+- **체급별 비례 적용 (3-Tier Proportional Model)**: 경량 스크립트(Tier 1) / 클라이언트 앱(Tier 2) / 풀스택 서비스(Tier 3)에 맞게 검증 수준과 인프라 기준을 차등 적용합니다.
 
 ---
 
 ## 2. 작업 권한 계층 요약 (Authority Levels)
 
-- **Level 0 (Read)**: 무변경 단순 파일 조회 (자율 실행)
+- **Level 0 (Read)**: 전체 프로젝트 및 파일 무변경 조회/탐색 (자율 실행)
 - **Level 1 (Analyze)**: 소스 / 의존성 / Git 상태 무변경 심층 분석 (`git status` / `git diff` / `git log` 조회 허용)
-- **Level 2 (Project Modification)**: 사용자가 명시적으로 지시한 특정 프로젝트 단일 수정 (타 프로젝트 접근 엄격 차단)
-- **Level 3 (Controlled Operations)**: Git 쓰기/푸시 / 패키지 설치 / 환경 / 인프라 / DB 변경 / 하네스 자체 변경 -> **반드시 사용자 사전 승인 후 실행** (저장소 삭제 절대 금지)
+- **Level 2 (Project Modification)**: 사용자가 명시적으로 지시한 특정 대상 프로젝트 내부 소스/문서 단일 수정 (타 프로젝트 파일 수정 엄격 차단)
+- **Level 3 (Controlled Operations)**: Git 쓰기/푸시 / 신규 패키지 설치 / 시스템 환경 / DB 마이그레이션 / 하네스 자체 변경 -> **반드시 사용자 사전 승인 후 실행** (저장소 삭제 절대 금지)
 
 ---
 
@@ -49,17 +51,17 @@
 | 분류 | 문서/디렉터리 경로 | 핵심 내용 |
 | :--- | :--- | :--- |
 | **통제 헌장** | [`.Agent/AGENTS.md`](.Agent/AGENTS.md) | Antigravity 최상위 실행 하네스 헌장 |
-| **최고 헌법** | [`.Agent/constitution/`](.Agent/constitution/) | 핵심 원칙 / 권한 계층 / 안전 수칙 / 프로젝트 격리 / 변경 통제 |
-| **전문가 R&R**| [`.Agent/roles/`](.Agent/roles/) | 10대 전문가 페르소나 및 3-Tier 프로파일링 규칙 |
-| **운영 정책** | [`.Agent/policies/`](.Agent/policies/) | 단일 수정 / Git/GitHub 통제 / Why 주석 / 하네스 자체 개선 정책 |
-| **워크플로우** | [`.Agent/workflows/`](.Agent/workflows/) | 작업 흐름 / Level 1 분석 / Git 워크플로우 / 다중 협업 / 하네스 개선 |
-| **품질 검증** | [`.Agent/quality/`](.Agent/quality/) | 12단계 품질 파이프라인 / 코딩 표준 |
+| **최고 헌법** | [`.Agent/constitution/`](.Agent/constitution/) | 핵심 원칙 / 권한 계층 / 안전 수칙 / 프로젝트 경계 / 변경 통제 |
+| **전문가 관점**| [`.Agent/roles/`](.Agent/roles/) | 직무별 체크리스트 및 3-Tier 프로파일링 가이드 |
+| **운영 정책** | [`.Agent/policies/`](.Agent/policies/) | 단일 수정 / Git 통제 / Why 주석 / 하네스 자체 개선 정책 |
+| **워크플로우** | [`.Agent/workflows/`](.Agent/workflows/) | 작업 흐름 / Level 1 분석 / Git 워크플로우 / 다중 협업 절차 |
+| **품질 검증** | [`.Agent/quality/`](.Agent/quality/) | 품질 파이프라인 및 코딩 표준 (Tier별 비례 적용) |
 | **프로젝트 현황** | [`.Agent/knowledge/project-registry.md`](.Agent/knowledge/project-registry.md) | 11개 하위 프로젝트 성격 및 체급 매트릭스 |
-| **자동화 도구** | [`.Agent/scripts/detect-changes.sh`](.Agent/scripts/detect-changes.sh) | 타 프로젝트 오염 감지 무결성 검증 스크립트 |
+| **자동화 도구** | [`.Agent/scripts/`](.Agent/scripts/) | 타 프로젝트 오염 감지 및 Secret 검출 무결성 검증 도구 |
 
 ---
 
-### 10대 표준 엔지니어링 문서 템플릿 (`.Agent/documentation/templates/`)
+## 5. 개발 엔지니어링 표준 문서 템플릿 (`.Agent/documentation/templates/`)
 - [PRD 템플릿](.Agent/documentation/templates/prd-template.md) : 제품 요구사항 정의서
 - [TRD 템플릿](.Agent/documentation/templates/trd-template.md) : 기술 상세 설계서 (API 표준 / 코딩 규칙 포함)
 - [ADR 템플릿](.Agent/documentation/templates/adr-template.md) : 아키텍처 의사결정 기록 (Hexagonal / Circuit Breaker 등)
@@ -68,5 +70,3 @@
 - [QA 템플릿](.Agent/documentation/templates/qa-template.md) : 커버리지 80% / 회귀 테스트 / 품질 파이프라인
 - [RULES 템플릿](.Agent/documentation/templates/rules-template.md) : 협업 및 스프린트 운영 규칙
 - [ROLES 템플릿](.Agent/documentation/templates/roles-template.md) : 10개 역할별 승인 권한 및 책임 범위
-
----
