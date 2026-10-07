@@ -1,0 +1,166 @@
+@charset 'UTF-8';
+
+* {
+  margin: 0px; padding: 0px;
+  font: { size: 10px; family: 'Gowun Dodum', sans-serif; }
+  list-style: none; text-decoration: none;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  display: flex; flex-flow: column nowrap;
+  justify-content: center; align-items: center;
+  /* 콘텐츠가 화면보다 커져도 위쪽이 잘려 스크롤 불가가 되지 않도록 (미지원 브라우저는 위 center 유지) */
+  justify-content: safe center;
+}
+
+/* 믹스인 영역 */
+@mixin movie_main_box {
+  width: 85vw; height: 92vh;
+  display: flex; flex-flow: column nowrap;
+  justify-content: flex-start; align-items: center;
+  border: 1px solid black;
+}
+
+@mixin movie_header_box {
+  width: 100%; height: 15vh;
+  display: flex; flex-flow: row nowrap;
+  justify-content: space-around; align-items: center;
+  background-color: #555;
+}
+
+@mixin move_header_font {
+  width: 25%; display: flex; justify-content: center; align-items: center;
+  font: { size: 4vw; weight: bold; } color: #FFF;
+}
+
+/* 메인 박스 영역 */
+main {
+  @include movie_main_box;
+
+  header {
+    @include movie_header_box;
+    .header_font { @include move_header_font; }
+    nav {
+      width: 50vw; margin: 0 0 0 19.27vw;
+      ul {
+        display: flex;
+        .main_nav {
+          width: 100%; text-align: center; position: relative;
+          p { font: { size: 2vw; weight: bold; } color: #FFF; }
+          p:hover { background-color: pink; color: #555; cursor: pointer; }
+          .sub_nav {
+            width: 100%; display: none; flex-flow: column nowrap; justify-content: center; align-items: center;
+            background-color: #555; color: #FFF; position: absolute; margin-top: 2rem; z-index: 10;
+            li { font: { size: 1.3vw; weight: 600; } margin-top: 1rem; }
+            li:hover { background-color: pink; color: #555; }
+          }
+        }
+      }
+    }
+  }
+
+  .movie_box {
+    width: 100%; height: 38vh; display: flex; flex-flow: column nowrap; justify-content: flex-start; align-items: center;
+    overflow: hidden;
+    .movie_box2 {
+      width: 100%; height: 5vh; display: flex; flex-flow: row nowrap; justify-content: center; align-items: center; margin: 1rem;
+      .movie_font, .movie_font2 { width: 11%; display: flex; justify-content: center; align-items: center; font: { size: 1.2vw; weight: bold; } color: rgb(80,80,80); }
+      .movie_font:hover, .movie_font2:hover { cursor: pointer; border: 0.2vw solid pink; }
+    }
+
+    .movie_img_box, .movie_img_box2 {
+      width: 100%; height: 30vh; margin: 1rem;
+      .img_box, .img_box2 { 
+        width: 100%; height: 30vh; display: flex; flex-flow: row wrap; justify-content: space-around; align-items: center; 
+        
+        /* 컨테이너 박스와의 충돌을 피하기 위해 article 요소를 직접 선택 */
+        article { 
+          width: 10.4vw; height: 100%; 
+          background: { size: contain; repeat: no-repeat; position: center bottom; } 
+          cursor: pointer; 
+        }
+      }
+      
+      /* 개별 이미지 배경 설정  */
+      @for $i from 1 through 6 {
+        $suffix: if($i==1, "", $i);
+        .movie_img#{$suffix} { background-image: url('../../public/img/moviechart#{$suffix}.png'); }
+      }
+      /* 개별 이미지 배경 설정 */
+      @for $i from 7 through 12 {
+        .movie_img#{$i} { background-image: url('../../public/img/movieexpected#{if($i==7, "", $i - 6)}.png'); }
+      }
+    }
+    .movie_img_box2 { display: none; }
+  }
+
+  .movie_trailer_box {
+    width: 100%; height: 38vh; display: flex; flex-flow: row nowrap; justify-content: center; align-items: center; margin-top: 2vh;
+    article { width: 100%; height: 100%; display: none; }
+    article:first-child { display: block; }
+    iframe { width: 100%; height: 100%; border: none; }
+  }
+}
+
+/* 미니박스 리스트 영역 */
+.mini_box {
+  @include movie_main_box;
+  display: none;
+  header {
+    @include movie_header_box; height: 10.9vh;
+    .header_font2 { @include move_header_font; cursor: pointer; }
+    .mini_header_box {
+      width: 90%; display: flex; justify-content: flex-end; align-items: center;
+      .mini_header_font, .mini_header_font2 { font: { size: 2vw; weight: bold; } color: #FFF; margin: 1vw; cursor: pointer; }
+      .mini_header_font:hover, .mini_header_font2:hover { background-color: pink; color: #555; }
+    }
+  }
+
+  .movie_chaert_expected_box, .movie_chaert_expected_box2 {
+    width: 100%; height: 75vh; display: flex; flex-flow: column nowrap; justify-content: center; align-items: center;
+    .movie_chaert_expected_mini_box, .movie_chaert_expected_mini_box2 {
+      width: 100%; height: 75vh; margin-top: 3rem;
+      .movie_chaert_box, .movie_chaert_box2, .movie_expected_box, .movie_expected_box2 {
+        width: 100%; height: 50%; display: flex; flex-flow: row nowrap; justify-content: space-around; align-items: center;
+      }
+      
+      [class*="_list_box"] { width: 10%; height: 90%; display: flex; flex-flow: column nowrap; justify-content: space-around; align-items: center; }
+      [class*="ranking_font"] { width: 100%; height: 5vh; display: flex; justify-content: center; align-items: center; background-color: pink; p { font: { size: 2vw; weight: bold; } color: #FFF; } }
+      [class*="_list_img"] { width: 100%; height: 100%; background: { size: contain; repeat: no-repeat; position: center; } }
+      [class*="data_font"] { width: 100%; height: 5vh; display: flex; justify-content: center; align-items: center; p { font-size: 1vw; color: rgb(80,80,80); } }
+
+      @for $i from 1 through 12 {
+        $suffix: if($i==1, "", $i);
+        .chaert_list_img#{$suffix} { background-image: url('../../public/img/moviechart#{$suffix}.png') !important; }
+      }
+      @for $i from 1 through 12 {
+        $suffix: if($i==1, "", $i);
+        .expected_list_img#{$suffix} { background-image: url('../../public/img/movieexpected#{$suffix}.png') !important; }
+      }
+    }
+  }
+}
+
+footer {
+  width: 100%; max-width: 1200px; height: auto; min-height: 5rem;
+  display: flex; justify-content: center; align-items: center;
+  margin-top: 2rem; padding: 1rem; box-sizing: border-box;
+  .footer_font { font: { size: 1.2rem; weight: bold; } color: rgb(80,80,80); text-align: center; word-break: keep-all; }
+}
+
+@media screen and (max-width: 768px) {
+  main { display: none !important; }
+  .mini_box {
+    display: flex !important; width: 100vw; height: auto; min-height: 100vh; border: none;
+    /* 리스트 높이를 vh로 고정하면 줄바꿈된 카드가 푸터 위로 넘치므로 내용 높이에 맞춤 */
+    .movie_chaert_expected_box, .movie_chaert_expected_box2,
+    .movie_chaert_expected_mini_box, .movie_chaert_expected_mini_box2 { height: auto !important; }
+    /* vw 기반 글자는 모바일에서 4~8px로 줄어들어 읽을 수 없으므로 하한을 둠 */
+    [class*="ranking_font"] p { font-size: 4vw !important; }
+    [class*="data_font"] p { font-size: 2.8vw !important; }
+    header .mini_header_font, header .mini_header_font2, header .header_font2 { font-size: 3.6vw !important; }
+    .movie_chaert_box, .movie_expected_box, .movie_chaert_box2, .movie_expected_box2 { flex-wrap: wrap; height: auto !important; padding: 0 1rem; }
+    [class*="_list_box"] { width: 30% !important; height: 250px !important; margin-bottom: 2rem !important; }
+  }
+}
