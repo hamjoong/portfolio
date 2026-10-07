@@ -1,0 +1,23 @@
+@use "index" as *;
+
+.footer {
+  padding: 40px 20px;
+  background-color: $dark-gray;
+  border-top: 1px solid rgba($white, 0.05);
+  text-align: center;
+  color: rgba($white, 0.5);
+
+  &-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    
+    p {
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
