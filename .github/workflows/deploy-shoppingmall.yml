@@ -62,11 +62,11 @@ jobs:
 
       # Vercel이 자기 서버에서 설치·빌드하므로 여기서 의존성을 설치하지 않는다.
       # Vercel 프로젝트의 Root Directory는 shoppingmall/frontend로 지정해야 한다.
+      # 액션(amondnet/vercel-action)은 배포 뒤 `vercel inspect`로 사용자 정보를 조회하는데,
+      # 프로젝트 범위로 좁힌 토큰은 이 조회가 거부된다(User not found). 조회가 없는 CLI를 직접 쓴다.
       - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v20
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
-          github-comment: false
+        run: npx --yes vercel@62 deploy --prod --yes --token "$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
