@@ -1,2 +1,4 @@
 # Vercel CLI가 만드는 프로젝트 연결 정보(계정·프로젝트 ID). 저장소에 올리지 않는다.
 .vercel/
+.vercel
+.env*
