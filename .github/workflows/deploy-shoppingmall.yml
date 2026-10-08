@@ -1,0 +1,72 @@
+name: Shoppingmall Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'shoppingmall/frontend/**'
+      - 'shoppingmall/supabase/functions/_shared/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# 연속 push 때 배포가 겹치지 않게 순서대로 실행한다.
+concurrency:
+  group: shoppingmall-deploy
+  cancel-in-progress: false
+
+jobs:
+  # 배포 전 검증: 하나라도 실패하면 deploy 작업은 실행되지 않는다.
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: shoppingmall/frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: shoppingmall/frontend
+        run: npm ci
+
+      - name: Lint
+        working-directory: shoppingmall/frontend
+        run: npm run lint
+
+      - name: Type check
+        working-directory: shoppingmall/frontend
+        run: npx tsc --noEmit
+
+      # 빌드 검증용 값이다. 실제 주소와 키는 Vercel 환경변수에서 쓴다.
+      - name: Build
+        working-directory: shoppingmall/frontend
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ci-placeholder
+
+      - name: Edge shared helper tests
+        working-directory: shoppingmall
+        run: node --test supabase/functions/_shared/*.test.mjs
+
+  deploy:
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Vercel이 자기 서버에서 설치·빌드하므로 여기서 의존성을 설치하지 않는다.
+      # Vercel 프로젝트의 Root Directory는 shoppingmall/frontend로 지정해야 한다.
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          github-comment: false
