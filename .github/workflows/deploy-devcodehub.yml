@@ -1,9 +1,27 @@
 name: Deploy DevCodeHub
 
-# [비활성화 2026-10-07] AWS(ECR·ECS·S3·CloudFront) 배포용이며 AWS 리소스를 모두 삭제했으므로 push로 실행되지 않게 한다.
-# devcodehub 호스팅을 정할 때 이 파일을 새 배포 대상에 맞게 다시 작성한 뒤 push 트리거를 복구한다.
+# 프론트엔드(Vercel) · 백엔드(Render) 중 바뀐 쪽만 검증 후 배포한다. DB 파일(backend/db/**)만 바뀌면 아무것도 배포하지 않는다.
+# 필요한 Secrets: VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID, RENDER_DEPLOY_HOOK_URL
+# 두 플랫폼 모두 자체 Git 자동 배포는 꺼 둔다(이 워크플로만 배포하도록, 이중 배포 방지).
+# Secrets가 아직 없는 동안에는 push로 실행되지 않도록 수동 실행만 켜 두었다. 플랫폼 설정을 마친 뒤 아래 push 줄의 주석을 푼다.
 on:
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - 'devcodehub/backend/**'
+  #     - '!devcodehub/backend/db/**'
+  #     - 'devcodehub/frontend/**'
+  #     - '.github/workflows/deploy-devcodehub.yml'
   workflow_dispatch:
+
+permissions:
+  contents: read
+
+# 연속 push 때 배포가 겹치지 않게 순서대로 실행한다.
+concurrency:
+  group: devcodehub-deploy
+  cancel-in-progress: false
 
 jobs:
   # 1. 변경된 경로 감지
@@ -17,85 +35,80 @@ jobs:
       - uses: dorny/paths-filter@v3
         id: filter
         with:
+          # 수동 실행은 비교할 기준이 없으므로 둘 다 true로 처리한다.
           filters: |
             backend:
               - 'devcodehub/backend/**'
+              - '!devcodehub/backend/db/**'
             frontend:
               - 'devcodehub/frontend/**'
 
-  # 2. Backend 백엔드 배포
-  backend-deploy:
+  # 2. 백엔드: 테스트 통과 후 Render에 배포 요청
+  backend-verify:
     needs: changes
-    if: ${{ needs.changes.outputs.backend == 'true' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || needs.changes.outputs.backend == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+
+      - uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Build with Maven
-        run: mvn clean package -DskipTests -Dcheckstyle.skip -f devcodehub/backend/pom.xml
-      
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-2
+      - name: Test
+        working-directory: devcodehub/backend
+        run: ./mvnw -B test
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+  backend-deploy:
+    needs: backend-verify
+    runs-on: ubuntu-latest
+    steps:
+      # Render가 저장소를 받아 Docker 이미지를 직접 빌드하므로 여기서는 요청만 보낸다.
+      - name: Trigger Render deploy
+        run: curl --fail --silent --show-error -X POST "$RENDER_DEPLOY_HOOK_URL"
+        env:
+          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
 
-      - name: Build and Push Docker Image
-        run: |
-          docker build -t devcodehub-backend devcodehub/backend/
-          docker tag devcodehub-backend:latest ${{ steps.login-ecr.outputs.registry }}/devcodehub-backend:latest
-          docker push ${{ steps.login-ecr.outputs.registry }}/devcodehub-backend:latest
-
-      - name: Force Deployment to Amazon ECS
-        run: |
-          aws ecs update-service --cluster devcodehub-cluster --service devcodehub-backend-service --force-new-deployment
-
-  # 3. Frontend 프론트엔드 배포
-  frontend-deploy:
+  # 3. 프론트엔드: lint·타입·빌드 통과 후 Vercel에 배포
+  frontend-verify:
     needs: changes
-    if: ${{ needs.changes.outputs.frontend == 'true' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || needs.changes.outputs.frontend == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+
+      - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
+          cache: npm
           cache-dependency-path: devcodehub/frontend/package-lock.json
 
-      - name: Build React App
-        run: |
-          cd devcodehub/frontend
-          npm install
-          npm run build
+      - name: Install dependencies
+        working-directory: devcodehub/frontend
+        run: npm ci
+
+      - name: Lint
+        working-directory: devcodehub/frontend
+        run: npm run lint
+
+      # 빌드 검증용이다. 실제 주소와 키는 Vercel 환경변수에서 쓴다.
+      - name: Build
+        working-directory: devcodehub/frontend
+        run: npm run build
+
+  frontend-deploy:
+    needs: frontend-verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Vercel이 자기 서버에서 설치·빌드한다. Vercel 프로젝트의 Root Directory는 devcodehub/frontend로 지정한다.
+      # shoppingmall과 같은 이유로 액션 대신 CLI를 직접 쓴다(프로젝트 범위 토큰이 사용자 조회에서 거부되는 문제).
+      - name: Deploy to Vercel
+        run: npx --yes vercel@62 deploy --prod --yes --token "$VERCEL_TOKEN"
         env:
-          VITE_API_SERVER_URL: ${{ secrets.VITE_API_SERVER_URL }}
-          VITE_PORTONE_CHANNEL_KEY: ${{ secrets.VITE_PORTONE_CHANNEL_KEY }}
-          VITE_PORTONE_STORE_ID: ${{ secrets.VITE_PORTONE_STORE_ID }}
-          
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-2
-          
-      - name: Deploy to S3
-        run: aws s3 sync devcodehub/frontend/dist/ s3://${{ secrets.S3_BUCKET_NAME }}/ --delete
-        
-      - name: Invalidate CloudFront
-        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_ID }} --paths "/*"
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
