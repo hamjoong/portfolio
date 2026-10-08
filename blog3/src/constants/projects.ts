@@ -1,7 +1,9 @@
 import { Project } from '../types/Project';
 
 // 저장소는 같은 이름(hamjoong/portfolio)으로 재생성되므로 GitHub 링크는 인프라 이전 후에도 유지됨.
-// 데모 링크(demo)는 인프라 이전(Phase 4) 때 최종 주소로 교체해야 함.
+// 데모 링크(demo)는 값이 없으면 화면이 버튼을 숨긴다. devcodehub는 AWS(CloudFront)를 모두 삭제했고
+// 새 호스팅이 정해지지 않았으므로 데모 링크를 두지 않는다. 호스팅을 정하면 최종 주소를 넣는다.
+// shopping mall의 Vercel 주소는 컷오버에서 같은 이름으로 재생성하며, 달라지면 여기도 바꾼다.
 const REPO = 'https://github.com/hamjoong/portfolio/tree/main';
 
 export const PROJECTS: Project[] = [
@@ -12,7 +14,7 @@ export const PROJECTS: Project[] = [
     stack: ['React 19', 'TypeScript', 'Tailwind CSS', 'Spring Boot', 'PostgreSQL(Supabase)', 'WebSocket(STOMP)', 'Docker'],
     problem: '여러 AI 모델의 코드 리뷰 응답을 기다리는 동안의 지연과, 실시간 채팅·알림 구현.',
     solution: 'AI 호출을 전용 스레드 풀에서 병렬(CompletableFuture)로 처리하고, STOMP WebSocket으로 채팅·알림을 구현. 인증은 Spring Security + JWT 무상태 방식.',
-    links: { demo: 'https://d21xqtdxaa8phl.cloudfront.net/', github: `${REPO}/devcodehub` },
+    links: { github: `${REPO}/devcodehub` },
   },
   {
     title: 'shopping mall',
