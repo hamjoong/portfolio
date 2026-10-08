@@ -2,7 +2,6 @@ export interface Review {
   id: string;
   userId: string;
   productId: string;
-  orderId: string;
   rating: number;
   content: string;
   imageUrl?: string;

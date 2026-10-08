@@ -11,8 +11,8 @@ import {
 } from "../_shared/http.ts";
 
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-// 작성자 ID(user_id)는 공개 목록에 내보내지 않는다.
-const REVIEW_COLUMNS = "id, product_id, order_id, rating, content, image_url, admin_reply, replied_at, created_at";
+// 작성자 ID와 주문 ID는 공개 응답에 내보내지 않는다(프라이버시).
+const REVIEW_COLUMNS = "id, product_id, rating, content, image_url, admin_reply, replied_at, created_at";
 const REVIEWABLE_STATUSES = ["PAID", "SHIPPED", "COMPLETED"];
 
 function validRating(value: unknown): value is number {

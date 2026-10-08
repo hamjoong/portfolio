@@ -41,7 +41,6 @@ function normalizeReviewPage(page: Page<Review>): Page<Review> {
       const row = review as Review & {
         user_id?: string;
         product_id?: string;
-        order_id?: string;
         image_url?: string;
         created_at?: string;
         admin_reply?: string;
@@ -51,7 +50,6 @@ function normalizeReviewPage(page: Page<Review>): Page<Review> {
         ...row,
         userId: row.userId ?? row.user_id ?? '',
         productId: row.productId ?? row.product_id ?? '',
-        orderId: row.orderId ?? row.order_id ?? '',
         imageUrl: row.imageUrl ?? row.image_url,
         createdAt: row.createdAt ?? row.created_at ?? '',
         adminReply: row.adminReply ?? row.admin_reply,
