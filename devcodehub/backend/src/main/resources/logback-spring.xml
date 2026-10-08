@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 방금 만든 변환기 등록 -->
+    <conversionRule conversionWord="maskMessage" class="com.hjuk.devcodehub.global.logging.LogMaskingConverter" />
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+      <encoder>
+        <!-- %maskMessage를 사용하여 로그 출력 -->
+        <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %maskMessage%n</pattern>
+      </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>

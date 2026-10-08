@@ -1,0 +1,43 @@
+# Production 환경에서 사용할 설정 파일입니다.
+spring:
+  # [Why] 무료 Supabase Session pooler는 동시 연결 수가 적어서 기본 풀(10개)이면 한도에 걸릴 수 있다. 작게 유지한다.
+  datasource:
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        # 컬렉션 지연 로딩(N+1)을 IN 쿼리 묶음으로 줄인다
+        default_batch_fetch_size: 50
+    # [Why] 화면 렌더링이 끝날 때까지 DB 커넥션을 잡고 있지 않도록 끈다. 지연 로딩은 서비스 트랜잭션 안에서 끝낸다.
+    open-in-view: false
+
+  # [Why] 배포 환경(호스팅)에 묶이지 않도록 공개 주소는 환경변수(BACKEND_URL)로 주입한다. 소셜 로그인 redirect URI 등에 쓰인다.
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            redirect-uri: "${BACKEND_URL}/api/v1/login/oauth2/code/google"
+          github:
+            redirect-uri: "${BACKEND_URL}/api/v1/login/oauth2/code/github"
+          kakao:
+            redirect-uri: "${BACKEND_URL}/api/v1/login/oauth2/code/kakao"
+          naver:
+            redirect-uri: "${BACKEND_URL}/api/v1/login/oauth2/code/naver"
+
+app:
+  upload:
+    base-url: ${APP_UPLOAD_BASE_URL:${BACKEND_URL}}
+
+logging:
+  level:
+    root: INFO
+    com.hjuk.devcodehub: INFO
+    org.hibernate.SQL: ERROR
+    org.hibernate.type.descriptor.sql.BasicBinder: ERROR

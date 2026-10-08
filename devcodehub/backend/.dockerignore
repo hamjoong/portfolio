@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+target/
+uploads/
+data/
+.git
+.idea
+*.log
