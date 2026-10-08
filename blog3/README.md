@@ -22,7 +22,7 @@
 - **Styling**: SCSS (섹션별 파일 분리, `&-` 중첩으로 `블록-요소` 형태 클래스 네이밍)
 - **Animation**: Framer Motion
 - **Icons**: lucide-react
-- **Deployment**: GitHub Actions, GitHub Pages
+- **Deployment**: GitHub Actions, GitHub Pages (https://hamjoong.github.io/portfolio/blog3/)
 
 ## 5. 기술 선택 이유
 - **Vite**: 최신 모듈 번들링 기술로 빠른 개발 환경과 빌드 효율성 보장
