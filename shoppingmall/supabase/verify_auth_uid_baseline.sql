@@ -1,5 +1,5 @@
--- Read-only checks for a fresh project after applying all ordered migrations
--- through 20261006000700. Run before adding the first admin.
+-- Read-only checks for a project after applying all ordered migrations
+-- through 20261008000100. 첫 관리자 등록 전후 어느 때든 실행할 수 있다.
 DO $$
 DECLARE
     table_name text;
@@ -50,7 +50,7 @@ BEGIN
         END IF;
     END LOOP;
 
-    IF to_regprocedure('public.create_order_atomic(text,text,text,text,text,jsonb)') IS NULL THEN
+    IF to_regprocedure('public.create_order_atomic(text,text,text,text,text,jsonb,text,text)') IS NULL THEN
         RAISE EXCEPTION 'Auth UID order RPC is missing';
     END IF;
     IF to_regprocedure('public.admin_save_product(uuid,uuid,jsonb)') IS NULL THEN
@@ -65,9 +65,9 @@ BEGIN
     IF to_regprocedure('public.anonymize_customer_account(uuid)') IS NULL THEN
         RAISE EXCEPTION 'customer account anonymization RPC is missing';
     END IF;
-    IF has_function_privilege('anon', 'public.create_order_atomic(text,text,text,text,text,jsonb)', 'EXECUTE')
-       OR has_function_privilege('authenticated', 'public.create_order_atomic(text,text,text,text,text,jsonb)', 'EXECUTE')
-       OR NOT has_function_privilege('service_role', 'public.create_order_atomic(text,text,text,text,text,jsonb)', 'EXECUTE') THEN
+    IF has_function_privilege('anon', 'public.create_order_atomic(text,text,text,text,text,jsonb,text,text)', 'EXECUTE')
+       OR has_function_privilege('authenticated', 'public.create_order_atomic(text,text,text,text,text,jsonb,text,text)', 'EXECUTE')
+       OR NOT has_function_privilege('service_role', 'public.create_order_atomic(text,text,text,text,text,jsonb,text,text)', 'EXECUTE') THEN
         RAISE EXCEPTION 'Auth UID order RPC execution grants are too broad or incomplete';
     END IF;
     IF to_regprocedure('public.get_or_sync_cart(text)') IS NOT NULL
@@ -86,10 +86,13 @@ BEGIN
     END IF;
     IF NOT has_table_privilege('service_role', 'public.cart_items', 'SELECT')
        OR NOT has_table_privilege('service_role', 'public.orders', 'SELECT')
-       OR NOT has_table_privilege('anon', 'public.products', 'SELECT')
-       OR NOT has_table_privilege('anon', 'public.categories', 'SELECT')
-       OR NOT has_table_privilege('anon', 'public.product_options', 'SELECT') THEN
-        RAISE EXCEPTION 'public catalog or service-role table grants are incorrect';
+       OR has_table_privilege('anon', 'public.products', 'SELECT')
+       OR has_table_privilege('anon', 'public.categories', 'SELECT')
+       OR has_table_privilege('anon', 'public.product_options', 'SELECT')
+       OR has_table_privilege('anon', 'public.reviews', 'SELECT')
+       OR has_table_privilege('anon', 'public.product_qnas', 'SELECT') THEN
+        -- 읽기는 모두 Edge Function(service_role)이 맡으므로 공개 키의 직접 조회는 닫혀 있어야 한다.
+        RAISE EXCEPTION 'public table reads must be closed, or service-role grants are missing';
     END IF;
     IF has_function_privilege('anon', 'public.admin_save_product(uuid,uuid,jsonb)', 'EXECUTE')
        OR has_function_privilege('authenticated', 'public.admin_save_product(uuid,uuid,jsonb)', 'EXECUTE')
@@ -114,9 +117,6 @@ BEGIN
     IF EXISTS (SELECT 1 FROM public.users)
        OR EXISTS (SELECT 1 FROM public.auth_user_mappings) THEN
         RAISE EXCEPTION 'legacy users or mappings were unexpectedly provisioned';
-    END IF;
-    IF EXISTS (SELECT 1 FROM public.admin_users) THEN
-        RAISE EXCEPTION 'run baseline verification before bootstrapping the first administrator';
     END IF;
 END;
 $$;
