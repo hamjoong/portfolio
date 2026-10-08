@@ -3,16 +3,16 @@ name: Deploy DevCodeHub
 # 프론트엔드(Vercel) · 백엔드(Render) 중 바뀐 쪽만 검증 후 배포한다. DB 파일(backend/db/**)만 바뀌면 아무것도 배포하지 않는다.
 # 필요한 Secrets: DEVCODEHUB_VERCEL_TOKEN, DEVCODEHUB_VERCEL_PROJECT_ID, VERCEL_ORG_ID(shoppingmall과 공용), RENDER_DEPLOY_HOOK_URL
 # 두 플랫폼 모두 자체 Git 자동 배포는 꺼 둔다(이 워크플로만 배포하도록, 이중 배포 방지).
-# Secrets가 아직 없는 동안에는 push로 실행되지 않도록 수동 실행만 켜 두었다. 플랫폼 설정을 마친 뒤 아래 push 줄의 주석을 푼다.
+# 수동 실행(workflow_dispatch)은 프론트·백엔드를 모두 배포한다.
 on:
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - 'devcodehub/backend/**'
-  #     - '!devcodehub/backend/db/**'
-  #     - 'devcodehub/frontend/**'
-  #     - '.github/workflows/deploy-devcodehub.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'devcodehub/backend/**'
+      - '!devcodehub/backend/db/**'
+      - 'devcodehub/frontend/**'
+      - '.github/workflows/deploy-devcodehub.yml'
   workflow_dispatch:
 
 permissions:
