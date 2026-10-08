@@ -23,10 +23,11 @@ export const useOrder = () => {
   };
 
   // 2. 나의 주문 내역 조회
-  const useMyOrders = () => {
+  const useMyOrders = (enabled = true) => {
     return useQuery({
       queryKey: ['myOrders'],
       queryFn: () => orderService.getMyOrders(),
+      enabled,
     });
   };
 

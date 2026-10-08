@@ -40,8 +40,9 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const { data: reviews } = useProductReviews(id as string);
   const { data: qnas } = useProductQnas(id as string);
   const { useMyOrders } = useOrder();
-  const { data: orders } = useMyOrders();
-  const { role } = useAuthStore();
+  const { role, isLoggedIn, _hasHydrated } = useAuthStore();
+  // 구매 이력은 리뷰 작성 자격 확인용이라 로그인했을 때만 조회한다(비로그인 시 401 방지).
+  const { data: orders } = useMyOrders(_hasHydrated && isLoggedIn);
   
   const addReviewReplyMutation = useAddReviewReply();
   const addQnaAnswerMutation = useAddQnaAnswer();
