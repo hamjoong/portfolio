@@ -1,0 +1,59 @@
+# Supabase local development defaults for the shoppingmall project.
+# Link this directory to the existing Supabase project with the CLI before
+# pulling remote schema or deploying functions.
+# Local Supabase stack name. Remote project selection is stored by `supabase link`.
+project_id = "shoppingmall"
+
+[api]
+enabled = true
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+[functions.health]
+enabled = true
+# Health is public and returns no project or database information.
+verify_jwt = false
+
+[functions.catalog]
+enabled = true
+# Public, read-only catalog endpoints. Keep all mutations behind authenticated functions.
+verify_jwt = false
+
+[functions.cart]
+enabled = true
+# The handler validates Supabase sessions (or guest IDs for carts) itself.
+verify_jwt = false
+
+[functions.order]
+enabled = true
+# The handler validates Supabase sessions (or guest IDs for carts) itself.
+verify_jwt = false
+
+[functions.qna]
+enabled = true
+# Public product reads are anonymous; private operations validate Supabase users in the handler.
+verify_jwt = false
+
+[functions.review]
+enabled = true
+# Public product reads are anonymous; private operations validate Supabase users in the handler.
+verify_jwt = false
+
+[functions.admin-products]
+enabled = true
+# Every route verifies a Supabase session and server-managed administrator authorization.
+verify_jwt = false
+
+[functions.account-withdrawal]
+enabled = true
+# The handler validates the caller's Supabase session before any service-role operation.
+verify_jwt = false

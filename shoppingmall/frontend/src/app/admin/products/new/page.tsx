@@ -1,0 +1,138 @@
+'use client';
+
+import React, { useState } from 'react';
+import { Input } from '@/components/common/Input';
+import { Button } from '@/components/common/Button';
+import { adminProductsApi } from '@/utils/adminProductsApi';
+import { useRouter } from 'next/navigation';
+
+/**
+ * 관리자가 새로운 상품을 등록하는 페이지입니다.
+ * [이유] 상품 메타데이터와 외부 이미지 URL을 등록합니다.
+ */
+export default function NewProductPage() {
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+    price: 0,
+    stockQuantity: 0,
+    imageUrl: '',
+    options: [] as { optionType: string; optionName: string; additionalPrice: number; stockQuantity: number }[],
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const addOption = () => {
+    setFormData({
+      ...formData,
+      options: [...formData.options, { optionType: '', optionName: '', additionalPrice: 0, stockQuantity: 0 }],
+    });
+  };
+
+  const removeOption = (index: number) => {
+    setFormData({
+      ...formData,
+      options: formData.options.filter((_, i) => i !== index),
+    });
+  };
+
+  const updateOption = (index: number, field: string, value: string | number) => {
+    const newOptions = [...formData.options];
+    newOptions[index] = { ...newOptions[index], [field]: value };
+    setFormData({ ...formData, options: newOptions });
+  };
+
+  /**
+   * 상품 등록 및 이미지 업로드 통합 로직입니다.
+   */
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      // 상품 메타데이터 저장. 이미지 URL은 외부 이미지 주소를 입력합니다.
+      await adminProductsApi.create({
+        ...formData,
+        categoryId: null
+      });
+
+      alert('상품이 성공적으로 등록되었습니다.');
+      router.push('/admin/products');
+    } catch (err) {
+      console.error('[Admin] Product registration failed:', err);
+      alert('상품 등록 중 오류가 발생했습니다.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="container mx-auto px-4 py-12 max-w-2xl">
+      <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+        <h1 className="text-2xl font-bold text-gray-900 mb-8">신규 상품 등록</h1>
+        
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <Input
+            label="상품명"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            placeholder="상품 이름을 입력하세요"
+            required
+          />
+          
+          <div className="space-y-1.5">
+            <label className="text-sm font-medium text-gray-700">상품 설명</label>
+            <textarea
+              className="w-full rounded-md border border-gray-300 p-3 text-sm min-h-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              placeholder="상품에 대한 상세 설명을 작성하세요"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <Input
+              label="가격 (원)"
+              type="number"
+              value={formData.price}
+              onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
+              required
+            />
+            <Input
+              label="초기 재고 (개)"
+              type="number"
+              value={formData.stockQuantity}
+              onChange={(e) => setFormData({ ...formData, stockQuantity: Number(e.target.value) })}
+              required
+            />
+          </div>
+
+          {/* 상품 옵션 섹션 */}
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <label className="text-sm font-bold text-gray-700">상품 옵션</label>
+              <Button type="button" onClick={addOption} size="sm">옵션 추가</Button>
+            </div>
+            {formData.options.map((option, index) => (
+              <div key={index} className="grid grid-cols-4 gap-2 items-end border p-4 rounded-md">
+                <Input label="분류(사이즈 등)" value={option.optionType} onChange={(e) => updateOption(index, 'optionType', e.target.value)} />
+                <Input label="이름(XL 등)" value={option.optionName} onChange={(e) => updateOption(index, 'optionName', e.target.value)} />
+                <Input label="추가금" type="number" value={option.additionalPrice} onChange={(e) => updateOption(index, 'additionalPrice', Number(e.target.value))} />
+                <Input label="재고" type="number" value={option.stockQuantity} onChange={(e) => updateOption(index, 'stockQuantity', Number(e.target.value))} />
+                <Button type="button" onClick={() => removeOption(index)} className="bg-red-500 hover:bg-red-600">삭제</Button>
+              </div>
+            ))}
+          </div>
+
+          <div className="space-y-1.5">
+            <Input label="상품 이미지 URL" value={formData.imageUrl} onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })} />
+          </div>
+
+          <Button type="submit" className="w-full" size="lg" isLoading={isLoading}>
+            상품 등록하기
+          </Button>
+        </form>
+      </div>
+    </div>
+  );
+}
