@@ -6,6 +6,7 @@ import { Button } from '@/components/common/Button';
 import { authService } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/useAuthStore';
+import { adminProductsApi } from '@/utils/adminProductsApi';
 
 /**
  * 사용자 로그인을 위한 페이지 컴포넌트입니다 (Supabase Auth).
@@ -32,6 +33,15 @@ export default function LoginPage() {
           loginData.role,
           loginData.refreshToken
         );
+        // 로그인 응답에는 관리자 정보가 없어 항상 ROLE_USER다. 헤더의 관리자 아이콘용 표시값이므로
+        // 서버(admin_users)에 물어 보정한다. 실제 접근 통제는 서버가 하고, 조회 실패는 일반 사용자로 둔다.
+        try {
+          if (await adminProductsApi.isAdmin()) {
+            loginStore.login(loginData.userId, formData.email, loginData.accessToken, 'ROLE_ADMIN', loginData.refreshToken);
+          }
+        } catch {
+          /* 관리자가 아니거나 조회 실패 */
+        }
         router.push('/');
       }
     } catch (err: any) {

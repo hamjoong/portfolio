@@ -3,7 +3,7 @@
 -- auth.users.id; never use user-editable app_metadata/user_metadata for this.
 DO $bootstrap$
 DECLARE
-    target_admin_id uuid := '00000000-0000-0000-0000-000000000000';
+    target_admin_id uuid := '1c38901e-65af-4bb3-8686-d4bbbdcb6cc9';
 BEGIN
     IF target_admin_id = '00000000-0000-0000-0000-000000000000'::uuid THEN
         RAISE EXCEPTION 'replace target_admin_id with the verified Auth user UUID';

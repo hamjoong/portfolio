@@ -77,4 +77,4 @@ cd supabase/functions/_shared && node --test *.test.mjs # 공용 인증 로직 �
 - 성능 수치(LCP, 응답 시간 등)는 측정한 적이 없어 싣지 않습니다.
 
 ## 7. 링크
-- Frontend (Vercel): https://shoppingmallfrontend.vercel.app/
+- Frontend (Vercel): https://shoppingmall-beta.vercel.app/
