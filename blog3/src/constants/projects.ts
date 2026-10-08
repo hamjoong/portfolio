@@ -23,7 +23,7 @@ export const PROJECTS: Project[] = [
     stack: ['Next.js', 'TypeScript', 'Supabase Edge Functions', 'PostgreSQL(Supabase)'],
     problem: '무료 호스팅 서버의 슬립으로 인한 응답 지연과, 동시 주문 시 재고 정합성.',
     solution: '주요 API를 Supabase Edge Functions로 이전하고, 주문 생성과 재고 차감을 PostgreSQL RPC(행 잠금) 한 번으로 원자적으로 처리.',
-    links: { demo: 'https://shoppingmallfrontend.vercel.app/', github: `${REPO}/shoppingmall` },
+    links: { demo: 'https://shoppingmall-beta.vercel.app/', github: `${REPO}/shoppingmall` },
   },
   {
     title: 'Milk Tycoon',
