@@ -59,7 +59,8 @@ jobs:
 
       - name: Test
         working-directory: devcodehub/backend
-        run: ./mvnw -B test
+        # mvnw의 실행 권한이 Git에 기록돼 있지 않아(윈도우 드라이브에서 작업) bash로 직접 실행한다.
+        run: bash ./mvnw -B test
 
   backend-deploy:
     needs: backend-verify
