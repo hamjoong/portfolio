@@ -29,6 +29,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
 
   private final JwtProvider jwtProvider;
+  private final com.hjuk.devcodehub.global.security.ClientIpResolver clientIpResolver;
   private final com.hjuk.devcodehub.global.security.oauth2.CustomOAuth2UserService
       customOAuth2UserService;
   private final com.hjuk.devcodehub.global.security.oauth2.OAuth2SuccessHandler
@@ -102,7 +103,7 @@ public class SecurityConfig {
         .addFilterBefore(
             new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
         .addFilterBefore(
-            new com.hjuk.devcodehub.global.security.filter.RateLimitFilter(),
+            new com.hjuk.devcodehub.global.security.filter.RateLimitFilter(clientIpResolver),
             JwtAuthenticationFilter.class)
         .oauth2Login(
             oauth2 ->

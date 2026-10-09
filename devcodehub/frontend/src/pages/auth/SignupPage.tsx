@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 import axios from 'axios';
 
+import { toast } from '../../store/toastStore';
 const SignupPage: React.FC = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -33,8 +34,8 @@ const SignupPage: React.FC = () => {
 
   /** [Why] 중복된 아이디 가입을 방지하기 위해 서버에 실시간으로 존재 여부를 요청함. */
   const handleCheckId = async () => {
-    if (!formData.loginId.trim()) return alert('아이디를 입력해 주세요.');
-    if (!/^[a-zA-Z0-9]*$/.test(formData.loginId)) return alert('아이디는 영문자와 숫자만 가능합니다.');
+    if (!formData.loginId.trim()) return toast.error('아이디를 입력해 주세요.');
+    if (!/^[a-zA-Z0-9]*$/.test(formData.loginId)) return toast.error('아이디는 영문자와 숫자만 가능합니다.');
 
     try {
       const response = await api.get(`/auth/check-id?loginId=${formData.loginId}`);
@@ -48,13 +49,13 @@ const SignupPage: React.FC = () => {
         }
       }));
     } catch {
-      alert('중복 확인 중 오류가 발생했습니다.');
+      toast.error('중복 확인 중 오류가 발생했습니다.');
     }
   };
 
   /** [Why] 커뮤니티 내 고유한 닉네임 사용을 보장하기 위해 제출 전 중복 검사를 강제함. */
   const handleCheckNickname = async () => {
-    if (!formData.nickname.trim()) return alert('닉네임을 입력해 주세요.');
+    if (!formData.nickname.trim()) return toast.error('닉네임을 입력해 주세요.');
 
     try {
       const response = await api.get(`/auth/check-nickname?nickname=${formData.nickname}`);
@@ -68,13 +69,13 @@ const SignupPage: React.FC = () => {
         }
       }));
     } catch {
-      alert('중복 확인 중 오류가 발생했습니다.');
+      toast.error('중복 확인 중 오류가 발생했습니다.');
     }
   };
 
   /** [Why] 이메일 중복 방지를 위한 확인 로직 추가 */
   const handleCheckEmail = async () => {
-    if (!formData.email.trim()) return alert('이메일을 입력해 주세요.');
+    if (!formData.email.trim()) return toast.error('이메일을 입력해 주세요.');
     try {
       const response = await api.get(`/auth/check-email?email=${formData.email}`);
       const isDuplicate = response.data;
@@ -87,7 +88,7 @@ const SignupPage: React.FC = () => {
         }
       }));
     } catch {
-      alert('중복 확인 중 오류가 발생했습니다.');
+      toast.error('중복 확인 중 오류가 발생했습니다.');
     }
   };
 
@@ -95,24 +96,24 @@ const SignupPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!checks.id.available) return alert('아이디 중복 확인이 필요합니다.');
-    if (!checks.email.available) return alert('이메일 중복 확인이 필요합니다.');
-    if (!checks.nickname.available) return alert('닉네임 중복 확인이 필요합니다.');
-    if (formData.password !== formData.confirmPassword) return alert('비밀번호가 일치하지 않습니다.');
+    if (!checks.id.available) return toast.error('아이디 중복 확인이 필요합니다.');
+    if (!checks.email.available) return toast.error('이메일 중복 확인이 필요합니다.');
+    if (!checks.nickname.available) return toast.error('닉네임 중복 확인이 필요합니다.');
+    if (formData.password !== formData.confirmPassword) return toast.error('비밀번호가 일치하지 않습니다.');
 
     const { ...signupData } = formData;
     
     setIsLoading(true);
     try {
       await api.post('/auth/signup', signupData);
-      alert('회원가입이 완료되었습니다. 로그인해 주세요!');
+      toast.success('회원가입이 완료되었습니다. 로그인해 주세요!');
       navigate('/login');
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         const errorData = error.response?.data as { error?: { message: string } };
-        alert(errorData?.error?.message || '회원가입에 실패했습니다. 입력 양식을 확인해 주세요.');
+        toast.error(errorData?.error?.message || '회원가입에 실패했습니다. 입력 양식을 확인해 주세요.');
       } else {
-        alert('회원가입 중 알 수 없는 오류가 발생했습니다.');
+        toast.error('회원가입 중 알 수 없는 오류가 발생했습니다.');
       }
     } finally {
       setIsLoading(false);

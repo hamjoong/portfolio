@@ -5,10 +5,10 @@ import com.hjuk.devcodehub.domain.user.dto.SeniorVerificationResponse;
 import com.hjuk.devcodehub.domain.user.dto.UserResponse;
 import com.hjuk.devcodehub.domain.user.service.AdminService;
 import com.hjuk.devcodehub.global.common.ApiResponse;
+import com.hjuk.devcodehub.global.common.PageResponse;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -35,11 +35,11 @@ public class AdminController {
   private static final int DEFAULT_PAGE_SIZE = 10;
 
   @GetMapping("/users")
-  public ResponseEntity<ApiResponse<Page<UserResponse>>> getAllUsers(
+  public ResponseEntity<ApiResponse<PageResponse<UserResponse>>> getAllUsers(
       @RequestParam(required = false) String keyword,
       @PageableDefault(size = DEFAULT_PAGE_SIZE, sort = "createdAt", direction = Sort.Direction.DESC)
           Pageable pageable) {
-    return ResponseEntity.ok(ApiResponse.success(adminService.getAllUsers(keyword, pageable)));
+    return ResponseEntity.ok(ApiResponse.successPage(adminService.getAllUsers(keyword, pageable)));
   }
 
   @GetMapping("/verifications")
@@ -96,19 +96,19 @@ public class AdminController {
   }
 
   @GetMapping("/logs")
-  public ResponseEntity<ApiResponse<Page<com.hjuk.devcodehub.domain.user.dto.AdminLogResponse>>>
+  public ResponseEntity<ApiResponse<PageResponse<com.hjuk.devcodehub.domain.user.dto.AdminLogResponse>>>
       getAuditLogs(
           @RequestParam(required = false) String keyword,
           @PageableDefault(size = DEFAULT_PAGE_SIZE, sort = "createdAt", direction = Sort.Direction.DESC)
               Pageable pageable) {
-    return ResponseEntity.ok(ApiResponse.success(adminService.getAuditLogs(keyword, pageable)));
+    return ResponseEntity.ok(ApiResponse.successPage(adminService.getAuditLogs(keyword, pageable)));
   }
 
   @GetMapping("/boards")
-  public ResponseEntity<ApiResponse<Page<AdminBoardResponse>>> getAllBoards(
+  public ResponseEntity<ApiResponse<PageResponse<AdminBoardResponse>>> getAllBoards(
       @RequestParam(required = false) String keyword,
       @PageableDefault(size = DEFAULT_PAGE_SIZE, sort = "createdAt", direction = Sort.Direction.DESC)
           Pageable pageable) {
-    return ResponseEntity.ok(ApiResponse.success(adminService.getAllBoards(keyword, pageable)));
+    return ResponseEntity.ok(ApiResponse.successPage(adminService.getAllBoards(keyword, pageable)));
   }
 }

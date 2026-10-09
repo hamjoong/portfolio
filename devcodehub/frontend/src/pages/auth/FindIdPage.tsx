@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 import axios from 'axios';
 
+import { toast } from '../../store/toastStore';
 const FindIdPage: React.FC = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: '', contact: '' });
@@ -32,9 +33,9 @@ const FindIdPage: React.FC = () => {
       if (axios.isAxiosError(error)) {
         // backend ApiResponse error structure: {"success": false, "error": {"code": "...", "message": "..."}}
         const errorMessage = error.response?.data?.error?.message || '일치하는 정보를 찾을 수 없습니다.';
-        alert(errorMessage);
+        toast.error(errorMessage);
       } else {
-        alert('알 수 없는 오류가 발생했습니다.');
+        toast.error('알 수 없는 오류가 발생했습니다.');
       }
     } finally {
       setIsLoading(false);

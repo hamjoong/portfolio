@@ -6,6 +6,7 @@ import api from '../../services/api';
 import MessageBubble from './MessageBubble';
 import ChatInput from './ChatInput';
 
+import { toast } from '../../store/toastStore';
 const ChatWindow: React.FC = () => {
   const activeRoomId = useChatStore((state) => state.activeRoomId);
   const messages = useChatStore((state) => state.messages);
@@ -91,7 +92,7 @@ const ChatWindow: React.FC = () => {
                 useChatStore.getState().leaveRoom(activeRoomId!);
               } catch (error) {
                   console.error('Leave room failed:', error);
-                  alert('채팅방 나가기에 실패했습니다.');
+                  toast.error('채팅방 나가기에 실패했습니다.');
               }            }
           }}
           className="text-xs font-bold text-red-500 hover:text-red-700 transition-colors bg-transparent border-none cursor-pointer whitespace-nowrap"

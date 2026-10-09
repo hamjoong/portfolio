@@ -10,10 +10,9 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      # [Why] WSL에서 /mnt/d 같은 Windows 드라이브를 데이터 폴더로 연결하면 Postgres가 권한 변경(chmod)에 실패해 뜨지 않는다.
+      # Docker 볼륨은 Linux 파일시스템에 저장되어 어느 환경에서나 동작한다. `docker compose down -v`를 하면 데이터도 삭제된다.
+      - devcodehub_pgdata:/var/lib/postgresql/data
 
-  redis:
-    image: redis:7-alpine
-    container_name: devcodehub-redis
-    ports:
-      - "6379:6379"
+volumes:
+  devcodehub_pgdata:

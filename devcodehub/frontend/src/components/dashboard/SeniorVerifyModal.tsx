@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import api from '../../services/api';
 import axios, { AxiosError } from 'axios';
 
+import { toast } from '../../store/toastStore';
 interface SeniorVerifyModalProps {
   onClose: () => void;
   onSubmitted: () => void;
@@ -18,19 +19,19 @@ const SeniorVerifyModal: React.FC<SeniorVerifyModalProps> = ({ onClose, onSubmit
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.careerSummary.trim()) return alert('경력 요약 및 참여 프로젝트 내용을 입력해 주세요.');
+    if (!formData.careerSummary.trim()) return toast.error('경력 요약 및 참여 프로젝트 내용을 입력해 주세요.');
 
     setIsLoading(true);
     try {
       await api.post('/users/me/verify-senior', formData);
-      alert('시니어 인증 요청이 접수되었습니다. 관리자 승인 후 시니어 권한이 부여됩니다.');
+      toast.success('시니어 인증 요청이 접수되었습니다. 관리자 승인 후 시니어 권한이 부여됩니다.');
       onSubmitted();
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError<{error: {message: string}}>;
-        alert(axiosError.response?.data?.error?.message || '인증 요청 중 오류가 발생했습니다.');
+        toast.error(axiosError.response?.data?.error?.message || '인증 요청 중 오류가 발생했습니다.');
       } else {
-        alert('인증 요청 중 알 수 없는 오류가 발생했습니다.');
+        toast.error('인증 요청 중 알 수 없는 오류가 발생했습니다.');
       }
     } finally {
       setIsLoading(false);

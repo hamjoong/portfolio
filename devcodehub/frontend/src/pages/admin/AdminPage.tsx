@@ -8,6 +8,7 @@ import ContentManagement from '../../components/admin/ContentManagement';
 import AdminLogs from '../../components/admin/AdminLogs';
 import ReviewMatchManagement from '../../components/admin/ReviewMatchManagement';
 
+import { toast } from '../../store/toastStore';
 interface VerificationRequest {
   id: number;
   userLoginId: string;
@@ -41,7 +42,7 @@ const AdminPage: React.FC = () => {
 
   useEffect(() => {
     if (role !== 'ADMIN') {
-      alert('관리자만 접근 가능합니다.');
+      toast.error('관리자만 접근 가능합니다.');
       navigate('/dashboard');
       return;
     }
@@ -54,10 +55,10 @@ const AdminPage: React.FC = () => {
     if (!window.confirm('시니어 승인을 수락하시겠습니까?')) return;
     try {
       await api.patch(`/admin/verifications/${id}/approve`);
-      alert('승인되었습니다.');
+      toast.success('승인되었습니다.');
       fetchVerifications();
     } catch {
-      alert('처리 중 오류가 발생했습니다.');
+      toast.error('처리 중 오류가 발생했습니다.');
     }
   };
 
@@ -67,10 +68,10 @@ const AdminPage: React.FC = () => {
     
     try {
       await api.patch(`/admin/verifications/${id}/reject`, { reason });
-      alert('반려되었습니다.');
+      toast.success('반려되었습니다.');
       fetchVerifications();
     } catch {
-      alert('처리 중 오류가 발생했습니다.');
+      toast.error('처리 중 오류가 발생했습니다.');
     }
   };
 

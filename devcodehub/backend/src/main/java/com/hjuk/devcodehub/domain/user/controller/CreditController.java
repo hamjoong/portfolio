@@ -7,6 +7,7 @@ import com.hjuk.devcodehub.domain.user.repository.SubscriptionRepository;
 import com.hjuk.devcodehub.domain.user.repository.UserRepository;
 import com.hjuk.devcodehub.domain.user.service.SubscriptionService;
 import com.hjuk.devcodehub.global.common.ApiResponse;
+import com.hjuk.devcodehub.global.common.PageResponse;
 import com.hjuk.devcodehub.global.error.exception.BusinessException;
 import com.hjuk.devcodehub.global.error.exception.ErrorCode;
 import lombok.Builder;
@@ -69,13 +70,13 @@ public class CreditController {
   }
 
   @GetMapping("/transactions")
-  public ResponseEntity<ApiResponse<Page<CreditTransactionResponse>>> getTransactions(
+  public ResponseEntity<ApiResponse<PageResponse<CreditTransactionResponse>>> getTransactions(
       @AuthenticationPrincipal org.springframework.security.core.userdetails.User user,
       @PageableDefault(size = DEFAULT_PAGE_SIZE) Pageable pageable) {
 
     Page<CreditTransaction> transactions =
         transactionRepository.findByUserLoginIdOrderByCreatedAtDesc(user.getUsername(), pageable);
-    return ResponseEntity.ok(ApiResponse.success(transactions.map(CreditTransactionResponse::new)));
+    return ResponseEntity.ok(ApiResponse.successPage(transactions.map(CreditTransactionResponse::new)));
   }
 
   @PostMapping("/validate")

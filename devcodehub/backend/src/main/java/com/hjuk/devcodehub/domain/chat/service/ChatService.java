@@ -37,12 +37,6 @@ public class ChatService {
 
   private static final int MAX_MESSAGE_LENGTH = 2000;
 
-  private final String instanceId = java.util.UUID.randomUUID().toString();
-
-  public String getInstanceId() {
-    return instanceId;
-  }
-
   /**
    * [Why] 채팅방을 생성합니다.
    *

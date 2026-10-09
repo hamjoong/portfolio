@@ -2,6 +2,7 @@ import { useAuthStore } from '../store/authStore';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 
+import { toast } from '../store/toastStore';
 /**
  * 인증 및 권한 확인을 위한 공통 커스텀 훅
  * GEMINI.md 규칙: DRY(중복 제거), SRP(단일 책임 원칙)
@@ -22,7 +23,7 @@ export const useAuthGuard = () => {
   /** 회원 전용 기능 접근 시 권한 확인 후 알럿 처리 */
   const requireMember = useCallback((actionDescription = '이 기능'): boolean => {
     if (!isLoggedIn || role === 'GUEST') {
-      alert(`${actionDescription}은(는) 회원 전용 기능입니다. 로그인 후 이용해 주세요.`);
+      toast.error(`${actionDescription}은(는) 회원 전용 기능입니다. 로그인 후 이용해 주세요.`);
       return false;
     }
     return true;
@@ -31,7 +32,7 @@ export const useAuthGuard = () => {
   /** 비로그인 또는 비회원(GUEST) 시 로그인 페이지로 리다이렉트 */
   const requireLogin = useCallback((redirectPath = '/login'): boolean => {
     if (!isLoggedIn || role === 'GUEST') {
-      alert('로그인이 필요합니다.');
+      toast.error('로그인이 필요합니다.');
       navigate(redirectPath);
       return false;
     }

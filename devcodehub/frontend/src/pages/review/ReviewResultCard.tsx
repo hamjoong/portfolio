@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { toast } from '../../store/toastStore';
 /**
  * [Why] SRP(단일 책임 원칙) 준수를 위해 AiReviewPage에서 개별 리포트 카드 렌더링 로직을 분리함.
  * - 특정 모델의 리뷰 결과(점수, 요약, 장단점)를 시각적으로 표현하는 데 집중함.
@@ -102,7 +103,7 @@ const ReviewResultCard: React.FC<ReviewResultCardProps> = ({ displayName, data }
                       <button 
                         onClick={() => {
                           navigator.clipboard.writeText(con.snippet);
-                          alert('코드가 복사되었습니다.');
+                          toast.success('코드가 복사되었습니다.');
                         }}
                         className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white/10 hover:bg-white/20 text-white text-[10px] px-2 py-1 rounded border border-white/20 cursor-pointer"
                       >

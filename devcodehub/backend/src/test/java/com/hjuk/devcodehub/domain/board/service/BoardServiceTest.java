@@ -33,7 +33,6 @@ class BoardServiceTest {
   @Mock private BoardLikeRepository boardLikeRepository;
   @Mock private BoardBookmarkRepository boardBookmarkRepository;
   @Mock private UserRepository userRepository;
-  @Mock private BoardKeywordService boardKeywordService;
 
   @InjectMocks private BoardService boardService;
 

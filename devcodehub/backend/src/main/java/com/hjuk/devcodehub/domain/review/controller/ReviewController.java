@@ -5,6 +5,8 @@ import com.hjuk.devcodehub.domain.review.dto.AiReviewRequest;
 import com.hjuk.devcodehub.domain.review.repository.ReviewRepository;
 import com.hjuk.devcodehub.domain.review.service.AiReviewService;
 import com.hjuk.devcodehub.global.common.ApiResponse;
+import com.hjuk.devcodehub.global.common.PageResponse;
+import com.hjuk.devcodehub.global.security.ClientIpResolver;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +33,7 @@ public class ReviewController {
 
   private final ReviewRepository reviewRepository;
   private final AiReviewService aiReviewService;
+  private final ClientIpResolver clientIpResolver;
 
   @PostMapping("/ai")
   public ResponseEntity<ApiResponse<Map<String, Object>>> requestAiReview(
@@ -39,7 +42,7 @@ public class ReviewController {
       HttpServletRequest httpServletRequest) {
 
     String loginId = user != null ? user.getUsername() : null;
-    String ipAddress = httpServletRequest.getRemoteAddr();
+    String ipAddress = clientIpResolver.resolve(httpServletRequest);
     boolean isGuest = (user == null);
 
     return ResponseEntity.ok(
@@ -54,11 +57,11 @@ public class ReviewController {
   @GetMapping("/ai/guest-usage")
   public ResponseEntity<ApiResponse<Integer>> getGuestUsage(HttpServletRequest request) {
     return ResponseEntity.ok(
-        ApiResponse.success(aiReviewService.getGuestUsage(request.getRemoteAddr())));
+        ApiResponse.success(aiReviewService.getGuestUsage(clientIpResolver.resolve(request))));
   }
 
   @GetMapping("/history")
-  public ResponseEntity<ApiResponse<Page<ReviewHistoryResponse>>> getReviewHistory(
+  public ResponseEntity<ApiResponse<PageResponse<ReviewHistoryResponse>>> getReviewHistory(
       @AuthenticationPrincipal User user,
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size) {
@@ -71,7 +74,7 @@ public class ReviewController {
         reviewRepository.findByAuthorLoginIdOrderByCreatedAtDesc(
             user.getUsername(), PageRequest.of(Math.max(page, 0), Math.min(Math.max(size, 1), MAX_PAGE_SIZE)));
 
-    return ResponseEntity.ok(ApiResponse.success(reviews.map(ReviewHistoryResponse::new)));
+    return ResponseEntity.ok(ApiResponse.successPage(reviews.map(ReviewHistoryResponse::new)));
   }
 
   @GetMapping("/latest")

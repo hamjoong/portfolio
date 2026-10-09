@@ -7,10 +7,10 @@ import com.hjuk.devcodehub.domain.review.dto.SeniorReviewResponse;
 import com.hjuk.devcodehub.domain.review.dto.SeniorReviewResultResponse;
 import com.hjuk.devcodehub.domain.review.service.SeniorReviewService;
 import com.hjuk.devcodehub.global.common.ApiResponse;
+import com.hjuk.devcodehub.global.common.PageResponse;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -41,12 +41,12 @@ public class SeniorReviewController {
   }
 
   @GetMapping("/requests")
-  public ResponseEntity<ApiResponse<Page<SeniorReviewResponse>>> getRequests(
+  public ResponseEntity<ApiResponse<PageResponse<SeniorReviewResponse>>> getRequests(
       @RequestParam(required = false) SeniorReviewStatus status,
       @PageableDefault(size = DEFAULT_PAGE_SIZE, sort = "createdAt", direction = Sort.Direction.DESC)
           Pageable pageable) {
     return ResponseEntity.ok(
-        ApiResponse.success(seniorReviewService.getRequests(status, pageable)));
+        ApiResponse.successPage(seniorReviewService.getRequests(status, pageable)));
   }
 
   @GetMapping("/requests/{id}")

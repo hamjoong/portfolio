@@ -71,9 +71,4 @@ public class UserSubscription {
     this.active = true;
     this.paidAmount = paidAmount;
   }
-
-  /** [Why] 구독을 비활성화 처리합니다. */
-  public void deactivate() {
-    this.active = false;
-  }
 }

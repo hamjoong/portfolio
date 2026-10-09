@@ -6,6 +6,7 @@ import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import { useAuthGuard } from '../../hooks/useAuthGuard';
 import axios from 'axios';
 
+import { toast } from '../../store/toastStore';
 interface Board {
   id: number;
   title: string;
@@ -83,14 +84,14 @@ const BoardDetailPage: React.FC = () => {
       } catch (error: unknown) {
         if (!isDeleting && isMounted) {
           if (axios.isAxiosError(error) && error.response?.status === 404) {
-            alert('이미 삭제되었거나 존재하지 않는 게시글입니다.');
+            toast.error('이미 삭제되었거나 존재하지 않는 게시글입니다.');
             setIsNotFound(true);
           } else if (axios.isAxiosError(error)) {
             const errorMessage = error.response?.data?.error?.message || '게시글 정보를 불러오는 중 오류가 발생했습니다.';
-            alert(errorMessage);
+            toast.error(errorMessage);
             console.error('Failed to fetch data:', error);
           } else {
-            alert('게시글 정보를 불러오는 중 알 수 없는 오류가 발생했습니다.');
+            toast.error('게시글 정보를 불러오는 중 알 수 없는 오류가 발생했습니다.');
             console.error('Failed to fetch data:', error);
           }
         }
@@ -123,7 +124,7 @@ const BoardDetailPage: React.FC = () => {
       navigate(`/boards/${boardType}`, { replace: true });
     } catch {
       setIsDeleting(false);
-      alert('게시글 삭제 중 오류가 발생했습니다.');
+      toast.error('게시글 삭제 중 오류가 발생했습니다.');
     }
   };
 
@@ -132,11 +133,11 @@ const BoardDetailPage: React.FC = () => {
     setIsDeleting(true);
     try {
       await api.delete(`/admin/boards/${id}`);
-      alert('게시글이 영구 삭제되었습니다.');
+      toast.success('게시글이 영구 삭제되었습니다.');
       navigate(-1);
     } catch {
       setIsDeleting(false);
-      alert('삭제 중 오류가 발생했습니다.');
+      toast.error('삭제 중 오류가 발생했습니다.');
     }
   };
 
@@ -146,7 +147,7 @@ const BoardDetailPage: React.FC = () => {
       await api.patch(`/admin/comments/${commentId}/delete`);
       fetchComments();
     } catch {
-      alert('처리 중 오류가 발생했습니다.');
+      toast.error('처리 중 오류가 발생했습니다.');
     }
   };
 
@@ -165,7 +166,7 @@ const BoardDetailPage: React.FC = () => {
       fetchComments();
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        alert(error.response?.data?.error?.message || '댓글 수정 중 오류가 발생했습니다.');
+        toast.error(error.response?.data?.error?.message || '댓글 수정 중 오류가 발생했습니다.');
       }
     }
   };
@@ -177,7 +178,7 @@ const BoardDetailPage: React.FC = () => {
       fetchComments();
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        alert(error.response?.data?.error?.message || '댓글 삭제 중 오류가 발생했습니다.');
+        toast.error(error.response?.data?.error?.message || '댓글 삭제 중 오류가 발생했습니다.');
       }
     }
   };
@@ -192,7 +193,7 @@ const BoardDetailPage: React.FC = () => {
         isLiked: res.data
       } : null);
     } catch {
-      alert('좋아요 처리 중 오류가 발생했습니다.');
+      toast.error('좋아요 처리 중 오류가 발생했습니다.');
     }
   };
 
@@ -202,7 +203,7 @@ const BoardDetailPage: React.FC = () => {
       const res = await api.post(`/boards/${id}/bookmark`);
       setBoard(prev => prev ? { ...prev, isBookmarked: res.data } : null);
     } catch {
-      alert('북마크 처리 중 오류가 발생했습니다.');
+      toast.error('북마크 처리 중 오류가 발생했습니다.');
     }
   };
 
@@ -218,7 +219,7 @@ const BoardDetailPage: React.FC = () => {
       setNewComment('');
       fetchComments();
     } catch {
-      alert('댓글 작성 중 오류가 발생했습니다.');
+      toast.error('댓글 작성 중 오류가 발생했습니다.');
     }
   };
 

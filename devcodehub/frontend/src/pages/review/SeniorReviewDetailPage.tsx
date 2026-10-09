@@ -6,6 +6,7 @@ import { useAuthStore } from '../../store/authStore';
 import { useAuthGuard } from '../../hooks/useAuthGuard';
 import axios, { AxiosError } from 'axios';
 
+import { toast } from '../../store/toastStore';
 interface SeniorReview {
   id: number;
   title: string;
@@ -95,23 +96,23 @@ const SeniorReviewDetailPage: React.FC = () => {
     const normalizedRole = role ? role.toUpperCase() : '';
     const isSeniorUser = normalizedRole.includes('SENIOR') || normalizedRole.includes('ADMIN');
     if (!isSeniorUser) {
-      alert('시니어 회원만 지원할 수 있습니다.');
+      toast.error('시니어 회원만 지원할 수 있습니다.');
       return;
     }
-    if (!applyMessage.trim()) return alert('지원 메시지를 입력해 주세요.');
+    if (!applyMessage.trim()) return toast.error('지원 메시지를 입력해 주세요.');
 
     try {
       await api.post(`/reviews/senior/requests/${id}/apply`, { message: applyMessage });
-      alert('지원이 완료되었습니다.');
+      toast.success('지원이 완료되었습니다.');
       setIsAlreadyApplied(true);
       setApplyMessage('');
       fetchDetail();
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError<{error: {message: string}}>;
-        alert(axiosError.response?.data?.error?.message || '지원 중 오류가 발생했습니다.');
+        toast.error(axiosError.response?.data?.error?.message || '지원 중 오류가 발생했습니다.');
       } else {
-        alert('지원 중 알 수 없는 오류가 발생했습니다.');
+        toast.error('지원 중 알 수 없는 오류가 발생했습니다.');
       }
     }
   };
@@ -120,31 +121,31 @@ const SeniorReviewDetailPage: React.FC = () => {
     if (!window.confirm('이 시니어님과 매칭하시겠습니까?')) return;
     try {
       await api.post(`/reviews/senior/requests/${id}/applications/${appId}/accept`);
-      alert('매칭이 완료되었습니다. 시니어님의 리뷰를 기다려주세요.');
+      toast.success('매칭이 완료되었습니다. 시니어님의 리뷰를 기다려주세요.');
       fetchDetail();
     } catch {
-      alert('매칭 처리 중 오류가 발생했습니다.');
+      toast.error('매칭 처리 중 오류가 발생했습니다.');
     }
   };
 
   const handleSubmitReview = async () => {
-    if (!reviewContent.trim()) return alert('리뷰 내용을 입력해 주세요.');
+    if (!reviewContent.trim()) return toast.error('리뷰 내용을 입력해 주세요.');
     try {
       await api.post(`/reviews/senior/requests/${id}/complete`, { content: reviewContent });
-      alert('리뷰 작성이 완료되었습니다. 크레딧이 지급되었습니다.');
+      toast.success('리뷰 작성이 완료되었습니다. 크레딧이 지급되었습니다.');
       fetchDetail();
     } catch {
-      alert('리뷰 등록 중 오류가 발생했습니다.');
+      toast.error('리뷰 등록 중 오류가 발생했습니다.');
     }
   };
 
   const handleRate = async () => {
     try {
       await api.post(`/reviews/senior/requests/${id}/rate`, { rating });
-      alert('평점이 등록되었습니다. 감사합니다!');
+      toast.success('평점이 등록되었습니다. 감사합니다!');
       fetchDetail();
     } catch {
-      alert('평점 등록 중 오류가 발생했습니다.');
+      toast.error('평점 등록 중 오류가 발생했습니다.');
     }
   };
 

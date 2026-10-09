@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
 
 /**
  * 전역 공통 응답 객체 TRD 5항: {"success": true, "data": {...}} 또는 {"success": false, "error": {...}} 구조를
@@ -38,6 +39,17 @@ public final class ApiResponse<T> {
    */
   public static <T> ApiResponse<T> success(T inputData) {
     return new ApiResponse<>(true, inputData, null);
+  }
+
+  /**
+   * [Why] 페이지 응답은 Page를 그대로 직렬화하지 않고 {@link PageResponse}로 바꿔 담습니다.
+   *
+   * @param <T> 목록 요소 타입
+   * @param inputPage 성공 시 반환할 페이지
+   * @return 성공 응답 객체
+   */
+  public static <T> ApiResponse<PageResponse<T>> successPage(Page<T> inputPage) {
+    return new ApiResponse<>(true, PageResponse.of(inputPage), null);
   }
 
   /**

@@ -5,6 +5,7 @@ import api from '../../services/api';
 import { useAuthGuard } from '../../hooks/useAuthGuard';
 import axios, { AxiosError } from 'axios';
 
+import { toast } from '../../store/toastStore';
 const SeniorReviewWritePage: React.FC = () => {
   const navigate = useNavigate();
   const { requireLogin } = useAuthGuard();
@@ -38,18 +39,18 @@ const SeniorReviewWritePage: React.FC = () => {
     if (!requireLogin()) return;
 
     if (!formData.title.trim() || !formData.content.trim() || !formData.codeContent.trim()) {
-      alert('모든 필드를 입력해 주세요.');
+      toast.error('모든 필드를 입력해 주세요.');
       return;
     }
 
     const currentBalance = userCredits ?? 0;
     if (formData.credits < 100) {
-      alert('최소 100 크레딧 이상 설정해야 리뷰 요청이 가능합니다.');
+      toast.error('최소 100 크레딧 이상 설정해야 리뷰 요청이 가능합니다.');
       return;
     }
     
     if (formData.credits > currentBalance) {
-      alert(`보유한 크레딧보다 많이 사용할 수 없습니다. (현재 보유: ${currentBalance.toLocaleString()} C)`);
+      toast.error(`보유한 크레딧보다 많이 사용할 수 없습니다. (현재 보유: ${currentBalance.toLocaleString()} C)`);
       return;
     }
 
@@ -62,14 +63,14 @@ const SeniorReviewWritePage: React.FC = () => {
       };
 
       const response = await api.post('/reviews/senior/requests', payload);
-      alert('리뷰 요청이 등록되었습니다.');
+      toast.success('리뷰 요청이 등록되었습니다.');
       navigate(`/senior-review/${response.data}`);
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError<{error: {message: string}}>;
-        alert(axiosError.response?.data?.error?.message || '리뷰 요청 등록 중 오류가 발생했습니다.');
+        toast.error(axiosError.response?.data?.error?.message || '리뷰 요청 등록 중 오류가 발생했습니다.');
       } else {
-        alert('리뷰 요청 등록 중 알 수 없는 오류가 발생했습니다.');
+        toast.error('리뷰 요청 등록 중 알 수 없는 오류가 발생했습니다.');
       }
     } finally {
       setIsLoading(false);

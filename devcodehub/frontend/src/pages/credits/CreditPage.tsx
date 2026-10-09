@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useAuthStore } from '../../store/authStore';
 import api from '../../services/api';
 
+import { toast } from '../../store/toastStore';
 interface CreditInfo {
   credits: number;
   totalSpentCredits: number;
@@ -93,7 +94,7 @@ const CreditPage: React.FC = () => {
     const failCode = searchParams.get('code');
     const v1Failed = searchParams.get('success') === 'false';
     if (failCode || v1Failed) {
-      alert(`결제에 실패하였습니다. ${searchParams.get('message') ?? searchParams.get('error_msg') ?? ''}`);
+      toast.error(`결제에 실패하였습니다. ${searchParams.get('message') ?? searchParams.get('error_msg') ?? ''}`);
       setSearchParams({});
       return;
     }
@@ -105,15 +106,15 @@ const CreditPage: React.FC = () => {
       try {
         if (plan) {
           await api.post('/credits/subscribe/validate', { plan, impUid: paymentId, amount });
-          alert('구독이 완료되었습니다!');
+          toast.success('구독이 완료되었습니다!');
         } else {
           await api.post('/credits/validate', { impUid: paymentId, merchantUid: paymentId, amount });
-          alert('충전이 완료되었습니다!');
+          toast.success('충전이 완료되었습니다!');
         }
         fetchData();
       } catch (error) {
         console.error('Payment validation failed:', error);
-        alert('결제 검증에 실패했습니다.');
+        toast.error('결제 검증에 실패했습니다.');
       } finally {
         setValidating(false);
         setSearchParams({});
@@ -156,19 +157,19 @@ const CreditPage: React.FC = () => {
             impUid: response.paymentId,
             amount: amount
           });
-          alert('구독이 완료되었습니다. 프리미엄 혜택이 즉시 적용됩니다.');
+          toast.success('구독이 완료되었습니다. 프리미엄 혜택이 즉시 적용됩니다.');
           fetchData();
         } catch (error: unknown) {
           if (axios.isAxiosError(error)) {
             const data = error.response?.data as ErrorResponse;
             const message = data?.error?.message || '구독 검증 중 오류가 발생했습니다.';
-            alert(message);
+            toast.error(message);
           } else {
-            alert('구독 검증 중 알 수 없는 오류가 발생했습니다.');
+            toast.error('구독 검증 중 알 수 없는 오류가 발생했습니다.');
           }
         }
       } else if (response && response.code) {
-        alert(`결제에 실패하였습니다. (${response.code}) ${response.message}`);
+        toast.error(`결제에 실패하였습니다. (${response.code}) ${response.message}`);
       }
     } catch (e) {
       console.error('Payment request failed:', e);
@@ -179,14 +180,14 @@ const CreditPage: React.FC = () => {
     if (!window.confirm('구독을 해지하시겠습니까? 남은 기간에 대해 크레딧이 환급됩니다.')) return;
     try {
       await api.post('/credits/unsubscribe');
-      alert('구독이 해지되었습니다.');
+      toast.success('구독이 해지되었습니다.');
       fetchData();
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         const data = error.response?.data as ErrorResponse;
-        alert(data?.error?.message || '구독 해지 중 오류가 발생했습니다.');
+        toast.error(data?.error?.message || '구독 해지 중 오류가 발생했습니다.');
       } else {
-        alert('구독 해지 중 알 수 없는 오류가 발생했습니다.');
+        toast.error('구독 해지 중 알 수 없는 오류가 발생했습니다.');
       }
     }
   };
@@ -218,19 +219,19 @@ const CreditPage: React.FC = () => {
             merchantUid: paymentId,
             amount: amount
           });
-          alert(`${amount.toLocaleString()}C 충전이 완료되었습니다.`);
+          toast.success(`${amount.toLocaleString()}C 충전이 완료되었습니다.`);
           fetchData();
         } catch (error: unknown) {
           if (axios.isAxiosError(error)) {
             const data = error.response?.data as ErrorResponse;
             const message = data?.error?.message || '결제 검증 중 오류가 발생했습니다.';
-            alert(message);
+            toast.error(message);
           } else {
-            alert('결제 검증 중 알 수 없는 오류가 발생했습니다.');
+            toast.error('결제 검증 중 알 수 없는 오류가 발생했습니다.');
           }
         }
       } else if (response && response.code) {
-        alert(`결제에 실패하였습니다. (${response.code}) ${response.message}`);
+        toast.error(`결제에 실패하였습니다. (${response.code}) ${response.message}`);
       }
     } catch (e) {
       console.error('Payment request failed:', e);

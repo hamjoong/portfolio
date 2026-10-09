@@ -4,6 +4,7 @@ import api from '../../services/api';
 import { useAuthStore } from '../../store/authStore';
 import SeniorVerifyModal from './SeniorVerifyModal';
 
+import { toast } from '../../store/toastStore';
 /**
  * 프로필 수정 모달 컴포넌트
  * GEMINI.md 규칙: SRP(단일 책임 원칙) - DashboardPage에서 분리하여 300줄 규칙 준수
@@ -61,12 +62,12 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ userInfo, onClose, 
   /** 프로필 정보 수정 저장 */
   const handleSaveProfile = async () => {
     if (currentRole === 'GUEST') {
-      alert('비회원은 수정할 수 없습니다.');
+      toast.error('비회원은 수정할 수 없습니다.');
       return;
     }
 
     if (isUploading) {
-      alert('이미지 업로드 중입니다. 잠시만 기다려 주세요.');
+      toast.info('이미지 업로드 중입니다. 잠시만 기다려 주세요.');
       return;
     }
 
@@ -94,7 +95,7 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ userInfo, onClose, 
 
       await api.put('/users/me', payload);
 
-      alert('프로필이 수정되었습니다.');
+      toast.success('프로필이 수정되었습니다.');
 
       // Store 업데이트 (사이드바 반영 및 세션 동기화)
       if (uploadedImageUrl) {
@@ -107,9 +108,9 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ userInfo, onClose, 
       onSaved();
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response?.data?.error) {
-        alert(error.response.data.error.message);
+        toast.error(error.response.data.error.message);
       } else {
-        alert('프로필 수정 중 오류가 발생했습니다.');
+        toast.error('프로필 수정 중 오류가 발생했습니다.');
       }
     } finally {
       setIsUploading(false);
@@ -127,7 +128,7 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ userInfo, onClose, 
   /** 이미지 업로드 핸들러 */
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (currentRole === 'GUEST') {
-      alert('비회원은 이미지를 업로드할 수 없습니다.');
+      toast.error('비회원은 이미지를 업로드할 수 없습니다.');
       return;
     }
     const file = event.target.files?.[0];
@@ -155,13 +156,13 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ userInfo, onClose, 
       const resolvedUploadUrl = typeof response.data === 'string' ? response.data : response.data?.profileImageUrl;
       setUploadedImageUrl(resolvedUploadUrl);
 
-      alert('이미지가 업로드되었습니다. [변경사항 저장]을 눌러 완료해 주세요.');
+      toast.success('이미지가 업로드되었습니다. [변경사항 저장]을 눌러 완료해 주세요.');
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         const errorData = error.response?.data as { error?: { message: string } };
-        alert(errorData?.error?.message || '이미지 업로드에 실패했습니다.');
+        toast.error(errorData?.error?.message || '이미지 업로드에 실패했습니다.');
       } else {
-        alert('이미지 업로드 중 알 수 없는 오류가 발생했습니다.');
+        toast.error('이미지 업로드 중 알 수 없는 오류가 발생했습니다.');
       }
       setProfilePreview(null);
       if (previewUrl) URL.revokeObjectURL(previewUrl);
@@ -173,7 +174,7 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ userInfo, onClose, 
   /** 아바타 랜덤 변경 핸들러 */
   const handleRandomAvatar = async () => {
     if (currentRole === 'GUEST') {
-      alert('비회원은 아바타를 변경할 수 없습니다.');
+      toast.error('비회원은 아바타를 변경할 수 없습니다.');
       return;
     }
     const randomSeed = Math.random().toString(36).substring(2, 9);
@@ -185,7 +186,7 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ userInfo, onClose, 
       avatarApiUrl = response.data as string;
     } catch (error: unknown) {
       const message = axios.isAxiosError(error) ? error.response?.data?.error?.message : null;
-      alert(message || '아바타를 만들지 못했습니다.');
+      toast.error(message || '아바타를 만들지 못했습니다.');
       return;
     }
 

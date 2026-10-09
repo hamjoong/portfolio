@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import api from '../../services/api';
 
+import { toast } from '../../store/toastStore';
 interface MatchInfo {
   id: number;
   title: string;
@@ -61,11 +62,11 @@ const ReviewMatchManagement: React.FC = () => {
     if (reason === null) return;
     try {
       await api.post(`/admin/reviews/${match.id}/cancel`, { reason });
-      alert('취소하고 환불했습니다.');
+      toast.success('취소하고 환불했습니다.');
       fetchMatches(currentPage);
     } catch (error: unknown) {
       const message = axios.isAxiosError(error) ? error.response?.data?.error?.message : null;
-      alert(message || '취소 처리 중 오류가 발생했습니다.');
+      toast.error(message || '취소 처리 중 오류가 발생했습니다.');
     }
   };
 

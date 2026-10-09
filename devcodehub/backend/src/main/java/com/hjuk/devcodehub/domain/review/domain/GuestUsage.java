@@ -49,8 +49,4 @@ public class GuestUsage {
     this.usageCount++;
     this.lastUsedAt = LocalDateTime.now();
   }
-
-  public void resetUsage() {
-    this.usageCount = 0;
-  }
 }

@@ -6,12 +6,6 @@ spring:
   application:
     name: devcodehub
 
-  # Redis 연결 (app.redis.auto-startup=true일 때만 채팅 Pub/Sub에 사용)
-  data:
-    redis:
-      host: ${REDIS_HOST:localhost}
-      port: ${REDIS_PORT:6379}
-
   # 데이터베이스 설정 (공통)
   datasource:
     url: ${DB_URL}
@@ -80,7 +74,7 @@ server:
 # CORS 설정
 CORS_ALLOWED_ORIGIN: ${FRONTEND_URL:http://localhost:5173}
 
-# AI, PortOne, Upload, Redis 설정 (공통)
+# AI, PortOne, Upload 설정 (공통)
 app:
   ai:
     openai:
@@ -104,10 +98,6 @@ app:
   upload:
     base-url: ${APP_UPLOAD_BASE_URL:http://localhost:8080}
     profile-dir: uploads/profiles/
-
-  # Redis 설정
-  redis:
-    auto-startup: ${REDIS_AUTO_STARTUP:false}
 
   # PortOne 설정
   portone:

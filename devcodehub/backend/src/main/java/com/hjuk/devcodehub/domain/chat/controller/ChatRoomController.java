@@ -5,10 +5,10 @@ import com.hjuk.devcodehub.domain.chat.dto.ChatRoomRequest;
 import com.hjuk.devcodehub.domain.chat.dto.ChatRoomResponse;
 import com.hjuk.devcodehub.domain.chat.service.ChatService;
 import com.hjuk.devcodehub.global.common.ApiResponse;
+import com.hjuk.devcodehub.global.common.PageResponse;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -47,7 +47,7 @@ public class ChatRoomController {
   }
 
   @GetMapping("/{roomId}/messages")
-  public ResponseEntity<ApiResponse<Page<ChatMessageResponse>>> getMessages(
+  public ResponseEntity<ApiResponse<PageResponse<ChatMessageResponse>>> getMessages(
       @PathVariable Long roomId,
       @AuthenticationPrincipal User user,
       @PageableDefault(
@@ -56,7 +56,7 @@ public class ChatRoomController {
               direction = Sort.Direction.DESC)
           Pageable pageable) {
     return ResponseEntity.ok(
-        ApiResponse.success(chatService.getChatMessages(roomId, user.getUsername(), pageable)));
+        ApiResponse.successPage(chatService.getChatMessages(roomId, user.getUsername(), pageable)));
   }
 
   @PatchMapping("/{roomId}/read")

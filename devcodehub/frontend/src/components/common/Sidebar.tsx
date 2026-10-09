@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
 
+import { toast } from '../../store/toastStore';
 /**
  * 사이드바 컴포넌트 - React.memo 적용으로 불필요한 리렌더링 방지
  * GEMINI.md 규칙: 성능 최적화
@@ -28,7 +29,7 @@ const Sidebar: React.FC<SidebarProps> = memo(({ open, onClose }) => {
 
   const handleProfileClick = () => {
     if (role === 'GUEST') {
-      alert('비회원은 프로필을 수정할 수 없습니다.');
+      toast.error('비회원은 프로필을 수정할 수 없습니다.');
       return;
     }
     go('/dashboard?edit=true');

@@ -1,10 +1,10 @@
 # [TRD] DevCodeHub - 기술 상세 설계서
 
 ## 1. 기술 스택
-- **Backend**: Spring Boot 3.4.1 (Java 21), Spring Security(JWT·OAuth2), JPA, PostgreSQL(Supabase), Redis 7(선택)
+- **Backend**: Spring Boot 3.4.1 (Java 21), Spring Security(JWT·OAuth2), JPA, PostgreSQL(Supabase)
 - **Frontend**: React 19, TypeScript, Vite, Tailwind CSS, Zustand, TanStack Query, STOMP(SockJS)
 - **외부 연동**: Gemini·Claude·OpenAI API, PortOne(V2 SDK, V1·V2 서버 검증), Supabase Native Storage
-- **로컬 인프라**: Docker Compose(PostgreSQL 16, Redis 7). 운영 호스팅은 선정 중입니다.
+- **로컬 인프라**: Docker Compose(PostgreSQL 16). 운영 호스팅은 선정 중입니다.
 
 ## 2. 아키텍처 원칙
 - **계층형 구조**: Controller - Service - Repository
@@ -13,7 +13,7 @@
 - **환경 독립**: 주소·키는 모두 환경변수로 받아 호스팅에 종속되지 않습니다(`backend/.env.example`).
 
 ## 3. 핵심 기능 기술 명세
-- **채팅**: STOMP 기반. 메시지는 DB에 즉시 저장하고 브로드캐스트합니다. Redis Pub/Sub은 다중 인스턴스 전파용 선택 기능입니다. 안 읽은 수·알림은 커밋 이후 비동기로 전송합니다.
+- **채팅**: STOMP 기반. 메시지는 DB에 즉시 저장하고 브로드캐스트합니다. 서버 한 대 기준이며 다중 인스턴스 전파는 지원하지 않습니다. 안 읽은 수·알림은 커밋 이후 비동기로 전송합니다.
 - **AI 리뷰**: `AiProvider` 인터페이스(Gemini·Claude·OpenAI)로 추상화. 키가 있는 모델만 `isAvailable()`이 true이며 서버가 호출 전에 검증합니다.
 - **결제**: `PaymentStrategy`(V1: `imp_` 접두사, V2: 그 외)가 결제를 `PaymentInfo`로 정규화하고, `PaymentService`가 상태·금액·소유자·중복을 검증합니다.
 - **스토리지**: AWS SDK 없이 Supabase Native Storage API를 직접 호출합니다.

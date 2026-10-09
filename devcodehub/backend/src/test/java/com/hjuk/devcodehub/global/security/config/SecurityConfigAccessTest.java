@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.hjuk.devcodehub.global.controller.HealthCheckController;
+import com.hjuk.devcodehub.global.security.ClientIpResolver;
 import com.hjuk.devcodehub.global.security.jwt.JwtProvider;
 import com.hjuk.devcodehub.global.security.oauth2.CustomOAuth2UserService;
 import com.hjuk.devcodehub.global.security.oauth2.OAuth2SuccessHandler;
@@ -24,7 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
  * 핸들러가 없는 경로로도 보안 필터의 허용/차단 판단은 확인할 수 있다 (차단=401/403, 통과=그 외).
  */
 @WebMvcTest(controllers = HealthCheckController.class)
-@Import(SecurityConfig.class)
+@Import({SecurityConfig.class, ClientIpResolver.class})
 @TestPropertySource(
     properties = {
       "GOOGLE_CLIENT_ID=x", "GOOGLE_CLIENT_SECRET=x", "GOOGLE_REDIRECT_URI=http://localhost/g",

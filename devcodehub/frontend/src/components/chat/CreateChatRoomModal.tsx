@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 
+import { toast } from '../../store/toastStore';
 interface UserInfo {
   loginId: string;
   nickname: string;
@@ -58,8 +59,8 @@ const CreateChatRoomModal: React.FC<CreateChatRoomModalProps> = ({ onClose, onCr
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim()) return alert('방 이름을 입력하세요.');
-    if (selectedUserIds.length === 0) return alert('대화할 상대를 선택하세요.');
+    if (!name.trim()) return toast.error('방 이름을 입력하세요.');
+    if (selectedUserIds.length === 0) return toast.error('대화할 상대를 선택하세요.');
 
     setIsLoading(true);
     try {
@@ -70,7 +71,7 @@ const CreateChatRoomModal: React.FC<CreateChatRoomModalProps> = ({ onClose, onCr
       });
       onCreated(response.data);
     } catch {
-      alert('채팅방 생성에 실패했습니다.');
+      toast.error('채팅방 생성에 실패했습니다.');
     } finally {
       setIsLoading(false);
     }

@@ -1,13 +1,16 @@
 import { create } from 'zustand';
 
+export type ToastType = 'success' | 'error' | 'info';
+
 interface Toast {
   id: number;
   message: string;
+  type: ToastType;
 }
 
 interface ToastStore {
   toasts: Toast[];
-  showToast: (msg: string) => void;
+  showToast: (msg: string, type?: ToastType) => void;
   removeToast: (id: number) => void;
 }
 
@@ -19,9 +22,9 @@ const timers = new Map<number, ReturnType<typeof setTimeout>>();
 
 export const useToastStore = create<ToastStore>((set) => ({
   toasts: [],
-  showToast: (msg) => {
+  showToast: (msg, type = 'info') => {
     const id = nextId++;
-    set((state) => ({ toasts: [...state.toasts, { id, message: msg }] }));
+    set((state) => ({ toasts: [...state.toasts, { id, message: msg, type }] }));
     timers.set(
       id,
       setTimeout(() => {
@@ -39,3 +42,10 @@ export const useToastStore = create<ToastStore>((set) => ({
     set((state) => ({ toasts: state.toasts.filter((t) => t.id !== id) }));
   },
 }));
+
+// [Why] 컴포넌트 밖(훅·이벤트 핸들러)에서도 훅 없이 알림을 띄우기 위한 단축 함수. 브라우저 alert()을 대체한다.
+export const toast = {
+  success: (msg: string) => useToastStore.getState().showToast(msg, 'success'),
+  error: (msg: string) => useToastStore.getState().showToast(msg, 'error'),
+  info: (msg: string) => useToastStore.getState().showToast(msg, 'info'),
+};

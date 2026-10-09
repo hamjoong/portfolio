@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
 import api from '../../services/api';
 
+import { toast } from '../../store/toastStore';
 const LoginCallback: React.FC = () => {
   const navigate = useNavigate();
   const loginToStore = useAuthStore((state) => state.login);
@@ -30,13 +31,13 @@ const LoginCallback: React.FC = () => {
           navigate('/dashboard');
         } catch (error) {
           console.error('Fetch My Info Error:', error);
-          alert('로그인 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');
+          toast.error('로그인 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');
           navigate('/login');
         }
       };
       fetchMyInfo();
     } else {
-      alert('로그인에 실패했습니다.');
+      toast.error('로그인에 실패했습니다.');
       navigate('/login');
     }
   }, [navigate, loginToStore]);

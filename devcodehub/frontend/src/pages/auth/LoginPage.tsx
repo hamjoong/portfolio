@@ -5,6 +5,7 @@ import { useAuthStore } from '../../store/authStore';
 import { getSocialLoginUrl } from '../../services/constants';
 import type { SocialProvider } from '../../services/constants';
 
+import { toast } from '../../store/toastStore';
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -42,7 +43,7 @@ const LoginPage: React.FC = () => {
       loginToStore(accessToken, id, loginId, nickname, role, credits, totalSpentCredits, weeklyFreeReviewUsed, maxWeeklyFreeLimit, profileImageUrl, avatarUrl);
       navigate('/dashboard');
     } catch {
-      alert('로그인에 실패했습니다. 아이디와 비밀번호를 확인해 주세요.');
+      toast.error('로그인에 실패했습니다. 아이디와 비밀번호를 확인해 주세요.');
     } finally {
       setIsLoading(false);
     }

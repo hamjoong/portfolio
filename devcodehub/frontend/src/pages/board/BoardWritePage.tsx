@@ -5,6 +5,7 @@ import { normalizeTag } from '../../utils/tagUtils';
 import { useAuthGuard } from '../../hooks/useAuthGuard';
 import axios from 'axios';
 
+import { toast } from '../../store/toastStore';
 const BoardWritePage: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -41,7 +42,7 @@ const BoardWritePage: React.FC = () => {
         } catch (error: unknown) {
           console.error('Failed to fetch board for edit:', error);
           if (axios.isAxiosError(error)) {
-            alert(error.response?.data?.error?.message || '게시글 정보를 불러오는 데 실패했습니다.');
+            toast.error(error.response?.data?.error?.message || '게시글 정보를 불러오는 데 실패했습니다.');
           }
           navigate(-1);
         }
@@ -53,8 +54,8 @@ const BoardWritePage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.title.trim()) return alert('제목을 입력해 주세요.');
-    if (!formData.content.trim()) return alert('내용을 입력해 주세요.');
+    if (!formData.title.trim()) return toast.error('제목을 입력해 주세요.');
+    if (!formData.content.trim()) return toast.error('내용을 입력해 주세요.');
 
     /** [Why] 전송 전 데이터를 정규화하여 백엔드의 부담을 줄이고 데이터 무결성을 유지함. */
     const payload = {
@@ -71,11 +72,11 @@ const BoardWritePage: React.FC = () => {
     try {
       if (editMode && boardId) {
         await api.put(`/boards/${boardId}`, payload);
-        alert('게시글이 수정되었습니다.');
+        toast.success('게시글이 수정되었습니다.');
         navigate(`/boards/${boardId}`);
       } else {
         await api.post('/boards', payload);
-        alert('게시글이 등록되었습니다.');
+        toast.success('게시글이 등록되었습니다.');
         
         /** [Why] 등록 후 목록 이동 시 replace: true를 사용하여 브라우저 히스토리를 정리하고, 
          *  타임스탬프를 쿼리에 추가하여 캐시를 무시한 최신 목록 로드를 강제함. */
@@ -84,7 +85,7 @@ const BoardWritePage: React.FC = () => {
     } catch (error: unknown) {
       console.error("Board submission error:", error);
       if (axios.isAxiosError(error)) {
-        alert(error.response?.data?.error?.message || '게시글 저장 중 오류가 발생했습니다.');
+        toast.error(error.response?.data?.error?.message || '게시글 저장 중 오류가 발생했습니다.');
       }
     }
   };

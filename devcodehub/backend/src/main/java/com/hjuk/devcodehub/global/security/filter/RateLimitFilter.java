@@ -1,5 +1,6 @@
 package com.hjuk.devcodehub.global.security.filter;
 
+import com.hjuk.devcodehub.global.security.ClientIpResolver;
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Refill;
@@ -50,6 +51,11 @@ public class RateLimitFilter implements Filter {
   private final Map<String, Entry> cache = new ConcurrentHashMap<>();
   private final Map<String, Entry> authCache = new ConcurrentHashMap<>();
   private final AtomicLong lastCleanup = new AtomicLong(System.currentTimeMillis());
+  private final ClientIpResolver clientIpResolver;
+
+  public RateLimitFilter(ClientIpResolver clientIpResolver) {
+    this.clientIpResolver = clientIpResolver;
+  }
 
   private Bucket createNewBucket() {
     return Bucket.builder()
@@ -95,8 +101,8 @@ public class RateLimitFilter implements Filter {
 
     evictIdle();
 
-    // [Why] 프록시 뒤에서는 forward-headers-strategy 설정으로 getRemoteAddr()가 실제 클라이언트 IP를 돌려준다.
-    String ip = httpRequest.getRemoteAddr();
+    // [Why] 클라이언트가 조작할 수 있는 X-Forwarded-For를 그대로 믿지 않고, 신뢰할 프록시 단계만 센 IP를 쓴다.
+    String ip = clientIpResolver.resolve(httpRequest);
     boolean authPath =
         "POST".equals(httpRequest.getMethod())
             && (path.equals("/api/v1/auth/login") || path.equals("/api/v1/auth/signup"));

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
 import api from '../../services/api';
 
+import { toast } from '../../store/toastStore';
 interface BoardPreview {
   id: number;
   title: string;
@@ -58,7 +59,7 @@ const Home: React.FC = () => {
   const handleProtectedNavigate = (path: string) => {
     if (!isLoggedIn) {
       guestLogin();
-      alert('방문자 모드로 입장합니다. 일부 기능이 제한될 수 있습니다.');
+      toast.info('방문자 모드로 입장합니다. 일부 기능이 제한될 수 있습니다.');
     }
     navigate(path);
   };
@@ -66,7 +67,7 @@ const Home: React.FC = () => {
   /** [Why] 상세 가입 절차 없이 대시보드를 둘러보고 싶은 사용자를 위한 편의 기능을 제공함. */
   const handleGuestEntry = () => {
     guestLogin();
-    alert('방문자 모드로 입장합니다. 일부 기능이 제한될 수 있습니다.');
+    toast.info('방문자 모드로 입장합니다. 일부 기능이 제한될 수 있습니다.');
     navigate('/dashboard');
   };
 

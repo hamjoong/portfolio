@@ -18,7 +18,6 @@ public class ChatMessageResponse {
   private String message;
   private ChatMessageType type;
   private LocalDateTime createdAt;
-  private String senderInstanceId;
 
   public ChatMessageResponse(ChatMessage chatMessage) {
     this.id = chatMessage.getId();

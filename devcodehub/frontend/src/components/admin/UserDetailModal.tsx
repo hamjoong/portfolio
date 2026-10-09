@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import api from '../../services/api';
 import axios, { AxiosError } from 'axios';
 
+import { toast } from '../../store/toastStore';
 interface UserInfo {
   id: number;
   loginId: string;
@@ -30,12 +31,12 @@ const UserDetailModal: React.FC<UserDetailModalProps> = ({ user, onClose, onUpda
 
   const handleAdjustCredits = async () => {
     const amount = parseInt(adjustAmount);
-    if (isNaN(amount) || amount === 0) return alert('올바른 조정 금액(숫자)을 입력하세요.');
-    if (amount > 999999) return alert('한 번에 999,999 C를 초과하여 지급할 수 없습니다.');
+    if (isNaN(amount) || amount === 0) return toast.error('올바른 조정 금액(숫자)을 입력하세요.');
+    if (amount > 999999) return toast.error('한 번에 999,999 C를 초과하여 지급할 수 없습니다.');
     if (amount < 0 && Math.abs(amount) > user.credits) {
-      return alert(`보유 잔액(${user.credits.toLocaleString()} C)보다 많은 금액을 차감할 수 없습니다.`);
+      return toast.error(`보유 잔액(${user.credits.toLocaleString()} C)보다 많은 금액을 차감할 수 없습니다.`);
     }
-    if (!reason.trim()) return alert('조정 사유를 입력하세요.');
+    if (!reason.trim()) return toast.error('조정 사유를 입력하세요.');
 
     setIsSubmitting(true);
     try {
@@ -43,7 +44,7 @@ const UserDetailModal: React.FC<UserDetailModalProps> = ({ user, onClose, onUpda
         amount: amount,
         reason: reason.trim()
       });
-      alert('크레딧이 성공적으로 조정되었습니다.');
+      toast.success('크레딧이 성공적으로 조정되었습니다.');
       onUpdated();
     } catch (error: unknown) {
       console.error('Failed to adjust credits:', error);
@@ -52,7 +53,7 @@ const UserDetailModal: React.FC<UserDetailModalProps> = ({ user, onClose, onUpda
         const axiosError = error as AxiosError<ErrorResponse>;
         message = axiosError.response?.data?.error?.message || message;
       }
-      alert(message);
+      toast.error(message);
     } finally {
       setIsSubmitting(false);
     }

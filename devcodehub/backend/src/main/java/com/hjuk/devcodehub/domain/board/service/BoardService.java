@@ -41,7 +41,6 @@ public class BoardService {
   private final BoardLikeRepository boardLikeRepository;
   private final BoardBookmarkRepository boardBookmarkRepository;
   private final UserRepository userRepository;
-  private final BoardKeywordService boardKeywordService;
   private final ActivityService activityService;
 
   /**
@@ -77,7 +76,7 @@ public class BoardService {
     Optional<User> currentUser = getUserByLoginId(loginId);
 
     Specification<Board> spec =
-        BoardSpecification.filterByTypeKeywordTag(type, keyword, tag, boardKeywordService);
+        BoardSpecification.filterByTypeKeywordTag(type, keyword, tag);
     Page<Board> boards = boardRepository.findAll(spec, pageable);
 
     List<Long> boardIds =

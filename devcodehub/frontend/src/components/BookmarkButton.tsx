@@ -3,6 +3,7 @@ import { FaRegBookmark, FaBookmark } from 'react-icons/fa';
 import api from '../services/api';
 import { useAuthStore } from '../store/authStore';
 
+import { toast } from '../store/toastStore';
 interface BookmarkButtonProps {
     postId: number;
     initialBookmarked: boolean;
@@ -23,7 +24,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ postId, initialBookmark
         event.stopPropagation();
 
         if (!isLoggedIn || role === 'GUEST') {
-            alert('북마크하려면 로그인해주세요.');
+            toast.error('북마크하려면 로그인해주세요.');
             return;
         }
 
@@ -40,7 +41,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ postId, initialBookmark
             }
         } catch (error) {
             console.error('[BookmarkButton] 북마크 처리 에러:', error);
-            alert('북마크 처리 중 오류가 발생했습니다.');
+            toast.error('북마크 처리 중 오류가 발생했습니다.');
         } finally {
             setIsLoading(false);
         }

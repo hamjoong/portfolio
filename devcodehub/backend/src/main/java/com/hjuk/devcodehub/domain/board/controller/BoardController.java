@@ -5,9 +5,9 @@ import com.hjuk.devcodehub.domain.board.dto.BoardRequest;
 import com.hjuk.devcodehub.domain.board.dto.BoardResponse;
 import com.hjuk.devcodehub.domain.board.service.BoardService;
 import com.hjuk.devcodehub.global.common.ApiResponse;
+import com.hjuk.devcodehub.global.common.PageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -42,7 +42,7 @@ public class BoardController {
   }
 
   @GetMapping
-  public ResponseEntity<ApiResponse<Page<BoardResponse>>> getBoards(
+  public ResponseEntity<ApiResponse<PageResponse<BoardResponse>>> getBoards(
       @RequestParam BoardType type,
       @RequestParam(required = false) String keyword,
       @RequestParam(required = false) String tag,
@@ -54,7 +54,7 @@ public class BoardController {
       @AuthenticationPrincipal User user) {
     String loginId = user != null ? user.getUsername() : null;
     return ResponseEntity.ok(
-        ApiResponse.success(boardService.getBoards(type, keyword, tag, pageable, loginId)));
+        ApiResponse.successPage(boardService.getBoards(type, keyword, tag, pageable, loginId)));
   }
 
   @GetMapping("/{id}")
@@ -100,7 +100,7 @@ public class BoardController {
   }
 
   @GetMapping("/me/bookmarks")
-  public ResponseEntity<ApiResponse<Page<BoardResponse>>> getMyBookmarks(
+  public ResponseEntity<ApiResponse<PageResponse<BoardResponse>>> getMyBookmarks(
       @PageableDefault(
               size = DEFAULT_PAGE_SIZE,
               sort = "createdAt",
@@ -111,6 +111,6 @@ public class BoardController {
       return ResponseEntity.status(UNAUTHORIZED_STATUS).build();
     }
     return ResponseEntity.ok(
-        ApiResponse.success(boardService.getMyBookmarks(user.getUsername(), pageable)));
+        ApiResponse.successPage(boardService.getMyBookmarks(user.getUsername(), pageable)));
   }
 }

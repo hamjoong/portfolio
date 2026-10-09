@@ -16,7 +16,6 @@ graph TD
 
     subgraph "Data Storage"
         App --> DB[(PostgreSQL - Supabase)]
-        App -. 선택 .-> Cache[(Redis Pub/Sub)]
         App --> Storage[(Supabase Storage - Native API)]
     end
 
@@ -32,7 +31,7 @@ graph TD
 
 - **Presentation Layer (Controller)**: HTTP 요청 처리, JSON 변환, 표준 응답(`ApiResponse`) 적용
 - **Service Layer (Business)**: 핵심 비즈니스 로직, 트랜잭션 경계, AI 병렬 호출(`CompletableFuture`)
-- **Infrastructure Layer (Data/External)**: DB 접근(JPA), 외부 API 통신(`RestClient`), Redis 메시징
+- **Infrastructure Layer (Data/External)**: DB 접근(JPA), 외부 API 통신(`RestClient`)
 - **Common/Shared Layer**: 전역 예외 처리(`GlobalExceptionHandler`), 보안 필터, 마스킹 유틸(`MaskingUtil`)
 
 ## 3. 데이터 흐름 (Data Flow)
@@ -48,7 +47,7 @@ graph TD
 ### 3.2 실시간 채팅·알림 흐름
 1. 로그인한 클라이언트는 앱 시작 시 `/api/v1/ws-stomp`에 JWT와 함께 연결합니다(싱글턴 클라이언트, 재연결 시 구독 자동 복구).
 2. 서버의 인터셉터(`StompAuthChannelInterceptor`)가 CONNECT에서 JWT를 검증하고, SUBSCRIBE에서 채팅방 참여자·본인 채널 여부를 검사합니다.
-3. 메시지 발송(`/pub/chat/message`) 시 서버가 발신자를 인증 정보에서 정해 DB에 **즉시 저장**하고, 같은 인스턴스의 구독자에게 브로드캐스트합니다. Redis를 켠 경우 다른 인스턴스로도 한 번만 발행합니다.
+3. 메시지 발송(`/pub/chat/message`) 시 서버가 발신자를 인증 정보에서 정해 DB에 **즉시 저장**하고, 같은 인스턴스의 구독자에게 브로드캐스트합니다.
 4. 안 읽은 메시지 수와 알림은 **트랜잭션 커밋 이후** 별도 스레드(`@TransactionalEventListener(AFTER_COMMIT)` + `@Async`)에서 계산·전송합니다. 알림 실패가 본 작업을 롤백시키지 않습니다.
 
 ### 3.3 결제 흐름 (PortOne 테스트 결제)

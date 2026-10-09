@@ -2,7 +2,6 @@ package com.hjuk.devcodehub.domain.board.repository;
 
 import com.hjuk.devcodehub.domain.board.domain.Board;
 import com.hjuk.devcodehub.domain.board.domain.BoardType;
-import com.hjuk.devcodehub.domain.board.service.BoardKeywordService;
 import jakarta.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +20,10 @@ public final class BoardSpecification {
    * @param type 게시판 타입
    * @param keyword 검색 키워드
    * @param tag 태그
-   * @param boardKeywordService 키워드 관련 서비스
    * @return 게시글 Specification 객체
    */
   public static Specification<Board> filterByTypeKeywordTag(
-      BoardType type, String keyword, String tag, BoardKeywordService boardKeywordService) {
+      BoardType type, String keyword, String tag) {
 
     return (root, query, cb) -> {
       List<Predicate> predicates = new ArrayList<>();

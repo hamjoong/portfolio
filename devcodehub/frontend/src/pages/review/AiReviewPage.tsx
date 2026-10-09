@@ -6,6 +6,7 @@ import axios from 'axios';
 import ReviewResultCard, { type StructuredReview } from './ReviewResultCard';
 import { useAuthStore } from '../../store/authStore';
 
+import { toast } from '../../store/toastStore';
 loader.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.55.1/min/vs' } });
 
 const MODEL_NAME_MAPPING: Record<string, string> = {
@@ -72,7 +73,7 @@ const AiReviewPage: React.FC = () => {
     setResults({});
     
     if (!code.trim()) {
-      alert('리뷰할 코드를 입력해 주세요.');
+      toast.error('리뷰할 코드를 입력해 주세요.');
       return;
     }
 
@@ -100,12 +101,12 @@ const AiReviewPage: React.FC = () => {
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && (error.response?.status === 503 || error.response?.status === 429)) {
-        alert('현재 AI 서비스 요청이 많습니다. 잠시 후(약 1분 뒤) 다시 시도해 주세요.');
+        toast.error('현재 AI 서비스 요청이 많습니다. 잠시 후(약 1분 뒤) 다시 시도해 주세요.');
       } else {
         const message = axios.isAxiosError(error) 
           ? (error.response?.data?.error?.message || 'AI 리뷰 요청 중 오류가 발생했습니다.') 
           : '알 수 없는 오류가 발생했습니다.';
-        alert(message);
+        toast.error(message);
       }
     } finally {
       setIsLoading(false);

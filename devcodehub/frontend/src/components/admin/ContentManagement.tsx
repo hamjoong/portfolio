@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import api from '../../services/api';
 
+import { toast } from '../../store/toastStore';
 interface BoardInfo {
   id: number;
   title: string;
@@ -49,10 +50,10 @@ const ContentManagement: React.FC = () => {
     if (!window.confirm('이 게시글을 정말 삭제하시겠습니까?')) return;
     try {
       await api.delete(`/admin/boards/${id}`);
-      alert('삭제되었습니다.');
+      toast.success('삭제되었습니다.');
       fetchBoards(currentPage, searchKeyword);
     } catch {
-      alert('삭제 실패했습니다.');
+      toast.error('삭제 실패했습니다.');
     }
   };
 

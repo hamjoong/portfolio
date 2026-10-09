@@ -31,7 +31,11 @@ public class SeniorReviewResponse {
     this.content = request.getContent();
     this.codeContent = request.getCodeContent();
     this.language = request.getLanguage();
-    this.tags = request.getTags();
+    // [Why] 지연 로딩 컬렉션을 그대로 들고 있으면 트랜잭션이 끝난 뒤 JSON 변환에서 LazyInitializationException(500)이 난다.
+    this.tags =
+        request.getTags() != null
+            ? new java.util.ArrayList<>(request.getTags())
+            : java.util.Collections.emptyList();
     this.credits = request.getCredits();
     this.status = request.getStatus();
     this.juniorNickname = request.getJunior().getNickname();

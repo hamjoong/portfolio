@@ -3,6 +3,8 @@
 > 취준생·주니어 개발자를 위한 **AI 병렬 코드 리뷰 + 시니어 매칭 리뷰** 커뮤니티 플랫폼
 
 - **PortOne 결제는 테스트(가상) 결제**입니다. 실제 금액이 청구되지 않습니다.
+- **데모**: https://devcodehub-hamjoong.vercel.app
+- 무료 서버(Render)를 쓰므로 15분 이상 쉬었다가 처음 접속하면 서버가 깨어나는 데 최대 1분 정도 걸릴 수 있습니다.
 
 ---
 
@@ -31,10 +33,10 @@
 ---
 
 ## 3. 기술 스택
-- **Backend**: Spring Boot 3.4.1 (Java 21), Spring Security(JWT + OAuth2), JPA, PostgreSQL(Supabase), STOMP/SockJS, Redis(선택)
+- **Backend**: Spring Boot 3.4.1 (Java 21), Spring Security(JWT + OAuth2), JPA, PostgreSQL(Supabase), STOMP/SockJS
 - **Frontend**: React 19, TypeScript, Vite, Tailwind CSS 3, Zustand, TanStack Query v5, Monaco Editor(CDN), Chart.js
 - **외부 연동**: Gemini / Claude / OpenAI API, PortOne(V2 SDK + V1·V2 서버 검증), Supabase Storage
-- **로컬 인프라**: Docker Compose (PostgreSQL 16, Redis 7)
+- **로컬 인프라**: Docker Compose (PostgreSQL 16)
 
 ---
 
@@ -53,14 +55,13 @@ graph TD
     end
 
     Services --> DB[(PostgreSQL)]
-    Services -. 선택 .-> Redis[(Redis Pub/Sub)]
     Services --> Storage[(Supabase Storage)]
     AI --> Ext[외부 AI API]
     Pay --> PortOne[PortOne API]
 ```
 
 - **인증**: 서버에 세션을 두지 않는 **stateless JWT**입니다. 소셜 로그인(Google·GitHub·Kakao·Naver) 성공 후 JWT는 URL fragment(`#token=`)로 프론트에 전달됩니다.
-- **Redis는 선택 사항**입니다. 켜면(`REDIS_AUTO_STARTUP=true`) 채팅 메시지를 여러 서버 인스턴스에 전달하는 Pub/Sub으로만 쓰이고, 꺼도 단일 서버로 모든 기능이 동작합니다. 채팅 메시지는 DB에 즉시 저장됩니다.
+- **채팅은 서버 한 대 기준**입니다. 메시지는 DB에 즉시 저장하고 같은 서버의 구독자에게 STOMP로 바로 전달합니다. 서버를 여러 대로 늘리려면 외부 메시지 브로커(Redis 등)가 필요합니다.
 - **결제**: 프론트는 PortOne V2 SDK로 결제하고, 서버가 PortOne API로 결제를 다시 조회해 검증합니다. 서버는 `imp_` 접두사 결제는 V1, 나머지는 V2 방식으로 조회합니다.
 
 ---
@@ -73,7 +74,7 @@ graph TD
 - 업로드는 이미지 형식(jpg/png/webp/gif)·크기(5MB)·파일 서명을 검사하고 서버가 파일명을 새로 만듭니다.
 - 에러 응답에는 내부 예외 메시지·SQL 정보를 싣지 않고, API 키는 URL이 아니라 헤더로 전달합니다. 로그의 개인정보는 마스킹합니다.
 - 로그인·회원가입은 IP당 분당 10회, 일반 API는 IP당 초당 약 50회로 제한합니다.
-- 비밀번호 찾기는 이메일 발송 수단이 없어 **관리자 문의**로 안내합니다(임시 비밀번호를 화면에 내주지 않습니다).
+- 비밀번호 찾기는 이메일 발송 수단이 없어 **관리자 문의**로 안내합니다
 
 자세한 내용은 [`docs/SECURITY.md`](docs/SECURITY.md)를 참고하세요.
 
@@ -107,7 +108,7 @@ devcodehub/
 │       ├── pages/         # 페이지
 │       ├── services/      # API·STOMP 클라이언트
 │       └── store/         # Zustand 스토어
-├── infra/                 # 로컬 개발용 docker-compose (PostgreSQL, Redis)
+├── infra/                 # 로컬 개발용 docker-compose (PostgreSQL)
 └── docs/                  # PRD · TRD · API · Architecture · Security · ADR
 ```
 
@@ -149,16 +150,20 @@ devcodehub/
 ## 10. 트러블슈팅 기록
 1. **소셜 로그인 리다이렉트 실패**
    - 원인: 소셜 콘솔에 등록한 redirect URI와 서버 설정이 불일치, 프록시 뒤에서 Authorization 헤더 유실
-   - 해결: redirect URI를 `BACKEND_URL` 환경변수에서 만들도록 하고 소셜 콘솔에 같은 주소를 등록. 프록시 뒤에서는 `forward-headers-strategy: framework`로 실제 클라이언트 IP·프로토콜 인식
+   - 해결: redirect URI를 `BACKEND_URL` 환경변수에서 만들도록 하고 소셜 콘솔에 같은 주소를 등록. 프록시 뒤에서는 `forward-headers-strategy: framework`로 프로토콜을 인식. 클라이언트 IP는 조작 가능한 `X-Forwarded-For` 맨 앞 값 대신 `ClientIpResolver`가 프록시 단계 수(`TRUSTED_PROXY_HOPS`)만큼 오른쪽에서 센 값을 사용
+
 2. **SPA 새로고침 404**
    - 원인: 정적 호스팅이 클라이언트 라우팅 경로를 모름
    - 해결: 호스팅 쪽에서 모든 경로를 `index.html`로 폴백하도록 설정
+
 3. **AI 호출 지연으로 DB 커넥션 고갈 위험**
    - 원인: AI 응답을 기다리는 동안 트랜잭션이 커넥션을 계속 점유
    - 해결: AI 호출을 트랜잭션 밖으로 분리하고 성공 건수만 짧은 트랜잭션으로 정산, 호출·읽기 타임아웃 설정
+
 4. **이미지 업로드 `SignatureDoesNotMatch`**
    - 원인: Java AWS SDK v1과 Supabase S3 호환 API의 서명 방식 불일치
    - 해결: SDK를 쓰지 않고 Supabase Native Storage API를 `service_role` 키로 직접 호출
+
 5. **모바일 결제 후 크레딧이 지급되지 않을 수 있던 문제**
    - 원인: 모바일(REDIRECTION)은 결제 후 주소 쿼리로 돌아오는데 V2 파라미터(`paymentId`)를 읽지 않음
    - 해결: V2(`paymentId`·`code`)와 V1(`imp_uid`) 파라미터를 모두 받아 서버 검증으로 전달 *(실기기 결제 확인 필요)*
