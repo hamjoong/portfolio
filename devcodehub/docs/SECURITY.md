@@ -27,7 +27,7 @@
 ## 4. 운영 보안
 - **비밀값 관리**: `.env`는 로컬 개발용이며 Git에 올리지 않습니다. 필요한 키 이름은 `backend/.env.example`에 값 없이 정리되어 있습니다. 운영에서는 호스팅의 환경변수/시크릿 기능으로 주입하고 Docker 이미지에는 `.env`를 넣지 않습니다.
 - **로그 마스킹**: `MaskingUtil`과 `LogMaskingConverter`로 이메일·연락처·로그인 ID를 마스킹합니다.
-- **Rate Limiting**: IP별 토큰 버킷(일반 API 초당 약 50회 충전·최대 100, 로그인·회원가입은 분당 10회). 오래 쓰지 않은 버킷은 정리합니다. 클라이언트 IP는 조작할 수 있는 `X-Forwarded-For`의 맨 앞 값이 아니라, 프록시가 덧붙인 오른쪽 항목을 `app.security.trusted-proxy-hops`(운영 `TRUSTED_PROXY_HOPS`, 기본 2)만큼 세어 사용합니다(`ClientIpResolver`). 비회원 AI 리뷰 횟수 제한도 같은 IP 값을 씁니다. 호스팅 프록시 구성이 바뀌면 이 값을 다시 확인해야 합니다.
+- **Rate Limiting**: IP별 토큰 버킷(일반 API 초당 약 50회 충전·최대 100, 로그인·회원가입은 분당 10회). 오래 쓰지 않은 버킷은 정리합니다. 클라이언트 IP는 조작할 수 있는 `X-Forwarded-For`의 맨 앞 값이 아니라, 프록시가 덧붙인 오른쪽 항목을 `app.security.trusted-proxy-hops`(운영 `TRUSTED_PROXY_HOPS`, 기본 3: Render 앞단이 [사용자, Cloudflare, Render 앞단] 순으로 덧붙이는 것을 실측함)만큼 세어 사용합니다(`ClientIpResolver`). 비회원 AI 리뷰 횟수 제한도 같은 IP 값을 씁니다. 호스팅 프록시 구성이 바뀌면 이 값을 다시 확인해야 합니다.
 - **CORS**: `CORS_ALLOWED_ORIGIN`에 지정한 출처만 허용합니다.
 - **스토리지**: 서버만 `service_role` 키로 업로드합니다. 클라이언트에는 스토리지 쓰기 권한이 없습니다.
 
