@@ -35,14 +35,6 @@
     align-items: center;
   }
 
-  &-philosophy {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: $primary-color;
-    margin-bottom: 24px;
-    font-family: $font-secondary;
-  }
-
   &-description {
     margin-bottom: 32px;
     
@@ -51,24 +43,6 @@
       line-height: 1.8;
       color: $text-secondary;
       font-size: 1.1rem;
-    }
-  }
-
-  &-vision {
-    background-color: $white;
-    padding: 24px;
-    border-radius: 16px;
-    border-left: 4px solid $primary-color;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-
-    h3 {
-      font-size: 1.2rem;
-      margin-bottom: 12px;
-    }
-
-    p {
-      color: $text-secondary;
-      line-height: 1.6;
     }
   }
 }
@@ -81,9 +55,5 @@
   .section-title::after {
     left: 50%;
     transform: translateX(-50%);
-  }
-
-  .intro-vision {
-    text-align: left;
   }
 }

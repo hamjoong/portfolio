@@ -4,8 +4,8 @@ import { TECH_STACK, TechItem as TechItemData } from '../constants/techStack';
 
 /**
  * [기술 스택 관리 전략]
- * 단순 기술 나열이 아닌 Frontend, Backend, Tools & AI Agent로 카테고리화하여 
- * 개발 프로세스 전반에 걸친 풀스택 역량과 최신 도구(AI) 활용 능력을 효과적으로 보여주기 위해 분류함.
+ * 단순 기술 나열이 아닌 Frontend, Backend, Tools로 분류하여
+ * 프론트엔드 중심에 서버 구현 경험이 더해진 역량을 보여주기 위함.
  */
 
 /**
@@ -53,7 +53,7 @@ const TechStack: React.FC = () => {
           </div>
 
           <div className="tech-category">
-            <h3 className="category-title">Tools & AI Agent</h3>
+            <h3 className="category-title">Tools</h3>
             <div className="tech-list">
               {TECH_STACK.ETC.map((item, idx) => (
                 <TechItem key={idx} {...item} />
