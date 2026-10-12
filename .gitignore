@@ -8,9 +8,10 @@
 .harness/
 .claude/
 .gemini/
+.codex/
+.agents/
 AGENTS.md
 CLAUDE.md
-GEMINI.md
 
 
 # ── 2. 환경변수: 실제 값 파일은 제외 예시 파일(.example)만 추적 ──
@@ -18,11 +19,10 @@ GEMINI.md
 .env.local
 .env.development
 .env.production
-.env.example
 .env.*
 *.local
+!.env.example
 !.env.*.example
-
 
 
 # ── 3. Node ─────────────────────────────────────────
