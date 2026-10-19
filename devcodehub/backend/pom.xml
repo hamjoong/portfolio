@@ -17,6 +17,8 @@
 	<properties>
 		<java.version>21</java.version>
 		<lombok.version>1.18.36</lombok.version>
+		<!-- Docker 29 이상은 낮은 API 버전 요청을 거절하므로 Boot 3.4.1 기본값(1.20.x)보다 높은 Testcontainers를 쓴다 -->
+		<testcontainers.version>1.21.4</testcontainers.version>
 	</properties>
 
 	<dependencies>
@@ -62,6 +64,21 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-testcontainers</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
 			<scope>test</scope>
 		</dependency>
         
