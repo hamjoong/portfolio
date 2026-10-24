@@ -1,5 +1,6 @@
 package com.hjuk.devcodehub.domain.user.service;
 
+import static com.hjuk.devcodehub.global.testsupport.ConcurrencyRunner.runConcurrently;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -10,13 +11,7 @@ import com.hjuk.devcodehub.domain.user.domain.User;
 import com.hjuk.devcodehub.domain.user.repository.CreditTransactionRepository;
 import com.hjuk.devcodehub.domain.user.repository.UserRepository;
 import com.hjuk.devcodehub.global.error.exception.BusinessException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -70,36 +65,6 @@ class CreditConcurrencyTest {
             .role(Role.USER)
             .credits(credits)
             .build());
-  }
-
-  /** 모든 작업을 같은 시점에 시작시키고, 작업마다 성공이면 null, 실패면 예외를 모아 돌려준다. */
-  private List<Throwable> runConcurrently(int count, Callable<Void> task) throws Exception {
-    ExecutorService pool = Executors.newFixedThreadPool(count);
-    CountDownLatch ready = new CountDownLatch(count);
-    CountDownLatch start = new CountDownLatch(1);
-    List<Future<Throwable>> futures = new ArrayList<>();
-    for (int i = 0; i < count; i++) {
-      futures.add(
-          pool.submit(
-              () -> {
-                ready.countDown();
-                start.await();
-                try {
-                  task.call();
-                  return null;
-                } catch (Throwable t) {
-                  return t;
-                }
-              }));
-    }
-    ready.await();
-    start.countDown();
-    List<Throwable> results = new ArrayList<>();
-    for (Future<Throwable> future : futures) {
-      results.add(future.get());
-    }
-    pool.shutdown();
-    return results;
   }
 
   @Test

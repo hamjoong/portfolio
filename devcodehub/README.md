@@ -142,8 +142,11 @@ devcodehub/
 ---
 
 ## 9. 테스트·검증
-- **Backend**: `mvn test` — 단위 테스트(서비스·보안 규칙·결제 검증 등)와 Checkstyle이 함께 실행됩니다.
-- **동시성 테스트**: `CreditConcurrencyTest`는 Testcontainers로 실제 PostgreSQL 16을 띄워 확인합니다(Docker 필요). 잔액 100에서 10씩 20개 스레드가 동시에 차감하면 정확히 10건만 성공하고 잔액은 0으로 음수가 되지 않으며, 같은 결제 ID로 8개 스레드가 동시에 충전하면 1건만 지급되고 나머지는 롤백됩니다. 이 테스트는 `CreditService`의 행 잠금과 결제 ID 유니크 제약만 검증하며, AI 리뷰 전체 흐름이나 결제 API 연동은 포함하지 않습니다.
+- **Backend**: `./mvnw test` — 단위 테스트(서비스·보안 규칙·결제 검증 등)와 Checkstyle이 함께 실행됩니다.
+- **동시성 테스트**: `CreditConcurrencyTest`는 Testcontainers로 실제 PostgreSQL 16을 띄워 확인합니다(Docker 필요). 잔액 100에서 10씩 20개 스레드가 동시에 차감하면 정확히 10건만 성공하고 잔액은 0으로 음수가 되지 않으며, 같은 결제 ID로 8개 스레드가 동시에 충전하면 1건만 지급되고 나머지는 롤백됩니다. 이 테스트는 `CreditService`의 행 잠금과 결제 ID 유니크 제약을 검증합니다.
+  - `SubscriptionPaymentConcurrencyTest`: 같은 결제 ID로 8개 스레드가 동시에 구독하면 구독·결제 기록이 1건만 남고 나머지는 롤백됩니다. 이 경로에서는 `user_subscriptions.user_id` 유니크 제약이 먼저 중복을 막았고, 결제 ID 유니크는 그 뒤의 방어선입니다. PortOne 호출은 고정 응답 대역으로 대체했습니다.
+  - `SeniorReviewConcurrencyTest`: 매칭된 요청의 리뷰 완료를 8개 스레드가 동시에 요청해도 정산(수수료 10% 차감)은 1번만 이루어지고, 서로 다른 시니어 지원을 동시에 수락해도 매칭은 1건만 됩니다(요청 행 잠금 + 상태 검사).
+  - 결제 응답 파싱은 `PortoneV2StrategyTest`(MockRestServiceServer)와 `IamportV1StrategyTest`(로컬 HTTP 대역 서버)가 금액·상태·소유자 정규화를 확인합니다. 실제 PortOne 서버 연동과 AI 리뷰 전체 흐름은 자동 테스트에 포함하지 않습니다.
 - **Frontend**: 자동화 테스트는 아직 없습니다. `npm run lint`(ESLint)와 `npm run build`(타입 검사 + 빌드)로 검증합니다.
 
 ---
