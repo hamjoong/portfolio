@@ -170,7 +170,13 @@ function OrderContent() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
         <div className="lg:col-span-2 flex flex-col gap-8">
-          
+
+          {/* [이유] 공개 데모에서 방문자의 실제 개인정보가 저장되지 않도록 입력 전에 분명히 알린다. */}
+          <div role="note" className="p-5 rounded-2xl bg-amber-50 border border-amber-200 text-sm text-amber-900 leading-relaxed">
+            <p className="font-bold mb-1">포트폴리오 데모입니다. 실제 개인정보를 입력하지 마세요.</p>
+            <p>이름·연락처·주소·이메일은 아래 예시처럼 가상의 값을 사용해 주세요. 실제 배송과 결제는 이루어지지 않습니다.</p>
+          </div>
+
           {/* 배송지 정보 섹션 */}
           <section className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
             <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-50">
@@ -186,14 +192,14 @@ function OrderContent() {
                   type="text"
                   value={orderInfo.receiverName}
                   onChange={(e) => handleInputChange('receiverName', e.target.value)}
-                  placeholder="성함"
+                  placeholder="성함 (예: 홍길동)"
                   className="w-full h-12 px-4 bg-gray-50 border-none rounded-2xl font-bold"
                 />
                 <input
                   type="text"
                   value={orderInfo.phone}
                   onChange={(e) => handleInputChange('phone', e.target.value)}
-                  placeholder="연락처"
+                  placeholder="연락처 (예: 010-0000-0000)"
                   className="w-full h-12 px-4 bg-gray-50 border-none rounded-2xl font-bold"
                 />
               </div>
@@ -201,14 +207,14 @@ function OrderContent() {
                 type="text"
                 value={orderInfo.address}
                 onChange={(e) => handleInputChange('address', e.target.value)}
-                placeholder="도로명 주소"
+                placeholder="도로명 주소 (예: 테스트로 1)"
                 className="w-full h-12 px-4 bg-gray-50 border-none rounded-2xl font-bold"
               />
               <input
                 type="text"
                 value={orderInfo.detailAddress}
                 onChange={(e) => handleInputChange('detailAddress', e.target.value)}
-                placeholder="상세 주소"
+                placeholder="상세 주소 (예: 101호)"
                 className="w-full h-12 px-4 bg-gray-50 border-none rounded-2xl font-bold"
               />
             </div>
@@ -217,13 +223,13 @@ function OrderContent() {
           {!isLoggedIn && (
             <section className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
               <h2 className="text-xl font-bold mb-2">비회원 주문 조회 정보</h2>
-              <p className="text-sm text-gray-500 mb-6">주문 후 주문번호, 이메일, 조회 비밀번호로 주문을 확인할 수 있습니다. 주문 후 90일이 지나면 배송 정보가 삭제됩니다.</p>
+              <p className="text-sm text-gray-500 mb-6">주문 후 주문번호, 이메일, 조회 비밀번호로 주문을 확인할 수 있습니다. 주문 후 90일이 지나면 배송 정보가 삭제됩니다. 데모이므로 이메일은 test@example.com 같은 가상 주소를, 비밀번호는 다른 곳에서 쓰지 않는 값을 사용해 주세요.</p>
               <div className="grid grid-cols-2 gap-4">
                 <input
                   type="email"
                   value={guest.email}
                   onChange={(e) => setGuest(prev => ({ ...prev, email: e.target.value }))}
-                  placeholder="이메일"
+                  placeholder="이메일 (예: test@example.com)"
                   autoComplete="email"
                   className="w-full h-12 px-4 bg-gray-50 border-none rounded-2xl font-bold"
                 />

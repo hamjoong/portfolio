@@ -6,7 +6,8 @@ set -euo pipefail
 
 NAME=shoppingmall-pg-test
 HERE="$(cd "$(dirname "$0")" && pwd)"
-MIGRATIONS="$HERE/../migrations"
+# MIGRATIONS_DIR로 마이그레이션 폴더를 바꿀 수 있다(수정 전 스키마에서 테스트가 실패하는지 확인할 때 쓴다).
+MIGRATIONS="${MIGRATIONS_DIR:-$HERE/../migrations}"
 FAILED=0
 
 cleanup() { docker rm -f "$NAME" >/dev/null 2>&1 || true; }
@@ -57,12 +58,15 @@ check "주문 함수가 실패함(종료 코드 0이 아님)" 1 "$([ "$STATUS" -
 check "첫 항목 재고가 그대로" 5 "$(sql -c "SELECT stock_quantity FROM public.products WHERE id='00000000-0000-0000-0000-0000000000c1'")"
 check "저장된 주문 수" 0 "$(sql -c "SELECT count(*) FROM public.orders WHERE user_id='atomic-user'")"
 
-echo "== 4. 항목 순서가 서로 반대인 주문(A,B / B,A)이 동시에 들어올 때"
+echo "== 4. 항목 순서가 서로 반대인 주문(A,B / B,A)이 동시에 들어와도 데드락이 없다"
 bench -c 20 -j 4 -t 20 -f /tmp/pgbench_order_ab.sql@1 -f /tmp/pgbench_order_ba.sql@1 ; echo -n "  결과: "; summary
 ORDERS=$(sql -c "SELECT count(*) FROM public.orders WHERE user_id='load-ab'")
 check "주문이 실제로 저장됨(0건이면 테스트가 무의미)" 1 "$([ "$ORDERS" -gt 0 ] && echo 1 || echo 0)"
 check "상품 A 재고 = 1000 - 저장된 주문 수" "$((1000 - ORDERS))" "$(sql -c "SELECT stock_quantity FROM public.products WHERE id='00000000-0000-0000-0000-0000000000e1'")"
 check "상품 B 재고 = 1000 - 저장된 주문 수" "$((1000 - ORDERS))" "$(sql -c "SELECT stock_quantity FROM public.products WHERE id='00000000-0000-0000-0000-0000000000e2'")"
-echo "  저장된 주문 수: $ORDERS / 시도 400건 (차이는 데드락 등으로 실패한 건수)"
+echo "  저장된 주문 수: $ORDERS / 시도 400건 (차이는 실패한 건수)"
+# 회귀 방지: 상품 행을 product_id 순으로 잠그므로 항목 순서가 달라도 데드락이 나면 안 된다.
+check "데드락(40P01) 건수" 0 "$(sql -c "SELECT count(*) FROM public.test_order_results WHERE sqlstate='40P01'")"
+check "400건 모두 성공" 400 "$ORDERS"
 
 if [ "$FAILED" -eq 0 ]; then echo "== 전체 결과: 통과"; else echo "== 전체 결과: 실패"; exit 1; fi
